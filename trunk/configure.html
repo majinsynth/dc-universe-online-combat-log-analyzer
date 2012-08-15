@@ -1,0 +1,379 @@
+<html>
+<head>
+<meta charset="utf-8">
+
+<!--
+//********************************************************************
+//*  Description:   Creates a configuration web page for the user to 
+//*     enter in information about characters that isn't gotten from 
+//*     the combat.log file.  For example, what the character's mentor
+//*     is.  We use this for determining what feats are available for 
+//*     the character
+//********************************************************************
+
+// Copyright (c) 2011,2012 
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), 
+// to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+// and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, 
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE 
+// OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<script type="text/javascript">
+
+// Utility function to add an event listener
+function addEvent(o,e,f){
+  if (o.addEventListener){ o.addEventListener(e,f,false); return true; }
+  else if (o.attachEvent){ return o.attachEvent("on"+e,f); }
+  else { return false; }
+}
+
+addEvent(window, "load", windowInit);
+
+function windowInit() {
+  // Read the variable string from the parent window containing character data
+  var myVal = window.opener.GetValueFromChild();
+
+  // Write this string to this window's invisible textbox
+  document.getElementById("invisibleTextBoxHoldingVariables").value = myVal;
+
+  loadDropDownMenu("DropDownMenu_Character");
+
+  // Fill in the window's html elements with data from the string
+  //   So fill in the proper radio button for movement mode
+  fillData();
+}
+
+function loadDropDownMenu(dropDownID) {
+
+  // Obtain user configuration from this window's invisible textbox
+  var myVal = document.getElementById("invisibleTextBoxHoldingVariables").value;
+
+  // Convert string into JSON object
+  var tempObj = JSON.parse(myVal);
+
+  // Convert into an array of character objects
+  var arrayObjs = tempObj["Users"];
+
+  // Fill in the drop down menu with all available character names
+  var listbox = document.getElementById(dropDownID);
+
+  for (var i = 0; i < arrayObjs.length; i++) {
+    var selectBoxOption = document.createElement("option");
+    selectBoxOption.value = arrayObjs[i].name;
+    selectBoxOption.text = arrayObjs[i].name;
+    listbox.add(selectBoxOption, null); 
+  }
+}
+
+function ExitProgram() {
+  window.close();
+  self.close();
+}
+
+function SendValueToParent() {
+  var myVal = document.getElementById("invisibleTextBoxHoldingVariables").value;
+  window.opener.PutValueFromChild(myVal);
+  window.close();
+  return false;
+}
+
+function updateConfig() {
+
+  var myVal = document.getElementById("invisibleTextBoxHoldingVariables").value;
+  var tempObj = JSON.parse(myVal);
+  var arrayObjs = tempObj["Users"];
+
+  // Get character selected using GUI
+  var x=document.getElementById("DropDownMenu_Character").selectedIndex;
+  var y=document.getElementById("DropDownMenu_Character").options;
+  var person = y[x].text;
+
+  var id = -1;
+
+  // Figure out which object corresponds to that character
+  for (var i = 0; i < arrayObjs.length; i++) {
+    if (arrayObjs[i].name == person) { 
+      id = i;
+    }
+  }
+
+  // Update object with settings
+
+  if (document.getElementById('mentorBatman').checked == true) {
+    tempObj["Users"][id].mentor = "Batman";
+  }
+  else if (document.getElementById('mentorSuperman').checked == true) {
+    tempObj["Users"][id].mentor = "Superman";
+  }
+  else if (document.getElementById('mentorWonderWoman').checked == true) {
+    tempObj["Users"][id].mentor = "WonderWoman";
+  }
+  else if (document.getElementById('mentorJoker').checked == true) {
+    tempObj["Users"][id].mentor = "Joker";
+  }
+  else if (document.getElementById('mentorLexLuthor').checked == true) {
+    tempObj["Users"][id].mentor = "LexLuthor";
+  }
+  else if (document.getElementById('mentorCirce').checked == true) {
+    tempObj["Users"][id].mentor = "Circe";
+  }
+
+  if (document.getElementById('movementAcrobatics').checked == true) {
+    tempObj["Users"][id].movementmode = "Acrobatics";
+  }
+  else if (document.getElementById('movementFlight').checked == true) {
+    tempObj["Users"][id].movementmode = "Flight";
+  }
+  else if (document.getElementById('movementSuperSpeed').checked == true) {
+    tempObj["Users"][id].movementmode = "SuperSpeed";
+  }
+
+  if (document.getElementById('powersetGadgets').checked == true) {
+    tempObj["Users"][id].powerset = "Gadgets";
+  }
+  else if (document.getElementById('powersetMental').checked == true) {
+    tempObj["Users"][id].powerset = "Mental";
+  }
+  else if (document.getElementById('powersetHardLight').checked == true) {
+    tempObj["Users"][id].powerset = "Hard Light";
+  }
+  else if (document.getElementById('powersetElectric').checked == true) {
+    tempObj["Users"][id].powerset = "Electric";
+  }
+  else if (document.getElementById('powersetNature').checked == true) {
+    tempObj["Users"][id].powerset = "Nature";
+  }
+  else if (document.getElementById('powersetSorcery').checked == true) {
+    tempObj["Users"][id].powerset = "Sorcery";
+  }
+  else if (document.getElementById('powersetEarth').checked == true) {
+    tempObj["Users"][id].powerset = "Earth";
+  }
+  else if (document.getElementById('powersetFire').checked == true) {
+    tempObj["Users"][id].powerset = "Fire";
+  }
+  else if (document.getElementById('powersetIce').checked == true) {
+    tempObj["Users"][id].powerset = "Ice";
+  }
+
+  myVal = JSON.stringify(tempObj);
+
+  // Write this string to this window's invisible textbox
+  document.getElementById("invisibleTextBoxHoldingVariables").value = myVal;
+}
+
+function fillData() {
+
+  // Obtain user configuration from this window's invisible textbox
+  var myVal = document.getElementById("invisibleTextBoxHoldingVariables").value;
+
+  // Convert string into JSON object
+  var tempObj = JSON.parse(myVal);
+
+  // Convert into an array of character objects
+  var arrayObjs = tempObj["Users"];
+
+  // Get character selected using GUI
+  var x=document.getElementById("DropDownMenu_Character").selectedIndex;
+  var y=document.getElementById("DropDownMenu_Character").options;
+  var person = y[x].text;
+
+  var id = -1;
+
+  // Figure out which object corresponds to that character
+  for (var i = 0; i < arrayObjs.length; i++) {
+    if (arrayObjs[i].name == person) { 
+      id = i;
+    }
+  }
+
+  // Fill in other window elements like radio buttons
+
+  // By default, set everything off, then selectively set on
+
+  document.getElementById('mentorBatman').checked = false;
+  document.getElementById('mentorSuperman').checked = false;
+  document.getElementById('mentorWonderWoman').checked = false;
+  document.getElementById('mentorJoker').checked = false;
+  document.getElementById('mentorLexLuthor').checked = false;
+  document.getElementById('mentorCirce').checked = false;
+  document.getElementById('movementAcrobatics').checked = false;
+  document.getElementById('movementFlight').checked = false;
+  document.getElementById('movementSuperSpeed').checked = false;
+  document.getElementById('powersetGadgets').checked = false;
+  document.getElementById('powersetMental').checked = false;
+  document.getElementById('powersetHardLight').checked = false;
+  document.getElementById('powersetElectric').checked = false;
+  document.getElementById('powersetNature').checked = false;
+  document.getElementById('powersetSorcery').checked = false;
+  document.getElementById('powersetEarth').checked = false;
+  document.getElementById('powersetFire').checked = false;
+  document.getElementById('powersetIce').checked = false;
+
+  if (arrayObjs[id].mentor == "Batman") {
+    document.getElementById('mentorBatman').checked = true;
+  }
+  else if (arrayObjs[id].mentor == "Superman") {
+    document.getElementById('mentorSuperman').checked = true;
+  }
+  else if (arrayObjs[id].mentor == "WonderWoman") {
+    document.getElementById('mentorWonderWoman').checked = true;
+  } 
+  else if (arrayObjs[id].mentor == "Joker") {
+    document.getElementById('mentorJoker').checked = true;
+  }
+  else if (arrayObjs[id].mentor == "LexLuthor") {
+    document.getElementById('mentorLexLuthor').checked = true;
+  }
+  else if (arrayObjs[id].mentor == "Circe") {
+    document.getElementById('mentorCirce').checked = true;
+  }
+
+  if (arrayObjs[id].movementmode == "Acrobatics") {
+    document.getElementById('movementAcrobatics').checked = true;
+  } 
+  else if (arrayObjs[id].movementmode == "Flight") {
+    document.getElementById('movementFlight').checked = true;
+  }
+  else if (arrayObjs[id].movementmode == "SuperSpeed") {
+    document.getElementById('movementSuperSpeed').checked = true;
+  }
+
+  if (arrayObjs[id].powerset == "Gadgets") {
+    document.getElementById('powersetGadgets').checked = true;
+  } 
+  else if (arrayObjs[id].powerset == "Mental") {
+    document.getElementById('powersetMental').checked = true;
+  } 
+  else if (arrayObjs[id].powerset == "Hard Light") {
+    document.getElementById('powersetHardLight').checked = true;
+  } 
+  else if (arrayObjs[id].powerset == "Electric") {
+    document.getElementById('powersetElectric').checked = true;
+  } 
+  else if (arrayObjs[id].powerset == "Nature") {
+    document.getElementById('powersetNature').checked = true;
+  } 
+  else if (arrayObjs[id].powerset == "Sorcery") {
+    document.getElementById('powersetSorcery').checked = true;
+  } 
+  else if (arrayObjs[id].powerset == "Earth") {
+    document.getElementById('powersetEarth').checked = true;
+  } 
+  else if (arrayObjs[id].powerset == "Fire") {
+    document.getElementById('powersetFire').checked = true;
+  } 
+  else if (arrayObjs[id].powerset == "Ice") {
+    document.getElementById('powersetIce').checked = true;
+  } 
+}
+
+function createAlias() {
+  loadDropDownMenu("DropDownMenu_Alias");
+  var aliasTBID = document.getElementById('aliasID');
+  aliasTBID.innerHTML = "Character " + "X" + " is the same as " + "Y";
+  aliasTBID.style.display="block";
+}
+
+function setAlias() {
+
+  alert("Not implemented yet");
+
+  // Get character selected using GUI
+  var x=document.getElementById("DropDownMenu_Character").selectedIndex;
+  var y=document.getElementById("DropDownMenu_Character").options;
+  var person = y[x].text;
+
+  // Get character selected using GUI
+  x=document.getElementById("DropDownMenu_Alias").selectedIndex;
+  y=document.getElementById("DropDownMenu_Alias").options;
+  var alias = y[x].text;
+
+  if (person == alias) {
+    alert("You can't select the same person");
+  }
+
+  document.getElementById("aliasCheckbox").checked=false;
+}
+
+
+</script>
+</head>
+<body>
+
+<form>
+For character:
+<select id="DropDownMenu_Character" name="DropDownMenu_Character" onchange="javascript:fillData();"></select>
+<br>
+<br>
+<table id="table0" width="100%">
+  <tr>
+    <td>
+      Mentor:
+    </td>
+    <td>
+      <input type="radio" name="mentor" id="mentorBatman"          onclick="javascript:updateConfig();"/>Batman
+      <input type="radio" name="mentor" id="mentorSuperman"        onclick="javascript:updateConfig();"/>Superman
+      <input type="radio" name="mentor" id="mentorWonderWoman"     onclick="javascript:updateConfig();"/>Wonder Woman
+      <input type="radio" name="mentor" id="mentorJoker"           onclick="javascript:updateConfig();"/>Joker
+      <input type="radio" name="mentor" id="mentorLexLuthor"       onclick="javascript:updateConfig();"/>Lex Luthor
+      <input type="radio" name="mentor" id="mentorCirce"           onclick="javascript:updateConfig();"/>Circe
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Movement Mode:
+    </td>
+    <td>
+      <input type="radio" name="movement" id="movementAcrobatics"  onclick="javascript:updateConfig();"/>Acrobatics
+      <input type="radio" name="movement" id="movementFlight"      onclick="javascript:updateConfig();"/>Flight
+      <input type="radio" name="movement" id="movementSuperSpeed"  onclick="javascript:updateConfig();"/>Super-Speed
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Powerset:
+    </td>
+    <td>
+      <input type="radio" name="powerset" id="powersetGadgets"     onclick="javascript:updateConfig();"/>Gadgets
+      <input type="radio" name="powerset" id="powersetMental"      onclick="javascript:updateConfig();"/>Mental
+      <input type="radio" name="powerset" id="powersetHardLight"   onclick="javascript:updateConfig();"/>Hard Light
+      <input type="radio" name="powerset" id="powersetElectric"    onclick="javascript:updateConfig();"/>Electric
+      <input type="radio" name="powerset" id="powersetNature"      onclick="javascript:updateConfig();"/>Nature
+      <input type="radio" name="powerset" id="powersetSorcery"     onclick="javascript:updateConfig();"/>Sorcery
+      <input type="radio" name="powerset" id="powersetEarth"       onclick="javascript:updateConfig();"/>Earth
+      <input type="radio" name="powerset" id="powersetFire"        onclick="javascript:updateConfig();"/>Fire
+      <input type="radio" name="powerset" id="powersetIce"         onclick="javascript:updateConfig();"/>Ice
+    </td>
+  </tr>
+  <!-- I want some space between powersets and alias so this hacky way -->
+  <tr><td>.</td></tr>
+  <tr>
+    <td>
+      <input type="checkbox" id="aliasCheckbox" onclick="javascript:createAlias();" />Make alias for character
+    </td>
+    <td>
+      <select id="DropDownMenu_Alias" name="DropDownMenu_AliasName" onchange="javascript:setAlias();"></select>
+    </td>
+    <td>
+      <label style="visibility: hidden;" name="aliasName" id="aliasID" />
+    </td>
+  </tr>
+</table>
+<br>
+<input id="btn1" type="button" value="Submit Changes" onclick="javascript:return SendValueToParent();" />
+<input id="quitbutton" value="Cancel" onclick="javascript:ExitProgram();" type="button">
+<input  style="visibility: hidden;" name="invisibleTextBoxHoldingVariables" id="invisibleTextBoxHoldingVariables" type="text" />
+<!-- textarea id="invisibleTextBoxHoldingVariables" name="invisibleTextBoxHoldingVariables" rows="20" cols="20" ></textarea -->
+
+</form>
+
+</body>
+</html>
