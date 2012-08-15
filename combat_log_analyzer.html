@@ -317,7 +317,10 @@ table.sortable tr.sortbottom td {
        <input id="helpbutton" value="Help" onclick="javascript:HelpWindow();" type="button">
        <input id="aboutbutton" value="About" onclick="javascript:AboutWindow();" type="button">
        <input id="quitbutton" value="Exit" onclick="javascript:ExitProgram();" type="button">
+       <button style="visibility: hidden;" name="saveButtonName" id="saveButtonID" onclick="javascript:saveDataFile();">Save Data File</button>
+       <button style="visibility: hidden;" name="configurebuttonName" id="configurebuttonID" onclick="javascript:configure();">Configure</button>
        <button style="visibility: hidden;" name="cancelbutton" id="cancelbutton" onclick="javascript:cancelReadFile();">Cancel read</button>
+       <input  style="visibility: hidden;" name="invisibleTextBoxHoldingVariables" id="invisibleTextBoxHoldingVariables" type="text" />
        <!-- input value="Debug" onclick="javascript:displaymessage();" type="button" -->
     </td>
   </tr>
@@ -414,10 +417,17 @@ if (window.File && window.FileReader && window.FileList) {
   ExitProgram();
 }
 
+addEvent(window, "load", claInit);
+
+function claInit() {
+  readDataFile();
+}
 
 // When the file hasn't been loaded yet or is done loading, hide the cancel file load button
 
 document.getElementById('cancelbutton').style.visibility='hidden'; // hide when file loading not happening
+document.getElementById('configurebuttonID').style.visibility='hidden'; // hide when file loading not happening 
+document.getElementById('saveButtonID').style.visibility='hidden'; // hide when file loading not happening 
 
 
 // These are use to display a progress bar when loading the combat logs
@@ -494,6 +504,80 @@ function HelpWindow() {
 function ExitProgram() {
   window.close();
   self.close();
+}
+
+function configure() {
+  var popup = window.open("configure.html","Configure","menubar=yes,width=1000,height=230");
+}
+
+function PutValueFromChild(myVal) {
+  document.getElementById("invisibleTextBoxHoldingVariables").value = myVal;
+  dataOptionExecute();
+}
+
+function GetValueFromChild() {
+  return document.getElementById("invisibleTextBoxHoldingVariables").value;
+}
+
+// Save any combat log data already loaded into a file for faster reading next time
+function saveDataFile() {
+
+  if (typeof(localStorage) == "undefined") {
+    alert("Browser does not recognize HTML local storage.  Cannot save data file");
+    return;
+  }
+
+  var logLineJSON = JSON.stringify(allLogLinesJSON);
+  try { 
+    localStorage.setItem("CLA_DATA_JSON", logLineJSON);	
+  }
+  catch(e) {
+    alert("Error with use of local storage: "+e);
+  }
+}
+
+// If we have a local file of previously stored data, load it
+function readDataFile() {
+
+  var dataJSON = localStorage.getItem('CLA_DATA_JSON')
+  if (dataJSON == null) {
+    // alert("No data stored.");
+    return;
+  }	
+  allLogLinesJSON = JSON.parse(dataJSON);
+
+  dataLoaded = true;
+  dataLoadinProgress=false;
+
+  document.getElementById('cancelbutton').style.visibility='hidden'; // hide
+  document.getElementById('configurebuttonID').style.visibility='visible'; // show   
+  document.getElementById('saveButtonID').style.visibility='visible'; // show   
+
+  // Now that the data from the combat log is loaded into memory
+  //   Set the HTML table to block to be visible on the browser
+  //   so the user can filter and display the data
+  document.getElementById('table1').style.display="block";
+
+  // Need to construct the allUsers array since normally this is done during loading of combat log file
+  var people = Object.keys(allLogLinesJSON);
+
+  // For each character in the data
+  people.forEach(function(characterName) {
+
+    if (typeof(allLogLinesJSON[characterName]) != "undefined") {
+      if (typeof(allLogLinesJSON[characterName]["Cash"]) != "undefined") {    
+        if (allLogLinesJSON[characterName]["Cash"].length > 0) {
+          allUsers.push(characterName);
+        }
+      }
+    }
+  });
+
+  // Populate the drop down menu with characters
+  loadUsers();
+
+  // Will use default selection of Exobit and display screen
+  dataOptionExecute();
 }
 
 
@@ -612,6 +696,8 @@ upload.onchange = function (e) {
         loadTimeEnd = new Date();
 
         document.getElementById('cancelbutton').style.visibility='hidden'; // hide
+        document.getElementById('configurebuttonID').style.visibility='visible'; // show   
+        document.getElementById('saveButtonID').style.visibility='visible'; // show   
 
         // Now that the data from the combat log is loaded into memory
         //   Set the HTML table to block to be visible on the browser
@@ -915,36 +1001,54 @@ function getTopCharacters() {
 
 function loadUsers() {
 
-  var max = 0;
-  var maxId = 0;
-  var amt = 0;
+  var cashList = [];
 
   // Find character played the most (has most cash days in combat log)
 
+  // First create a list of names and number of days played
+
   for (var i = 0; i < allUsers.length; i++) {
-    amt = allLogLinesJSON[allUsers[i]]["Cash"].length;
-    if (amt > max) {
-      max = amt;
-      maxId = i;
-    }
+    cashList.push({name:allUsers[i], days:allLogLinesJSON[allUsers[i]]["Cash"].length});
   }
+
+  // Then sort list by number of days
+
+  var sortedArray = arraySortByValues(cashList);
 
   // Populate the Character select drop down menu with the user's characters
 
   var listbox = document.getElementById("DropDownMenu_Character");
 
-  listbox.options[0]=new Option("All characters","All characters");
-  listbox.options[1]=new Option(allUsers[maxId], allUsers[maxId]);
+  // The first entry in the drop down menu is for "All characters"
 
-  var counter = 2;
-  for (var i = 0; i < allUsers.length; i++) {
-    if (i == maxId) {
-      // Skip the most used character, we hard code it into slot one
-      continue;
-    }
-    listbox.options[counter]=new Option(allUsers[i], allUsers[i]);
-    counter++;
+  var selectBoxOption = document.createElement("option");
+  selectBoxOption.value = "All characters";
+  selectBoxOption.text = "All characters";
+  listbox.add(selectBoxOption, null); 
+
+  // Now go through sorted list and add each name to drop down
+  for (var index in sortedArray) {
+    var selectBoxOption = document.createElement("option");
+    selectBoxOption.value = sortedArray[index].name;
+    selectBoxOption.text = sortedArray[index].name;
+    listbox.add(selectBoxOption, null); 
   }
+
+  // For keeping information about characters that the user supplies
+  //    We will allow user to enter in information about a character and store it here
+  //    For example, the user can say this character's mentor is Batman.
+  //    We will store this data in the window in a hidden textbox to be used by the configuration window
+  //    This will be a json string
+  var configUsers = {};
+  configUsers["Users"] = [];
+
+  // Now fill in hidden textbox containing variable of json string for all users and settings
+  for (var i = 0; i < allUsers.length; i++) {
+    configUsers["Users"].push({name:allUsers[i], powerset:"", mentor:"", movementmode:""});
+  }
+  
+  // Write this variable as json string into hidden textbox so configure window can read it
+  PutValueFromChild(JSON.stringify(configUsers));
 };
 
 
@@ -1614,9 +1718,12 @@ npcCollection.push({name:"Soda Machine",         location:"Any", type:"Any", lev
 npcCollection.push({name:"Vending Machine",      location:"Any", type:"Any", level:0, species:"Inert"});
 npcCollection.push({name:"[*attacker*]",         location:"Any", type:"Any", level:0, species:"Inert"});
 npcCollection.push({name:"[*defender*]",         location:"Any", type:"Any", level:0, species:"Inert"});
-npcCollection.push({name:"Health Pack",			 location:"Any", type:"Any", level:0, species:"Inert"});
-npcCollection.push({name:"Burrower Egg",		 location:"Any", type:"Any", level:0, species:"Inert"});
-npcCollection.push({name:"Relay",				location:"Any", type:"Any", level:0, species:"Inert"});
+npcCollection.push({name:"Health Pack",          location:"Any", type:"Any", level:0, species:"Inert"});
+
+npcCollection.push({name:"Burrower Egg",         location:"Any", type:"Any", level:0, species:"Inert"});
+
+npcCollection.push({name:"Relay",                location:"Any", type:"Any", level:0, species:"Inert"});
+
 npcCollection.push({name:"Playtime Posy",       location:"Stryker's Island", type:"Challenge", level:30, species:"Mechanical"});
 npcCollection.push({name:"Beautiful Betty",     location:"Stryker's Island", type:"Challenge", level:30, species:"Mechanical"});
 npcCollection.push({name:"Windup Wally",        location:"Stryker's Island", type:"Challenge", level:30, species:"Mechanical"});
@@ -1666,19 +1773,34 @@ npcCollection.push({name:"Mister Boo",          location:"Any", type:"Pets", lev
 npcCollection.push({name:"Robot Sidekick",      location:"Any", type:"Pets", level:0});
 
 npcCollection.push({name:"Lex Luthor",			location:"STAR Lab Secret Facility", type:"Instance", level:15, species:"Humanoid"});
+
 npcCollection.push({name:"Morrowbot E1",		location:"T.O. Morrow's Lab", type:"Any", level:30, species:"Mechanical"});
+
 npcCollection.push({name:"Morrowbot N1",		location:"T.O. Morrow's Lab", type:"Any", level:30, species:"Mechanical"});
+
 npcCollection.push({name:"Morrowbot I1",		location:"T.O. Morrow's Lab", type:"Any", level:30, species:"Mechanical"});
+
 npcCollection.push({name:"The Joker",			location:"T.O. Morrow's Lab", type:"Any", level:30, species:"Humanoid"});
+
 npcCollection.push({name:"Killer Croc Hallucination",	location:"Gotham City Sewers", type:"Any", level:5, species:"Demon"});
-npcCollection.push({name:"Nightwing Hallucination",		location:"Gotham City Sewers", type:"Any", level:5, species:"Demon"});
-npcCollection.push({name:"Robin Hallucination",			location:"Gotham City Sewers", type:"Any", level:5, species:"Demon"});
-npcCollection.push({name:"Brainiac Encoder",			location:"South Gotham Courthouse", type:"Any", level:30, species:"Mechanical"});
-npcCollection.push({name:"Neuroseeker",					location:"Batcave: Inner Sanctum", type:"Any", level:30, species:"Mechanical"});
+
+npcCollection.push({name:"Nightwing Hallucination",     location:"Gotham City Sewers", type:"Any", level:5, species:"Demon"});
+
+npcCollection.push({name:"Robin Hallucination",	        location:"Gotham City Sewers", type:"Any", level:5, species:"Demon"});
+
+npcCollection.push({name:"Brainiac Encoder",            location:"South Gotham Courthouse", type:"Any", level:30, species:"Mechanical"});
+
+npcCollection.push({name:"Neuroseeker",	                location:"Batcave: Inner Sanctum", type:"Any", level:30, species:"Mechanical"});
+
 npcCollection.push({name:"Paradox Reaper Infiltrator",	location:"Any", type:"Any", level:0, species:"Humanoid"});
-npcCollection.push({name:"Paradox Reaper Summoner",		location:"Any", type:"Any", level:0, species:"Humanoid"});
-npcCollection.push({name:"Paradox Reaper Prime",		location:"Any", type:"Any", level:0, species:"Humanoid"});
-npcCollection.push({name:"Paradox Reaper Guardian",		location:"Any", type:"Any", level:0, species:"Humanoid"});
+
+npcCollection.push({name:"Paradox Reaper Summoner",     location:"Any", type:"Any", level:0, species:"Humanoid"});
+
+npcCollection.push({name:"Paradox Reaper Prime",        location:"Any", type:"Any", level:0, species:"Humanoid"});
+
+npcCollection.push({name:"Paradox Reaper Guardian",     location:"Any", type:"Any", level:0, species:"Humanoid"});
+
+
 function isNPC(characterName) {
 
   for (var i=0; i<npcCollection.length; i++) {
@@ -1689,6 +1811,7 @@ function isNPC(characterName) {
 
   // Ideally these would all be added above, should do someday
   if ((characterName == "Poisoner") ||
+ 
       (characterName == "Defense Turret") ||
       (characterName == "Harvester") ||
       (characterName == "Collector") ||
@@ -1735,7 +1858,8 @@ function isNPC(characterName) {
       (characterName == "Brainiac Spark MK-II") ||
       (characterName == "Beastiamorph") ||
       (characterName == "Steel")) {
-    return true;
+   
+        return true;
   }
   return false;
 }
@@ -1759,14 +1883,15 @@ powerCollection.push({name:"Sticky Bomb",           type:"Gadgets",role:"Control
 powerCollection.push({name:"Intimidation",          type:"Gadgets",role:"Controller"});
 powerCollection.push({name:"Asphyxiation Gas",      type:"Gadgets",role:"Controller"});
 //as of 08/07/12 Gag Glove and Clown Box is iconic, might need to add a check to see if Gag Glove was used before update.
-powerCollection.push({name:"Gag Glove",             type:"Gadgets",role:"Controller"});
+
+// powerCollection.push({name:"Gag Glove",             type:"Gadgets",role:"Controller"});
 powerCollection.push({name:"Stasis Field",          type:"Gadgets",role:"Controller"});
-// Vortex replaces Gag Glove
-powerCollection.push({name:"Vortex Cannon",	    type:"Gadgets",role:"Controller"});
-// Decoy replaces Centry Turret
-powerCollection.push({name:"Holographic Decoy",	    type:"Gadgets",role:"Controller"});
-// Napalm replaces Bomb
-powerCollection.push({name:"Napalm Grenade",	    type:"Gadgets",role:"Controller"});
+powerCollection.push({name:"Vortex Cannon",	    type:"Gadgets",role:"Controller"});     // Vortex replaced Gag Glove
+
+powerCollection.push({name:"Holographic Decoy",	    type:"Gadgets",role:"Controller"});     // Decoy replaced Centry Turret
+
+powerCollection.push({name:"Napalm Grenade",	    type:"Gadgets",role:"Controller"});     // Napalm replaced Bomb
+
 powerCollection.push({name:"Boxing",                type:"Hard Light",role:"Controller"});
 powerCollection.push({name:"Hand Clap",             type:"Hard Light",role:"Controller"});
 powerCollection.push({name:"Impact",                type:"Hard Light",role:"Controller"});
@@ -1806,8 +1931,10 @@ powerCollection.push({name:"Horrific Visage",       type:"Mental",role:"Controll
 powerCollection.push({name:"Mass Terror",           type:"Mental",role:"Controller"});
 powerCollection.push({name:"Reflect Pain",          type:"Mental",role:"Controller"});
 powerCollection.push({name:"Convalesce",            type:"Mental",role:"Controller"});
-//replaces Psychic Blades
-powerCollection.push({name:"Terror Tendrils",         type:"Mental",role:"Controller"});
+ //replaces Psychic Blades
+
+powerCollection.push({name:"Terror Tendrils",       type:"Mental",role:"Controller"});
+
 powerCollection.push({name:"Tesla Blast",           type:"Electric",role:"Healer"});
 powerCollection.push({name:"Bioelectric Surge",     type:"Electric",role:"Healer"});
 powerCollection.push({name:"Wired",                 type:"Electric",role:"Healer"});
@@ -3012,7 +3139,6 @@ function parseLogLinesForKeywords(lineArray)
 
 function displaymessage()
 {
-  if (dataLoaded == true) {
 
     DEBUG = 1;
 
@@ -3024,6 +3150,14 @@ function displaymessage()
 
     var people = Object.keys(allLogLinesJSON);
     console.log("Number of characters = " + people.length);
+
+    for (var i = 0; i < allUsers.length; i++) {
+      console.log(i + "user character = " + allUsers[i]);
+    }
+
+    var configureStr = document.getElementById("invisibleTextBoxHoldingVariables").value;
+    console.log("config string = " + configureStr);
+
 /*
     if (people.length < 200) {
       var people = Object.keys(allLogLinesJSON);
@@ -3067,10 +3201,7 @@ function displaymessage()
             });
           }
 */
-  }
-  else {
-     alert('data not finished loading');
-  }
+
 }
 
 
@@ -3279,10 +3410,29 @@ function calculateRoles(character, startDateString, endDateString)
       if (allLogLinesJSON[person].hasOwnProperty(itype)) {
         var itemObj = allLogLinesJSON[person][itype];
 
+        var faction = determineFaction(person);
+
         var powerset = figureOutPowerset(itemObj);
         var role = " ";
 
-        var faction = determineFaction(person);
+        // If user specified the powerset manually, use that instead of figured out one
+        var found = 0;
+        var ID = -1;
+
+        for (var i = 0; i < allUsers.length; i++) {
+          if (allUsers[i] == person) {
+            found = 1;
+            ID = i;
+          }
+        }
+
+        if (found == 1) {
+          var configUsers = JSON.parse(document.getElementById("invisibleTextBoxHoldingVariables").value);
+          if (configUsers["Users"][ID].powerset != "") {
+            powerset.name = configUsers["Users"][ID].powerset;
+            powerset.conf = 100;
+          }
+        }
 
         switch (powerset.name) {
           case "Fire":
@@ -3843,10 +3993,10 @@ function isCollectionMetropolis(collectionString)
   collectionCollection.push({name:"Gazette Headline: No-Man's Land Ended!",        category:"Vicki Vale Bylines",city:"Gotham",zone:"Otisburg"});
   collectionCollection.push({name:"Gazette Headline: Gordon Named Commisioner!",   category:"Vicki Vale Bylines",city:"Gotham",zone:"Otisburg"});
   collectionCollection.push({name:"Gazette Headline: Catwoman Crime Spree!",       category:"Vicki Vale Bylines",city:"Gotham",zone:"Otisburg"});
-  collectionCollection.push({name:"Waynetech Tachymeter Watch",                    category:"WayneTech Watches",city:"Gotham",zone:"Gotham"});
+  collectionCollection.push({name:"WayneTech Tachymeter Watch",                    category:"WayneTech Watches",city:"Gotham",zone:"Gotham"});
   collectionCollection.push({name:"Stainless Steel WayneTech Watch",               category:"WayneTech Watches",city:"Gotham",zone:"Gotham"});
-  collectionCollection.push({name:"Waynetech Chronographite Watch",                category:"WayneTech Watches",city:"Gotham",zone:"Gotham"});
-  collectionCollection.push({name:"Waynetech Seamaster Diving Watch",              category:"WayneTech Watches",city:"Gotham",zone:"Gotham"});
+  collectionCollection.push({name:"WayneTech Chronographite Watch",                category:"WayneTech Watches",city:"Gotham",zone:"Gotham"});
+  collectionCollection.push({name:"WayneTech Seamaster Diving Watch",              category:"WayneTech Watches",city:"Gotham",zone:"Gotham"});
   collectionCollection.push({name:"Wayne Enterprises Executive-Class Watch",       category:"WayneTech Watches",city:"Gotham",zone:"Gotham"});
 
 
@@ -4035,9 +4185,10 @@ function isLockboxConsumable(lineString)
 
 function isLockboxNeck(lineString)
 {
-  var lockboxArray = [ " Pendant of Relief", " Pendant of Accuracy", " Pendant of Panacea", " Pendant of Endurance",
-                       " Sautoir of Relief", " Sautoir of Accuracy", " Sautoir of Panacea", " Sautoir of Endurance",
-                       " Choker of Relief",  " Choker of Accuracy",  " Choker of Panacea",  " Choker of Endurance" ];
+  var lockboxArray = [ " Pendant of Relief",  " Pendant of Accuracy",  " Pendant of Panacea",  " Pendant of Endurance",
+                       " Sautoir of Relief",  " Sautoir of Accuracy",  " Sautoir of Panacea",  " Sautoir of Endurance",
+                       " Necklace of Relief", " Necklace of Accuracy", " Necklace of Panacea", " Necklace of Endurance",
+                       " Choker of Relief",   " Choker of Accuracy",   " Choker of Panacea",   " Choker of Endurance" ];
 
   for (var i=0; i<lockboxArray.length; i++) {
     if (lineString.indexOf(lockboxArray[i]) >= 0) {
@@ -4049,18 +4200,15 @@ function isLockboxNeck(lineString)
 
 function isLockboxRing(lineString)
 {
-  var lockboxArray = [ " Eternium ", " Vanadium ", " Steel ",
-                       " Vanadium Loop", " Vanadium Ring", " Vanadium Band", " Vanadium Claddagh",
-                       " Steel Claddagh"," Steel Knucklespike", " Steel Loop", " Steel Ring",
-                       " Band of Relief", " Band of Accuracy", " Band of Panacea", " Band of Endurance" ];
+  var lockboxArray = [ 
+                       "Eternium Claddagh", "Eternium Knucklespike", "Eternium Loop", "Eternium Ring", "Eternium Band", "Eternium Signet",
+                       "Iron Claddagh",     "Iron Knucklespike",     "Iron Loop",     "Iron Ring",     "Iron Band",     "Iron Signet",
+                       "Vanadium Claddagh", "Vanadium Knucklespike", "Vanadium Loop", "Vanadium Ring", "Vanadium Band", "Vanadium Signet", 
+                       "Steel Claddagh",    "Steel Knucklespike",    "Steel Loop",    "Steel Ring",    "Steel Band",    "Steel Signet",
+                       "Band of Relief",    "Band of Accuracy",      "Band of Panacea", "Band of Endurance" ];
 
-  // Special case for now until i do this better
-  if ((lineString.indexOf("Steel Cap") >= 0) ||
-      (lineString.indexOf("Band of Dormorian Steel") >= 0) ||
-      (lineString.indexOf("Hardened Vanadium Boots") >= 0) ||
-      (lineString.indexOf("Neophyte Band of Panacea") >= 0) ||
-      (lineString.indexOf("Lightweight Vanadium Boots") >= 0) ||
-      (lineString.indexOf("Stainless Steel Waynetech Watch") >= 0)) {
+  // Special case where this item does not drop from lockbox but name is similar
+  if ((lineString.indexOf("Neophyte Band of Panacea") >= 0)) {
     return false;
   }
 
@@ -5131,6 +5279,8 @@ function isAccessory(lineString)
   armorCollection.push({name:"Promethium Waistguard of the Victors",   type:"Waist",     role:"Tank",       style:"Heartshard",         drops:"Pharaoh Vezina in Kahndaq raid",                      faction:"Both"});
   armorCollection.push({name:"Stalwart Promethium Belt",               type:"Waist",     role:"Tank",       style:"Heartshard",         drops:"Zetta-Drone in Inner Batcave Raid",                   faction:"Both"});
   armorCollection.push({name:"Hardened Vanadium Boots",                type:"Feet",      role:"Tank",       style:"Heartshard",         drops:"OMAC Batman in Batcave: Brainiac Sub-Construct Raid", faction:"Both"});
+  armorCollection.push({name:"Lightweight Vanadium Boots",             type:"Feet",      role:"Tank",       style:"Heartshard",         drops:"OMAC Batman - Batcave: Brainiac Sub-Construct"});
+
   armorCollection.push({name:"Robust Promethium Boots",                type:"Feet",      role:"Tank",       style:"Heartshard",         drops:"Zetta-Drone in Inner Batcave Raid",                   faction:"Both"});
   armorCollection.push({name:"Shining Promethium Boots",               type:"Feet",      role:"Tank",       style:"Heartshard",         drops:"The Gatekeeper in Kahndaq raid",                      faction:"Both"});
   armorCollection.push({name:"Heavy Promethium Backguard",             type:"Back",      role:"Tank",       style:"Heartshard",         drops:"Riot Control Prototype in Batcave: Outer Caverns Raid",        faction:"Both"});
@@ -5188,7 +5338,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Scaled Chestpiece of the Assassin",      type:"Chest",     role:"DPS",        style:"League of Assassins", drops:"Bolt Claw in League of Assassin's Alert",                 faction:"Both"});
   armorCollection.push({name:"Hood of the Assassins",                  type:"Head",      role:"DPS",        style:"League of Assassins", drops:"Ra's al Ghul in League of Assassin's Alert",              faction:"Both"});
   armorCollection.push({name:"Assassin's Scale Shoulderguards",        type:"Shoulders", role:"DPS",        style:"League of Assassins", drops:"Lying Claw in League of Assassin's Alert",                faction:"Both"});
-  armorCollection.push({name:"Armored Kote of the Assassin",           type:"Hands",     role:"DPS",        style:"League of Assassins", drops:"Serpent Claw, Staff Master in League of Assassin's Alert",                              faction:"Both"});
+  armorCollection.push({name:"Armored Kote of the Assassin",           type:"Hands",     role:"DPS",        style:"League of Assassins", drops:"Serpent Claw, Staff Master in League of Assassin's Alert", faction:"Both"});
 
   armorCollection.push({name:"Assassin's Armored Tabi",                type:"Feet",      role:"DPS",        style:"League of Assassins", drops:"Ra's al Ghul in League of Assassin's Alert",              faction:"Both"});
 
@@ -5353,19 +5503,22 @@ function isAccessory(lineString)
   armorCollection.push({name:"Amped Energy Back Protector",            type:"Back",      role:"Controller", style:"High Voltage",        drops:"Vendor in Central City accepting Marks of Momentum", faction:"Hero"});
 
   // Low level safehouse gear from vendors
-  armorCollection.push({name:"Helmet of Polaris",                      type:"Head",      role:"DPS",        style:"Greco-Roman",         drops:"Vendor in Gotham safehouse",                         faction:"Both"});
-  armorCollection.push({name:"Duelist's Nth-Metal Shoulderguards",     type:"Shoulders", role:"DPS",        style:"Greco-Roman",         drops:"Vendor in Gotham safehouse",                         faction:"Both"});
   armorCollection.push({name:"KnightWear Street Jacket",               type:"Chest",     role:"DPS",        style:"Street",              drops:"Vendor in Gotham safehouse",                         faction:"Both"});
   armorCollection.push({name:"KnightWear Street Pants",                type:"Legs",      role:"DPS",        style:"Street",              drops:"Vendor in Gotham safehouse",                         faction:"Both"});
   armorCollection.push({name:"KnightWear Street Hood",                 type:"Head",      role:"DPS",        style:"Street",              drops:"Vendor in Gotham safehouse",                         faction:"Both"});
   armorCollection.push({name:"Trim Classic Gloves",                    type:"Hands",     role:"DPS",        style:"Trim Classic",        drops:"Vendor in Gotham safehouse",                         faction:"Both"});
   armorCollection.push({name:"KnightWear Street Belt",                 type:"Waist",     role:"DPS",        style:"Street",              drops:"Vendor in Gotham safehouse",                         faction:"Both"});
   armorCollection.push({name:"KnightWear Street Shoes",                type:"Feet",      role:"DPS",        style:"Street",              drops:"Vendor in Gotham safehouse",                         faction:"Both"});
-  armorCollection.push({name:"Militant Rivethead Leggings",            type:"Legs",      role:"DPS",        style:"Metalhead",           drops:"Vendor in Gotham safehouse",                         faction:"Both"});
   armorCollection.push({name:"Contrabandist's Leggings",               type:"Legs",      role:"DPS",        style:"Remora",              drops:"Vendor in Gotham safehouse",                         faction:"Both"});
   armorCollection.push({name:"Slick KnightWear Shirt",                 type:"Chest",     role:"DPS",        style:"Urban Slick",         drops:"Vendor in Gotham safehouse",                         faction:"Both"});
   armorCollection.push({name:"Slick KnightWear Pants",                 type:"Legs",      role:"DPS",        style:"Urban Slick",         drops:"Vendor in Gotham safehouse",                         faction:"Both"});
+
   armorCollection.push({name:"Militant Rivethead Shoulders",           type:"Shoulders", role:"DPS",        style:"Metalhead",           drops:"Vendor in Gotham safehouse",                         faction:"Both"});
+  armorCollection.push({name:"Militant Rivethead Leggings",            type:"Legs",      role:"DPS",        style:"Metalhead",           drops:"Vendor in Gotham safehouse",                         faction:"Both"});
+  armorCollection.push({name:"Crazy's Combat Jacket",                  type:"Chest",     role:"DPS",        style:"Metalhead",           drops:"",                                                   faction:"Both"});
+  armorCollection.push({name:"Militant Rivethead Belt",                type:"Waist",     role:"DPS",        style:"Metalhead",           drops:"",                         faction:"Both"});
+  armorCollection.push({name:"Militant Rivethead Cloak",               type:"Back",      role:"DPS",        style:"Metalhead",           drops:"",                         faction:"Both"});
+  armorCollection.push({name:"Militant Rivethead Boots",               type:"Feet",      role:"DPS",        style:"Metalhead",           drops:"",                         faction:"Both"});
 
   // Styles from Shady Nightclub T3 Duo (The Last Laugh DLC) (Remora, Barbarian, and Angelic full sets)
 
@@ -5403,7 +5556,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Tundralord's Kilt",                      type:"Legs",      role:"DPS",        style:"Barbarian",           drops:"T1 Duos",                                            faction:"Both"});
   armorCollection.push({name:"Horned Helm of the Barbarian Host",      type:"Head",      role:"DPS",        style:"Barbarian",           drops:"Soul Striker",                                       faction:"Both"});
   armorCollection.push({name:"Gladiator's Spaulders",                  type:"Shoulders", role:"DPS",        style:"Barbarian",           drops:"Soulless Shell",                                     faction:"Both"});
-  armorCollection.push({name:"Skartaris Shoulderguards",               type:"Shoulders", role:"Tank",       style:"Barbarian",           drops:"Sandtiger - Condemned Shipping Office",                                          faction:"Both"});
+  armorCollection.push({name:"Skartaris Shoulderguards",               type:"Shoulders", role:"Tank",       style:"Barbarian",           drops:"Sandtiger - Condemned Shipping Office",              faction:"Both"});
 
   armorCollection.push({name:"Studded Warrior's Spaulders",            type:"Shoulders", role:"Tank",       style:"Barbarian",           drops:"Penguin",                                            faction:"Both"});
   armorCollection.push({name:"Hands of Skartaris",                     type:"Hands",     role:"Tank",       style:"Barbarian",           drops:"Brother Blood mission",                              faction:"Both"});
@@ -5423,6 +5576,19 @@ function isAccessory(lineString)
   armorCollection.push({name:"Ciro Executive Shoes",                   type:"Feet",      role:"DPS",        style:"Business",            drops:"Vendor in safehouse",                                faction:"Both"});
   armorCollection.push({name:"Ciro Executive Pants",                   type:"Legs",      role:"DPS",        style:"Business",            drops:"Vendor in safehouse",                                faction:"Both"});
   armorCollection.push({name:"Ciro Executive Jacket",                  type:"Chest",     role:"DPS",        style:"Business",            drops:"Vendor in safehouse",                                faction:"Both"});
+
+  armorCollection.push({name:"Brutal Outlaw's Jacket",                 type:"Chest",     role:"DPS",        style:"Biker",               drops:"Vendor in Gotham safehouse",                         faction:"Both"});
+  armorCollection.push({name:"Gangster's Jacket",                      type:"Chest",     role:"DPS",        style:"Biker",               drops:"Completion of mission reward",                       faction:"Both"});
+  armorCollection.push({name:"Slim Sensormise Jacket",                 type:"Chest",     role:"DPS",        style:"Biker",               drops:"",                                                   faction:"Both"});
+  armorCollection.push({name:"Barbed Shoulderguards of the Enforcer",  type:"Shoulders", role:"DPS",        style:"Biker",               drops:"Bane in Cape Carmine Lighthouse mission",            faction:"Both"});
+  armorCollection.push({name:"Brutal Outlaw's Leggings",               type:"Legs",      role:"DPS",        style:"Biker",               drops:"Vendor in Gotham safehouse",                         faction:"Both"});
+  armorCollection.push({name:"Battleworn Synthium Helm",               type:"Head",      role:"DPS",        style:"Biker",               drops:"",                                                   faction:"Both"});
+  armorCollection.push({name:"Brutal Outlaw's Helmet",                 type:"Head",      role:"DPS",        style:"Biker",               drops:"Vendor in Gotham safehouse",                         faction:"Both"});
+  armorCollection.push({name:"Diego's Plated Belt",                    type:"Waist",     role:"DPS",        style:"Biker",               drops:"",                                                   faction:"Both"});
+  armorCollection.push({name:"Biker Gloves",                           type:"Hands",     role:"DPS",        style:"Biker",               drops:"Vendor in Gotham safehouse",                         faction:"Both"});
+  armorCollection.push({name:"Armor-Plated Treads",                    type:"Feet",      role:"DPS",        style:"Biker",               drops:"",                                                   faction:"Both"});
+  armorCollection.push({name:"Brutal Outlaw's Boots",                  type:"Feet",      role:"DPS",        style:"Biker",               drops:"Vendor in Gotham safehouse",                         faction:"Both"});
+
   armorCollection.push({name:"Surplus Field Shoulderpads",             type:"Shoulders", role:"DPS",        style:"Paramilitary",        drops:"Vendor in safehouse",                                faction:"Both"});
   armorCollection.push({name:"Surplus Field Gloves",                   type:"Hands",     role:"DPS",        style:"Paramilitary",        drops:"Vendor in safehouse",                                faction:"Both"});
   armorCollection.push({name:"Paramilitary Shirt",                     type:"Chest",     role:"DPS",        style:"Paramilitary",        drops:"Vendor in Headquarters",                             faction:"Both"});
@@ -5432,14 +5598,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Surplus Field Belt",                     type:"Waist",     role:"DPS",        style:"Paramilitary",        drops:"Vendor in safehouse",                                faction:"Both"});
   armorCollection.push({name:"Surplus Field Boots",                    type:"Feet",      role:"DPS",        style:"Paramilitary",        drops:"Vendor in safehouse",                                faction:"Both"});
   armorCollection.push({name:"Surplus Field Pack",                     type:"Back",      role:"DPS",        style:"Paramilitary",        drops:"Vendor in safehouse",                                faction:"Both"});
-  armorCollection.push({name:"Biker Gloves",                           type:"Hands",     role:"DPS",        style:"Biker",               drops:"Vendor in safehouse",                                faction:"Both"});
-  armorCollection.push({name:"Gangster's Jacket",                      type:"Chest",     role:"DPS",        style:"Biker",               drops:"Completion of mission reward",                       faction:"Both"});
-  armorCollection.push({name:"Barbed Shoulderguards of the Enforcer",  type:"Shoulders", role:"DPS",        style:"Biker",               drops:"Bane in Cape Carmine Lighthouse mission",            faction:"Both"});
-  armorCollection.push({name:"Brutal Outlaw's Jacket",                 type:"Chest",     role:"DPS",        style:"Biker",               drops:"Vendor in Gotham safehouse",                         faction:"Both"});
-  armorCollection.push({name:"Brutal Outlaw's Leggings",               type:"Legs",      role:"DPS",        style:"Biker",               drops:"Vendor in Gotham safehouse",                         faction:"Both"});
-  armorCollection.push({name:"Brutal Outlaw's Helmet",                 type:"Head",      role:"DPS",        style:"Biker",               drops:"Vendor in Gotham safehouse",                         faction:"Both"});
-  armorCollection.push({name:"Biker Gloves",                           type:"Hands",     role:"DPS",        style:"Biker",               drops:"Vendor in Gotham safehouse",                         faction:"Both"});
-  armorCollection.push({name:"Brutal Outlaw's Boots",                  type:"Feet",      role:"DPS",        style:"Biker",               drops:"Vendor in Gotham safehouse",                         faction:"Both"});
+  armorCollection.push({name:"Dense Synthweave Cap",                   type:"Head",      role:"DPS",        style:"Paramilitary",        drops:"",                                                   faction:"Both"});
 
   // Alien Tech style (originally controller only) from bosses in alerts
   armorCollection.push({name:"Superior Coluan Chestplate",             type:"Chest",     role:"Controller", style:"Alien Tech",          drops:"Villainy United, final room of Arkham Asylum alert", faction:"Both"});
@@ -5513,7 +5672,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Pollenized Inertron Shoulderguards",     type:"Shoulders", role:"Controller", style:"Military Tech",       drops:"Necro Magent Gruhn",                                 faction:"Both"});
   armorCollection.push({name:"Hardened Inertron Gloves",               type:"Hands",     role:"Controller", style:"Military Tech",       drops:"Arkillo",                                            faction:"Both"});
   armorCollection.push({name:"Vigilante's Inertron Gloves",            type:"Hands",     role:"Controller", style:"Military Tech",       drops:"OMAC Sigma",                                         faction:"Both"});
-  armorCollection.push({name:"Desert Searcher's Inertron Waistguard",  type:"Waist",     role:"Controller", style:"Military Tech",       drops:"Booster Gold - Hive Base (DUO)",                                       faction:"Both"});
+  armorCollection.push({name:"Desert Searcher's Inertron Waistguard",  type:"Waist",     role:"Controller", style:"Military Tech",       drops:"Booster Gold - Hive Base (DUO)",                     faction:"Both"});
 
   armorCollection.push({name:"Recruit's Inertron Belt",                type:"Waist",     role:"Controller", style:"Military Tech",       drops:"Arkillo",                                            faction:"Both"});
   armorCollection.push({name:"Cyberlinked Inertron Boots",             type:"Feet",      role:"Controller", style:"Military Tech",       drops:"Necro Magent Gruhn",                                 faction:"Both"});
@@ -5533,14 +5692,14 @@ function isAccessory(lineString)
   armorCollection.push({name:"Tribalist's Manawoven Shirt",            type:"Chest",     role:"Healer",     style:"Shaman",              drops:"OMAC Delta",                                              faction:"Both"});
   armorCollection.push({name:"Insulated Manawoven Kilt",               type:"Legs",      role:"Healer",     style:"Shaman",              drops:"Zoom",                                                    faction:"Both"});
   armorCollection.push({name:"Stonethrower's Kilt",                    type:"Legs",      role:"Healer",     style:"Shaman",              drops:"Killer Croc & Deathstroke - Cape Carmine Lighthouse Duo", faction:"Both"});
-  armorCollection.push({name:"Roggra's Manawoven Helmet",              type:"Head",      role:"Healer",     style:"Shaman",              drops:"Two-Face - Gotham Mercy Hospital, Zoom - Gorilla Grodd's Lab",                                        faction:"Both"});
+  armorCollection.push({name:"Roggra's Manawoven Helmet",              type:"Head",      role:"Healer",     style:"Shaman",              drops:"Two-Face - Gotham Mercy Hospital, Zoom - Gorilla Grodd's Lab", faction:"Both"});
 
   armorCollection.push({name:"Prisoner's Manawoven Shoulders",         type:"Shoulders", role:"Healer",     style:"Shaman",              drops:"Gorilla Grodd in duo",                                  faction:"Both"});
   armorCollection.push({name:"Lifebringer's Handwraps",                type:"Hands",     role:"Healer",     style:"Shaman",              drops:"Clayface",                                              faction:"Both"});
   armorCollection.push({name:"Prophet's Manawoven Handwraps",          type:"Hands",     role:"Healer",     style:"Shaman",              drops:"Isis",                                                  faction:"Both"});
-  armorCollection.push({name:"Manawoven Sash of Shadows",              type:"Waist",     role:"Healer",     style:"Shaman",              drops:"Booster Gold - Hive Base (DUO)",                                          faction:"Both"});
+  armorCollection.push({name:"Manawoven Sash of Shadows",              type:"Waist",     role:"Healer",     style:"Shaman",              drops:"Booster Gold - Hive Base (DUO)",                        faction:"Both"});
 
-  armorCollection.push({name:"Fearbringer's Manawoven Boots",          type:"Feet",      role:"Healer",     style:"Shaman",              drops:"Booster Gold - Hive Base (DUO)",                                          faction:"Both"});
+  armorCollection.push({name:"Fearbringer's Manawoven Boots",          type:"Feet",      role:"Healer",     style:"Shaman",              drops:"Booster Gold - Hive Base (DUO)",                        faction:"Both"});
 
   armorCollection.push({name:"Lifebringer's Boots",                    type:"Feet",      role:"Healer",     style:"Shaman",              drops:"Sinestro",                                              faction:"Both"});
   armorCollection.push({name:"Timeworn Manawoven Robe",                type:"Back",      role:"Healer",     style:"Shaman",              drops:"Zoom",                                                  faction:"Both"});
@@ -5560,12 +5719,17 @@ function isAccessory(lineString)
   armorCollection.push({name:"Networked Nanobot Carapace",             type:"Chest",     role:"DPS",        style:"Retro Tech",          drops:"Greater Accumulator in Area 51 alert",                  faction:"Both"});
   armorCollection.push({name:"Asylum Guard's Leggings",                type:"Legs",      role:"DPS",        style:"Retro Tech",          drops:"Harley Quinn",                                          faction:"Both"});
   armorCollection.push({name:"Cybernetic Interfaced Legguards",        type:"Legs",      role:"DPS",        style:"Retro Tech",          drops:"Prime Servitor",                                        faction:"Both"});
+  armorCollection.push({name:"WT-9 Covert Ops Leggings",               type:"Legs",      role:"DPS",        style:"Retro Tech",          drops:"",                                                      faction:"Both"});
   armorCollection.push({name:"Advanced ServitorGuard Helmet",          type:"Head",      role:"DPS",        style:"Retro Tech",          drops:"Batman in Hero Robot Batman mission",                   faction:"Both"});
   armorCollection.push({name:"Raptor's Slimline Helmet",               type:"Head",      role:"DPS",        style:"Retro Tech",          drops:"Harley Quinn",                                          faction:"Both"});
   armorCollection.push({name:"Synthium-Hardened Deathmask",            type:"Head",      role:"DPS",        style:"Retro Tech",          drops:"Harley Quinn",                                          faction:"Both"});
+  armorCollection.push({name:"Twelfth-Level Thinking Helmet",          type:"Head",      role:"Controller", style:"Retro Tech",          drops:"Subprime Regulator Alpha",                              faction:"Both"});
   armorCollection.push({name:"Enhanced ServitorTech Shoulderguards",   type:"Shoulders", role:"DPS",        style:"Retro Tech",          drops:"Brainiac Joker-bot",                                    faction:"Both"});
+  armorCollection.push({name:"Lunar Exterminator's Gloves",            type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"",                                                      faction:"Both"});
   armorCollection.push({name:"Prototype Fieldscanner Grips",           type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"Micro Security Bot",                                    faction:"Both"});
-  armorCollection.push({name:"Synthium-Hardended Grips",               type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"Harley Quinn",                                    faction:"Both"});
+  armorCollection.push({name:"Spiked Kamikaze Gauntlets",              type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"",                                                      faction:"Both"});
+  armorCollection.push({name:"Synthium-Hardended Grips",               type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"Harley Quinn",                                          faction:"Both"});
+  armorCollection.push({name:"WayneTech Equilibrity Gauntlets",        type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"",                                                      faction:"Both"});
   armorCollection.push({name:"Belt of the Genetrix",                   type:"Waist",     role:"DPS",        style:"Retro Tech",          drops:"Queen Bee",                                             faction:"Both"});
   armorCollection.push({name:"Hysteric's Cinch",                       type:"Waist",     role:"DPS",        style:"Retro Tech",          drops:"Harley Quinn",                                          faction:"Both"});
   armorCollection.push({name:"Magnetized Synthium Waistguard",         type:"Waist",     role:"DPS",        style:"Retro Tech",          drops:"Starport Guard in HIVE alert",                          faction:"Both"});
@@ -5574,7 +5738,9 @@ function isAccessory(lineString)
   armorCollection.push({name:"Shielded Synthium Sash",                 type:"Waist",     role:"DPS",        style:"Retro Tech",          drops:"Buzzbomber",                                            faction:"Both"});
   armorCollection.push({name:"Cruel Stompers",                         type:"Feet",      role:"DPS",        style:"Retro Tech",          drops:"Brainiac Joker-bot",                                    faction:"Both"});
   armorCollection.push({name:"Enhanced Evosynthium Boots",             type:"Feet",      role:"DPS",        style:"Retro Tech",          drops:"Drone near OMAC",                                       faction:"Both"});
+  armorCollection.push({name:"Sadist's Spine Stompers",                type:"Feet",      role:"DPS",        style:"Retro Tech",          drops:"",                                                      faction:"Both"});
   armorCollection.push({name:"Advanced-Tech Utility Pack",             type:"Back",      role:"DPS",        style:"Retro Tech",          drops:"Robin",                                                 faction:"Both"});
+  armorCollection.push({name:"Advanced Nanoguided Rocketpack",         type:"Back",      role:"DPS",        style:"Retro Tech",          drops:"",                                                      faction:"Both"});
   armorCollection.push({name:"Deathgrin Combat Pack",                  type:"Back",      role:"DPS",        style:"Retro Tech",          drops:"The Joker",                                             faction:"Both"});
   armorCollection.push({name:"Depleted Promethium Pack",               type:"Back",      role:"DPS",        style:"Retro Tech",          drops:"Deathstroke",                                           faction:"Both"});
   armorCollection.push({name:"Plated Assault Pack",                    type:"Back",      role:"DPS",        style:"Retro Tech",          drops:"Harley Quinn",                                          faction:"Both"});
@@ -5583,7 +5749,6 @@ function isAccessory(lineString)
   armorCollection.push({name:"Bright Magnetic Legguards",              type:"Legs",      role:"Healer",     style:"Retro Tech",          drops:"Transport worker in HIVE alert",                        faction:"Both"});
   armorCollection.push({name:"Specialized Synthium Sabatons",          type:"Feet",      role:"Healer",     style:"Retro Tech",          drops:"HIVE alert",                                            faction:"Both"});
   armorCollection.push({name:"Precision Nanoguided Gloves",            type:"Hands",     role:"Healer",     style:"Retro Tech",          drops:"Subprime Regulator Beta in Area 51 alert",              faction:"Both"});
-  armorCollection.push({name:"Twelfth-Level Thinking Helmet",          type:"Head",      role:"Controller", style:"Retro Tech",          drops:"Subprime Regulator Alpha",                              faction:"Both"});
 
   // HIVE Defender style (Not fully in game yet)
   armorCollection.push({name:"Wayward Drone's Thorax",                   type:"Chest",     role:"DPS",        style:"HIVE Defender",       drops:"Queen Bee in HIVE Hard alert",                          faction:"Both"});
@@ -5593,10 +5758,10 @@ function isAccessory(lineString)
   // Snake style
   armorCollection.push({name:"Chlorophyll Chestguard",                   type:"Chest",     role:"DPS",        style:"Snake",               drops:"T1 Alerts",                                             faction:"Both"});
   armorCollection.push({name:"Snake Lord's Shirt",                       type:"Chest",     role:"DPS",        style:"Snake",               drops:"",                                                      faction:"Both"});
-  armorCollection.push({name:"Shimmering Sunstone Legguards",            type:"Legs",      role:"DPS",        style:"Snake",               drops:"Staff Master in League of Assassin's Alert, Ace Chemicals, Area 51 Alert, Arkham Asylum",            faction:"Both"});
+  armorCollection.push({name:"Shimmering Sunstone Legguards",            type:"Legs",      role:"DPS",        style:"Snake",               drops:"Staff Master in League of Assassin's Alert, Ace Chemicals, Area 51 Alert, Arkham Asylum", faction:"Both"});
   armorCollection.push({name:"Snake Lord's Helmet",                      type:"Head",      role:"DPS",        style:"Snake",               drops:"Bestiamorph Marauder",                                  faction:"Both"});
   armorCollection.push({name:"Inlaid Powerwork Shoulderguards",          type:"Shoulders", role:"DPS",        style:"Snake",               drops:"Treasure Chest",                                        faction:"Both"});
-  armorCollection.push({name:"Rattler's Shoulders",                      type:"Shoulders", role:"DPS",        style:"Snake",               drops:"Sandtiger - Condemed Shipping Office",                                             faction:"Both"});
+  armorCollection.push({name:"Rattler's Shoulders",                      type:"Shoulders", role:"DPS",        style:"Snake",               drops:"Sandtiger - Condemed Shipping Office",                  faction:"Both"});
 
   armorCollection.push({name:"Shoulderguards of Eternal Life",           type:"Shoulders", role:"DPS",        style:"Snake",               drops:"Brainiac Spark",                                        faction:"Both"});
   armorCollection.push({name:"Thorny Shoulderguards",                    type:"Shoulders", role:"DPS",        style:"Snake",               drops:"Treasure Chest in Smallville alert",                    faction:"Both"});
@@ -5619,35 +5784,37 @@ function isAccessory(lineString)
 
   // Angelic
   armorCollection.push({name:"Helm of the Eternal Sentinel",             type:"Head",      role:"DPS",        style:"Angelic",             drops:"Vendor",                                                faction:"Both"});
+  armorCollection.push({name:"Kandorian Battlehelm",                     type:"Head",      role:"DPS",        style:"Angelic",             drops:"",                                                      faction:"Both"});
   armorCollection.push({name:"Synthium Combat Helmet",                   type:"Head",      role:"DPS",        style:"Angelic",             drops:"Lunatic",    faction:"Both"});
-  armorCollection.push({name:"Shoulderguards of the Divine",             type:"Shoulders", role:"DPS",        style:"Angelic",             drops:"Sandtiger - Condemed Shipping Office",                                             faction:"Both"});
+  armorCollection.push({name:"Shoulderguards of the Divine",             type:"Shoulders", role:"DPS",        style:"Angelic",             drops:"Sandtiger - Condemed Shipping Office",                  faction:"Both"});
 
   armorCollection.push({name:"Gloves of the Maker",                      type:"Hands",     role:"DPS",        style:"Angelic",             drops:"Whitetip in Aquaman instance or T3 Duo",                faction:"Both"});
-  armorCollection.push({name:"Beatific Belt",                            type:"Waist",     role:"DPS",        style:"Angelic",             drops:"Waterkeeper in Kahndaq",                                           faction:"Both"});
+  armorCollection.push({name:"Beatific Belt",                            type:"Waist",     role:"DPS",        style:"Angelic",             drops:"Waterkeeper in Kahndaq",                                faction:"Both"});
 
-  armorCollection.push({name:"Sabatons of the Seraph",                   type:"Feet",      role:"DPS",        style:"Angelic",             drops:"Soulless Shell - Gotham University",                                        faction:"Both"});
+  armorCollection.push({name:"Sabatons of the Seraph",                   type:"Feet",      role:"DPS",        style:"Angelic",             drops:"Soulless Shell - Gotham University",                    faction:"Both"});
 
   armorCollection.push({name:"Proud Valorium Wings",                     type:"Back",      role:"DPS",        style:"Angelic",             drops:"",                                                      faction:"Both"});
   armorCollection.push({name:"Heavenly Leggings",                        type:"Legs",      role:"DPS",        style:"Angelic",             drops:"",                                                      faction:"Both"});
 
   // Remora
-  armorCollection.push({name:"Beachlord's Chestplate",                   type:"Chest",     role:"DPS",        style:"Remora",              drops:"Sandtiger - Condemed Shipping Office",                                             faction:"Both"});
+  armorCollection.push({name:"Beachlord's Chestplate",                   type:"Chest",     role:"DPS",        style:"Remora",              drops:"Sandtiger - Condemed Shipping Office",                  faction:"Both"});
 
-  armorCollection.push({name:"Chestguard of the Undersea Kingdom",       type:"Chest",     role:"Controller", style:"Remora",              drops:"Reward?",    faction:"Both"});
+  armorCollection.push({name:"Chestguard of the Undersea Kingdom",       type:"Chest",     role:"Controller", style:"Remora",              drops:"Reward?",                                               faction:"Both"});
   armorCollection.push({name:"Sniper's Quickstep Pants",                 type:"Legs",      role:"DPS",        style:"Remora",              drops:"Hoplite Minor",                                         faction:"Both"});
-  armorCollection.push({name:"Mask of the Stalker",                      type:"Head",      role:"DPS",        style:"Remora",              drops:"Sandtiger - Condemned Shipping Office",                                             faction:"Both"});
+  armorCollection.push({name:"Mask of the Stalker",                      type:"Head",      role:"DPS",        style:"Remora",              drops:"Sandtiger - Condemned Shipping Office",                 faction:"Both"});
 
   armorCollection.push({name:"Sea Lord's Shoulders",                     type:"Shoulders", role:"Controller", style:"Remora",              drops:"Jackal Soldier in Kahndaq raid",                        faction:"Both"});
-  armorCollection.push({name:"Opalstone Gauntlets",                      type:"Hands",     role:"DPS",        style:"Remora",              drops:"Sandtiger - Condemned Shipping Office",                                             faction:"Both"});
+  armorCollection.push({name:"Sneakthief Shoulderguards",                type:"Shoulders", role:"DPS",        style:"Remora",              drops:"",                                                      faction:"Both"});
+  armorCollection.push({name:"Opalstone Gauntlets",                      type:"Hands",     role:"DPS",        style:"Remora",              drops:"Sandtiger - Condemned Shipping Office",                 faction:"Both"});
 
-  armorCollection.push({name:"Cave Diver's Belt",                        type:"Waist",     role:"Controller", style:"Remora",              drops:"T3 Duo",                                                      faction:"Both"});
+  armorCollection.push({name:"Cave Diver's Belt",                        type:"Waist",     role:"Controller", style:"Remora",              drops:"T3 Duo",                                                faction:"Both"});
 
-  armorCollection.push({name:"Crustacean Cinch",                         type:"Waist",     role:"DPS",        style:"Remora",              drops:"Sandtiger - Condemed Shipping Office",                                             faction:"Both"});
+  armorCollection.push({name:"Crustacean Cinch",                         type:"Waist",     role:"DPS",        style:"Remora",              drops:"Sandtiger - Condemed Shipping Office",                  faction:"Both"});
 
   armorCollection.push({name:"Briny Chitinous Boots",                    type:"Feet",      role:"DPS",        style:"Remora",              drops:"Soul Striker",                                          faction:"Both"});
-  armorCollection.push({name:"Seafloor Boots",                           type:"Feet",      role:"DPS",        style:"Remora",              drops:"T3 Duo",                                                      faction:"Both"});
+  armorCollection.push({name:"Seafloor Boots",                           type:"Feet",      role:"DPS",        style:"Remora",              drops:"T3 Duo",                                                faction:"Both"});
 
-  armorCollection.push({name:"Marramgrass Cloak",                        type:"Back",      role:"Tank",       style:"Remora",              drops:"Kitefin",    faction:"Both"});
+  armorCollection.push({name:"Marramgrass Cloak",                        type:"Back",      role:"Tank",       style:"Remora",              drops:"Kitefin",                                               faction:"Both"});
   armorCollection.push({name:"Wayfarer's Cloak",                         type:"Back",      role:"DPS",        style:"Remora",              drops:"Soul Eater",                                            faction:"Both"});
 
   // Insectoid
@@ -5656,11 +5823,11 @@ function isAccessory(lineString)
   armorCollection.push({name:"Horned Beetle Legguards",                  type:"Legs",      role:"DPS",        style:"Insectoid",           drops:"Royal Drone",                                           faction:"Both"});
   armorCollection.push({name:"Primal Metamorphosis Legguards",           type:"Legs",      role:"DPS",        style:"Insectoid",           drops:"Bludhaven Avenger",                                     faction:"Both"});
   armorCollection.push({name:"Horned GorillaTech Helmet",                type:"Head",      role:"DPS",        style:"Insectoid",           drops:"Treasure Chest in Titans/Raven challenge",              faction:"Both"});
-  armorCollection.push({name:"Modern Gorillaweave Headguard",            type:"Head",      role:"DPS",        style:"Insectoid",           drops:"Treasure Chest - Metropolis City Hall",                               faction:"Both"});
+  armorCollection.push({name:"Modern Gorillaweave Headguard",            type:"Head",      role:"DPS",        style:"Insectoid",           drops:"Treasure Chest - Metropolis City Hall",                 faction:"Both"});
 
   armorCollection.push({name:"Piper's Helmet",                           type:"Head",      role:"DPS",        style:"Insectoid",           drops:"Medic Chemo in Bludhaven Alert",                        faction:"Both"});
   armorCollection.push({name:"Superadvanced Gorillium Helmet",           type:"Head",      role:"DPS",        style:"Insectoid",           drops:"Android in Oolong alert",                               faction:"Both"});
-  armorCollection.push({name:"Spined Chitin Shoulderguards",             type:"Shoulders", role:"DPS",        style:"Insectoid",           drops:"Magnetar-SL - Old STAR Labs",                          faction:"Both"});
+  armorCollection.push({name:"Spined Chitin Shoulderguards",             type:"Shoulders", role:"DPS",        style:"Insectoid",           drops:"Magnetar-SL - Old STAR Labs",                           faction:"Both"});
 
   armorCollection.push({name:"Gorillatech Chitin Gauntlets",             type:"Hands",     role:"DPS",        style:"Insectoid",           drops:"Pyro Chemoid in Bludhaven Alert",                       faction:"Both"});
   armorCollection.push({name:"Twisted Bioshaped Gloves",                 type:"Hands",     role:"DPS",        style:"Insectoid",           drops:"Major Force",                                           faction:"Both"});
@@ -5754,7 +5921,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Kilt of Vengeance",                        type:"Legs",      role:"DPS",        style:"Kabuki",              drops:"OMAC Sigma in OMAC duo",                                faction:"Both"});
   armorCollection.push({name:"Somelari Samurai's Helmet",                type:"Head",      role:"DPS",        style:"Kabuki",              drops:"Gorilla Grodd in duo",                                  faction:"Both"});
   armorCollection.push({name:"Abyssal Lord's Shoulders",                 type:"Shoulders", role:"DPS",        style:"Kabuki",              drops:"OMAC Delta",                                            faction:"Both"});
-  armorCollection.push({name:"Shoulders of Itzli",                       type:"Shoulders", role:"DPS",        style:"Kabuki",              drops:"Bane - Cape Carmine Lighthouse Duo",                                                  faction:"Both"});
+  armorCollection.push({name:"Shoulders of Itzli",                       type:"Shoulders", role:"DPS",        style:"Kabuki",              drops:"Bane - Cape Carmine Lighthouse Duo",                    faction:"Both"});
   armorCollection.push({name:"Timewalker's Handwraps",                   type:"Hands",     role:"DPS",        style:"Kabuki",              drops:"Necro Magent Gruhn in Gotham University Duo",           faction:"Both"});
   armorCollection.push({name:"Sash of the Necropolis",                   type:"Waist",     role:"DPS",        style:"Kabuki",              drops:"OMAC Sigma",                                            faction:"Both"});
   armorCollection.push({name:"Sentinel's Earthen Clogs",                 type:"Feet",      role:"DPS",        style:"Kabuki",              drops:"Queen Bee",                                             faction:"Both"});
@@ -5763,21 +5930,30 @@ function isAccessory(lineString)
 
   // New Genesis style
   armorCollection.push({name:"Embellished Powersuit Shirt",              type:"Chest",     role:"DPS",        style:"New Genesis",         drops:"Present in Vault",                                      faction:"Both"});
+  armorCollection.push({name:"Kryptonian Battlechest",                   type:"Chest",     role:"DPS",        style:"New Genesis",         drops:"",                                                      faction:"Both"});
   armorCollection.push({name:"LX-1500 Biomat Shirt",                     type:"Chest",     role:"DPS",        style:"New Genesis",         drops:"Doctor Psycho or Supergirl in mission",                 faction:"Both"});
   armorCollection.push({name:"Slim Crystalline Shirt",                   type:"Chest",     role:"DPS",        style:"New Genesis",         drops:"Doctor Psycho",                                         faction:"Both"});
   armorCollection.push({name:"Advanced Biomesh Leggings",                type:"Legs",      role:"DPS",        style:"New Genesis",         drops:"Power Girl",                                            faction:"Both"});
+  armorCollection.push({name:"Krypton-Tech Leggings",                    type:"Legs",      role:"DPS",        style:"New Genesis",         drops:"",                                                      faction:"Both"});
   armorCollection.push({name:"Powersuit Tights",                         type:"Legs",      role:"DPS",        style:"New Genesis",         drops:"Present in Vault",                                      faction:"Both"});
   armorCollection.push({name:"Kandorian Helmet of Power",                type:"Head",      role:"DPS",        style:"New Genesis",         drops:"Present in Vault",                                      faction:"Both"});
   armorCollection.push({name:"Riveted Powersuit Helmet",                 type:"Head",      role:"DPS",        style:"New Genesis",         drops:"Brainiac Spark MK-II in Superman Overlord mission",     faction:"Both"});
   armorCollection.push({name:"Ancient Kandorian Warguards",              type:"Shoulders", role:"DPS",        style:"New Genesis",         drops:"Treasure Chest in Supergirl mission or Luthor mission", faction:"Both"});
+  armorCollection.push({name:"Light Kandorian Shoulders",                type:"Shoulders", role:"DPS",        style:"New Genesis",         drops:"Present in Vault",                                      faction:"Both"});
+
   armorCollection.push({name:"New Genesis Gloves",                       type:"Hands",     role:"DPS",        style:"New Genesis",         drops:"Present in Vault",                                      faction:"Both"});
   armorCollection.push({name:"Pit Fighter's Gauntlets",                  type:"Hands",     role:"DPS",        style:"New Genesis",         drops:"Power Girl",                                            faction:"Both"});
+  armorCollection.push({name:"Prototype AmerTek Power Gauntlets",        type:"Hands",     role:"DPS",        style:"New Genesis",         drops:"",                                                      faction:"Both"});
+  armorCollection.push({name:"Clasped Kandorian Belt",                   type:"Waist",     role:"DPS",        style:"New Genesis",         drops:"",                                                      faction:"Both"});
   armorCollection.push({name:"Ectoplasmic Girdle",                       type:"Waist",     role:"DPS",        style:"New Genesis",         drops:"Doctor Psycho",                                         faction:"Both"});
   armorCollection.push({name:"Kryptonian Battlebelt",                    type:"Waist",     role:"DPS",        style:"New Genesis",         drops:"Supergirl",                                             faction:"Both"});
   armorCollection.push({name:"Riveted Powersuit Belt",                   type:"Waist",     role:"DPS",        style:"New Genesis",         drops:"Present in Vault",                                      faction:"Both"});
+  armorCollection.push({name:"Specimen Relocation Sash",                 type:"Waist",     role:"DPS",        style:"New Genesis",         drops:"",                                                      faction:"Both"});
   armorCollection.push({name:"Simple Kandorian Battleboots",             type:"Feet",      role:"DPS",        style:"New Genesis",         drops:"Present in Vault",                                      faction:"Both"});
   armorCollection.push({name:"Crystal-Thread Cape",                      type:"Back",      role:"DPS",        style:"New Genesis",         drops:"Present in Vault",                                      faction:"Both"});
+  armorCollection.push({name:"Kryptonian Lord's Cloak",                  type:"Back",      role:"DPS",        style:"New Genesis",         drops:"",                                                      faction:"Both"});
   armorCollection.push({name:"Premium Krypton-Tech Cloak",               type:"Back",      role:"DPS",        style:"New Genesis",         drops:"Doctor Psycho",                                         faction:"Both"});
+  armorCollection.push({name:"Tribunal Cloak",                           type:"Back",      role:"DPS",        style:"New Genesis",         drops:"",                                                      faction:"Both"});
 
   // Necromancer
   armorCollection.push({name:"Dread Lord's Chestguard",                  type:"Chest",     role:"DPS",        style:"Necromancer",         drops:"OMAC Nanosynth in duo",                                 faction:"Both"});
@@ -5810,7 +5986,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Defender's Plexiderm Leggings",            type:"Legs",      role:"Tank",       style:"Fourth World",        drops:"T1 Alerts",                                             faction:"Both"});
   armorCollection.push({name:"Hardened Evosynth Legguards",              type:"Legs",      role:"DPS",        style:"Fourth World",        drops:"T1 Alerts",                                             faction:"Both"});
   armorCollection.push({name:"Slim ThermalSlate Pants",                  type:"Legs",      role:"DPS",        style:"Fourth World",        drops:"Vendor in Tech Wing",                                   faction:"Both"});
-  armorCollection.push({name:"Precision Nanotube Helm",                  type:"Head",      role:"Tank",       style:"Fourth World",        drops:"Treasure Chest - Ace Chemicals",                                             faction:"Both"});
+  armorCollection.push({name:"Precision Nanotube Helm",                  type:"Head",      role:"Tank",       style:"Fourth World",        drops:"Treasure Chest - Ace Chemicals",                        faction:"Both"});
 
   armorCollection.push({name:"Royal Helmet of Shiruta",                  type:"Head",      role:"DPS",        style:"Fourth World",        drops:"Treasure chest in Smallville alert",                    faction:"Both"});
   armorCollection.push({name:"Anodized Promethium Shoulderguards",       type:"Shoulders", role:"Healer",     style:"Fourth World",        drops:"Android in Oolong alert",                               faction:"Both"});
@@ -5819,22 +5995,23 @@ function isAccessory(lineString)
   armorCollection.push({name:"Light Evosynth Shoulderguards",            type:"Shoulders", role:"Healer",     style:"Fourth World",        drops:"T1 Alerts",                                             faction:"Both"});
   armorCollection.push({name:"Riveted Shoulderplates",                   type:"Shoulders", role:"DPS",        style:"Fourth World",        drops:"Neuromite in Watchtower alert",                         faction:"Both"});
   armorCollection.push({name:"Compound Inertron Gloves",                 type:"Hands",     role:"Tank",       style:"Fourth World",        drops:"Treasure Chest in Area 51 alert also Flash duo",        faction:"Both"});
+  armorCollection.push({name:"Laminated Synthium Gauntlets",             type:"Hands",     role:"DPS",        style:"Fourth World",        drops:"",                                                      faction:"Both"});
   armorCollection.push({name:"Riveted Korllium Belt",                    type:"Waist",     role:"DPS",        style:"Fourth World",        drops:"Treasure Chest",                                        faction:"Both"});
-  armorCollection.push({name:"Shielded Promethium Belt",                 type:"Waist",     role:"DPS",        style:"Fourth World",        drops:"T1 Duos",    faction:"Both"});
+  armorCollection.push({name:"Shielded Promethium Belt",                 type:"Waist",     role:"DPS",        style:"Fourth World",        drops:"T1 Duos",                                               faction:"Both"});
   armorCollection.push({name:"Cellkeeper's Stompers",                    type:"Feet",      role:"DPS",        style:"Fourth World",        drops:"Treasure Chest in Stryker's Island alert",              faction:"Both"});
   armorCollection.push({name:"Reinforced Biomesh Boots",                 type:"Feet",      role:"DPS",        style:"Fourth World",        drops:"Watchtower alert",                                      faction:"Both"});
   armorCollection.push({name:"Reinforced Chem-Proof Boots",              type:"Feet",      role:"Tank",       style:"Fourth World",        drops:"Doomcrazed Citizen in Smallville alert",                faction:"Both"});
   armorCollection.push({name:"Versatile Equilibrity Boots",              type:"Feet",      role:"DPS",        style:"Fourth World",        drops:"Vendor in Tech Wing",                                   faction:"Both"});
   armorCollection.push({name:"Batterylord's Backplate",                  type:"Back",      role:"DPS",        style:"Fourth World",        drops:"Watchtower Alert",                                      faction:"Both"});
   armorCollection.push({name:"Inscribed Coluan Backguard",               type:"Back",      role:"DPS",        style:"Fourth World",        drops:"",                                                      faction:"Both"});
-  armorCollection.push({name:"Powerful Promethium Backplate",            type:"Back",      role:"DPS",        style:"Fourth World",        drops:"Veteran",    faction:"Both"});
+  armorCollection.push({name:"Powerful Promethium Backplate",            type:"Back",      role:"DPS",        style:"Fourth World",        drops:"Veteran",                                               faction:"Both"});
   armorCollection.push({name:"Riveted Coluan Backplate",                 type:"Back",      role:"Tank",       style:"Fourth World",        drops:"Doomcrazed Citizen in Smallville alert",                faction:"Both"});
 
   // Iconics
   armorCollection.push({name:"Deathstroke's Menacing Bandolier",         type:"Chest",     role:"DPS",        style:"Deathstroke",         drops:"Deathstroke",                                           faction:"Both"});
-  armorCollection.push({name:"Gardner-style Vest",                       type:"Chest",     role:"DPS",        style:"Gardner-style:",       drops:"Guy Gardner briefing",                                  faction:"Both"});
+  armorCollection.push({name:"Gardner-style Vest",                       type:"Chest",     role:"DPS",        style:"Gardner-style:",       drops:"Guy Gardner briefing",                                 faction:"Both"});
   armorCollection.push({name:"Cat Burglar's Leggings",                   type:"Legs",      role:"DPS",        style:"Cat Burglar",         drops:"Catwoman",                                              faction:"Both"});
-  armorCollection.push({name:"Android Batman's Cowl",                    type:"Head",      role:"DPS",        style:"Robot Batman",        drops:"OMAC Batman - Batcave: Brainiac Sub-Construct",                                           faction:"Both"});
+  armorCollection.push({name:"Android Batman's Cowl",                    type:"Head",      role:"DPS",        style:"Robot Batman",        drops:"OMAC Batman - Batcave: Brainiac Sub-Construct",         faction:"Both"});
 
   armorCollection.push({name:"Brainiac Joker's Malevolent Mask",         type:"Head",      role:"DPS",        style:"Robot Joker",         drops:"The Joker",                                             faction:"Both"});
   armorCollection.push({name:"Brother Blood's Sinister Hood",            type:"Head",      role:"DPS",        style:"Brother Blood",       drops:"Brother Blood",                                         faction:"Both"});
@@ -5909,7 +6086,7 @@ function isAccessory(lineString)
 
   armorCollection.push({name:"Mask of Darkest Night",type:"Face",role:"Controller",style:"Half Domino",drops:"Sinestro"});
 
-  armorCollection.push({name:"Mask of the Blessed",type:"Face",role:"Healer",style:"Druid       Clownsanity"});
+  armorCollection.push({name:"Mask of the Blessed",type:"Face",role:"Healer",style:"Druid", drops:"Clownsanity"});
 
   armorCollection.push({name:"Mask of the Elders",type:"Face",role:"DPS",style:"Druid",drops:"Booster Gold"});
 
@@ -5926,6 +6103,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Convex Synthium Eye Protectors",type:"Face",role:"DPS",style:"Bug Goggles",drops:"UGA Soldier"});
 
   armorCollection.push({name:"Mask of the Magus",type:"Face",role:"DPS",style:"V Domino",drops:"Soul Eater"});
+
   // Vault
   armorCollection.push({name:"Batman Hoodie",                              type:"Chest",     role:"DPS",        style:"Batman Hoodie",            drops:"Present in Vault",  faction:"Both"});
   armorCollection.push({name:"Batwoman T-Shirt",                           type:"Chest",     role:"DPS",        style:"Batwoman T-Shirt",         drops:"Present in Vault",  faction:"Both"});
@@ -5944,7 +6122,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Zoom T-Shirt",                               type:"Chest",     role:"DPS",        style:"Zoom T-Shirt",             drops:"Present in Vault",  faction:"Both"});
   armorCollection.push({name:"Batman Boxers",                              type:"Legs",      role:"DPS",        style:"Batman Boxers",            drops:"Present in Vault",  faction:"Both"});
   armorCollection.push({name:"Flash Boxers",                               type:"Legs",      role:"DPS",        style:"Flash Boxers",             drops:"Present in Vault",  faction:"Both"});
-  armorCollection.push({name:"Bizarro Cap",                                type:"Head",      role:"DPS",        style:"Bizarro Cap",              drops:"Present in Vault",                               faction:"Both"});
+  armorCollection.push({name:"Bizarro Cap",                                type:"Head",      role:"DPS",        style:"Bizarro Cap",              drops:"Present in Vault",  faction:"Both"});
   armorCollection.push({name:"Robin Cap",                                  type:"Head",      role:"DPS",        style:"Robin Cap",                drops:"Present in Vault",  faction:"Both"});
   armorCollection.push({name:"Steel Cap",                                  type:"Head",      role:"DPS",        style:"Steel",                    drops:"Present in Vault",  faction:"Both"});
   armorCollection.push({name:"Aquaman Tank",                               type:"Back",      role:"DPS",        style:"Aquaman",                  drops:"Present in Vault",  faction:"Both"});
@@ -5971,16 +6149,22 @@ function isAccessory(lineString)
   armorCollection.push({name:"Chestguard of the Abyss",                    type:"Chest",     role:"DPS",        style:"Demonic",             drops:"Present in Vault",                                faction:"Both"});
   armorCollection.push({name:"Demonleather Chestguard",                    type:"Chest",     role:"DPS",        style:"Demonic",             drops:"Possessed Raven Spirit - 8th Precinct Interior - Raven's Destiny",         faction:"Both"});
   armorCollection.push({name:"Hellforged Exoskeletal Chestguard",          type:"Chest",     role:"DPS",        style:"Demonic",             drops:"The Titans villain mission - A Shadow of Hell",                            faction:"Both"});
+  armorCollection.push({name:"Unhallowed Chestguard",                      type:"Chest",     role:"DPS",        style:"Demonic",             drops:"",                                                faction:"Both"});
   armorCollection.push({name:"Legguards of the Demon Host",                type:"Legs",      role:"DPS",        style:"Demonic",             drops:"Present in Vault",                                faction:"Both"});
+  armorCollection.push({name:"Templeforged Legplates",                     type:"Legs",      role:"DPS",        style:"Demonic",             drops:"",                                                faction:"Both"});
   armorCollection.push({name:"Abyssal Helmet",                             type:"Head",      role:"DPS",        style:"Demonic",             drops:"Possessed Raven Spirit, Spirit of Raven - Science Police HQ (Challlenge)", faction:"Both"});
   armorCollection.push({name:"Demonforged Helmet",                         type:"Head",      role:"DPS",        style:"Demonic",             drops:"Present in Vault",                                faction:"Both"});
+  armorCollection.push({name:"Serpentine Crown of Azar",                   type:"Head",      role:"DPS",        style:"Demonic",             drops:"",                                                faction:"Both"});
   armorCollection.push({name:"Tempter's Visage",                           type:"Head",      role:"DPS",        style:"Demonic",             drops:"Possessed Raven Spirit - 8th Precinct Interior - Raven's Destiny",         faction:"Both"});
-  armorCollection.push({name:"Orichalcum Mantle",                          type:"Shoulders", role:"DPS",        style:"Demonic",             drops:"Felix Faust - Mannheim's Chinese Theater",                                     faction:"Both"});
-  armorCollection.push({name:"Soulbond Shoulderplates",                    type:"Shoulders", role:"DPS",        style:"Demonic",             drops:"Possessed Raven Spirit - 8th Precinct Interior - Raven's Destiny", faction:"Both"});
+  armorCollection.push({name:"Nefarious Shoulderguards",                   type:"Shoulders", role:"DPS",        style:"Demonic",             drops:"",                                                faction:"Both"});
+  armorCollection.push({name:"Orichalcum Mantle",                          type:"Shoulders", role:"DPS",        style:"Demonic",             drops:"Felix Faust - Mannheim's Chinese Theater",                                 faction:"Both"});
+  armorCollection.push({name:"Soulbond Shoulderplates",                    type:"Shoulders", role:"DPS",        style:"Demonic",             drops:"Possessed Raven Spirit - 8th Precinct Interior - Raven's Destiny",         faction:"Both"});
   armorCollection.push({name:"Sulphuric Shoulderplates",                   type:"Shoulders", role:"DPS",        style:"Demonic",             drops:"Present in Vault",                                faction:"Both"});
   armorCollection.push({name:"Abyssal Peril Gauntlets",                    type:"Hands",     role:"DPS",        style:"Demonic",             drops:"Present in Vault",                                faction:"Both"});
   armorCollection.push({name:"Azarathian Warlock's Gloves",                type:"Hands",     role:"DPS",        style:"Demonic",             drops:"The Titans villain mission A Shadow of Hell",     faction:"Both"});
+  armorCollection.push({name:"Covenant Cincture",                          type:"Waist",     role:"DPS",        style:"Demonic",             drops:"",                                                faction:"Both"});
   armorCollection.push({name:"Hellthreat Belt",                            type:"Waist",     role:"DPS",        style:"Demonic",             drops:"Present in Vault",                                faction:"Both"});
+  armorCollection.push({name:"Devilish Talons",                            type:"Feet",      role:"DPS",        style:"Demonic",             drops:"",                                                faction:"Both"});
   armorCollection.push({name:"Frightening Helltreads",                     type:"Feet",      role:"DPS",        style:"Demonic",             drops:"Present in Vault",                                faction:"Both"});
 
   // Contemporary Tech style
@@ -5990,15 +6174,18 @@ function isAccessory(lineString)
   armorCollection.push({name:"Prototype Veridium Chestguard",              type:"Chest",     role:"Controller", style:"Contemporary Tech",   drops:"Failed Metal Man in Oolong alert",                faction:"Both"});
   armorCollection.push({name:"Wayfarer's Shirt",                           type:"Chest",     role:"Tank",       style:"Contemporary Tech",   drops:"Lunatic",                                         faction:"Both"});
   armorCollection.push({name:"Alloyed Synthium Leggings",                  type:"Legs",      role:"DPS",        style:"Contemporary Tech",   drops:"UGA Soldier",                                     faction:"Both"});
+  armorCollection.push({name:"LCX-40 Centurion Legguards",                 type:"Legs",      role:"DPS",        style:"Contemporary Tech",   drops:"",                                                faction:"Both"});
   armorCollection.push({name:"Riveted Evosynth Leggings",                  type:"Legs",      role:"DPS",        style:"Contemporary Tech",   drops:"Tornado Tyrant in Oolong Alert",                  faction:"Both"});
   armorCollection.push({name:"Alloyed Synthium Helmet",                    type:"Head",      role:"DPS",        style:"Contemporary Tech",   drops:"UGA Commando",                                    faction:"Both"});
   armorCollection.push({name:"Dark Visage of the Necropolis",              type:"Head",      role:"DPS",        style:"Contemporary Tech",   drops:"Bruno Mannheim",                                  faction:"Both"});
-  armorCollection.push({name:"Laminated Synthium Headguard",               type:"Head",      role:"DPS",        style:"Contemporary Tech",   drops:"Treasure Chest in Gotham Star Labs, Gotham University, Lair of the Spectre",                     faction:"Both"});
+  armorCollection.push({name:"Laminated Synthium Headguard",               type:"Head",      role:"DPS",        style:"Contemporary Tech",   drops:"Treasure Chest in Gotham Star Labs, Gotham University, Lair of the Spectre", faction:"Both"});
 
-  armorCollection.push({name:"Riveted Evosynth Helmet",                    type:"Head",      role:"Tank",       style:"Contemporary Tech",   drops:"Failed Metal Man - Oolong Island, Star-SL - Old STAR Labs",                         faction:"Both"});
+  armorCollection.push({name:"Riveted Evosynth Helmet",                    type:"Head",      role:"Tank",       style:"Contemporary Tech",   drops:"Failed Metal Man - Oolong Island, Star-SL - Old STAR Labs",                  faction:"Both"});
 
   armorCollection.push({name:"Anodized Nth-Metal Shoulderplates",          type:"Shoulders", role:"DPS",        style:"Contemporary Tech",   drops:"Treasure Chest in TOMorrow/Spectre/Robot Batman", faction:"Both"});
+  armorCollection.push({name:"Polished Promethium Shoulders",              type:"Shoulders", role:"DPS",        style:"Contemporary Tech",   drops:"",                                                faction:"Both"});
   armorCollection.push({name:"Stagg Industries Stable-ize Shoulderplates", type:"Shoulders", role:"DPS",        style:"Contemporary Tech",   drops:"HIVE",                                            faction:"Both"});
+  armorCollection.push({name:"Enhanced Plexiderm Gauntlets",               type:"Hands",     role:"DPS",        style:"Contemporary Tech",   drops:"",                                                faction:"Both"});
   armorCollection.push({name:"Grips of Asgaard",                           type:"Hands",     role:"DPS",        style:"Contemporary Tech",   drops:"Bruno Mannheim",                                  faction:"Both"});
   armorCollection.push({name:"Advanced Coluan Boots",                      type:"Feet",      role:"DPS",        style:"Contemporary Tech",   drops:"Prime Servitor",                                  faction:"Both"});
   armorCollection.push({name:"Alloyed Synthium Backguard",                 type:"Back",      role:"DPS",        style:"Contemporary Tech",   drops:"Micro Security Bot",                              faction:"Both"});
@@ -6033,7 +6220,12 @@ function isAccessory(lineString)
   armorCollection.push({name:"Galactic Guardian's Leggings",               type:"Legs",      role:"DPS",        style:"Shielded Robot",      drops:"Present in Vault",                                faction:"Both"});
   armorCollection.push({name:"Legplates of Free Thought",                  type:"Legs",      role:"DPS",        style:"Shielded Robot",      drops:"John Stewart",                                    faction:"Both"});
   armorCollection.push({name:"Ancient Qwardian Helmet",                    type:"Head",      role:"DPS",        style:"Shielded Robot",      drops:"Present in Vault",                                faction:"Both"});
+  armorCollection.push({name:"Helmet of the Lightbringer",                 type:"Head",      role:"DPS",        style:"Shielded Robot",      drops:"",                                                faction:"Both"});
+  armorCollection.push({name:"Innovative Nanochined Helmet",               type:"Head",      role:"DPS",        style:"Shielded Robot",      drops:"",                                                faction:"Both"});
+  armorCollection.push({name:"Machined Veridium Headguard",                type:"Head",      role:"DPS",        style:"Shielded Robot",      drops:"",                                                faction:"Both"});
   armorCollection.push({name:"Honored H'levenite Shoulderguards",          type:"Shoulders", role:"DPS",        style:"Shielded Robot",      drops:"Present in Vault",                                faction:"Both"});
+  armorCollection.push({name:"Ring Defender's Shoulderguards",             type:"Shoulders", role:"DPS",        style:"Shielded Robot",      drops:"",                                                faction:"Both"});
+  armorCollection.push({name:"Starheart-Shard Shoulderguards",             type:"Shoulders", role:"DPS",        style:"Shielded Robot",      drops:"",                                                faction:"Both"});
   armorCollection.push({name:"Laminated Korugarian Handguards",            type:"Hands",     role:"DPS",        style:"Shielded Robot",      drops:"Sinestro",                                        faction:"Both"});
   armorCollection.push({name:"Starguard Gloves",                           type:"Hands",     role:"DPS",        style:"Shielded Robot",      drops:"Present in Vault",                                faction:"Both"});
   armorCollection.push({name:"Universal Protector's Belt",                 type:"Waist",     role:"DPS",        style:"Shielded Robot",      drops:"Present in Vault",                                faction:"Both"});
@@ -6053,6 +6245,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Shielded Synthium Gauntlets",                type:"Hands",     role:"DPS",        style:"Robotic",             drops:"UGA Soldier in Gorilla Island Alert",                    faction:"Both"});
   armorCollection.push({name:"Advanced Commander's Boots",                 type:"Feet",      role:"DPS",        style:"Robotic",             drops:"Chang Tzu in Oolong Alert",                              faction:"Both"});
   armorCollection.push({name:"Anodized Inertron Treads",                   type:"Feet",      role:"Healer",     style:"Robotic",             drops:"Queen Bee in HIVE alert",                                faction:"Both"});
+  armorCollection.push({name:"Central City Cleats",                        type:"Feet",      role:"DPS",        style:"Robotic",             drops:"",                                                       faction:"Both"});
 
   // Biomech style
   armorCollection.push({name:"Alloyed Inertron Chestguard",                type:"Chest",     role:"DPS",        style:"Biomech",             drops:"Ultra-Humanite in Gorilla Island Alert",                 faction:"Both"});
@@ -6068,11 +6261,12 @@ function isAccessory(lineString)
   armorCollection.push({name:"Innovative Synthium-Plated Shoulderguards",  type:"Shoulders", role:"DPS",        style:"Biomech",             drops:"Treasure Chest in Monarch Playing Card Factory mission", faction:"Both"});
   armorCollection.push({name:"Simium-Sheathed Shoulderguards",             type:"Shoulders", role:"DPS",        style:"Biomech",             drops:"Present in Vault",                                       faction:"Both"});
   armorCollection.push({name:"Sturdy Nanoplated Shoulders",                type:"Shoulders", role:"DPS",        style:"Biomech",             drops:"Treasure Chest in Oolong Alert",                         faction:"Both"});
-  armorCollection.push({name:"Advanced Gorilliumweave Gloves",             type:"Hands",     role:"DPS",        style:"Biomech",             drops:"Present in Vault"});
+  armorCollection.push({name:"Advanced Gorilliumweave Gloves",             type:"Hands",     role:"DPS",        style:"Biomech",             drops:"Present in Vault",                                       faction:"Both"});
   armorCollection.push({name:"Gorillatech Cybergauntlets",                 type:"Hands",     role:"DPS",        style:"Biomech",             drops:"Tiny in Gorilla Island Alert",                           faction:"Both"});
   armorCollection.push({name:"Belt of the Simian Threat",                  type:"Waist",     role:"DPS",        style:"Biomech",             drops:"Present in Vault",                                       faction:"Both"});
   armorCollection.push({name:"Bioshaped Belt",                             type:"Waist",     role:"DPS",        style:"Biomech",             drops:"The Flash & Original Flash in villain instance",         faction:"Both"});
   armorCollection.push({name:"Gorillatech Biosculpt Belt",                 type:"Waist",     role:"DPS",        style:"Biomech",             drops:"Mission reward",                                         faction:"Both"});
+  armorCollection.push({name:"Prototype Gorillatech Belt",                 type:"Waist",     role:"Healer",     style:"Biomech",             drops:"Ultra-Humanite in alert",                                faction:"Both"});
   armorCollection.push({name:"Exceptional Synthium-Plated Boots",          type:"Feet",      role:"DPS",        style:"Biomech",             drops:"STAR Labs or Batman/Joker mentor mission",               faction:"Both"});
   armorCollection.push({name:"Gorilla Stompers",                           type:"Feet",      role:"DPS",        style:"Biomech",             drops:"Present in Vault",                                       faction:"Both"});
   armorCollection.push({name:"Light Nanomachined Boots",                   type:"Feet",      role:"DPS",        style:"Biomech",             drops:"UGA Soldier in Gorilla Island Alert",                    faction:"Both"});
@@ -6081,7 +6275,7 @@ function isAccessory(lineString)
 
   // Voodoo style
   armorCollection.push({name:"Enchanted Loa Shirt",                        type:"Chest",     role:"DPS",        style:"Voodoo",              drops:"Outside Bane Lighthouse, Catwoman challenge, T1 Duos",   faction:"Both"});
-  armorCollection.push({name:"Mutant Warrior's Harness",                   type:"Chest",     role:"DPS",        style:"Voodoo",              drops:"Treasure Chest - Ace Chemicals",                                              faction:"Both"});
+  armorCollection.push({name:"Mutant Warrior's Harness",                   type:"Chest",     role:"DPS",        style:"Voodoo",              drops:"Treasure Chest - Ace Chemicals",                         faction:"Both"});
 
   armorCollection.push({name:"Crystalline Avenger's Legguards",            type:"Legs",      role:"DPS",        style:"Voodoo",              drops:"Jackal Soldier in Kahndaq raid",                         faction:"Both"});
   armorCollection.push({name:"Leggings of the Loa",                        type:"Legs",      role:"DPS",        style:"Voodoo",              drops:"T1 Duos",                                                faction:"Both"});
@@ -6099,23 +6293,28 @@ function isAccessory(lineString)
   armorCollection.push({name:"Enchanted Back Pins",                        type:"Back",      role:"DPS",        style:"Voodoo",              drops:"Drone - Omac Base (Duo), Guard Dog - Ace Chemicals, Panther Fang - Gotham University Warehouse (challenge), Waterkeeper - Kahndaq, Wisecracker - Joker's Funhouse (Challenge)",                                                faction:"Both"});
 
   armorCollection.push({name:"Savage Back Pins",                           type:"Back",      role:"DPS",        style:"Voodoo",              drops:"Frenized Citizen - Smallville, Perimeter Guard - Batcave: Inner Sanctum, Batcave: Outer Caverns, Sentry Turret - Hive Base (Duo), Shield Armor - Batcave: Inner Sanctum, Batcave: Outer Caverns	Mechanical, Soulless Shell - Gotham University (Duo)",                                                faction:"Both"});
+
   // Antifreeze
   armorCollection.push({name:"Imbued Spore Chestplate",                    type:"Chest",     role:"DPS",        style:"Antifreeze",          drops:"Felix Faust",                                            faction:"Both"});
   armorCollection.push({name:"Master's Volcanic Chestguard",               type:"Chest",     role:"Controller", style:"Antifreeze",          drops:"Doomfused Citizen in Smallville Alert",                  faction:"Both"});
+  armorCollection.push({name:"Polar Shelter",                              type:"Chest",     role:"DPS",        style:"Antifreeze",          drops:"",                                                       faction:"Both"});
   armorCollection.push({name:"Shirt of Ice",                               type:"Chest",     role:"DPS",        style:"Antifreeze",          drops:"Present in Vault",                                       faction:"Both"});
   armorCollection.push({name:"Foreman's Veridium Legplates",               type:"Legs",      role:"Controller", style:"Antifreeze",          drops:"Smallville Alert",                                       faction:"Both"});
   armorCollection.push({name:"Imbued Spore Legplates",                     type:"Legs",      role:"DPS",        style:"Antifreeze",          drops:"Felix Faust",                                            faction:"Both"});
-  armorCollection.push({name:"Terrormaster's Legguards",                   type:"Legs",      role:"DPS",        style:"Antifreeze",          drops:"Scarecrow",                                             faction:"Both"});
+  armorCollection.push({name:"Terrormaster's Legguards",                   type:"Legs",      role:"DPS",        style:"Antifreeze",          drops:"Scarecrow",                                              faction:"Both"});
   armorCollection.push({name:"Tyrant's Leggings",                          type:"Legs",      role:"DPS",        style:"Antifreeze",          drops:"Present in Vault",                                       faction:"Both"});
   armorCollection.push({name:"Antifreeze Helmet",                          type:"Head",      role:"DPS",        style:"Antifreeze",          drops:"Present in Vault",                                       faction:"Both"});
   armorCollection.push({name:"Shiruta Militia Leader's Helm",              type:"Head",      role:"Controller", style:"Antifreeze",          drops:"Security Sentry in Outer Raid",                          faction:"Both"});
   armorCollection.push({name:"Streamlined Vinestalker Helmet",             type:"Head",      role:"DPS",        style:"Antifreeze",          drops:"Sequoia Lord",                                           faction:"Both"});
   armorCollection.push({name:"Master's CobraTech Shoulderguards",          type:"Shoulders", role:"Controller", style:"Antifreeze",          drops:"Treasure Chest",                                         faction:"Both"});
   armorCollection.push({name:"Neomagnetic Shoulderguards",                 type:"Shoulders", role:"DPS",        style:"Antifreeze",          drops:"Present in Vault",                                       faction:"Both"});
-  armorCollection.push({name:"Acid-Proof Gloves",                          type:"Hands",     role:"Controller", style:"Antifreeze",          drops:"Hypnotized CCPD Deputy - Cosmic Treadmill: Flashback, Treasure Chest - Ace Chemicals",                             faction:"Both"});
+  armorCollection.push({name:"Wintry Shoulderguards",                      type:"Shoulders", role:"DPS",        style:"Antifreeze",          drops:"",                                                       faction:"Both"});
+  armorCollection.push({name:"Acid-Proof Gloves",                          type:"Hands",     role:"Controller", style:"Antifreeze",          drops:"Hypnotized CCPD Deputy - Cosmic Treadmill: Flashback, Treasure Chest - Ace Chemicals", faction:"Both"});
   armorCollection.push({name:"Antifreeze Belt",                            type:"Waist",     role:"DPS",        style:"Antifreeze",          drops:"Present in Vault",                                       faction:"Both"});
+  armorCollection.push({name:"Cryostatis Sash",                            type:"Waist",     role:"DPS",        style:"Antifreeze",          drops:"",                                                       faction:"Both"});
   armorCollection.push({name:"Mutant Lord's Belt",                         type:"Waist",     role:"Controller", style:"Antifreeze",          drops:"T1 Alerts",                                              faction:"Both"});
-  armorCollection.push({name:"Boots of Nightmare",                         type:"Feet",      role:"DPS",        style:"Antifreeze",          drops:"Eddie in Scarecrow Gotham Sewer mission"});
+  armorCollection.push({name:"Boots of Nightmare",                         type:"Feet",      role:"DPS",        style:"Antifreeze",          drops:"Eddie in Scarecrow Gotham Sewer mission",                faction:"Both"});
+  armorCollection.push({name:"Cryosine Footwraps",                         type:"Feet",      role:"DPS",        style:"Antifreeze",          drops:"",                                                       faction:"Both"});
   armorCollection.push({name:"Studded Blackmail Boots",                    type:"Feet",      role:"DPS",        style:"Antifreeze",          drops:"Present in Vault",                                       faction:"Both"});
   armorCollection.push({name:"Foreman's Backplate",                        type:"Back",      role:"Controller", style:"Antifreeze",          drops:"Treasure Chest in Ace Chemicals Alert",                  faction:"Both"});
   armorCollection.push({name:"Light Biosculpted Backplate",                type:"Back",      role:"DPS",        style:"Antifreeze",          drops:"Ancient Bloodroot",                                      faction:"Both"});
@@ -6134,25 +6333,33 @@ function isAccessory(lineString)
   armorCollection.push({name:"Synthium-Studded Kilt",                      type:"Legs",      role:"DPS",        style:"Greco-Roman",         drops:"Present in Vault",                                       faction:"Both"});
   armorCollection.push({name:"Vengeance-Bound Kilt",                       type:"Legs",      role:"DPS",        style:"Greco-Roman",         drops:"Eclipso",                                                faction:"Both"});
   armorCollection.push({name:"Crested Helmet of Themyscira",               type:"Head",      role:"DPS",        style:"Greco-Roman",         drops:"Present in Vault",                                       faction:"Both"});
+  armorCollection.push({name:"Helmet of Polaris",                          type:"Head",      role:"DPS",        style:"Greco-Roman",         drops:"Vendor in Gotham safehouse",                             faction:"Both"});
   armorCollection.push({name:"Helmet of the Deceiver",                     type:"Head",      role:"DPS",        style:"Greco-Roman",         drops:"Circe",                                                  faction:"Both"});
+  armorCollection.push({name:"Necromancer's Foul Heaume",                  type:"Head",      role:"DPS",        style:"Greco-Roman",         drops:"",                                                       faction:"Both"});
   armorCollection.push({name:"Vengeance-Bound Helmet",                     type:"Head",      role:"DPS",        style:"Greco-Roman",         drops:"Eclipso",                                                faction:"Both"});
+  armorCollection.push({name:"Duelist's Nth-Metal Shoulderguards",         type:"Shoulders", role:"DPS",        style:"Greco-Roman",         drops:"Vendor in Gotham safehouse",                             faction:"Both"});
   armorCollection.push({name:"Managem Shoulderguards",                     type:"Shoulders", role:"DPS",        style:"Greco-Roman",         drops:"Giganta",                                                faction:"Both"});
   armorCollection.push({name:"Runed Aeaean Shoulderguards",                type:"Shoulders", role:"DPS",        style:"Greco-Roman",         drops:"Circe",                                                  faction:"Both"});
-  armorCollection.push({name:"Shoulderguards of the Minotaur Slayer",      type:"Shoulders", role:"DPS",        style:"Greco-Roman",         drops:"Minotaur",    faction:"Both"});
+  armorCollection.push({name:"Shoulderguards of the Minotaur Slayer",      type:"Shoulders", role:"DPS",        style:"Greco-Roman",         drops:"Minotaur",                                               faction:"Both"});
   armorCollection.push({name:"Shoulders of the Colossus",                  type:"Shoulders", role:"DPS",        style:"Greco-Roman",         drops:"Enchanted Colossus",                                     faction:"Both"});
   armorCollection.push({name:"Vengeful Runed Shoulderguards",              type:"Shoulders", role:"DPS",        style:"Greco-Roman",         drops:"Eclipso",                                                faction:"Both"});
-  armorCollection.push({name:"Battle-Worn Gauntlets",                      type:"Hands",     role:"DPS",        style:"Greco-Roman",         drops:"Clayface",    faction:"Both"});
+  armorCollection.push({name:"Battle-Worn Gauntlets",                      type:"Hands",     role:"DPS",        style:"Greco-Roman",         drops:"Clayface",                                               faction:"Both"});
+  armorCollection.push({name:"Bonespur Gauntlets",                         type:"Hands",     role:"DPS",        style:"Greco-Roman",         drops:"",                                                       faction:"Both"});
   armorCollection.push({name:"Gauntlets of the Deceiver",                  type:"Hands",     role:"DPS",        style:"Greco-Roman",         drops:"Circe",                                                  faction:"Both"});
+  armorCollection.push({name:"Grips of the Shadowmen",                     type:"Hands",     role:"DPS",        style:"Greco-Roman",         drops:"",                                                       faction:"Both"});
   armorCollection.push({name:"Hyperion Sun Gauntlets",                     type:"Hands",     role:"DPS",        style:"Greco-Roman",         drops:"Circe",                                                  faction:"Both"});
   armorCollection.push({name:"Spiked Amazon's Gauntlets",                  type:"Hands",     role:"DPS",        style:"Greco-Roman",         drops:"Present in Vault",                                       faction:"Both"});
   armorCollection.push({name:"Braced Spartan Girdle",                      type:"Waist",     role:"DPS",        style:"Greco-Roman",         drops:"Guard Captain Bombus",                                   faction:"Both"});
+  armorCollection.push({name:"Metamorphosis Belt",                         type:"Waist",     role:"DPS",        style:"Greco-Roman",         drops:"",                                                       faction:"Both"});
   armorCollection.push({name:"Synthium-Studded Belt",                      type:"Waist",     role:"DPS",        style:"Greco-Roman",         drops:"Present in Vault",                                       faction:"Both"});
   armorCollection.push({name:"Io's Boneweave Boots",                       type:"Feet",      role:"DPS",        style:"Greco-Roman",         drops:"Panarchos Io",                                           faction:"Both"});
-  armorCollection.push({name:"Sabatons of the Legion",                     type:"Feet",      role:"DPS",        style:"Greco-Roman",         drops:"General Tethytus - Metro Station Building",                                       faction:"Both"});
+  armorCollection.push({name:"Sabatons of the Legion",                     type:"Feet",      role:"DPS",        style:"Greco-Roman",         drops:"General Tethytus - Metro Station Building",              faction:"Both"});
 
   armorCollection.push({name:"Spartan Shin Greaves",                       type:"Feet",      role:"DPS",        style:"Greco-Roman",         drops:"Oolong Enforcer",                                        faction:"Both"});
   armorCollection.push({name:"Spiked Amazon's Sabatons",                   type:"Feet",      role:"DPS",        style:"Greco-Roman",         drops:"Present in Vault",                                       faction:"Both"});
+  armorCollection.push({name:"Cape of the Giant Killer",                   type:"Back",      role:"DPS",        style:"Greco-Roman",         drops:"",                                                       faction:"Both"});
   armorCollection.push({name:"Cloak of Lies",                              type:"Back",      role:"DPS",        style:"Greco-Roman",         drops:"Circe",                                                  faction:"Both"});
+  armorCollection.push({name:"Cloak of Truth",                             type:"Back",      role:"DPS",        style:"Greco-Roman",         drops:"",                                                       faction:"Both"});
   armorCollection.push({name:"Embellished Spartan Cape",                   type:"Back",      role:"DPS",        style:"Greco-Roman",         drops:"Bat Family in Batcave: Outer Caverns Alert",             faction:"Both"});
   armorCollection.push({name:"Hero's Embellished Cape",                    type:"Back",      role:"DPS",        style:"Greco-Roman",         drops:"Present in Vault",                                       faction:"Both"});
   armorCollection.push({name:"Tenebrous Cloak",                            type:"Back",      role:"DPS",        style:"Greco-Roman",         drops:"Lightkeeper Janis",                                      faction:"Both"});
@@ -6163,10 +6370,11 @@ function isAccessory(lineString)
   armorCollection.push({name:"Somelari Shell",                             type:"Chest",     role:"DPS",        style:"Jah Kir",             drops:"T1 Duos",                                                faction:"Both"});
   armorCollection.push({name:"Carbon Nanotube Leggings",                   type:"Legs",      role:"DPS",        style:"Jah Kir",             drops:"Subprime Regulator Beta",                                faction:"Both"});
   armorCollection.push({name:"Slimline Flowsteel Leggings",                type:"Legs",      role:"DPS",        style:"Jah Kir",             drops:"Vendor",                                                 faction:"Both"});
-  armorCollection.push({name:"Starseeker's Legguards",                     type:"Legs",      role:"DPS",        style:"Jah Kir",             drops:"Present in Vault"});
+  armorCollection.push({name:"Starseeker's Legguards",                     type:"Legs",      role:"DPS",        style:"Jah Kir",             drops:"Present in Vault",                                       faction:"Both"});
   armorCollection.push({name:"Willborn Leggings",                          type:"Legs",      role:"DPS",        style:"Jah Kir",             drops:"Zoom in Gorilla Grodd's Lab Duo",                        faction:"Both"});
   armorCollection.push({name:"Dread Coluan Helmet",                        type:"Head",      role:"DPS",        style:"Jah Kir",             drops:"Present in Vault",                                       faction:"Both"});
-  armorCollection.push({name:"Zamaroni War Helmet",                        type:"Head",      role:"DPS",        style:"Jah Kir",             drops:"Treasure Chest - Gorilla Grodd's Lab Duo",                         faction:"Both"});
+  armorCollection.push({name:"Exterminator's Helmet",                      type:"Head",      role:"DPS",        style:"Jah Kir",             drops:"",                                                       faction:"Both"});
+  armorCollection.push({name:"Zamaroni War Helmet",                        type:"Head",      role:"DPS",        style:"Jah Kir",             drops:"Treasure Chest - Gorilla Grodd's Lab Duo",               faction:"Both"});
 
   armorCollection.push({name:"Enforcer's Shoulderplates",                  type:"Shoulders", role:"DPS",        style:"Jah Kir",             drops:"T1 Duos",                                                faction:"Both"});
   armorCollection.push({name:"Galactic Battle Shoulders",                  type:"Shoulders", role:"DPS",        style:"Jah Kir",             drops:"Present in Vault",                                       faction:"Both"});
@@ -6175,7 +6383,11 @@ function isAccessory(lineString)
   armorCollection.push({name:"Korllium-Sheathed Battlegloves",             type:"Hands",     role:"DPS",        style:"Jah Kir",             drops:"Mission reward sent by email",                           faction:"Both"});
   armorCollection.push({name:"Neo-Magnetic Assault Gloves",                type:"Hands",     role:"DPS",        style:"Jah Kir",             drops:"T1 Duos",                                                faction:"Both"});
   armorCollection.push({name:"Elite Nanite-Enhanced Belt",                 type:"Waist",     role:"DPS",        style:"Jah Kir",             drops:"T1 Duos",                                                faction:"Both"});
+  armorCollection.push({name:"Galactic Belt",                              type:"Waist",     role:"DPS",        style:"Jah Kir",             drops:"Present in Vault",                                       faction:"Both"});
+
+  armorCollection.push({name:"HIVE Trooper's Utility Belt",                type:"Waist",     role:"DPS",        style:"Jah Kir",             drops:"",                                                       faction:"Both"});
   armorCollection.push({name:"Roggra's Belt",                              type:"Waist",     role:"DPS",        style:"Jah Kir",             drops:"OMAC Nanosynth",                                         faction:"Both"});
+  armorCollection.push({name:"Saboteur's Toolbelt",                        type:"Waist",     role:"DPS",        style:"Jah Kir",             drops:"",                                                       faction:"Both"});
   armorCollection.push({name:"Specialized Slimline Belt",                  type:"Waist",     role:"DPS",        style:"Jah Kir",             drops:"OMAC Delta",                                             faction:"Both"});
   armorCollection.push({name:"Alien Threat Boots",                         type:"Feet",      role:"DPS",        style:"Jah Kir",             drops:"Present in Vault",                                       faction:"Both"});
   armorCollection.push({name:"Riveted Synthium Battleboots",               type:"Feet",      role:"DPS",        style:"Jah Kir",             drops:"Treasure Chest",                                         faction:"Both"});
@@ -6184,7 +6396,8 @@ function isAccessory(lineString)
   armorCollection.push({name:"Alien Threat Backguard",                     type:"Back",      role:"DPS",        style:"Jah Kir",             drops:"Present in Vault",                                       faction:"Both"});
   armorCollection.push({name:"HIVE Stinger's Cloak",                       type:"Back",      role:"DPS",        style:"Jah Kir",             drops:"Queen Bee",                                              faction:"Both"});
   armorCollection.push({name:"Nanowoven Cape",                             type:"Back",      role:"DPS",        style:"Jah Kir",             drops:"T1 Duos",                                                faction:"Both"});
-  armorCollection.push({name:"Time Manipulator's Backplate",               type:"Back",      role:"DPS",        style:"Jah Kir",             drops:"Booster Gold - Hive Base (DUO)",                                           faction:"Both"});
+  armorCollection.push({name:"Time Manipulator's Backplate",               type:"Back",      role:"DPS",        style:"Jah Kir",             drops:"Booster Gold - Hive Base (DUO)",                         faction:"Both"});
+
   // Egyptian
   armorCollection.push({name:"Jackal's Shirt",                             type:"Chest",     role:"DPS",        style:"Egyptian",            drops:"Present in Vault",                                       faction:"Both"});
   armorCollection.push({name:"Prophet's Radiant Chestguard",               type:"Chest",     role:"DPS",        style:"Egyptian",            drops:"Isis in Gotham University Duo",                          faction:"Both"});
@@ -6237,10 +6450,8 @@ function isAccessory(lineString)
   armorCollection.push({name:"Manawalkers",type:"Feet",role:"DPS",style:"Druid",drops:"Treasure Chest - Cosmic Treadmill: Flashback, Gotham University DUO, Omac Base DUO"});
   armorCollection.push({name:"Riverrock Treads",type:"Feet",role:"DPS",style:"Druid",drops:""});
   armorCollection.push({name:"Battleworn Cloak of the Ancients",type:"Back",role:"DPS",style:"Druid",drops:"Worker - Hive Base Duo, Treasure Chest - Ferris Aircraft, Omac Base Duo"});
+  armorCollection.push({name:"Shadowy Cloak",type:"Back",role:"DPS",style:"Druid",drops:""});
   armorCollection.push({name:"Timeworn Slayer's Cloak",type:"Back",role:"Controller",style:"Druid",drops:"Minion of Wrath"});
-  armorCollection.push({name:"Militant Rivethead Belt",            type:"Waist",      role:"DPS",        style:"Metalhead",           drops:"",                         faction:"Both"});
-  armorCollection.push({name:"Militant Rivethead Cloak",            type:"Back",      role:"DPS",        style:"Metalhead",           drops:"",                         faction:"Both"});
-  armorCollection.push({name:"Militant Rivethead Boots",            type:"Feet",      role:"DPS",        style:"Metalhead",           drops:"",                         faction:"Both"});
 
   // Unknown
   armorCollection.push({name:"Alloyed Inertron Legguards",                 type:"Legs",      role:"DPS", style:"", drops:"UGA Commander in Gorilla Island Alert"});
@@ -6250,24 +6461,23 @@ function isAccessory(lineString)
   armorCollection.push({name:"Bioshaped Plexiderm Wings",                  type:"Back",      role:"DPS", style:"", drops:"Medichemoid in Bludhaven"});
   armorCollection.push({name:"Bunker Dweller's Gauntlets",                 type:"Hands",     role:"DPS", style:"", drops:"Present in Vault"});
   armorCollection.push({name:"Demoncaller's Chestguard",                   type:"Chest",     role:"DPS", style:"", drops:"Brother Blood"});
-  armorCollection.push({name:"Galactic Belt",                              type:"Waist",     role:"DPS", style:"Jah Kir", drops:"Present in Vault"});
-
-  armorCollection.push({name:"Hellspawn Wings",                            type:"Back",      role:"DPS", style:"Small Demonic Wings", drops:"Present in Vault"});
-
-  armorCollection.push({name:"Light Kandorian Shoulders",                  type:"Shoulders", role:"DPS", style:"New Genesis", drops:"Present in Vault"});
-
-  armorCollection.push({name:"Lightweight Vanadium Boots",                 type:"Feet",      role:"DPS", style:"Heartshard", drops:"OMAC Batman - Batcave: Brainiac Sub-Construct"});
-
   armorCollection.push({name:"LX5400 Power Leggings",                      type:"Legs",      role:"DPS", style:"", drops:"Lex Luthor in Superman mentor mission"});
   armorCollection.push({name:"Mechanized Evosynth Backplate",              type:"Back",      role:"DPS", style:"", drops:"Robot Batman"});
   armorCollection.push({name:"Pilfered Prototype BioBoots",                type:"Feet",      role:"DPS", style:"", drops:"The Joker in Batman mentor mission"});
   armorCollection.push({name:"Power-Reinforced Gloves",                    type:"Hands",     role:"DPS", style:"", drops:"Safehouse Vendor"});
-  armorCollection.push({name:"Prototype Gorillatech Belt",                 type:"Waist",     role:"DPS", style:"", drops:"Ultra-Humanite in alert"});
   armorCollection.push({name:"Riveted Coluan Belt",                        type:"Waist",     role:"DPS", style:"", drops:"Brainiac Subjugator in Area 51 alert"});
   armorCollection.push({name:"Scarred Enforcer's Chestguard",              type:"Chest",     role:"DPS", style:"", drops:"Sunstone Broodmother in Fortress of Solitude The Chasm Novice Raid"});
   armorCollection.push({name:"Shielded Alloy Boots",                       type:"Feet",      role:"DPS", style:"", drops:"Metallo in Superman mentor mission"});
   armorCollection.push({name:"Spiked Synthium Shoulderguards",             type:"Shoulders", role:"DPS", style:"", drops:"Present in Vault"});
+
+  armorCollection.push({name:"Athletic Slimline Tights",                   type:"Legs",      role:"DPS", style:"Athletic Slimline", drops:""});
+  armorCollection.push({name:"Brimstone Short Cape",                       type:"Back",      role:"DPS", style:"Short", drops:""});
+  armorCollection.push({name:"Close Quarters Combat Cloak",                type:"Back",      role:"DPS", style:"Tattered", drops:""});
+  armorCollection.push({name:"Hellspawn Wings",                            type:"Back",      role:"DPS", style:"Small Demonic Wings", drops:"Present in Vault"});
+
+  armorCollection.push({name:"Pinions of Azazel",                          type:"Back",      role:"DPS", style:"Small Demonic Wings", drops:""});
   armorCollection.push({name:"Smoldering Pinions",                         type:"Back",      role:"DPS", style:"Small Demonic Wings", drops:"Possessed Raven Spirit, Spirit of Raven - Science Police HQ (Challlenge)"});
+  armorCollection.push({name:"Wings of Liberty",                           type:"Back",      role:"DPS", style:"Small Bird Wings", drops:""});
 // Mighty Cobra Mantle   some mission reward
 
   // Face gear
@@ -6280,7 +6490,8 @@ function isAccessory(lineString)
   armorCollection.push({name:"Synthium Gas Mask",                          type:"Face",      role:"DPS",        style:"Gas Mask",          drops:"Killer Bee - Hive Base Mission, Retailiator - Cape Carmine Lighthouse Mission",      faction:"Both"});
 
   armorCollection.push({name:"Triage Mask",                                type:"Face",      role:"Healer",     style:"Valiant",           drops:"",      faction:"Both"});
-  armorCollection.push({name:"Crusader's Mask",                                type:"Face",      role:"DPS",	style:"Valiant",		   drops:"Drops in Kahndaq",      faction:"Both"});
+  armorCollection.push({name:"Crusader's Mask",                            type:"Face",      role:"DPS",	style:"Valiant",           drops:"Drops in Kahndaq",      faction:"Both"});
+
   // Trinkets
   armorCollection.push({name:"Clown Nose",                    type:"Trinket",drops:"Present in Vault",style:"",role:""});
   armorCollection.push({name:"Kryptonian Bouncy Sphere",      type:"Trinket",drops:"Present in Vault",style:"",role:""});
@@ -6329,6 +6540,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"OmniScry Vitalizer",type:"Trinket",role:"Healer",drops:"Queen Bee - Hive Base (Duo)"});
 
   armorCollection.push({name:"Sharded Energy Conduit",type:"Trinket",role:"Controller",drops:"Avatar of Meta - Fortress of Solitude: Power Core"});
+
   var weaponCollection = [];
 
   // PVP weapons
@@ -6354,6 +6566,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Machined Plate",                 type:"Shield", role:"DPS",        dps:49.1,  drops:"Safehouse vendor",style:"Buzzsaw Blade"});
   weaponCollection.push({name:"Massive Bulwark",                type:"Shield", role:"DPS",        dps:61.9,  drops:"Safehouse vendor",style:"Trashcan Lid"});
   weaponCollection.push({name:"Nomad's Aegis",                  type:"Shield", role:"DPS",        dps:58.7,  drops:"Vendor in Gotham safehouse", style:"Summoner's Shield"});
+  weaponCollection.push({name:"Polar Plate",                    type:"Shield", role:"DPS",        dps:45.9,  drops:"", style:"Lion's Roar"});
   weaponCollection.push({name:"Solid War Plate",                type:"Shield", role:"DPS",        dps:0,     drops:"PVP vendor",style:"Trashcan Lid"});
   weaponCollection.push({name:"SPARC Assault Shield",           type:"Shield", role:"DPS",        dps:103.5, drops:"Vendor in Central City accepting Marks of Momentum", style:"Tech Spiral"});
   weaponCollection.push({name:"SPARC Assault Shield Mk II",     type:"Shield", role:"DPS",        dps:113.1, drops:"Vendor in Central City",style:"Tech Cross"});
@@ -6366,6 +6579,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Steadfast Guard",                type:"Shield", role:"DPS",        dps:44.3,  drops:"", style:"Trashcan Lid"});
   weaponCollection.push({name:"Timeword Guard",                 type:"Shield", role:"DPS",        dps:61.9,  drops:"", style:"Summoner's Shield"});
   weaponCollection.push({name:"Trigonic Plate",                 type:"Shield", role:"DPS",        dps:65.1,  drops:"", style:"Future Tech Shield"});
+  weaponCollection.push({name:"Trooper's Standard",             type:"Shield", role:"DPS",        dps:31.5,  drops:"", style:"Segmented Shield"});
   weaponCollection.push({name:"Warrior's Cover",                type:"Shield", role:"DPS",        dps:77.9,  drops:"", style:"Segmented Shield"});
   weaponCollection.push({name:"Weighted Bulwark",               type:"Shield", role:"DPS",        dps:33.1,  drops:"", style:"Reinforced Crest"});
   weaponCollection.push({name:"Worker's Ward",                  type:"Shield", role:"Tank",       dps:77.9,  drops:"", style:"Chakram"});
@@ -6382,6 +6596,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Canopy Longbow",type:"Bow",role:"DPS",dps:41.1,drops:"Warder"});
   weaponCollection.push({name:"Compound Hunting Bow",type:"Bow",role:"DPS",dps:68.3,drops:"Killer Croc & Deathstroke Cape Carmine Lighthouse DUO"});
   weaponCollection.push({name:"Compound Tech Bow",type:"Bow",role:"DPS",dps:68.3,drops:"Atrocitus - Ferris Aircraft"});
+  weaponCollection.push({name:"Demonhunter's Aim",type:"Bow",role:"DPS",dps:27.7,style:"Amazon",drops:""});
   weaponCollection.push({name:"Despot's Assault Longbow",type:"Bow",role:"DPS",dps:113.1,drops:"Non, Ursa, & General Zod - Fortress of Solitude: Sunstone Matrix"});
   weaponCollection.push({name:"Despot's Convalescent Longbow",type:"Bow",role:"Healer",dps:113.1,drops:"Non, Ursa, & General Zod - Fortress of Solitude: Sunstone Matrix"});
   weaponCollection.push({name:"Despot's Imperious Longbow",type:"Bow",role:"Controller",dps:113.1,drops:"Non, Ursa, & General Zod - Fortress of Solitude: Sunstone Matrix"});
@@ -6456,6 +6671,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Brawler's Earthstar Gauntlets",type:"Brawling",role:"DPS",dps:34.7,drops:"Beastiamorph Ravener"});
   weaponCollection.push({name:"Cestus of the North Winds",type:"Brawling",role:"Tank",dps:77.9,drops:"The Metal Mines - Ace Chemicals"});
 
+  weaponCollection.push({name:"Claws of the North Star",type:"Brawling",role:"DPS",dps:29.9,style:"Magical Claws", drops:""});
   weaponCollection.push({name:"Claws of the Wrathbringer",type:"Brawling",role:"Controller",dps:97.1,drops:"Bat Sentinels"});
   weaponCollection.push({name:"Claws of Time",type:"Brawling",role:"Controller",dps:68.3,drops:"Queen Bee"});
   weaponCollection.push({name:"Covenant Cestus",type:"Brawling",role:"DPS",dps:58.7,drops:"Drop - Kahndaq"});
@@ -6487,6 +6703,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Norselord's Cestus",type:"Brawling",role:"Controller",dps:61.9,drops:""});
   weaponCollection.push({name:"OmniScry Offset Gauntlets",type:"Brawling",role:"DPS",dps:58.7,drops:""});
   weaponCollection.push({name:"Peerless Simium Cestus",type:"Brawling",role:"DPS",dps:61.9,drops:""});
+  weaponCollection.push({name:"Plated Knuckle Dusters",type:"Brawling",role:"DPS",dps:20.0,style:"Spiked Fist", drops:""});
   weaponCollection.push({name:"Plated Plexiderm Knuckles",type:"Brawling",role:"DPS",dps:61.9,drops:""});
   weaponCollection.push({name:"Prismatic Cestus",type:"Brawling",role:"DPS",dps:103.5,drops:"Sunstone Broodmother - Fortress of Solitude: The Chasm"});
 
@@ -6562,10 +6779,15 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Prismatic Pistols",type:"Dual Pistol",role:"DPS",dps:103.5,drops:"Sunstone Herald - Fortress of Solitude: The Chasm"});
   weaponCollection.push({name:"Prisonlord's Pistols",type:"Dual Pistol",role:"DPS",dps:68.3,drops:"OMAC Sigma"});
   weaponCollection.push({name:"Promethium-Plated Pistols",type:"Dual Pistol",role:"Tank",dps:97.1,drops:"Riot Control Prototype"});
+  weaponCollection.push({name:"PX4200 Pistols",type:"Dual Pistol",role:"DPS",dps:27.8,style:"Plasma Pistol", drops:""});
+  weaponCollection.push({name:"Red Sun Pistols",type:"Dual Pistol",role:"DPS",dps:31.5,style:"Energy Blaster", drops:""});
+
   weaponCollection.push({name:"Retribution of the Planets",type:"Dual Pistol",role:"Controller",dps:77.9,drops:"Watchman Duncan & Watchdog Rinty - Ace Chemicals"});
 
   weaponCollection.push({name:"Requisitioned ServitorTech Pistols",type:"Dual Pistol",role:"DPS",dps:61.9,drops:""});
   weaponCollection.push({name:"Riverrock Revolvers",type:"Dual Pistol",role:"DPS",dps:50.7,drops:""});
+  weaponCollection.push({name:"Silver-Plated Pistols",type:"Dual Pistol",role:"DPS",dps:27.7,style:"Plasma Pistol", drops:""});
+  weaponCollection.push({name:"Slim Spellshackled Pistols",type:"Dual Pistol",role:"DPS",dps:39.5,style:"STAR Pistol", drops:""});
   weaponCollection.push({name:"STAR Assault Pistols",type:"Dual Pistol",role:"DPS",dps:90.7,drops:"Vice"});
   weaponCollection.push({name:"STAR Assault Pistols Mk II",type:"Dual Pistol",role:"DPS",dps:97.1,drops:"Kyle Rayner - Coast City"});
 
@@ -6587,6 +6809,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Veridium-Plated Pistols",type:"Dual Pistol",role:"DPS",dps:65.1,drops:"Harley Quinn"});
   weaponCollection.push({name:"Vigilante's Machine Pistols",type:"Dual Pistol",role:"Controller",dps:68.3,drops:"Zoom"});
   weaponCollection.push({name:"Warlord's Pistols",type:"Dual Pistol",role:"Tank",dps:77.9,drops:"Sludge Thing - Ace Chemicals"});
+
   weaponCollection.push({name:"Abyssal Hammers",type:"Dual Wield",role:"Tank",dps:77.9,drops:"Doomsday - Smallville"});
 
   weaponCollection.push({name:"Advanced Synthium Axes",type:"Dual Wield",role:"DPS",dps:61.9,drops:""});
@@ -6603,6 +6826,7 @@ function isAccessory(lineString)
 
   weaponCollection.push({name:"Cleric's Maces",type:"Dual Wield",role:"Healer",dps:55.5,drops:"Soul Eater"});
   weaponCollection.push({name:"Cropper's Axes",type:"Dual Wield",role:"DPS",dps:77.9,drops:""});
+  weaponCollection.push({name:"Cyber-Linked Tech Axes",type:"Dual Wield",role:"DPS",dps:57.1,style:"Tomahawk",drops:""});
   weaponCollection.push({name:"Dao Tech Swords",type:"Dual Wield",role:"DPS",dps:77.9,drops:"Protector of Anubis - Kahndaq"});
 
   weaponCollection.push({name:"Desert Lord's Khopeshes",type:"Dual Wield",role:"Tank",dps:36.3,drops:"",style:"Khopesh"});
@@ -6659,9 +6883,12 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Twin Blades of the Champion",type:"Dual Wield",role:"Tank",dps:97.1,drops:"Brother Eye - Batcave: Inner Sanctum"});
 
   weaponCollection.push({name:"Twin Synth-Plated Maces",type:"Dual Wield",role:"Controller",dps:61.9,drops:"Bane - Gotham Old Subway (Challenge), Lefty - Joker's Funhouse (Challenge), Magistrate - Lair of the Spectre (Challenge), OMAC - Omac Base (Duo), Venus Flytrap - Arkham Asylum"});
+
+  weaponCollection.push({name:"Abyssal Blast Gloves",type:"Hand Blaster",role:"DPS",dps:39.5, style:"Tempest Gauntlets", drops:""});
   weaponCollection.push({name:"Advanced Capacitor Gloves",type:"Hand Blaster",role:"DPS",dps:58.7,drops:"Brainiac Imprisoner"});
   weaponCollection.push({name:"Ancient Qwardian Cannons",type:"Hand Blaster",role:"DPS",dps:61.9,drops:"Envenomed Guard Dog in Cape Carmine Lighthouse DUO"});
   weaponCollection.push({name:"Articulated Inertron Blaster Gloves",type:"Hand Blaster",role:"DPS",dps:77.9,drops:""});
+  weaponCollection.push({name:"Articulated Synthium Power Gloves",type:"Hand Blaster",role:"DPS",dps:36.3,style:"Mongolian Gloves",drops:""});
   weaponCollection.push({name:"Barbed Energy Blasters",type:"Hand Blaster",role:"Healer",dps:90.7,drops:"Queen Bee in Hive Alert"});
   weaponCollection.push({name:"Blasters of Vengeance",type:"Hand Blaster",role:"Controller",dps:77.9,drops:"Chemo - Ace Chemicals"});
   weaponCollection.push({name:"Ceremonial Power Gloves of the Necropolis",type:"Hand Blaster",role:"DPS",dps:61.9,drops:"",style:"Magical Blast Foci"});
@@ -6670,6 +6897,7 @@ function isAccessory(lineString)
 
   weaponCollection.push({name:"Cyborg's Cybernetic Cannon",type:"Hand Blaster",role:"DPS",dps:65.1,drops:"",style:"Cyborg Glove Gun"});
   weaponCollection.push({name:"Defender's Acidfire Blaster Gloves",type:"Hand Blaster",role:"DPS",dps:68.3,drops:"",style:"Blaster Gauntlets"});
+  weaponCollection.push({name:"Demontouched Grips",type:"Hand Blaster",role:"DPS",dps:23.3,drops:"",style:"Runed Blaster Gloves"});
   weaponCollection.push({name:"Despot's Assault Foci",type:"Hand Blaster",role:"DPS",dps:113.1,drops:"Non, Ursa, & General Zod - Fortress of Solitude: Sunstone Matrix"});
   weaponCollection.push({name:"Despot's Convalescent Foci",type:"Hand Blaster",role:"Healer",dps:113.1,drops:"Non, Ursa, & General Zod - Fortress of Solitude: Sunstone Matrix"});
   weaponCollection.push({name:"Despot's Imperious Foci",type:"Hand Blaster",role:"Controller",dps:113.1,drops:"Non, Ursa, & General Zod - Fortress of Solitude: Sunstone Matrix"});
@@ -6680,10 +6908,12 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Focusing Gloves of the Risen",type:"Hand Blaster",role:"DPS",dps:90.7,drops:"Bat Family in Batcave: Outer Caverns Alert"});
   weaponCollection.push({name:"Mageblasters",type:"Hand Blaster",role:"DPS",dps:90.7,drops:"Gorilla Grodd"});
   weaponCollection.push({name:"Memento Mori",type:"Hand Blaster",role:"Healer",dps:77.9,drops:"Clownsanity - Ace Chemicals"});
+  weaponCollection.push({name:"Nanite-Enhanced Blaster Gloves",type:"Hand Blaster",role:"DPS",style:"Plasma Gauntlets", dps:57.1,drops:""});
   weaponCollection.push({name:"Nanobladed Blaster Gloves",type:"Hand Blaster",role:"DPS",dps:65.1,drops:"Harley Quinn"});
   weaponCollection.push({name:"Nanochined Blaster Gloves",type:"Hand Blaster",role:"DPS",dps:39.5,drops:"Altered Android"});
   weaponCollection.push({name:"Nanolinked Blaster Gloves",type:"Hand Blaster",role:"Healer",dps:61.9,drops:"",style:"Blaster Gauntlets"});
   weaponCollection.push({name:"Nautilus Handblasters",type:"Hand Blaster",role:"Tank",dps:68.3,drops:"Atrocitus"});
+  weaponCollection.push({name:"Power Gloves of Reprisal",type:"Hand Blaster",role:"DPS",dps:68.3,style:"Magical Blast Foci",drops:""});
   weaponCollection.push({name:"Prismatic Blasters",type:"Hand Blaster",role:"DPS",dps:103.5,drops:"Scorpionod MK-1 - Fortress of Solitude: The Chasm"});
   weaponCollection.push({name:"Prismatic Champion Blasters",type:"Hand Blaster",role:"Tank",dps:103.5,drops:"Bizarro, Power Girl, Supergirl - Fortress of Solitude: Power Core"});
 
@@ -6716,6 +6946,7 @@ function isAccessory(lineString)
 
   weaponCollection.push({name:"STAR Shielding Gloves Mk II",type:"Hand Blaster",role:"Tank",dps:97.1,drops:"Evil Star in Oan Sciencecells Alert"});
   weaponCollection.push({name:"Star-Born Power Gloves",type:"Hand Blaster",role:"Controller",dps:61.9,drops:"Perimeter Guard"});
+  weaponCollection.push({name:"Street Blasters",type:"Hand Blaster",role:"DPS",dps:23.3,style:"Hand Cannons",drops:""});
   weaponCollection.push({name:"Synthium Blaster Gloves",type:"Hand Blaster",role:"Controller",dps:33.1,drops:"UGA Elite Guard - Gorilla Island"});
 
   weaponCollection.push({name:"Thanagarian Enforcer's Blasters",type:"Hand Blaster",role:"DPS",dps:97.1,drops:"The Gatekeeper - Kahndaq"});
@@ -6746,6 +6977,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Grip of Death",type:"Martial Arts",role:"Healer",dps:97.1,drops:"Pharaoh Vezina in Kahndaq raid"});
   weaponCollection.push({name:"H'levenite Technician's Katar",type:"Martial Arts",role:"DPS",dps:61.9,drops:""});
   weaponCollection.push({name:"Human-Size H'levenite Claws",type:"Martial Arts",role:"DPS",dps:61.9,drops:"",style:"Hoop Katar"});
+  weaponCollection.push({name:"Hypernano Claws",type:"Martial Arts",role:"DPS",dps:57.1,drops:"",style:"Twinscythe Katar"});
   weaponCollection.push({name:"Iron Grips of the Risen",type:"Martial Arts",role:"DPS",dps:97.1,drops:"Ra's al Ghul in League of Assassin's Alert"});
   weaponCollection.push({name:"Jebidiah's Sharp Katar",type:"Martial Arts",role:"DPS",dps:68.3,drops:""});
   weaponCollection.push({name:"Jeweled Claws of Gold",type:"Martial Arts",role:"Healer",dps:53.9,drops:"Thresher"});
@@ -6760,6 +6992,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Lifegiver's Claws",type:"Martial Arts",role:"Healer",dps:97.1,drops:"Brother Eye"});
   weaponCollection.push({name:"Magus Katar",type:"Martial Arts",role:"DPS",dps:61.9,drops:"",style:"Mystic's Katar"});
   weaponCollection.push({name:"Neomagnetic Claws",type:"Martial Arts",role:"Controller",dps:42.7,drops:"",style:"Twinblade Katar"});
+  weaponCollection.push({name:"Officer's Claws",type:"Martial Arts",role:"DPS",dps:42.7,style:"Energy Blade Katar", drops:""});
   weaponCollection.push({name:"Officer's Sharpened Claws",type:"Martial Arts",role:"Controller",dps:97.1,drops:"Black Adam"});
   weaponCollection.push({name:"OmniScry Fighter's Claws",type:"Martial Arts",role:"DPS",dps:77.9,drops:"Shield Armor -Batcave: Inner Sanctum, Batcave: Outer Caverns, Treasure Chest - Batcave: Outer Caverns, Kahndaq"});
 
@@ -6833,6 +7066,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Jeweled Focusing Rod",type:"One-Handed",role:"Tank",dps:68.3,drops:"Killer Croc & Deathstroke Cape Carmine Lighthouse DUO"});
   weaponCollection.push({name:"Lizardman's Blade",type:"One-Handed",role:"Tank",dps:77.9,drops:"Lady Doombringer in Smallville Alert"});
   weaponCollection.push({name:"Lost Manhunter's Baton",type:"One-Handed",role:"DPS",dps:57.1,drops:"",style:"Manhunter Baton"});
+  weaponCollection.push({name:"Machined Synthium Sword",type:"One-Handed",role:"DPS",dps:27.7,style:"Bone Hilt Katana", drops:""});
   weaponCollection.push({name:"Nanofused Healer's Hammer",type:"One-Handed",role:"Healer",dps:39.5,drops:"Android"});
   weaponCollection.push({name:"Neutronium Axe",type:"One-Handed",role:"DPS",dps:97.1,drops:"Brother Eye"});
   weaponCollection.push({name:"Oasis Khadga",type:"One-Handed",role:"DPS",dps:68.3,drops:""});
@@ -6879,6 +7113,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Dark Lord's Rifle",type:"Rifle",role:"Tank",dps:97.1,drops:"General Adnan - Kahndaq"});
 
   weaponCollection.push({name:"Death Stalker's Shotgun",type:"Rifle",role:"Controller",dps:90.7,drops:"Doctor Pyrate"});
+  weaponCollection.push({name:"Demonhunter's Shotgun",type:"Rifle",role:"DPS",dps:27.7,style:"Heavy-Barreled Sniper Rifle",drops:""});
   weaponCollection.push({name:"Despot's Assault Rifle",type:"Rifle",role:"DPS",dps:113.1,drops:"Non, Ursa, & General Zod - Fortress of Solitude: Sunstone Matrix"});
   weaponCollection.push({name:"Despot's Convalescent Assault Rifle",type:"Rifle",role:"Healer",dps:113.1,drops:"Non, Ursa, & General Zod - Fortress of Solitude: Sunstone Matrix"});
   weaponCollection.push({name:"Despot's Imperious Assault Rifle",type:"Rifle",role:"Controller",dps:113.1,drops:"Non, Ursa, & General Zod - Fortress of Solitude: Sunstone Matrix"});
@@ -6941,6 +7176,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Utopian's Shotgun",type:"Rifle",role:"DPS",dps:68.3,drops:"Treasure Chest - Ace Chemicals",style:"Arcane Shotgun"});
 
   weaponCollection.push({name:"Warlord's Gorillatech Rifle",type:"Rifle",role:"DPS",dps:68.3,drops:"Treasure Chest - Ace Chemicals"});
+
   weaponCollection.push({name:"Bladed Reaper's Staff",            type:"Staff",role:"DPS",dps:68.3,drops:"Queen Bee - Hive Base (Duo)"});
 
   weaponCollection.push({name:"Buzzing Energy Staff",             type:"Staff",role:"Controller",dps:97.1,drops:"The Gatekeeper - Kahndaq"});
@@ -6970,6 +7206,8 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Legionnaire's Drillstaff",         type:"Staff",role:"Tank",dps:61.9,drops:"Android - Oolong Island Alert, Brainiac Spark - Area 51 Alert, Experiment 505 - Ace Chemicals, Guard Dog - Ace Chemicals, Paradox Reaper - Cosmic Treadmill: Flashback, Perimeter Guard - Batcave: Inner Sanctum, Batcave: Outer Caverns, Power Fist - League of Assassins Stronghold, Staff Master - League of Assassins Stronghold, Undead Soldier - Gotham University DUO"});
   weaponCollection.push({name:"Light Synthium Staff",             type:"Staff",role:"DPS",dps:65.1,drops:"Sequoia Lord - The Greenhouse (Challenge)"});
 
+  weaponCollection.push({name:"Light Themysciran Staff",          type:"Staff",role:"DPS",dps:39.5,style:"Amazon", drops:""});
+
   weaponCollection.push({name:"Linkstaff of the Immortals",       type:"Staff",role:"DPS",dps:77.9,drops:"Treasure Chest - Coast City, Kahndaq, Waterkeeper - Kahndaq, Blade Dancer in League of Assassin's Alert"});
 
   weaponCollection.push({name:"Machined Longstaff",               type:"Staff",role:"DPS",dps:39.5,drops:"",style:"Crystal Infused Staff"});
@@ -6988,6 +7226,7 @@ function isAccessory(lineString)
 
   weaponCollection.push({name:"Prismatic Staff",                  type:"Staff",role:"DPS",dps:103.5,drops:"Sunstone Herald - Fortress of Solitude: The Chasm"});
   weaponCollection.push({name:"Queen's Hookstaff",                type:"Staff",role:"Controller",dps:68.3,drops:"OMAC Sigma"});
+  weaponCollection.push({name:"Queen's Royal Rod",                type:"Staff",role:"DPS",dps:27.7,style:"Tech Staff",drops:""});
   weaponCollection.push({name:"Ringstaff of Thanagar",            type:"Staff",role:"DPS",dps:97.1,drops:"Bat Family"});
   weaponCollection.push({name:"Rod of the Deathstalker",          type:"Staff",role:"DPS",dps:61.9,drops:""});
   weaponCollection.push({name:"Ruthless Staff of the Risen",      type:"Staff",role:"DPS",dps:90.7,drops:"Captain Buzzzcutt"});
@@ -7002,7 +7241,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Specialized Grappler's Staff",     type:"Staff",role:"Controller",dps:41.1,drops:"Altered Android - Oolong Island"});
 
   weaponCollection.push({name:"Staff of Eternal Darkness",        type:"Staff",role:"Tank",dps:97.1,drops:"Black Adam in Kahndaq raid"});
-  weaponCollection.push({name:"Staff of Skulls",                  type:"Staff",role:"DPS",dps:77.9,drops:"Subprime Regulator Beta - Area 51 (Hard)"});
+  weaponCollection.push({name:"Staff of Skulls",                  type:"Staff",role:"DPS",dps:77.9,style:"Demon Head Staff", drops:"Subprime Regulator Beta - Area 51 (Hard)"});
 
   weaponCollection.push({name:"Staff of the Dead",                type:"Staff",role:"Tank",dps:77.9,drops:"Subprime Regulator Beta - Area 51 (Hard)"});
 
@@ -7023,6 +7262,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Veridium-Plated Staff",            type:"Staff",role:"DPS",dps:68.3,drops:"Guard Dog, Treasure Chest - Ace Chemicals"});
 
   weaponCollection.push({name:"Vicious Coluan Scythe",            type:"Staff",role:"DPS",dps:97.1,drops:"Brainiac - Batcave: Brainiac Sub-Construct"});
+
   weaponCollection.push({name:"Heavy Dormorian Hammer",                type:"Two-Handed",role:"DPS",dps:68.3,drops:"PVP Drop", style:"Steampunk Axe"});
   weaponCollection.push({name:"Accelerated Torque Hammer",             type:"Two-Handed",role:"Healer",dps:90.7,drops:"Tornado Tyrant - Oolong Island (Hard)"});
 
@@ -9256,6 +9496,7 @@ function calculateTime(character, startDateString, endDateString)
 
 
   var featCollection = [];
+  var featDetailCollection = [];
 
   featCollection.push({name:"Explore Gotham",                    category:"Exploration",subcategory:"General",   stars:3,points:50,faction:"Both",description:"Explore all Gotham districts"});
   featCollection.push({name:"Explore Metropolis",                category:"Exploration",subcategory:"General",   stars:3,points:50,faction:"Both",description:"Explore all Metropolis districts"});
@@ -9378,8 +9619,34 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"Pilot's License",                                   category:"Races",subcategory:"Flight",stars:1,points:10,faction:"Hero",description:"Complete all Flight Hero introductory races in the classic game"});
   featCollection.push({name:"It's Looking Good So Far",                          category:"Races",subcategory:"Flight",stars:1,points:10,faction:"Villain",description:"Complete all Flight Villain skilled races in the classic game"});
   featCollection.push({name:"I Am Dangerous",                                    category:"Races",subcategory:"Flight",stars:1,points:10,faction:"Villain",description:"Complete all Flight Villain introductory races in the classic game"});
-  featCollection.push({name:"Gotham Master Flier",                               category:"Races",subcategory:"Flight",stars:2,points:25,faction:"Both",description:"Complete all Flight Gotham races"});
   featCollection.push({name:"Metropolis Master Flier",                           category:"Races",subcategory:"Flight",stars:2,points:25,faction:"Both",description:"Complete all Flight Metropolis races"});
+  featCollection.push({id:1, name:"Gotham Master Flier: Villain",                category:"Races",subcategory:"Flight",stars:2,points:25,faction:"Villain",description:"Complete all Flight Gotham races"});
+  featCollection.push({id:2, name:"Gotham Master Flier: Hero",                   category:"Races",subcategory:"Flight",stars:2,points:25,faction:"Hero",description:"Complete all Flight Gotham races"});
+
+  // featDetailCollection not used yet, below is for Gotham Master Flier Villain
+  featDetailCollection.push({featID:1, partID:1,  description:"Complete the Tap Room Introductory Flight Challenge"});
+  featDetailCollection.push({featID:1, partID:2,  description:"Complete the Tap Room Rookie Flight Challenge"});
+  featDetailCollection.push({featID:1, partID:3,  description:"Complete the Otisburg Skilled Flight Challenge"});
+  featDetailCollection.push({featID:1, partID:4,  description:"Complete the East End Adept Flight Challenge"});
+  featDetailCollection.push({featID:1, partID:5,  description:"Complete the Burnley Docks Adept Flight Challenge"});
+  featDetailCollection.push({featID:1, partID:6,  description:"Complete the Robinson Park Master Flight Challenge"});
+  featDetailCollection.push({featID:1, partID:7,  description:"Complete the Burnley Docks Master Flight Challenge"});
+  featDetailCollection.push({featID:1, partID:8,  description:"Complete the Otisburg Expert Flight Challenge"});
+  featDetailCollection.push({featID:1, partID:9,  description:"Complete the Gotham University Expert Flight Challenge"});
+  featDetailCollection.push({featID:1, partID:10, description:"Complete the Robinson Park Spires Master Flight Challenge"});
+  featDetailCollection.push({featID:1, partID:11, description:"Complete the Otisburg Adept Flight Challenge"});
+
+  featDetailCollection.push({featID:2, partID:1,  description:"Complete the GCPD 9th Precinct Introductory Flight Challenge"});
+  featDetailCollection.push({featID:2, partID:2,  description:"Complete the GCPD 9th Precinct Rookie Flight Challenge"});
+  featDetailCollection.push({featID:2, partID:3,  description:"Complete the Otisburg Skilled Flight Challenge"});
+  featDetailCollection.push({featID:2, partID:4,  description:"Complete the East End Adept Flight Challenge"});
+  featDetailCollection.push({featID:2, partID:5,  description:"Complete the Burnley Docks Adept Flight Challenge"});
+  featDetailCollection.push({featID:2, partID:6,  description:"Complete the Robinson Park Master Flight Challenge"});
+  featDetailCollection.push({featID:2, partID:7,  description:"Complete the Burnley Docks Master Flight Challenge"});
+  featDetailCollection.push({featID:2, partID:8,  description:"Complete the Otisburg Expert Flight Challenge"});
+  featDetailCollection.push({featID:2, partID:9,  description:"Complete the Gotham University Expert Flight Challenge"});
+  featDetailCollection.push({featID:2, partID:10, description:"Complete the Robinson Park Spires Master Flight Challenge"});
+  featDetailCollection.push({featID:2, partID:11, description:"Complete the Otisburg Adept Flight Challenge"});
 
   featCollection.push({name:"Prodigious Performer",                              category:"Races",subcategory:"Acrobat",stars:2,points:25,faction:"Both",description:"Complete all Acrobatics master-level races in the classic game"});
   featCollection.push({name:"Terrific Trapezist",                                category:"Races",subcategory:"Acrobat",stars:2,points:25,faction:"Both",description:"Complete all Acrobatics expert races in the classic game"});
