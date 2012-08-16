@@ -1044,7 +1044,7 @@ function loadUsers() {
 
   // Now fill in hidden textbox containing variable of json string for all users and settings
   for (var i = 0; i < allUsers.length; i++) {
-    configUsers["Users"].push({name:allUsers[i], powerset:"", mentor:"", movementmode:""});
+    configUsers["Users"].push({name:allUsers[i], powerset:"", mentor:"", movementmode:"", faction:""});
   }
   
   // Write this variable as json string into hidden textbox so configure window can read it
@@ -3647,7 +3647,7 @@ function calculateExobits(character, startDateString, endDateString)
 
   if (total_exos > 0) {
     var results = '';
-    results = '<table class="exobitTablestyle:" ALIGN="center">';
+    results = '<table class="exobitTableStyle" ALIGN="center">';
     results += '<tr>';
     results += '<th>Type</th><th>Count</th><th>Percent of Total</th>';
     results += '</tr>';
@@ -6078,7 +6078,7 @@ function isAccessory(lineString)
 
   armorCollection.push({name:"Cybernetic Jawplate",type:"Face",role:"Tank",style:"Skull Reinforcement",drops:"Prince Ulgo - Watchtower Containment Facility"});
 
-  armorCollection.push({name:"Escapee's Mask",type:"Face",role:"Healer",style:"",drops:"Full Domino",drops:"Gorilla Grodd"});
+  armorCollection.push({name:"Escapee's Mask",type:"Face",role:"Healer",style:"Full Domino",drops:"Gorilla Grodd"});
 
   armorCollection.push({name:"Graphite Domino Mask",type:"Face",role:"Controller",style:"Classic",drops:"Riot Control Prototype"});
 
@@ -9607,21 +9607,21 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"If I Had a Token for Every Time...", category:"General",subcategory:"Tokens of Merit",stars:3,points:50,faction:"Both",description:"Add 5000 Tokens of Merit"});
   featCollection.push({name:"Grin and Merit",                     category:"General",subcategory:"Tokens of Merit",stars:3,points:50,faction:"Both",description:"Add 7500 Tokens of Merit"});
 
-  featCollection.push({name:"Natural Talent",                                    category:"Races",subcategory:"General",stars:3,points:50,faction:"Both",description:"Win a platinum medal on any expert level race without purchasing movement mode traits"});
-  featCollection.push({name:"Pro Athlete",                                       category:"Races",subcategory:"General",stars:3,points:50,faction:"Both",description:"Win a platinum medal on any adept level race without purchasing movement mode traits"});
-  featCollection.push({name:"Platinum Pace",                                     category:"Races",subcategory:"General",stars:1,points:10,faction:"Both",description:"Earn a platinum medal in any race"});
+  featCollection.push({name:"Natural Talent",                                    category:"General",subcategory:"Races",movement:"General",stars:3,points:50,faction:"Both",description:"Win a platinum medal on any expert level race without purchasing movement mode traits"});
+  featCollection.push({name:"Pro Athlete",                                       category:"General",subcategory:"Races",movement:"General",stars:3,points:50,faction:"Both",description:"Win a platinum medal on any adept level race without purchasing movement mode traits"});
+  featCollection.push({name:"Platinum Pace",                                     category:"General",subcategory:"Races",movement:"General",stars:1,points:10,faction:"Both",description:"Earn a platinum medal in any race"});
 
-  featCollection.push({name:"You Can Be My Wingman Anytime",                     category:"Races",subcategory:"Flight",stars:2,points:25,faction:"Both",description:"Complete all Flight master-level races in the classic game"});
-  featCollection.push({name:"Time to Buzz a Tower",                              category:"Races",subcategory:"Flight",stars:2,points:25,faction:"Both",description:"Complete all Flight expert races in the classic game"});
-  featCollection.push({name:"Do You Think Your Name Will Be on That Plaque?",    category:"Races",subcategory:"Flight",stars:2,points:25,faction:"Both",description:"Complete all Flight adept races in the classic game"});
-  featCollection.push({name:"More Than Just Fancy Flying",                       category:"Races",subcategory:"Flight",stars:2,points:25,faction:"Both",description:"Complete all Flight skilled races in the classic game"});
-  featCollection.push({name:"Gutsiest Move I Ever Saw",                          category:"Races",subcategory:"Flight",stars:1,points:10,faction:"Hero",description:"Complete all Flight Hero rookie races in the classic game"});
-  featCollection.push({name:"Pilot's License",                                   category:"Races",subcategory:"Flight",stars:1,points:10,faction:"Hero",description:"Complete all Flight Hero introductory races in the classic game"});
-  featCollection.push({name:"It's Looking Good So Far",                          category:"Races",subcategory:"Flight",stars:1,points:10,faction:"Villain",description:"Complete all Flight Villain skilled races in the classic game"});
-  featCollection.push({name:"I Am Dangerous",                                    category:"Races",subcategory:"Flight",stars:1,points:10,faction:"Villain",description:"Complete all Flight Villain introductory races in the classic game"});
-  featCollection.push({name:"Metropolis Master Flier",                           category:"Races",subcategory:"Flight",stars:2,points:25,faction:"Both",description:"Complete all Flight Metropolis races"});
-  featCollection.push({id:1, name:"Gotham Master Flier: Villain",                category:"Races",subcategory:"Flight",stars:2,points:25,faction:"Villain",description:"Complete all Flight Gotham races"});
-  featCollection.push({id:2, name:"Gotham Master Flier: Hero",                   category:"Races",subcategory:"Flight",stars:2,points:25,faction:"Hero",description:"Complete all Flight Gotham races"});
+  featCollection.push({name:"You Can Be My Wingman Anytime",                     category:"General",subcategory:"Races",movement:"Flight",stars:2,points:25,faction:"Both",description:"Complete all Flight master-level races in the classic game"});
+  featCollection.push({name:"Time to Buzz a Tower",                              category:"General",subcategory:"Races",movement:"Flight",stars:2,points:25,faction:"Both",description:"Complete all Flight expert races in the classic game"});
+  featCollection.push({name:"Do You Think Your Name Will Be on That Plaque?",    category:"General",subcategory:"Races",movement:"Flight",stars:2,points:25,faction:"Both",description:"Complete all Flight adept races in the classic game"});
+  featCollection.push({name:"More Than Just Fancy Flying",                       category:"General",subcategory:"Races",movement:"Flight",stars:2,points:25,faction:"Both",description:"Complete all Flight skilled races in the classic game"});
+  featCollection.push({name:"Gutsiest Move I Ever Saw",                          category:"General",subcategory:"Races",movement:"Flight",stars:1,points:10,faction:"Hero",description:"Complete all Flight Hero rookie races in the classic game"});
+  featCollection.push({name:"Pilot's License",                                   category:"General",subcategory:"Races",movement:"Flight",stars:1,points:10,faction:"Hero",description:"Complete all Flight Hero introductory races in the classic game"});
+  featCollection.push({name:"It's Looking Good So Far",                          category:"General",subcategory:"Races",movement:"Flight",stars:1,points:10,faction:"Villain",description:"Complete all Flight Villain skilled races in the classic game"});
+  featCollection.push({name:"I Am Dangerous",                                    category:"General",subcategory:"Races",movement:"Flight",stars:1,points:10,faction:"Villain",description:"Complete all Flight Villain introductory races in the classic game"});
+  featCollection.push({name:"Metropolis Master Flier",                           category:"General",subcategory:"Races",movement:"Flight",stars:2,points:25,faction:"Both",description:"Complete all Flight Metropolis races"});
+  featCollection.push({id:1, name:"Gotham Master Flier: Villain",                category:"General",subcategory:"Races",movement:"Flight",stars:2,points:25,faction:"Villain",description:"Complete all Flight Gotham races"});
+  featCollection.push({id:2, name:"Gotham Master Flier: Hero",                   category:"General",subcategory:"Races",movement:"Flight",stars:2,points:25,faction:"Hero",description:"Complete all Flight Gotham races"});
 
   // featDetailCollection not used yet, below is for Gotham Master Flier Villain
   featDetailCollection.push({featID:1, partID:1,  description:"Complete the Tap Room Introductory Flight Challenge"});
@@ -9648,27 +9648,27 @@ function calculateTime(character, startDateString, endDateString)
   featDetailCollection.push({featID:2, partID:10, description:"Complete the Robinson Park Spires Master Flight Challenge"});
   featDetailCollection.push({featID:2, partID:11, description:"Complete the Otisburg Adept Flight Challenge"});
 
-  featCollection.push({name:"Prodigious Performer",                              category:"Races",subcategory:"Acrobat",stars:2,points:25,faction:"Both",description:"Complete all Acrobatics master-level races in the classic game"});
-  featCollection.push({name:"Terrific Trapezist",                                category:"Races",subcategory:"Acrobat",stars:2,points:25,faction:"Both",description:"Complete all Acrobatics expert races in the classic game"});
-  featCollection.push({name:"Amazing Aerialist",                                 category:"Races",subcategory:"Acrobat",stars:2,points:25,faction:"Both",description:"Complete all Acrobatics adept races in the classic game"});
-  featCollection.push({name:"Terrific Tumbler",                                  category:"Races",subcategory:"Acrobat",stars:2,points:25,faction:"Both",description:"Complete all Acrobatics skilled races in the classic game"});
-  featCollection.push({name:"Acrobatic Amateur",                                 category:"Races",subcategory:"Acrobat",stars:1,points:10,faction:"Hero",description:"Complete all Acrobatics Hero rookie races in the classic game"});
-  featCollection.push({name:"Circus Act",                                        category:"Races",subcategory:"Acrobat",stars:1,points:10,faction:"Hero",description:"Complete all Acrobatics Hero introductory races in the classic game"});
-  featCollection.push({name:"Fantastic Funambulist",                             category:"Races",subcategory:"Acrobat",stars:1,points:10,faction:"Villain",description:"Complete all Acrobatics Villain rookie races in the classic game"});
-  featCollection.push({name:"Acrobat Athlete",                                   category:"Races",subcategory:"Acrobat",stars:1,points:10,faction:"Villain",description:"Complete all Acrobatics Villain introductory races in the classic game"});
-  featCollection.push({name:"Gotham Master Acrobat: Hero",                       category:"Races",subcategory:"Acrobat",stars:2,points:25,faction:"Both",description:"Complete all Acrobatics Gotham races"});
-  featCollection.push({name:"Metropolis Master Acrobat: Hero",                   category:"Races",subcategory:"Acrobat",stars:2,points:25,faction:"Both",description:"Complete all Acrobatics Metropolis races"});
+  featCollection.push({name:"Prodigious Performer",                              category:"General",subcategory:"Races",movement:"Acrobatics",stars:2,points:25,faction:"Both",description:"Complete all Acrobatics master-level races in the classic game"});
+  featCollection.push({name:"Terrific Trapezist",                                category:"General",subcategory:"Races",movement:"Acrobatics",stars:2,points:25,faction:"Both",description:"Complete all Acrobatics expert races in the classic game"});
+  featCollection.push({name:"Amazing Aerialist",                                 category:"General",subcategory:"Races",movement:"Acrobatics",stars:2,points:25,faction:"Both",description:"Complete all Acrobatics adept races in the classic game"});
+  featCollection.push({name:"Terrific Tumbler",                                  category:"General",subcategory:"Races",movement:"Acrobatics",stars:2,points:25,faction:"Both",description:"Complete all Acrobatics skilled races in the classic game"});
+  featCollection.push({name:"Acrobatic Amateur",                                 category:"General",subcategory:"Races",movement:"Acrobatics",stars:1,points:10,faction:"Hero",description:"Complete all Acrobatics Hero rookie races in the classic game"});
+  featCollection.push({name:"Circus Act",                                        category:"General",subcategory:"Races",movement:"Acrobatics",stars:1,points:10,faction:"Hero",description:"Complete all Acrobatics Hero introductory races in the classic game"});
+  featCollection.push({name:"Fantastic Funambulist",                             category:"General",subcategory:"Races",movement:"Acrobatics",stars:1,points:10,faction:"Villain",description:"Complete all Acrobatics Villain rookie races in the classic game"});
+  featCollection.push({name:"Acrobat Athlete",                                   category:"General",subcategory:"Races",movement:"Acrobatics",stars:1,points:10,faction:"Villain",description:"Complete all Acrobatics Villain introductory races in the classic game"});
+  featCollection.push({name:"Gotham Master Acrobat: Hero",                       category:"General",subcategory:"Races",movement:"Acrobatics",stars:2,points:25,faction:"Both",description:"Complete all Acrobatics Gotham races"});
+  featCollection.push({name:"Metropolis Master Acrobat: Hero",                   category:"General",subcategory:"Races",movement:"Acrobatics",stars:2,points:25,faction:"Both",description:"Complete all Acrobatics Metropolis races"});
 
-  featCollection.push({name:"If You Ain't First, You're Last",                   category:"Races",subcategory:"Speedster",stars:2,points:25,faction:"Both",description:"Complete all Speedster master-level races in the classic game"});
-  featCollection.push({name:"Shake and Bake",                                    category:"Races",subcategory:"Speedster",stars:2,points:25,faction:"Both",description:"Complete all Speedster expert races in the classic game"});
-  featCollection.push({name:"It Doesn't Matter If You Win By An Inch or a Mile", category:"Races",subcategory:"Speedster",stars:2,points:25,faction:"Both",description:"Complete all Speedster adept races in the classic game"});
-  featCollection.push({name:"You Almost Had Me? You Never Had a Chance",         category:"Races",subcategory:"Speedster",stars:2,points:25,faction:"Both",description:"Complete all Speedster skilled races in the classic game"});
-  featCollection.push({name:"What Are You, a Wheelman",                          category:"Races",subcategory:"Speedster",stars:1,points:10,faction:"Hero",description:"Complete all Speedster Hero rookie races in the classic game"});
-  featCollection.push({name:"Need For Speed",                                    category:"Races",subcategory:"Speedster",stars:1,points:10,faction:"Hero",description:"Complete all Speedster Hero introductory races in the classic game"});
-  featCollection.push({name:"Watcha Runnin' Under There, Man?",                  category:"Races",subcategory:"Speedster",stars:1,points:10,faction:"Villain",description:"Complete all Speedster Villain rookie races in the classic game"});
-  featCollection.push({name:"Nice Wheels",                                       category:"Races",subcategory:"Speedster",stars:1,points:10,faction:"Villain",description:"Complete all Speedster Villain introductory races in the classic game"});
-  featCollection.push({name:"Gotham Master Speedster",                           category:"Races",subcategory:"Speedster",stars:2,points:25,faction:"Both",description:"Complete all Speedster Gotham speedster races"});
-  featCollection.push({name:"Metropolos Master Speedster",                       category:"Races",subcategory:"Speedster",stars:2,points:25,faction:"Both",description:"Complete all Speedster Metropolis races"});
+  featCollection.push({name:"If You Ain't First, You're Last",                   category:"General",subcategory:"Races",movement:"Superspeed",stars:2,points:25,faction:"Both",description:"Complete all Speedster master-level races in the classic game"});
+  featCollection.push({name:"Shake and Bake",                                    category:"General",subcategory:"Races",movement:"Superspeed",stars:2,points:25,faction:"Both",description:"Complete all Speedster expert races in the classic game"});
+  featCollection.push({name:"It Doesn't Matter If You Win By An Inch or a Mile", category:"General",subcategory:"Races",movement:"Superspeed",stars:2,points:25,faction:"Both",description:"Complete all Speedster adept races in the classic game"});
+  featCollection.push({name:"You Almost Had Me? You Never Had a Chance",         category:"General",subcategory:"Races",movement:"Superspeed",stars:2,points:25,faction:"Both",description:"Complete all Speedster skilled races in the classic game"});
+  featCollection.push({name:"What Are You, a Wheelman",                          category:"General",subcategory:"Races",movement:"Superspeed",stars:1,points:10,faction:"Hero",description:"Complete all Speedster Hero rookie races in the classic game"});
+  featCollection.push({name:"Need For Speed",                                    category:"General",subcategory:"Races",movement:"Superspeed",stars:1,points:10,faction:"Hero",description:"Complete all Speedster Hero introductory races in the classic game"});
+  featCollection.push({name:"Watcha Runnin' Under There, Man?",                  category:"General",subcategory:"Races",movement:"Superspeed",stars:1,points:10,faction:"Villain",description:"Complete all Speedster Villain rookie races in the classic game"});
+  featCollection.push({name:"Nice Wheels",                                       category:"General",subcategory:"Races",movement:"Superspeed",stars:1,points:10,faction:"Villain",description:"Complete all Speedster Villain introductory races in the classic game"});
+  featCollection.push({name:"Gotham Master Speedster",                           category:"General",subcategory:"Races",movement:"Superspeed",stars:2,points:25,faction:"Both",description:"Complete all Speedster Gotham speedster races"});
+  featCollection.push({name:"Metropolos Master Speedster",                       category:"General",subcategory:"Races",movement:"Superspeed",stars:2,points:25,faction:"Both",description:"Complete all Speedster Metropolis races"});
 
   featCollection.push({name:"Practiced Eye",               category:"General",subcategory:"Collectibles",stars:1,points:10,faction:"Both",description:"Complete a collection, briefing, or investigation"});
   featCollection.push({name:"Master Detective",            category:"General",subcategory:"Collectibles",stars:3,points:50,faction:"Both",description:"Complete all Investigations in the classic game"});
@@ -11241,6 +11241,12 @@ function calculateFeatsNeeded(character, startDateString, endDateString)
     people = [ character ];
   }
 
+  var configureStr = document.getElementById("invisibleTextBoxHoldingVariables").value;
+  // Convert string into JSON object
+  var tempObj = JSON.parse(configureStr);
+  // Convert into an array of character objects
+  var arrayObjs = tempObj["Users"];
+
   people.forEach(function(person) {
     if (typeof(allLogLinesJSON[person]) != "undefined") {
 
@@ -11260,11 +11266,29 @@ function calculateFeatsNeeded(character, startDateString, endDateString)
           }
         }
       }
+
+      var thisCharsMovementMode = "";
+
+      for (var i = 0; i < arrayObjs.length; i++) {
+        if (person == arrayObjs[i].name) {
+          thisCharsMovementMode = arrayObjs[i].movementmode;
+          break;
+        }
+      }
+
       // Set all the feats we can't get to 1 so it won't display them
       for (var i=0; i<featCollection.length; i++) {
         if (((featCollection[i].faction == "Hero") && (faction == "Villain")) ||
             ((featCollection[i].faction == "Villain") && (faction == "Hero"))) {
           featList[featCollection[i].name] = 1;
+        }
+        // If movement mode doesn't match, don't display those feats as needed
+        if (featCollection[i].subcategory == "Races") {
+          if (thisCharsMovementMode != "") {
+            if (thisCharsMovementMode != featCollection[i].movement) {
+              featList[featCollection[i].name] = 1;
+            }
+          }
         }
       }
     }
@@ -11453,7 +11477,7 @@ function calculateFeatsNeeded(character, startDateString, endDateString)
     printIntro = 1;
   }
 
-  var categoriesGeneral = [ "General", "Tokens of Merit", "Collectibles" ];
+  var categoriesGeneral = [ "General", "Tokens of Merit", "Collectibles", "Races" ];
 
   for (var j=0; j<categoriesGeneral.length; j++) {
     for (var i=0; i<featCollection.length; i++) {
@@ -11467,41 +11491,6 @@ function calculateFeatsNeeded(character, startDateString, endDateString)
             }
             if (printOnce == 1) {
               results += '      <li>' + categoriesGeneral[j] + '/';
-              results += '        <ul>';
-              printOnce = 2;
-            }
-            results += '          <li>' + featCollection[i].name + ' (' + featCollection[i].stars + ' stars' + ')<ul><li>' + featCollection[i].description + '</li></ul></li>';
-          }
-        }
-      }
-    }
-    if (printOnce == 2) {
-      results += '        </ul>';
-      results += '      </li>';
-      printOnce = 1;
-    }
-  }
-
-  if (printIntro == 0) {
-    results += '    </ul>';
-    results += '  </li>';
-    printIntro = 1;
-  }
-
-  var categoriesRaces = [ "General", "Flight", "Acrobat", "Speedster" ];
-
-  for (var j=0; j<categoriesRaces.length; j++) {
-    for (var i=0; i<featCollection.length; i++) {
-      if (featCollection[i].category == "Races") {
-        if (featCollection[i].subcategory == categoriesRaces[j]) {
-          if (featList[featCollection[i].name] < 1) {
-            if (printIntro == 1) {
-              printIntro = 0;
-              results += '  <li>Races/';
-              results += '    <ul>';
-            }
-            if (printOnce == 1) {
-              results += '      <li>' + categoriesRaces[j] + '/';
               results += '        <ul>';
               printOnce = 2;
             }
@@ -11769,7 +11758,8 @@ function calculateFeatsSummary(character, startDateString, endDateString)
                       "StylesIconic", "Exploration", "ExplorationGeneral", "ExplorationRaids", "ExplorationMetropolis", "ExplorationGotham",
                       "ExplorationAlerts", "Alerts", "AlertsGeneral", "AlertsNormal", "AlertsHard", "RandD", "RandDGeneral", "RandDAssembly",
                       "RandDParts", "SeasonalStPatrick", "SeasonalValentine", "SeasonalWinter", "SeasonalSpringtime", "SeasonalSpooktacular",
-                      "SeasonalTidesOfWar", "DLCLantern", "DLCFlash", "DLCEarth", "DLCLaugh", "DuosGeneral", "DuosSpeedForce" ];
+                      "SeasonalTidesOfWar", "DLCLantern", "DLCFlash", "DLCEarth", "DLCLaugh", "DuosGeneral", "DuosSpeedForce", 
+                      "GeneralTokens", "GeneralRaces", "GeneralCollectibles" ];
 
   var maximumFeatCount = {};
   var numberFeatCount = {};
@@ -11811,19 +11801,62 @@ function calculateFeatsSummary(character, startDateString, endDateString)
   if (earliestTS < startTS) { earliestTS = startTS; }
   if (latestTS > endTS) { latestTS = endTS; }
 
+  var configureStr = document.getElementById("invisibleTextBoxHoldingVariables").value;
+  // Convert string into JSON object
+  var tempObj = JSON.parse(configureStr);
+  // Convert into an array of character objects
+  var arrayObjs = tempObj["Users"];
+
   people.forEach(function(person) {
 
     if (typeof(allLogLinesJSON[person]) != "undefined") {
       if (allLogLinesJSON[person].hasOwnProperty(itype)) {
 
-        var faction = determineFaction(person);
+        var faction = "";
+        var thisCharsMovementMode = "";
+        var thisCharsMentor = "";
+
+        for (var i = 0; i < arrayObjs.length; i++) {
+          if (person == arrayObjs[i].name) {
+            faction = arrayObjs[i].faction;
+            thisCharsMovementMode = arrayObjs[i].movementmode;
+            thisCharsMentor = arrayObjs[i].mentor;
+            break;
+          }
+        }
+
+        if (faction == "") {
+          faction = determineFaction(person);
+        }
+
+        // There are 3 General Race feats that are not specific to movement mode, everyone gets them
+        maximumFeatCount["GeneralRaces"][person] += 3; 
 
         for (var j=0; j<featCollection.length; j++) {
           if ((featCollection[j].faction == faction) || (featCollection[j].faction == "Both")) {
 
             maximumFeatCount["All"][person] += 1;
 
-            if (featCollection[j].category == "General")     { maximumFeatCount["General"][person] += 1; }
+            if (featCollection[j].category == "General")     { 
+              maximumFeatCount["General"][person] += 1; 
+
+              if (featCollection[j].subcategory == "Races") { 
+                if (thisCharsMovementMode != "") {
+                  if (thisCharsMovementMode == featCollection[j].movement) {
+                    maximumFeatCount["GeneralRaces"][person] += 1; 
+                  }
+                }
+                else {
+                  maximumFeatCount["GeneralRaces"][person] += 1; 
+                }
+              }
+              else if (featCollection[j].subcategory == "Tokens of Merit") { 
+                maximumFeatCount["GeneralTokens"][person] += 1; 
+              }
+              else if (featCollection[j].subcategory == "Collectibles") { 
+                maximumFeatCount["GeneralCollectibles"][person] += 1; 
+              }
+            }
             else if (featCollection[j].category == "Raids")  { maximumFeatCount["Raids"][person] += 1; }
             else if (featCollection[j].category == "Renown") { maximumFeatCount["Renown"][person] += 1; }
             else if (featCollection[j].category == "Duos") {
@@ -11912,7 +11945,18 @@ function calculateFeatsSummary(character, startDateString, endDateString)
 
                 // listMessage += cat + ": " + featCollection[j].subcategory + "\r\n";
 
-                if (cat == "General")     { numberFeatCount["General"][person] += 1; }
+                if (cat == "General")     {
+                  numberFeatCount["General"][person] += 1; 
+                  if (featCollection[j].subcategory == "Races") { 
+                    numberFeatCount["GeneralRaces"][person] += 1; 
+                  }
+                  else if (featCollection[j].subcategory == "Tokens of Merit") { 
+                    numberFeatCount["GeneralTokens"][person] += 1; 
+                  }
+                  else if (featCollection[j].subcategory == "Collectibles") { 
+                    numberFeatCount["GeneralCollectibles"][person] += 1; 
+                  }
+                }
                 else if (cat == "Raids")  { numberFeatCount["Raids"][person] += 1; }
                 else if (cat == "Renown") { numberFeatCount["Renown"][person] += 1; }
                 else if (cat == "Duos") {
@@ -12066,6 +12110,11 @@ function calculateFeatsSummary(character, startDateString, endDateString)
       results += '    <li style="font-family:' + font + ';">Renown' + printSpaces(20) + numberFeatCount["Renown"][characterName] + '/' + maximumFeatCount["Renown"][characterName];
       results += '    </li>';
       results += '    <li style="font-family:' + font + ';">General' + printSpaces(19) + numberFeatCount["General"][characterName] + '/' + maximumFeatCount["General"][characterName];
+      results += '      <ul>';
+      results += '        <li style="font-family:' + font + ';">Tokens of Merit' + printSpaces(11) + numberFeatCount["GeneralTokens"][characterName] + '/' + maximumFeatCount["GeneralTokens"][characterName] + '</li>';
+      results += '        <li style="font-family:' + font + ';">Races' + printSpaces(21) + numberFeatCount["GeneralRaces"][characterName]  + '/' + maximumFeatCount["GeneralRaces"][characterName]  + '</li>';
+      results += '        <li style="font-family:' + font + ';">Collectibles' + printSpaces(14) + numberFeatCount["GeneralCollectibles"][characterName]  + '/' + maximumFeatCount["GeneralCollectibles"][characterName]  + '</li>';
+      results += '      </ul>';
       results += '    </li>';
       results += '    <li style="font-family:' + font + ';">Player vs. Player' + printSpaces(9) + numberFeatCount["PVP"][characterName] + '/' + maximumFeatCount["PVP"][characterName];
       results += '      <ul>';
@@ -12102,6 +12151,7 @@ function calculateFeatsSummary(character, startDateString, endDateString)
   }
 
   var itemTotalPerPerson = {};
+  var person = "";
   for (var i = 0; i < allUsers.length; i++) {
     person = allUsers[i];
     itemTotalPerPerson[person] = numberFeatCount["All"][person];
