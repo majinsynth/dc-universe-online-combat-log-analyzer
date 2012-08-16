@@ -108,21 +108,27 @@ function updateConfig() {
 
   if (document.getElementById('mentorBatman').checked == true) {
     tempObj["Users"][id].mentor = "Batman";
+    tempObj["Users"][id].faction = "Hero";
   }
   else if (document.getElementById('mentorSuperman').checked == true) {
     tempObj["Users"][id].mentor = "Superman";
+    tempObj["Users"][id].faction = "Hero";
   }
   else if (document.getElementById('mentorWonderWoman').checked == true) {
     tempObj["Users"][id].mentor = "WonderWoman";
+    tempObj["Users"][id].faction = "Hero";
   }
   else if (document.getElementById('mentorJoker').checked == true) {
     tempObj["Users"][id].mentor = "Joker";
+    tempObj["Users"][id].faction = "Villain";
   }
   else if (document.getElementById('mentorLexLuthor').checked == true) {
     tempObj["Users"][id].mentor = "LexLuthor";
+    tempObj["Users"][id].faction = "Villain";
   }
   else if (document.getElementById('mentorCirce').checked == true) {
     tempObj["Users"][id].mentor = "Circe";
+    tempObj["Users"][id].faction = "Villain";
   }
 
   if (document.getElementById('movementAcrobatics').checked == true) {
@@ -131,8 +137,8 @@ function updateConfig() {
   else if (document.getElementById('movementFlight').checked == true) {
     tempObj["Users"][id].movementmode = "Flight";
   }
-  else if (document.getElementById('movementSuperSpeed').checked == true) {
-    tempObj["Users"][id].movementmode = "SuperSpeed";
+  else if (document.getElementById('movementSuperspeed').checked == true) {
+    tempObj["Users"][id].movementmode = "Superspeed";
   }
 
   if (document.getElementById('powersetGadgets').checked == true) {
@@ -206,7 +212,7 @@ function fillData() {
   document.getElementById('mentorCirce').checked = false;
   document.getElementById('movementAcrobatics').checked = false;
   document.getElementById('movementFlight').checked = false;
-  document.getElementById('movementSuperSpeed').checked = false;
+  document.getElementById('movementSuperspeed').checked = false;
   document.getElementById('powersetGadgets').checked = false;
   document.getElementById('powersetMental').checked = false;
   document.getElementById('powersetHardLight').checked = false;
@@ -242,8 +248,8 @@ function fillData() {
   else if (arrayObjs[id].movementmode == "Flight") {
     document.getElementById('movementFlight').checked = true;
   }
-  else if (arrayObjs[id].movementmode == "SuperSpeed") {
-    document.getElementById('movementSuperSpeed').checked = true;
+  else if (arrayObjs[id].movementmode == "Superspeed") {
+    document.getElementById('movementSuperspeed').checked = true;
   }
 
   if (arrayObjs[id].powerset == "Gadgets") {
@@ -334,7 +340,7 @@ For character:
     <td>
       <input type="radio" name="movement" id="movementAcrobatics"  onclick="javascript:updateConfig();"/>Acrobatics
       <input type="radio" name="movement" id="movementFlight"      onclick="javascript:updateConfig();"/>Flight
-      <input type="radio" name="movement" id="movementSuperSpeed"  onclick="javascript:updateConfig();"/>Super-Speed
+      <input type="radio" name="movement" id="movementSuperspeed"  onclick="javascript:updateConfig();"/>Superspeed
     </td>
   </tr>
   <tr>
