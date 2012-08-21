@@ -23,7 +23,7 @@ Source and latest copy found at Google Project site:
 //*	Version 4.0	Modified by ClassicFumbles, Entire GUI rewrite using HTA instead of msgbox
 //*                              added google api graphs, javascript datepicker, view marks, cash,
 //*                              feats, time.  Now loads data into disconnected recordset.
-//*	Version 5.0	Complete rewrite into HTML5 and javascript only, no jscript, hta, or vbscript
+//*	Version 5.0	Complete rewrite into HTML5 and javascript only, no jscript, hta, or vbscriptf
 //*	Version 5.1	Bug fixes, implement weapons, armor, feats, plans, damage.
 //*	Version 5.2	Create HTML to display exobit and needed data instead of textarea textbox
 //*                              exobit data displayed in table now, needed data in tree like structure
@@ -316,8 +316,8 @@ table.sortable tr.sortbottom td {
        <br><br>
        <input id="helpbutton" value="Help" onclick="javascript:HelpWindow();" type="button">
        <input id="aboutbutton" value="About" onclick="javascript:AboutWindow();" type="button">
-       <input id="quitbutton" value="Exit" onclick="javascript:ExitProgram();" type="button">
-       <button style="visibility: hidden;" name="configurebuttonName" id="configurebuttonID" onclick="javascript:configure();">Configure</button>
+       <!-- input id="quitbutton" value="Exit" onclick="javascript:ExitProgram();" type="button" -->
+       <button name="configurebuttonName" id="configurebuttonID" onclick="javascript:configure();">Configure</button>
        <button style="visibility: hidden;" name="cancelbutton" id="cancelbutton" onclick="javascript:cancelReadFile();">Cancel read</button>
        <!-- input value="Debug" onclick="javascript:displaymessage();" type="button" -->
     </td>
@@ -427,7 +427,6 @@ function claInit() {
 // When the file hasn't been loaded yet or is done loading, hide the cancel file load button
 
 document.getElementById('cancelbutton').style.visibility='hidden';      // hide when file loading not happening
-document.getElementById('configurebuttonID').style.visibility='hidden'; // hide when file loading not done
 
 
 // These are use to display a progress bar when loading the combat logs
@@ -517,7 +516,7 @@ function  isEmpty(obj) {
 //    mentor they have, movement mode, etc.
 
 function configure() {
-  var popup = window.open("configure.html","Configure","menubar=yes,width=1000,height=480");
+  var popup = window.open("configure.html","Configure","menubar=no,width=1000,height=630");
 }
 
 
@@ -583,30 +582,46 @@ function aliasMergeCharacters() {
   // Check to see if alias happened, that is, user chose to merge two characters
   var arrayObjs = configUsers["Users"];
 
+  var mainUser = "";
+  var mainAlias = "";
+
   for(var key in arrayObjs) {
     if (arrayObjs.hasOwnProperty(key)) {
       if (arrayObjs[key].alias != "") {
         if (arrayObjs[key].alias != arrayObjs[key].name) {
-          var aliasData = allLogLinesJSON[arrayObjs[key].alias];
-          delete allLogLinesJSON[arrayObjs[key].alias]; 
+          mainUser = arrayObjs[key].name;
+          mainAlias = arrayObjs[key].alias;
+          var aliasData = allLogLinesJSON[mainAlias];
+          delete allLogLinesJSON[mainAlias]; 
           var newObj = {};
-          newObj[arrayObjs[key].name] = aliasData;
+          newObj[mainUser] = aliasData;
           var logLineJSON = JSON.stringify(newObj);
           concatenateData(logLineJSON);
-          allUsers.splice(allUsers.indexOf(arrayObjs[key].alias), 1);
+          allUsers.splice(allUsers.indexOf(mainAlias), 1);
           // Have to find where the index in the array of the to be removed character is
           for(var key2 in arrayObjs) {
-            if (arrayObjs[key2].name == arrayObjs[key].alias) {
+            if (arrayObjs[key2].name == mainAlias) {
               arrayObjs.splice(key2, 1);
               break;
             }
           }
-          arrayObjs[key].alias = "";
+          break;
         }
       }
     }
   }
-  
+
+  // Clear out alias from configusers string for the original char name
+  //   We do this after because we modified arrayObjs above to remove the alias
+
+  for(var key in arrayObjs) {
+    if (arrayObjs.hasOwnProperty(key)) {
+      if (arrayObjs[key].name == mainUser) {
+        arrayObjs[key].alias = "";
+      }
+    }
+  }
+
   // Attempt to save large json object to localstorage for quick retrieval later
   saveDataFile();
 
@@ -620,6 +635,9 @@ function aliasMergeCharacters() {
   dataOptionExecute();
 }
 
+
+// Just used for debugging.  If there is too much data to print to browser debugging console,
+//    just print first and last 10 characters
 
 function consolePrintLargeData(arrayStruct, name) {
   var arrLen = arrayStruct.length;
@@ -716,7 +734,6 @@ function readDataFile() {
   dataLoadinProgress=false;
 
   document.getElementById('cancelbutton').style.visibility='hidden'; // hide
-  document.getElementById('configurebuttonID').style.visibility='visible'; // show   
 
   // Now that the data from the combat log is loaded into memory
   //   Set the HTML table to block to be visible on the browser
@@ -740,12 +757,24 @@ function readDataFile() {
 // I would rather use saveAs() but this isn't very reliable on different browsers
 //    would mean including two more js files
 
-function exportDataToFile() {
-//  alert("Not implemented yet");
+// So right now the hack is to spit the data to a textarea and have the user 
+//    cut and paste into a file for importing later.  
 
-//  var allJSON = JSON.stringify(allLogLinesJSON);
-//  var compressedJSON = Iuppiter.compress(allJSON);
-//  var encodedJSON = Iuppiter.Base64.encode(compressedJSON, true);
+function exportDataToFile() {
+
+  var allJSON = JSON.stringify(allLogLinesJSON);
+  var compressedJSON = Iuppiter.compress(allJSON);
+  var encodedJSON = Iuppiter.Base64.encode(compressedJSON, true);
+  document.getElementById('StatsDisplay').style.display="block";
+  document.getElementById('TableDisplay').style.display="none";
+  document.getElementById("StatsDisplay").innerHTML = encodedJSON;
+  document.getElementById('LeftChartDiv').innerHTML = "";
+  var messageText = "Press Control-A to select all the encoded data above.\r\n";
+  messageText += "Then press Control-C to copy to your clipboard.\r\n";
+  messageText += "Then open a text editor such as notepad and paste the encoded data into notepad and save as a text file.\r\n";
+  messageText += "Then later you can import this data by clicking the Configure button and selecting the file and performing an Import.\r\n";
+  messageText += "This should be much faster than importing a large old combat log.\r\n";
+  document.getElementById('RightChartDiv').innerHTML = messageText;
 
 //  var bb = new BlobBuilder();
 //  bb.append((new XMLSerializer).serializeToString(document));
@@ -756,10 +785,45 @@ function exportDataToFile() {
 
 
 // Basically just like the load combat file code, add handlers and progress bar
-//    run concatenate on entire loaded string (should be megabytes in size)
+//    run concatenate on entire loaded string (could be megabytes in size)
 
-function importDataFromFile() {
-//  alert("Not implemented yet");
+function importDataFromFile(JSONstring) {
+
+  var dataBytes = Iuppiter.toByteArray(JSONstring);
+  var compressedJSON = Iuppiter.Base64.decode(dataBytes, true);
+
+  // Hack because the base64 decode puts two zeroes "0" at the end of the string
+  //    and JSON.parse barfs on it.  So I changed the 0 char to space char (32)
+
+  var linelen = compressedJSON.length;
+  for (var i = linelen-3; i < linelen; i++) {
+    if (compressedJSON[i] == 0) {
+      compressedJSON[i] = 32;
+    }
+  }
+
+  var allJSON = Iuppiter.decompress(compressedJSON);
+  try {
+    concatenateData(allJSON);
+  }
+  catch(e) {
+    return false;
+  }
+
+  // Now that the data from the combat log is loaded into memory
+  //   Set the HTML table to block to be visible on the browser
+  //   so the user can filter and display the data
+  document.getElementById('table1').style.display="block";
+
+  populateUserCharacters();
+
+  // Populate the drop down menu with characters
+  loadUsers();
+
+  // Will use default selection of Exobit and display screen
+  dataOptionExecute();
+
+  return true;
 }
 
 
@@ -887,7 +951,6 @@ upload.onchange = function (e) {
         loadTimeEnd = new Date();
 
         document.getElementById('cancelbutton').style.visibility='hidden'; // hide
-        document.getElementById('configurebuttonID').style.visibility='visible'; // show   
 
         // Now that the data from the combat log is loaded into memory
         //   Set the HTML table to block to be visible on the browser
@@ -3159,95 +3222,44 @@ function parseLogLinesForKeywords(lineArray)
 
 function displaymessage()
 {
-    var logLineJSON = JSON.stringify(allLogLinesJSON);
-    console.log("length of json = " + logLineJSON.length);
-    if (logLineJSON.length < 80000) {
-      console.log("=>"+logLineJSON+"<=");
-    }
-    else {
-      console.log("allLogLinesJSON = " + logLineJSON[0] + logLineJSON[1] + logLineJSON[2] + logLineJSON[3] + logLineJSON[4] + "..." + logLineJSON[logLineJSON.length-3] + logLineJSON[logLineJSON.length-2] + logLineJSON[logLineJSON.length-1]);
-    }
-    var people = Object.keys(allLogLinesJSON);
-    console.log("Number of characters = " + people.length);
+  var logLineJSON = JSON.stringify(allLogLinesJSON);
+  consolePrintLargeData(logLineJSON, "allLogLinesJSON");
 
-    var compressTimeStart = new Date();
-    var compressed1 = Iuppiter.compress(logLineJSON);
-    var compressTimeEnd = new Date();
-    console.log("File compress time start: " + compressTimeStart);
-    console.log("File compress time end: " + compressTimeEnd);
-    console.log("length of compressed json = " + compressed1.length);
-    if (compressed1.length < 80000) {
-      console.log("=>"+compressed1+"<=");
-    }
+  var people = Object.keys(allLogLinesJSON);
+  console.log("Number of characters = " + people.length);
 
-    var uncompressTimeStart = new Date();
-    var uncompressed1 = Iuppiter.decompress(compressed1);
-    var uncompressTimeEnd = new Date();
-    console.log("File uncompress time start: " + uncompressTimeStart);
-    console.log("File uncompress time end: " + uncompressTimeEnd);
-    console.log("length of uncompressed json = " + uncompressed1.length);
-    if (uncompressed1.length < 80000) {
-      console.log("=>"+uncompressed1+"<=");
-    }
+  var compressTimeStart = new Date();
+  var compressed1 = Iuppiter.compress(logLineJSON);
+  var compressTimeEnd = new Date();
+  console.log("File compress time start: " + compressTimeStart);
+  console.log("File compress time end: " + compressTimeEnd);
+  consolePrintLargeData(compressed1, "compressed json");
 
-    if (uncompressed1 == logLineJSON) {
-      console.log("Compression check PASSED");
-    }
-    else {
-      console.log("Compression check failed");
-    }
+  var uncompressTimeStart = new Date();
+  var uncompressed1 = Iuppiter.decompress(compressed1);
+  var uncompressTimeEnd = new Date();
+  console.log("File uncompress time start: " + uncompressTimeStart);
+  console.log("File uncompress time end: " + uncompressTimeEnd);
+  consolePrintLargeData(uncompressed1, "uncompressed json");
 
-    for (var i = 0; i < allUsers.length; i++) {
-      console.log(i + " allUser character = " + allUsers[i]);
-    }
+  if (uncompressed1 == logLineJSON) {
+    console.log("Compression check PASSED");
+  }
+  else {
+    console.log("Compression check failed");
+  }
 
-    console.log("config string = " + JSON.stringify(readConfigUsers()));
+  for (var i = 0; i < allUsers.length; i++) {
+    console.log(i + " allUser character = " + allUsers[i]);
+  }
 
-
-/*
-    if (people.length < 200) {
-      var people = Object.keys(allLogLinesJSON);
-      people.forEach(function(person) {
-        var itemtypes = Object.keys(allLogLinesJSON[person]);
-        itemtypes.forEach(function(itype) {
-          lineArray = allLogLinesJSON[person][itype];
-          for (var i=0; i<lineArray.length; i++) {
-            var items = lineArray[i];
-            var lineitems = Object.keys(items);
-            lineitems.forEach(function(nn) {
-              var value = lineArray[i][nn];
-              console.log("Name:" + person + ': itype: ' + itype + ' line: '+ i + " nn: " + nn + " value: " + value);
-            });
-          }
-        });
-      });
-    }
-
-    for (var i = 0; i < allUsers.length; i++) {
-      console.log(i + ". " + allUsers[i]);
-    }
-*/
-    console.log("Number of feats = " + featCollection.length);
-    console.log("Loaded files = " + loadedFiles);
-    console.log("File load time start: " + loadTimeStart);
-    console.log("File load time end: " + loadTimeEnd);
-    console.log("chunkSize : " + chunkSize);
-
-/*
-    var person = "coolforce";
-    var itype = "Roles";
-
-          var lineArray = allLogLinesJSON[person][itype];
-          for (var i=0; i<lineArray.length; i++) {
-            var items = lineArray[i];
-            var lineitems = Object.keys(items);
-            lineitems.forEach(function(nn) {
-              var value = lineArray[i][nn];
-              console.log("Name:" + person + ': itype: ' + itype + ' line: '+ i + " nn: " + nn + " value: " + value);
-            });
-          }
-*/
-
+  console.log("config string = " + JSON.stringify(readConfigUsers()));
+  console.log("Number of armor = " + armorCollection.length);
+  console.log("Number of feats = " + featCollection.length);
+  console.log("Loaded files = " + loadedFiles);
+  console.log("File load time start: " + loadTimeStart);
+  console.log("File load time end: " + loadTimeEnd);
+  console.log("chunkSize : " + chunkSize);
 }
 
 
@@ -6495,22 +6507,22 @@ function isAccessory(lineString)
   armorCollection.push({name:"Archdruid's All-Powerful Pauldrons",         type:"Shoulders", role:"Controller", style:"Druid",               drops:"Waterkeeper - Kahndaq"});
 
   armorCollection.push({name:"Tenacious Nth-Metal Shoulders",              type:"Shoulders", role:"DPS",        style:"Druid",               drops:"Vendor in Gotham safehouse",                         faction:"Both"});
-  armorCollection.push({name:"Gloves of the Ancients",                     type:"Hands",role:"DPS",style:"Druid",drops:"Treasure chest in Grodd Duo"});
-  armorCollection.push({name:"Grasp of the Shadowpact",                    type:"Hands",role:"DPS",style:"Druid",drops:"Treasure Chest"});
-  armorCollection.push({name:"Grips of the Archdruid",                     type:"Hands",role:"DPS",style:"Druid",drops:"Soulless Shell"});
-  armorCollection.push({name:"Moonglow Gloves",                            type:"Hands",role:"DPS",style:"Druid",drops:"Whitetip in Aquaman mission"});
-  armorCollection.push({name:"Summoner's Mystic Gloves",                   type:"Hands",role:"DPS",style:"Druid",drops:"Treasure Chest"});
-  armorCollection.push({name:"Belt of Dreams",                             type:"Waist",role:"Tank",style:"Druid",drops:"Vanguard"});
-  armorCollection.push({name:"Foreststep Belt",                            type:"Waist",role:"Healer",style:"Druid",drops:"Warder"});
-  armorCollection.push({name:"Nightwalker's Belt",                         type:"Waist",role:"DPS",style:"Druid",drops:"T1 duos, Grodd, OMAC"});
-  armorCollection.push({name:"Nightwalker's Shrouded Belt",                type:"Waist",role:"DPS",style:"Druid",drops:"Batcave raids"});
-  armorCollection.push({name:"Archdruid's Treads",                         type:"Feet",role:"DPS",style:"Druid",drops:"Drop"});
-  armorCollection.push({name:"Druid's Boots",                              type:"Feet",role:"DPS",style:"Druid",drops:"Soulless Skirmisher"});
-  armorCollection.push({name:"Manawalkers",                                type:"Feet",role:"DPS",style:"Druid",drops:"Treasure Chest - Cosmic Treadmill: Flashback, Gotham University DUO, Omac Base DUO"});
-  armorCollection.push({name:"Riverrock Treads",                           type:"Feet",role:"DPS",style:"Druid",drops:""});
-  armorCollection.push({name:"Battleworn Cloak of the Ancients",           type:"Back",role:"DPS",style:"Druid",drops:"Worker - Hive Base Duo, Treasure Chest - Ferris Aircraft, Omac Base Duo"});
-  armorCollection.push({name:"Shadowy Cloak",                              type:"Back",role:"DPS",style:"Druid",drops:""});
-  armorCollection.push({name:"Timeworn Slayer's Cloak",                    type:"Back",role:"Controller",style:"Druid",drops:"Minion of Wrath"});
+  armorCollection.push({name:"Gloves of the Ancients",                     type:"Hands",     role:"DPS",style:"Druid",drops:"Treasure chest in Grodd Duo"});
+  armorCollection.push({name:"Grasp of the Shadowpact",                    type:"Hands",     role:"DPS",style:"Druid",drops:"Treasure Chest"});
+  armorCollection.push({name:"Grips of the Archdruid",                     type:"Hands",     role:"DPS",style:"Druid",drops:"Soulless Shell"});
+  armorCollection.push({name:"Moonglow Gloves",                            type:"Hands",     role:"DPS",style:"Druid",drops:"Whitetip in Aquaman mission"});
+  armorCollection.push({name:"Summoner's Mystic Gloves",                   type:"Hands",     role:"DPS",style:"Druid",drops:"Treasure Chest"});
+  armorCollection.push({name:"Belt of Dreams",                             type:"Waist",     role:"Tank",style:"Druid",drops:"Vanguard"});
+  armorCollection.push({name:"Foreststep Belt",                            type:"Waist",     role:"Healer",style:"Druid",drops:"Warder"});
+  armorCollection.push({name:"Nightwalker's Belt",                         type:"Waist",     role:"DPS",style:"Druid",drops:"T1 duos, Grodd, OMAC"});
+  armorCollection.push({name:"Nightwalker's Shrouded Belt",                type:"Waist",     role:"DPS",style:"Druid",drops:"Batcave raids"});
+  armorCollection.push({name:"Archdruid's Treads",                         type:"Feet",      role:"DPS",style:"Druid",drops:"Drop"});
+  armorCollection.push({name:"Druid's Boots",                              type:"Feet",      role:"DPS",style:"Druid",drops:"Soulless Skirmisher"});
+  armorCollection.push({name:"Manawalkers",                                type:"Feet",      role:"DPS",style:"Druid",drops:"Treasure Chest - Cosmic Treadmill: Flashback, Gotham University DUO, Omac Base DUO"});
+  armorCollection.push({name:"Riverrock Treads",                           type:"Feet",      role:"DPS",style:"Druid",drops:""});
+  armorCollection.push({name:"Battleworn Cloak of the Ancients",           type:"Back",      role:"DPS",style:"Druid",drops:"Worker - Hive Base Duo, Treasure Chest - Ferris Aircraft, Omac Base Duo"});
+  armorCollection.push({name:"Shadowy Cloak",                              type:"Back",      role:"DPS",style:"Druid",drops:""});
+  armorCollection.push({name:"Timeworn Slayer's Cloak",                    type:"Back",      role:"Controller",style:"Druid",drops:"Minion of Wrath"});
 
   // Style Unknown
   armorCollection.push({name:"Alloyed Inertron Legguards",                 type:"Legs",      role:"DPS", style:"", drops:"UGA Commander in Gorilla Island Alert"});
@@ -10897,6 +10909,60 @@ function calculateArmorNeeded(character, startDateString, endDateString)
 
         var faction = determineFaction(person);
 
+        if (allLogLinesJSON[person].hasOwnProperty("Roles")) {
+          role = determineRole(allLogLinesJSON[person]["Roles"]);
+        }
+
+        // If user specified the powerset manually, use that instead of figured out one
+        var found = 0;
+        var ID = -1;
+
+        for (var i = 0; i < allUsers.length; i++) {
+          if (allUsers[i] == person) {
+            found = 1;
+            ID = i;
+          }
+        }
+
+        var powerset = "";
+
+        if (found == 1) {
+          var configUsers = readConfigUsers();
+          for (var i = 0; i < configUsers["Users"].length; i++) {
+            if (configUsers["Users"][i].name == allUsers[ID]) {
+              if (configUsers["Users"][i].powerset != "") {
+                powerset = configUsers["Users"][i].powerset;
+              }
+              if (configUsers["Users"][i].faction != "") {
+                faction = configUsers["Users"][i].faction;
+              }
+              break;
+            }
+          }
+        }
+
+        switch (powerset) {
+          case "Fire":
+          case "Ice":
+          case "Earth":
+                role = "Tank";
+                break;
+          case "Gadgets":
+          case "Mental":
+          case "Hard Light":
+                role = "Controller";
+                break;
+          case "Nature":
+          case "Sorcery":
+          case "Electric":
+                role = "Healer";
+                break;
+          case "DPS":
+                break;
+          default:
+            // console.log("Undefined role type: " + role + " person = " + person);
+        }
+
         for (var i=0; i<itemArray.length; i++) {
           timestamp = parseFloat(itemArray[i].time);
 
@@ -10924,9 +10990,6 @@ function calculateArmorNeeded(character, startDateString, endDateString)
             }
           }
           }
-        }
-        if (allLogLinesJSON[person].hasOwnProperty("Roles")) {
-          role = determineRole(allLogLinesJSON[person]["Roles"]);
         }
       }
     }
