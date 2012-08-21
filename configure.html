@@ -37,26 +37,20 @@ function addEvent(o,e,f){
 addEvent(window, "load", windowInit);
 
 function windowInit() {
-  // Read the variable string from the parent window containing character data
-  var myVal = window.opener.GetValueFromChild();
 
-  // Write this string to this window's invisible textbox
-  document.getElementById("invisibleTextBoxHoldingVariables").value = myVal;
-
+  // Load the select drop down menu with characters this user plays
   loadDropDownMenu("DropDownMenu_Character");
 
   // Fill in the window's html elements with data from the string
-  //   So fill in the proper radio button for movement mode
+  //   So fill in the proper radio button for movement mode if we
+  //   have already stored it, else it will be blank
   fillData();
 }
 
 function loadDropDownMenu(dropDownID) {
 
-  // Obtain user configuration from this window's invisible textbox
-  var myVal = document.getElementById("invisibleTextBoxHoldingVariables").value;
-
-  // Convert string into JSON object
-  var tempObj = JSON.parse(myVal);
+  // Read the variable string from the parent window containing character data
+  var tempObj = window.opener.readConfigUsers();
 
   // Convert into an array of character objects
   var arrayObjs = tempObj["Users"];
@@ -77,17 +71,24 @@ function ExitProgram() {
   self.close();
 }
 
-function SendValueToParent() {
-  var myVal = document.getElementById("invisibleTextBoxHoldingVariables").value;
-  window.opener.PutValueFromChild(myVal);
-  window.close();
-  return false;
+
+function helpMessageWindow() {
+  var helpMessage = "This page allows to make changes to the data read in from combat logs\r\n";
+  helpMessage += "You can manually set the mentor, movement mode, or powerset for playable characters.\r\n\r\n";
+  helpMessage += "You can also merge two character's data.\r\n";
+  helpMessage += "For example, if character1 was renamed to character1_BNW, you can merge these two into one.\r\n";
+  helpMessage += "Simply select the current name in the top select box\r\n";
+  helpMessage += "and then click the checkbox to make an alias.\r\n";
+  helpMessage += "and then select the old character name from the drop down box next to alias.\r\n\r\n";
+//  helpMessage += "You can also export and import previously read in combat logs.\r\n";
+//  helpMessage += "Since combat logs can be quite large and slow to load, after loading, you can export\r\n";
+//  helpMessage += "the data and later import it and it will be faster than loading the same combat log again.\r\n";
+  alert(helpMessage);
 }
 
 function updateConfig() {
 
-  var myVal = document.getElementById("invisibleTextBoxHoldingVariables").value;
-  var tempObj = JSON.parse(myVal);
+  var tempObj = window.opener.readConfigUsers();
   var arrayObjs = tempObj["Users"];
 
   // Get character selected using GUI
@@ -169,19 +170,16 @@ function updateConfig() {
     tempObj["Users"][id].powerset = "Ice";
   }
 
-  myVal = JSON.stringify(tempObj);
-
-  // Write this string to this window's invisible textbox
-  document.getElementById("invisibleTextBoxHoldingVariables").value = myVal;
+  window.opener.writeConfigUsers(tempObj);
+  window.opener.aliasMergeCharacters();
+  window.close();
+  return false;
 }
 
 function fillData() {
 
-  // Obtain user configuration from this window's invisible textbox
-  var myVal = document.getElementById("invisibleTextBoxHoldingVariables").value;
-
-  // Convert string into JSON object
-  var tempObj = JSON.parse(myVal);
+  // Obtain user configuration 
+  var tempObj = window.opener.readConfigUsers();
 
   // Convert into an array of character objects
   var arrayObjs = tempObj["Users"];
@@ -281,17 +279,43 @@ function fillData() {
   } 
 }
 
+var aliasDropDownLoaded = 0;
+
 function createAlias() {
-  loadDropDownMenu("DropDownMenu_Alias");
-  var aliasTBID = document.getElementById('aliasID');
-  aliasTBID.innerHTML = "Character " + "X" + " is the same as " + "Y";
-  aliasTBID.style.display="block";
+  if (document.getElementById('aliasCheckbox').checked == true) {
+    document.getElementById('DropDownMenu_Alias').style.display="block";
+    if (aliasDropDownLoaded == 0) {
+      loadDropDownMenu("DropDownMenu_Alias");
+      aliasDropDownLoaded = 1;
+    }
+  }
+  else {
+    // Remove alias from variables
+
+    // Get character selected using GUI
+    var x=document.getElementById("DropDownMenu_Character").selectedIndex;
+    var y=document.getElementById("DropDownMenu_Character").options;
+    var person = y[x].text;
+ 
+    var tempObj = window.opener.readConfigUsers();
+    var arrayObjs = tempObj["Users"];
+    var id = -1;
+
+    // Figure out which object corresponds to that character
+    for (var i = 0; i < arrayObjs.length; i++) {
+      if (arrayObjs[i].name == person) { 
+        id = i;
+      }
+    }
+
+    // Update object with settings
+    tempObj["Users"][id].alias = "";
+
+    window.opener.writeConfigUsers(myVal);
+  }
 }
 
 function setAlias() {
-
-  alert("Not implemented yet");
-
   // Get character selected using GUI
   var x=document.getElementById("DropDownMenu_Character").selectedIndex;
   var y=document.getElementById("DropDownMenu_Character").options;
@@ -302,18 +326,42 @@ function setAlias() {
   y=document.getElementById("DropDownMenu_Alias").options;
   var alias = y[x].text;
 
-  if (person == alias) {
-    alert("You can't select the same person");
+  var aliasTBID = document.getElementById('aliasID');
+  aliasTBID.value = "Make character " + alias + " the same as " + person;
+  aliasTBID.style.display="block";
+
+  var tempObj = window.opener.readConfigUsers();
+  var arrayObjs = tempObj["Users"];
+  var id = -1;
+
+  // Figure out which object corresponds to that character
+  for (var i = 0; i < arrayObjs.length; i++) {
+    if (arrayObjs[i].name == person) { 
+      id = i;
+    }
   }
 
-  document.getElementById("aliasCheckbox").checked=false;
+  // Update object with settings
+  tempObj["Users"][id].alias = alias;
+
+  window.opener.writeConfigUsers(tempObj);
 }
 
+// Call the parent window function to write all data to text file
+function exportData() {
+  window.opener.exportDataToFile();
+}
+
+// Call the parent window function to read data from a text file
+function importData() {
+  window.opener.importDataFromFile();
+}
 
 </script>
 </head>
 <body>
 
+<br>
 <form>
 For character:
 <select id="DropDownMenu_Character" name="DropDownMenu_Character" onchange="javascript:fillData();"></select>
@@ -325,12 +373,12 @@ For character:
       Mentor:
     </td>
     <td>
-      <input type="radio" name="mentor" id="mentorBatman"          onclick="javascript:updateConfig();"/>Batman
-      <input type="radio" name="mentor" id="mentorSuperman"        onclick="javascript:updateConfig();"/>Superman
-      <input type="radio" name="mentor" id="mentorWonderWoman"     onclick="javascript:updateConfig();"/>Wonder Woman
-      <input type="radio" name="mentor" id="mentorJoker"           onclick="javascript:updateConfig();"/>Joker
-      <input type="radio" name="mentor" id="mentorLexLuthor"       onclick="javascript:updateConfig();"/>Lex Luthor
-      <input type="radio" name="mentor" id="mentorCirce"           onclick="javascript:updateConfig();"/>Circe
+      <input type="radio" name="mentor" id="mentorBatman"          />Batman
+      <input type="radio" name="mentor" id="mentorSuperman"        />Superman
+      <input type="radio" name="mentor" id="mentorWonderWoman"     />Wonder Woman
+      <input type="radio" name="mentor" id="mentorJoker"           />Joker
+      <input type="radio" name="mentor" id="mentorLexLuthor"       />Lex Luthor
+      <input type="radio" name="mentor" id="mentorCirce"           />Circe
     </td>
   </tr>
   <tr>
@@ -338,9 +386,9 @@ For character:
       Movement Mode:
     </td>
     <td>
-      <input type="radio" name="movement" id="movementAcrobatics"  onclick="javascript:updateConfig();"/>Acrobatics
-      <input type="radio" name="movement" id="movementFlight"      onclick="javascript:updateConfig();"/>Flight
-      <input type="radio" name="movement" id="movementSuperspeed"  onclick="javascript:updateConfig();"/>Superspeed
+      <input type="radio" name="movement" id="movementAcrobatics"  />Acrobatics
+      <input type="radio" name="movement" id="movementFlight"      />Flight
+      <input type="radio" name="movement" id="movementSuperspeed"  />Superspeed
     </td>
   </tr>
   <tr>
@@ -348,19 +396,21 @@ For character:
       Powerset:
     </td>
     <td>
-      <input type="radio" name="powerset" id="powersetGadgets"     onclick="javascript:updateConfig();"/>Gadgets
-      <input type="radio" name="powerset" id="powersetMental"      onclick="javascript:updateConfig();"/>Mental
-      <input type="radio" name="powerset" id="powersetHardLight"   onclick="javascript:updateConfig();"/>Hard Light
-      <input type="radio" name="powerset" id="powersetElectric"    onclick="javascript:updateConfig();"/>Electric
-      <input type="radio" name="powerset" id="powersetNature"      onclick="javascript:updateConfig();"/>Nature
-      <input type="radio" name="powerset" id="powersetSorcery"     onclick="javascript:updateConfig();"/>Sorcery
-      <input type="radio" name="powerset" id="powersetEarth"       onclick="javascript:updateConfig();"/>Earth
-      <input type="radio" name="powerset" id="powersetFire"        onclick="javascript:updateConfig();"/>Fire
-      <input type="radio" name="powerset" id="powersetIce"         onclick="javascript:updateConfig();"/>Ice
+      <input type="radio" name="powerset" id="powersetGadgets"     />Gadgets
+      <input type="radio" name="powerset" id="powersetMental"      />Mental
+      <input type="radio" name="powerset" id="powersetHardLight"   />Hard Light
+      <input type="radio" name="powerset" id="powersetElectric"    />Electric
+      <input type="radio" name="powerset" id="powersetNature"      />Nature
+      <input type="radio" name="powerset" id="powersetSorcery"     />Sorcery
+      <input type="radio" name="powerset" id="powersetEarth"       />Earth
+      <input type="radio" name="powerset" id="powersetFire"        />Fire
+      <input type="radio" name="powerset" id="powersetIce"         />Ice
     </td>
   </tr>
-  <!-- I want some space between powersets and alias so this hacky way -->
-  <tr><td>.</td></tr>
+</table>
+<br>
+<hr>
+<table>
   <tr>
     <td>
       <input type="checkbox" id="aliasCheckbox" onclick="javascript:createAlias();" />Make alias for character
@@ -369,15 +419,30 @@ For character:
       <select id="DropDownMenu_Alias" name="DropDownMenu_AliasName" onchange="javascript:setAlias();"></select>
     </td>
     <td>
-      <label style="visibility: hidden;" name="aliasName" id="aliasID" />
+      <input style="width: 400px;" name="aliasName" id="aliasID" type="text" />
     </td>
   </tr>
 </table>
 <br>
-<input id="btn1" type="button" value="Submit Changes" onclick="javascript:return SendValueToParent();" />
+Make alias is for merging the data from characters with two different names (character was renamed using token).
+<br>
+The name in the bottom drop down menu will be removed and its data merged with main character name.
+<br>
+<br>
+<hr>
+<br>
+<label>Filename: <input type="text" class="filename" id="exportFilename" placeholder="a plain document"/>.txt</label>
+<input id="exportButton" type="button" value="Export" onclick="javascript:exportData();" />
+<br>
+<label>Filename: <input type="text" class="filename" id="importFilename" placeholder="a plain document"/>.txt</label>
+<input id="importButton" type="button" value="Import" onclick="javascript:importData();" />
+<br>
+<br>
+<hr>
+<br>
+<input id="btn1" type="button" value="Submit Changes" onclick="javascript:return updateConfig();" />
 <input id="quitbutton" value="Cancel" onclick="javascript:ExitProgram();" type="button">
-<input  style="visibility: hidden;" name="invisibleTextBoxHoldingVariables" id="invisibleTextBoxHoldingVariables" type="text" />
-<!-- textarea id="invisibleTextBoxHoldingVariables" name="invisibleTextBoxHoldingVariables" rows="20" cols="20" ></textarea -->
+<input id="helpButton" value="Help" onclick="javascript:helpMessageWindow();" type="button">
 
 </form>
 

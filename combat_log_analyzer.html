@@ -317,10 +317,8 @@ table.sortable tr.sortbottom td {
        <input id="helpbutton" value="Help" onclick="javascript:HelpWindow();" type="button">
        <input id="aboutbutton" value="About" onclick="javascript:AboutWindow();" type="button">
        <input id="quitbutton" value="Exit" onclick="javascript:ExitProgram();" type="button">
-       <button style="visibility: hidden;" name="saveButtonName" id="saveButtonID" onclick="javascript:saveDataFile();">Save Data File</button>
        <button style="visibility: hidden;" name="configurebuttonName" id="configurebuttonID" onclick="javascript:configure();">Configure</button>
        <button style="visibility: hidden;" name="cancelbutton" id="cancelbutton" onclick="javascript:cancelReadFile();">Cancel read</button>
-       <input  style="visibility: hidden;" name="invisibleTextBoxHoldingVariables" id="invisibleTextBoxHoldingVariables" type="text" />
        <!-- input value="Debug" onclick="javascript:displaymessage();" type="button" -->
     </td>
   </tr>
@@ -405,8 +403,6 @@ table.sortable tr.sortbottom td {
 
 var VERSION = "5.9";
 
-var DEBUG = 0;
-
 // Check for the various File API support.
 
 if (window.File && window.FileReader && window.FileList) {
@@ -417,17 +413,21 @@ if (window.File && window.FileReader && window.FileList) {
   ExitProgram();
 }
 
+
+// When this program loads, run claInit
 addEvent(window, "load", claInit);
 
+
 function claInit() {
+  // If there is a saved data file in localstorage, read it in so user
+  //     doesn't have to import a large combat log
   readDataFile();
 }
 
 // When the file hasn't been loaded yet or is done loading, hide the cancel file load button
 
-document.getElementById('cancelbutton').style.visibility='hidden'; // hide when file loading not happening
-document.getElementById('configurebuttonID').style.visibility='hidden'; // hide when file loading not happening 
-document.getElementById('saveButtonID').style.visibility='hidden'; // hide when file loading not happening 
+document.getElementById('cancelbutton').style.visibility='hidden';      // hide when file loading not happening
+document.getElementById('configurebuttonID').style.visibility='hidden'; // hide when file loading not done
 
 
 // These are use to display a progress bar when loading the combat logs
@@ -506,20 +506,146 @@ function ExitProgram() {
   self.close();
 }
 
-function configure() {
-  var popup = window.open("configure.html","Configure","menubar=yes,width=1000,height=230");
+
+// Function to determine  if an object is empty
+function  isEmpty(obj) {
+  return Object.keys(obj).length === 0;
 }
 
-function PutValueFromChild(myVal) {
-  document.getElementById("invisibleTextBoxHoldingVariables").value = myVal;
+
+// When the configure button is pressed, open up a new web page asking user what
+//    mentor they have, movement mode, etc.
+
+function configure() {
+  var popup = window.open("configure.html","Configure","menubar=yes,width=1000,height=480");
+}
+
+
+// Save the character data user manually entered like mentor into local storage
+function writeConfigUsers(obj) {
+  if (typeof(localStorage) == "undefined") {
+    alert("Browser does not recognize HTML local storage.  Cannot save data file");
+    return;
+  }
+
+  var dataJSON = JSON.stringify(obj);
+  try { 
+    localStorage.setItem("CLA_DATA_JSON_CONFIG", dataJSON);
+	
+  }
+  catch(e) {
+    alert("Error with use of local storage: "+e);
+  }
+}
+
+// read manually entered character data from local storage
+
+function readConfigUsers() {
+
+  var objEmpty = {};
+
+  if (typeof(localStorage) == "undefined") {
+    alert("Browser does not recognize HTML local storage.  Cannot save data file");
+    return objEmpty;
+  }
+
+  var dataJSON = localStorage.getItem('CLA_DATA_JSON_CONFIG')
+  if ((dataJSON == null) || (typeof(dataJSON) == "undefined")) {
+    // alert("No data stored.");
+    return objEmpty;
+  }
+
+  return JSON.parse(dataJSON);
+}
+
+
+// To supply indexOf if the browser is Internet Explorer version 8 or below:
+if(!Array.prototype.indexOf){
+    Array.prototype.indexOf= function(what, i){
+        i= i || 0;
+        var L= this.length;
+        while(i< L){
+            if(this[i]=== what) return i;
+            ++i;
+        }
+        return -1;
+    }
+}
+
+
+// Function called by configure window when they press submit there.  
+//   Used for merging two character's data
+
+function aliasMergeCharacters() {
+
+  var configUsers = readConfigUsers();
+
+  // Check to see if alias happened, that is, user chose to merge two characters
+  var arrayObjs = configUsers["Users"];
+
+  for(var key in arrayObjs) {
+    if (arrayObjs.hasOwnProperty(key)) {
+      if (arrayObjs[key].alias != "") {
+        if (arrayObjs[key].alias != arrayObjs[key].name) {
+          var aliasData = allLogLinesJSON[arrayObjs[key].alias];
+          delete allLogLinesJSON[arrayObjs[key].alias]; 
+          var newObj = {};
+          newObj[arrayObjs[key].name] = aliasData;
+          var logLineJSON = JSON.stringify(newObj);
+          concatenateData(logLineJSON);
+          allUsers.splice(allUsers.indexOf(arrayObjs[key].alias), 1);
+          // Have to find where the index in the array of the to be removed character is
+          for(var key2 in arrayObjs) {
+            if (arrayObjs[key2].name == arrayObjs[key].alias) {
+              arrayObjs.splice(key2, 1);
+              break;
+            }
+          }
+          arrayObjs[key].alias = "";
+        }
+      }
+    }
+  }
+  
+  // Attempt to save large json object to localstorage for quick retrieval later
+  saveDataFile();
+
+  // save user's manual character data like mentor to local storage
+  writeConfigUsers(configUsers);
+
+  // Reload the character drop down menu since we removed one by the merge
+  loadUsers();
+
+  // redisplay the screen
   dataOptionExecute();
 }
 
-function GetValueFromChild() {
-  return document.getElementById("invisibleTextBoxHoldingVariables").value;
+
+function consolePrintLargeData(arrayStruct, name) {
+  var arrLen = arrayStruct.length;
+  var tempStr = name + " = ";
+
+  console.log(name + ".length = " + arrLen);
+  if (arrLen < 80000) {
+    console.log(name + " =>" + arrayStruct + "<=");
+  }
+  else {
+    for (var i = 0; i < 10; i++) {
+      tempStr += arrayStruct[i];
+    }
+    tempStr += "...";
+    for (var i = 10; i > 0; i--) {
+      tempStr += arrayStruct[arrLen - i];
+    }
+    console.log(tempStr);
+  }
 }
 
-// Save any combat log data already loaded into a file for faster reading next time
+// Save any combat log data already imported into localstorage for faster reading next time
+// localstorage is an HTML5 thing.  Your browser sets up a sandboxed file area for use.
+//    It will get cleared by browser when you tell it to clear it.  I have mine set to clear
+//    everytime I exit the browser so you'd have to reload the combat log
+
 function saveDataFile() {
 
   if (typeof(localStorage) == "undefined") {
@@ -527,51 +653,77 @@ function saveDataFile() {
     return;
   }
 
-  var logLineJSON = JSON.stringify(allLogLinesJSON);
-  try { 
-    localStorage.setItem("CLA_DATA_JSON", logLineJSON);	
+  var allJSON = JSON.stringify(allLogLinesJSON);
+  var compressedJSON = Iuppiter.compress(allJSON);
+  var encodedJSON = Iuppiter.Base64.encode(compressedJSON, true);
+
+//  console.log("saving stored data to localstorage");
+//  consolePrintLargeData(allJSON, "allJSON");
+//  consolePrintLargeData(compressedJSON, "compressedJSON");
+//  consolePrintLargeData(encodedJSON, "encodedJSON");
+ 
+  try {
+    localStorage.setItem("CLA_DATA_JSON_FULL", encodedJSON);	
   }
   catch(e) {
-    alert("Error with use of local storage: "+e);
+    console.log("Error with use of local storage: " + e);
   }
 }
+
 
 // If we have a local file of previously stored data, load it
 function readDataFile() {
 
-  var dataJSON = localStorage.getItem('CLA_DATA_JSON')
-  if (dataJSON == null) {
+  var encodedJSON = localStorage.getItem('CLA_DATA_JSON_FULL');
+  if (encodedJSON == null) {
     // alert("No data stored.");
     return;
   }	
-  allLogLinesJSON = JSON.parse(dataJSON);
+
+  var dataBytes = Iuppiter.toByteArray(encodedJSON);
+
+  var compressedJSON = Iuppiter.Base64.decode(dataBytes, true);
+
+  // Hack because the base64 decode puts two zeroes "0" at the end of the string
+  //    and JSON.parse barfs on it.  So I changed the 0 char to space char (32)
+
+  var linelen = compressedJSON.length;
+  for (var i = linelen-3; i < linelen; i++) {
+    if (compressedJSON[i] == 0) {
+      compressedJSON[i] = 32;
+    }
+  }
+
+  var allJSON = Iuppiter.decompress(compressedJSON);
+
+  try {
+    allLogLinesJSON = JSON.parse(String(allJSON));
+  }
+  catch(e) {
+    console.log("Error reading stored data from localstorage " + e);
+    consolePrintLargeData(allJSON, "allJSON");
+    consolePrintLargeData(compressedJSON, "compressedJSON");
+    consolePrintLargeData(dataBytes, "dataBytes");
+    consolePrintLargeData(encodedJSON, "encodedJSON");
+  }
+
+  if (isEmpty(allLogLinesJSON)) {
+    // alert("No data stored.");
+    return;
+  }
 
   dataLoaded = true;
   dataLoadinProgress=false;
 
   document.getElementById('cancelbutton').style.visibility='hidden'; // hide
   document.getElementById('configurebuttonID').style.visibility='visible'; // show   
-  document.getElementById('saveButtonID').style.visibility='visible'; // show   
 
   // Now that the data from the combat log is loaded into memory
   //   Set the HTML table to block to be visible on the browser
   //   so the user can filter and display the data
   document.getElementById('table1').style.display="block";
 
-  // Need to construct the allUsers array since normally this is done during loading of combat log file
-  var people = Object.keys(allLogLinesJSON);
-
-  // For each character in the data
-  people.forEach(function(characterName) {
-
-    if (typeof(allLogLinesJSON[characterName]) != "undefined") {
-      if (typeof(allLogLinesJSON[characterName]["Cash"]) != "undefined") {    
-        if (allLogLinesJSON[characterName]["Cash"].length > 0) {
-          allUsers.push(characterName);
-        }
-      }
-    }
-  });
+  populateUserCharacters();
 
   // Populate the drop down menu with characters
   loadUsers();
@@ -580,6 +732,39 @@ function readDataFile() {
   dataOptionExecute();
 }
 
+
+// Write the global JSON object containing all loaded information to a text file
+//   It will be easier and faster to import this data than import an entire old
+//   1 gigabyte combat log again
+
+// I would rather use saveAs() but this isn't very reliable on different browsers
+//    would mean including two more js files
+
+function exportDataToFile() {
+//  alert("Not implemented yet");
+
+//  var allJSON = JSON.stringify(allLogLinesJSON);
+//  var compressedJSON = Iuppiter.compress(allJSON);
+//  var encodedJSON = Iuppiter.Base64.encode(compressedJSON, true);
+
+//  var bb = new BlobBuilder();
+//  bb.append((new XMLSerializer).serializeToString(document));
+//  var blob = bb.getBlob("application/xhtml+xml;charset=" + document.characterSet);
+//  saveAs(blob, "document.xhtml");
+
+}
+
+
+// Basically just like the load combat file code, add handlers and progress bar
+//    run concatenate on entire loaded string (should be megabytes in size)
+
+function importDataFromFile() {
+//  alert("Not implemented yet");
+}
+
+
+
+// If user presses the "Cancel Read" button, stop importing the combat log
 
 function cancelReadFile() {
   dataLoadinProgress=false;
@@ -677,6 +862,12 @@ upload.onchange = function (e) {
         // allLogLinesJSON = JSON.parse(JSONstring);
         concatenateData(logLineJSON);
 
+        // Attempt to save the whole structure to localstorage so don't have to import again
+        saveDataFile();
+
+        // Determine what characters are played by the user and store in global
+        populateUserCharacters();
+
         // Now that data is loaded, figure out the top 10 characters with data
         // getTopCharacters();
         // Changed now to only load characters that the user actually plays
@@ -697,7 +888,6 @@ upload.onchange = function (e) {
 
         document.getElementById('cancelbutton').style.visibility='hidden'; // hide
         document.getElementById('configurebuttonID').style.visibility='visible'; // show   
-        document.getElementById('saveButtonID').style.visibility='visible'; // show   
 
         // Now that the data from the combat log is loaded into memory
         //   Set the HTML table to block to be visible on the browser
@@ -789,189 +979,56 @@ upload.onchange = function (e) {
 };
 
 
-// Not used anymore.
-function getTopCharacters() {
 
-  var associativeArray = {};
+// Checks if something is in an array
+//    Had this as a prototype for array but it broke someone else's code below that
+//    iterates over the array and it put the contains in the for loop
 
-  var characterRankedOne   = "";
-  var characterRankedTwo   = "";
-  var characterRankedThree = "";
-  var characterRankedFour  = "";
-  var characterRankedFive  = "";
-  var characterRankedSix   = "";
-  var characterRankedSeven = "";
-  var characterRankedEight = "";
-  var characterRankedNine  = "";
-  var characterRankedTen   = "";
+function contains(a, obj) {
+    var i = a.length;
+    while (i--) {
+       if (a[i] === obj) {
+           return true;
+       }
+    }
+    return false;
+}
 
-  var characterRankedOneCount   = 0;
-  var characterRankedTwoCount   = 0;
-  var characterRankedThreeCount = 0;
-  var characterRankedFourCount  = 0;
-  var characterRankedFiveCount  = 0;
-  var characterRankedSixCount   = 0;
-  var characterRankedSevenCount = 0;
-  var characterRankedEightCount = 0;
-  var characterRankedNineCount  = 0;
-  var characterRankedTenCount   = 0;
+
+function populateUserCharacters() {
+
+  // Only characters played by the owner of this combat log show up
+  //    as getting cash.  So let's save these characters instead of any
+  //    character that the user may be grouped with
+
+  // For keeping information about characters that the user supplies
+  //    We will allow user to enter in information about a character and store it in configusers
+  //    For example, the user can say this character's mentor is Batman.
+  //    This will be a json string
+
+  var configUsers = readConfigUsers();
+  if (isEmpty(configUsers)) {
+    configUsers["Users"] = [];
+  }
 
   var people = Object.keys(allLogLinesJSON);
-
-  // Initialize counts of lines per character
   people.forEach(function(person) {
-    associativeArray[person] = 0;
-  });
-
-  // Count up how many lines each character has
-  people.forEach(function(person) {
-    var itemtypes = Object.keys(allLogLinesJSON[person]);
-    itemtypes.forEach(function(itype) {
-      var lineArray = allLogLinesJSON[person][itype];
-      if (lineArray.length > 0) {
-        associativeArray[person] = associativeArray[person] + lineArray.length;
-      }
-    });
-  });
-
-  // Find the top X characters who have the most log lines
-  people.forEach(function(person) {
-    if (associativeArray[person] > characterRankedOneCount) {
-      // We have a new max, shift all else down one
-      characterRankedTen = characterRankedNine;
-      characterRankedTenCount = characterRankedNineCount;
-      characterRankedNine = characterRankedEight;
-      characterRankedNineCount = characterRankedEightCount;
-      characterRankedEight = characterRankedSeven;
-      characterRankedEightCount = characterRankedSevenCount;
-      characterRankedSeven = characterRankedSix;
-      characterRankedSevenCount = characterRankedSixCount;
-      characterRankedSix = characterRankedFive;
-      characterRankedSixCount = characterRankedFiveCount;
-      characterRankedFive = characterRankedFour;
-      characterRankedFiveCount = characterRankedFourCount;
-      characterRankedFour = characterRankedThree;
-      characterRankedFourCount = characterRankedThreeCount;
-      characterRankedThree = characterRankedTwo;
-      characterRankedThreeCount = characterRankedTwoCount;
-      characterRankedTwo = characterRankedOne;
-      characterRankedTwoCount = characterRankedOneCount;
-      characterRankedOne = person;
-      characterRankedOneCount = associativeArray[person];
-    }
-    else {
-      if (associativeArray[person] > characterRankedTwoCount) {
-        characterRankedTen = characterRankedNine;
-        characterRankedTenCount = characterRankedNineCount;
-        characterRankedNine = characterRankedEight;
-        characterRankedNineCount = characterRankedEightCount;
-        characterRankedEight = characterRankedSeven;
-        characterRankedEightCount = characterRankedSevenCount;
-        characterRankedSeven = characterRankedSix;
-        characterRankedSevenCount = characterRankedSixCount;
-        characterRankedSix = characterRankedFive;
-        characterRankedSixCount = characterRankedFiveCount;
-        characterRankedFive = characterRankedFour;
-        characterRankedFiveCount = characterRankedFourCount;
-        characterRankedFour = characterRankedThree;
-        characterRankedFourCount = characterRankedThreeCount;
-        characterRankedThree = characterRankedTwo;
-        characterRankedThreeCount = characterRankedTwoCount;
-        characterRankedTwo = person;
-        characterRankedTwoCount = associativeArray[person];
-      }
-      else {
-        if (associativeArray[person] > characterRankedThreeCount) {
-          characterRankedTen = characterRankedNine;
-          characterRankedTenCount = characterRankedNineCount;
-          characterRankedNine = characterRankedEight;
-          characterRankedNineCount = characterRankedEightCount;
-          characterRankedEight = characterRankedSeven;
-          characterRankedEightCount = characterRankedSevenCount;
-          characterRankedSeven = characterRankedSix;
-          characterRankedSevenCount = characterRankedSixCount;
-          characterRankedSix = characterRankedFive;
-          characterRankedSixCount = characterRankedFiveCount;
-          characterRankedFive = characterRankedFour;
-          characterRankedFiveCount = characterRankedFourCount;
-          characterRankedFour = characterRankedThree;
-          characterRankedFourCount = characterRankedThreeCount;
-          characterRankedThree = person;
-          characterRankedThreeCount = associativeArray[person];
-        }
-        else {
-          if (associativeArray[person] > characterRankedFourCount) {
-            characterRankedTen = characterRankedNine;
-            characterRankedTenCount = characterRankedNineCount;
-            characterRankedNine = characterRankedEight;
-            characterRankedNineCount = characterRankedEightCount;
-            characterRankedEight = characterRankedSeven;
-            characterRankedEightCount = characterRankedSevenCount;
-            characterRankedSeven = characterRankedSix;
-            characterRankedSevenCount = characterRankedSixCount;
-            characterRankedSix = characterRankedFive;
-            characterRankedSixCount = characterRankedFiveCount;
-            characterRankedFive = characterRankedFour;
-            characterRankedFiveCount = characterRankedFourCount;
-            characterRankedFour = person;
-            characterRankedFourCount = associativeArray[person];
-          }
-          else {
-            if (associativeArray[person] > characterRankedFiveCount) {
-              characterRankedTen = characterRankedNine;
-              characterRankedTenCount = characterRankedNineCount;
-              characterRankedNine = characterRankedEight;
-              characterRankedNineCount = characterRankedEightCount;
-              characterRankedEight = characterRankedSeven;
-              characterRankedEightCount = characterRankedSevenCount;
-              characterRankedSeven = characterRankedSix;
-              characterRankedSevenCount = characterRankedSixCount;
-              characterRankedSix = characterRankedFive;
-              characterRankedSixCount = characterRankedFiveCount;
-              characterRankedFive = person;
-              characterRankedFiveCount = associativeArray[person];
+    if (typeof(allLogLinesJSON[person]) != "undefined") {
+      if (allLogLinesJSON[person].hasOwnProperty("Cash")) {
+        if (allLogLinesJSON[person]["Cash"].length > 0) {
+          if (contains(allUsers, person) == false) {
+            allUsers.push(person);
+            // Search the configusers object if this user is in there
+            //    if not, create a new entry for this user
+            var found = 0;
+            for (var i = 0; i < configUsers["Users"].length; i++) {
+              if (configUsers["Users"][i].name == person) {
+                found = 1;
+                break;
+              }
             }
-            else {
-              if (associativeArray[person] > characterRankedSixCount) {
-                characterRankedTen = characterRankedNine;
-                characterRankedTenCount = characterRankedNineCount;
-                characterRankedNine = characterRankedEight;
-                characterRankedNineCount = characterRankedEightCount;
-                characterRankedEight = characterRankedSeven;
-                characterRankedEightCount = characterRankedSevenCount;
-                characterRankedSeven = characterRankedSix;
-                characterRankedSevenCount = characterRankedSixCount;
-                characterRankedSix = person;
-                characterRankedSixCount = associativeArray[person];
-              }
-              else if (associativeArray[person] > characterRankedSevenCount) {
-                characterRankedTen = characterRankedNine;
-                characterRankedTenCount = characterRankedNineCount;
-                characterRankedNine = characterRankedEight;
-                characterRankedNineCount = characterRankedEightCount;
-                characterRankedEight = characterRankedSeven;
-                characterRankedEightCount = characterRankedSevenCount;
-                characterRankedSeven = person;
-                characterRankedSevenCount = associativeArray[person];
-              }
-              else if (associativeArray[person] > characterRankedEightCount) {
-                characterRankedTen = characterRankedNine;
-                characterRankedTenCount = characterRankedNineCount;
-                characterRankedNine = characterRankedEight;
-                characterRankedNineCount = characterRankedEightCount;
-                characterRankedEight = person;
-                characterRankedEightCount = associativeArray[person];
-              }
-              else if (associativeArray[person] > characterRankedNineCount) {
-                characterRankedTen = characterRankedNine;
-                characterRankedTenCount = characterRankedNineCount;
-                characterRankedNine = person;
-                characterRankedNineCount = associativeArray[person];
-              }
-              else if (associativeArray[person] > characterRankedTenCount) {
-                characterRankedTen = person;
-                characterRankedTenCount = associativeArray[person];
-              }
+            if (found == 0) {
+              configUsers["Users"].push({name:person, powerset:"", mentor:"", movementmode:"", faction:"", alias:""});
             }
           }
         }
@@ -979,21 +1036,8 @@ function getTopCharacters() {
     }
   });
 
-  // Populate the Character select drop down menu with the top 10 characters in log
-
-  var listbox = document.getElementById("DropDownMenu_Character");
-  listbox.options[0]=new Option("All characters","All characters");
-  listbox.options[1]=new Option(characterRankedOne, characterRankedOne);
-  listbox.options[2]=new Option(characterRankedTwo, characterRankedTwo);
-  listbox.options[3]=new Option(characterRankedThree, characterRankedThree);
-  listbox.options[4]=new Option(characterRankedFour, characterRankedFour);
-  listbox.options[5]=new Option(characterRankedFive, characterRankedFive);
-  listbox.options[6]=new Option(characterRankedSix, characterRankedSix);
-  listbox.options[7]=new Option(characterRankedSeven, characterRankedSeven);
-  listbox.options[8]=new Option(characterRankedEight, characterRankedEight);
-  listbox.options[9]=new Option(characterRankedNine, characterRankedNine);
-  listbox.options[10]=new Option(characterRankedTen, characterRankedTen);
-};
+  writeConfigUsers(configUsers);
+}
 
 
 // Populate a drop down menu of characters to select which are only the
@@ -1008,7 +1052,9 @@ function loadUsers() {
   // First create a list of names and number of days played
 
   for (var i = 0; i < allUsers.length; i++) {
-    cashList.push({name:allUsers[i], days:allLogLinesJSON[allUsers[i]]["Cash"].length});
+    if (typeof(allLogLinesJSON[allUsers[i]]) != "undefined") {
+      cashList.push({name:allUsers[i], days:allLogLinesJSON[allUsers[i]]["Cash"].length});
+    }
   }
 
   // Then sort list by number of days
@@ -1022,6 +1068,10 @@ function loadUsers() {
   // The first entry in the drop down menu is for "All characters"
 
   var selectBoxOption = document.createElement("option");
+
+  // Clear all current options in the drop down select box
+  listbox.options.length = 0;
+
   selectBoxOption.value = "All characters";
   selectBoxOption.text = "All characters";
   listbox.add(selectBoxOption, null); 
@@ -1033,22 +1083,6 @@ function loadUsers() {
     selectBoxOption.text = sortedArray[index].name;
     listbox.add(selectBoxOption, null); 
   }
-
-  // For keeping information about characters that the user supplies
-  //    We will allow user to enter in information about a character and store it here
-  //    For example, the user can say this character's mentor is Batman.
-  //    We will store this data in the window in a hidden textbox to be used by the configuration window
-  //    This will be a json string
-  var configUsers = {};
-  configUsers["Users"] = [];
-
-  // Now fill in hidden textbox containing variable of json string for all users and settings
-  for (var i = 0; i < allUsers.length; i++) {
-    configUsers["Users"].push({name:allUsers[i], powerset:"", mentor:"", movementmode:"", faction:""});
-  }
-  
-  // Write this variable as json string into hidden textbox so configure window can read it
-  PutValueFromChild(JSON.stringify(configUsers));
 };
 
 
@@ -1664,6 +1698,7 @@ npcCollection.push({name:"Bouncer",                       location:"Shady Nightc
 npcCollection.push({name:"Triggerman Tony",               location:"Shady Nightclub",             type:"Duo",   level:30, species:"Humanoid"});
 npcCollection.push({name:"Fast Freddy",                   location:"Shady Nightclub",             type:"Duo",   level:30, species:"Humanoid"});
 npcCollection.push({name:"Agent Jana",                    location:"Shady Nightclub",             type:"Duo",   level:30, species:"Humanoid"});
+npcCollection.push({name:"Revolver Rob",                  location:"Shady Nightclub",             type:"Duo",   level:30, species:"Humanoid"});
 
 npcCollection.push({name:"Aquaman",                       location:"Tides of War Seasonal Event", type:"Event", level:30, species:"Humanoid"});
 npcCollection.push({name:"Atlantean",                     location:"Tides of War Seasonal Event", type:"Event", level:30, species:"Humanoid"});
@@ -2768,21 +2803,6 @@ function saveData(str) {
       return;
     }
 
-    // Only characters played by the owner of this combat log show up
-    //    as getting cash.  So let's save these characters instead of any
-    //    character that the user may be grouped with
-
-    var isFound = 0;
-    for (var i = 0; i < allUsers.length; i++) {
-      if (allUsers[i] == characterName) {
-        isFound = 1;
-        break;
-      }
-    }
-    if (isFound == 0) {
-      allUsers.push(characterName);
-    }
-
     // Lets accumulate the cash entries per day instead of storing many
     //     gained 4 cash at timestamp X entries
 
@@ -3139,24 +3159,50 @@ function parseLogLinesForKeywords(lineArray)
 
 function displaymessage()
 {
-
-    DEBUG = 1;
-
     var logLineJSON = JSON.stringify(allLogLinesJSON);
     console.log("length of json = " + logLineJSON.length);
-    if (logLineJSON.length < 55000) {
-      console.log(logLineJSON);
+    if (logLineJSON.length < 80000) {
+      console.log("=>"+logLineJSON+"<=");
     }
-
+    else {
+      console.log("allLogLinesJSON = " + logLineJSON[0] + logLineJSON[1] + logLineJSON[2] + logLineJSON[3] + logLineJSON[4] + "..." + logLineJSON[logLineJSON.length-3] + logLineJSON[logLineJSON.length-2] + logLineJSON[logLineJSON.length-1]);
+    }
     var people = Object.keys(allLogLinesJSON);
     console.log("Number of characters = " + people.length);
 
-    for (var i = 0; i < allUsers.length; i++) {
-      console.log(i + "user character = " + allUsers[i]);
+    var compressTimeStart = new Date();
+    var compressed1 = Iuppiter.compress(logLineJSON);
+    var compressTimeEnd = new Date();
+    console.log("File compress time start: " + compressTimeStart);
+    console.log("File compress time end: " + compressTimeEnd);
+    console.log("length of compressed json = " + compressed1.length);
+    if (compressed1.length < 80000) {
+      console.log("=>"+compressed1+"<=");
     }
 
-    var configureStr = document.getElementById("invisibleTextBoxHoldingVariables").value;
-    console.log("config string = " + configureStr);
+    var uncompressTimeStart = new Date();
+    var uncompressed1 = Iuppiter.decompress(compressed1);
+    var uncompressTimeEnd = new Date();
+    console.log("File uncompress time start: " + uncompressTimeStart);
+    console.log("File uncompress time end: " + uncompressTimeEnd);
+    console.log("length of uncompressed json = " + uncompressed1.length);
+    if (uncompressed1.length < 80000) {
+      console.log("=>"+uncompressed1+"<=");
+    }
+
+    if (uncompressed1 == logLineJSON) {
+      console.log("Compression check PASSED");
+    }
+    else {
+      console.log("Compression check failed");
+    }
+
+    for (var i = 0; i < allUsers.length; i++) {
+      console.log(i + " allUser character = " + allUsers[i]);
+    }
+
+    console.log("config string = " + JSON.stringify(readConfigUsers()));
+
 
 /*
     if (people.length < 200) {
@@ -3427,10 +3473,18 @@ function calculateRoles(character, startDateString, endDateString)
         }
 
         if (found == 1) {
-          var configUsers = JSON.parse(document.getElementById("invisibleTextBoxHoldingVariables").value);
-          if (configUsers["Users"][ID].powerset != "") {
-            powerset.name = configUsers["Users"][ID].powerset;
-            powerset.conf = 100;
+          var configUsers = readConfigUsers();
+          for (var i = 0; i < configUsers["Users"].length; i++) {
+            if (configUsers["Users"][i].name == allUsers[ID]) {
+              if (configUsers["Users"][i].powerset != "") {
+                powerset.name = configUsers["Users"][i].powerset;
+                powerset.conf = 100;
+              }
+              if (configUsers["Users"][i].faction != "") {
+                faction = configUsers["Users"][i].faction;
+              }
+              break;
+            }
           }
         }
 
@@ -5962,7 +6016,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Doomlord's Leggings",                      type:"Legs",      role:"DPS",        style:"Necromancer",         drops:"Evolved Guardsman in Hive Alert",                       faction:"Both"});
   armorCollection.push({name:"Sinister Biomesh Leggings",                type:"Legs",      role:"DPS",        style:"Necromancer",         drops:"Blade Dancer in League of Assassin's Alert",            faction:"Both"});
   armorCollection.push({name:"Spined Dragon Legguards",                  type:"Legs",      role:"DPS",        style:"Necromancer",         drops:"Bloodroot Sapling - The Greenhouse Challenge, Prisoner - Cosmic Treadmill: Flashback, Security Drone - Batcave: Outer Caverns, Security Sentry - Batcave: Outer Caverns, Tiger Eye - Gotham University Warehouse, Wing Armor - Batcave: Outer Caverns", faction:"Both"});
-  armorCollection.push({name:"Dire Visage of the Demonlord",             type:"Head",      role:"DPS",        style:"Necromancer",         drops:"Bloodroot Sapling - The Greenhouse (Challenge), Grodd's Pounders - Gorilla Grodd's Lab (Duo), Lexcorp Scientist - Smallville, Penguin - Gotham Old Subway (Challenge), Soulless Shell - Gotham University (Duo), Tiger Lord - Gotham University Warehouse, Vengeful Spirit - Lair of the Spectre (Challenge)",                                  faction:"Both"});
+  armorCollection.push({name:"Dire Visage of the Demonlord",             type:"Head",      role:"DPS",        style:"Necromancer",         drops:"Bloodroot Sapling - The Greenhouse (Challenge), Grodd's Pounders - Gorilla Grodd's Lab (Duo), Lexcorp Scientist - Smallville, Penguin - Gotham Old Subway (Challenge), Soulless Shell - Gotham University (Duo), Tiger Lord - Gotham University Warehouse, Vengeful Spirit - Lair of the Spectre (Challenge)", faction:"Both"});
   armorCollection.push({name:"Dread Horned Helmet",                      type:"Head",      role:"DPS",        style:"Necromancer",         drops:"Cheetah Lord - Gotham University Warehouse, Eagle Soldier - Kahndaq, Lion Soldier - Kahndaq, Machine Gun Tommy - Gotham Old Subway (Challenge), Soul Striker - Science Police HQ (Challlenge)",                                             faction:"Both"});
   armorCollection.push({name:"Crystalline Avenger's Spaulders",          type:"Shoulders", role:"DPS",        style:"Necromancer",         drops:"Treasure Chest in Kahndaq raid",                        faction:"Both"});
   armorCollection.push({name:"Necrolord's Enchanted Shoulderguards",     type:"Shoulders", role:"DPS",        style:"Necromancer",         drops:"T1 Duos",    faction:"Both"});
@@ -6009,7 +6063,7 @@ function isAccessory(lineString)
 
   // Iconics
   armorCollection.push({name:"Deathstroke's Menacing Bandolier",         type:"Chest",     role:"DPS",        style:"Deathstroke",         drops:"Deathstroke",                                           faction:"Both"});
-  armorCollection.push({name:"Gardner-style Vest",                       type:"Chest",     role:"DPS",        style:"Gardner-style:",       drops:"Guy Gardner briefing",                                 faction:"Both"});
+  armorCollection.push({name:"Gardner-style Vest",                       type:"Chest",     role:"DPS",        style:"Gardner-style:",      drops:"Guy Gardner briefing",                                 faction:"Both"});
   armorCollection.push({name:"Cat Burglar's Leggings",                   type:"Legs",      role:"DPS",        style:"Cat Burglar",         drops:"Catwoman",                                              faction:"Both"});
   armorCollection.push({name:"Android Batman's Cowl",                    type:"Head",      role:"DPS",        style:"Robot Batman",        drops:"OMAC Batman - Batcave: Brainiac Sub-Construct",         faction:"Both"});
 
@@ -6050,59 +6104,61 @@ function isAccessory(lineString)
   armorCollection.push({name:"Catwoman's Goggles",                       type:"Face",      role:"DPS",        style:"Catwoman",               drops:"Catwoman",                                           faction:"Both"});
   armorCollection.push({name:"Doctor Sivana's Clever Glasses",           type:"Face",      role:"DPS",        style:"Doctor Sivana Glasses",  drops:"Chemo - Bludhaven",    faction:"Both"});
 
-  armorCollection.push({name:"Crested Mask of the Law",type:"Face",role:"Healer",style:"Crested Visor",drops:"General Adnan - Kahndaq"});
 
-  armorCollection.push({name:"Defender's Goggles",type:"Face",role:"Tank",style:"Goggles",drops:"Armored Robotic Custodian - Batcave: Inner Sanctum"});
+  // Face
+  armorCollection.push({name:"Crested Mask of the Law",                  type:"Face",role:"Healer",style:"Crested Visor",drops:"General Adnan - Kahndaq"});
 
-  armorCollection.push({name:"Deputy's Mask",type:"Face",role:"DPS",style:"Eyepatch",drops:"Pharaoh Vezina - Kahndaq"});
+  armorCollection.push({name:"Defender's Goggles",                       type:"Face",role:"Tank",style:"Goggles",drops:"Armored Robotic Custodian - Batcave: Inner Sanctum"});
 
-  armorCollection.push({name:"Enforcer's Mask",type:"Face",role:"DPS",style:"Simplified Ventilator",drops:"Prime Assassin - Fortress of Solitude: Power Core"});
+  armorCollection.push({name:"Deputy's Mask",                            type:"Face",role:"DPS",style:"Eyepatch",drops:"Pharaoh Vezina - Kahndaq"});
 
-  armorCollection.push({name:"Eyepatch of Justice",type:"Face",role:"Healer",style:"Eyepatch",drops:"Armored Robotic Custodian - Batcave: Inner Sanctum"});
+  armorCollection.push({name:"Enforcer's Mask",                          type:"Face",role:"DPS",style:"Simplified Ventilator",drops:"Prime Assassin - Fortress of Solitude: Power Core"});
 
-  armorCollection.push({name:"Mask of the Protector",type:"Face",role:"Tank",style:"Riveted Ventilator",drops:"Sunstone Domineer - Fortress of Solitude: The Chasim"});
+  armorCollection.push({name:"Eyepatch of Justice",                      type:"Face",role:"Healer",style:"Eyepatch",drops:"Armored Robotic Custodian - Batcave: Inner Sanctum"});
 
-  armorCollection.push({name:"Mastermind's Compound Goggles",type:"Face",role:"Controller",style:"Compound Goggles",drops:"OMAC Batman - Batcave: Brainiac Sub-Construct"});
+  armorCollection.push({name:"Mask of the Protector",                    type:"Face",role:"Tank",style:"Riveted Ventilator",drops:"Sunstone Domineer - Fortress of Solitude: The Chasim"});
 
-  armorCollection.push({name:"Oan Tech Mask",type:"Face",role:"DPS",style:"Oan Tech",drops:"Kyle Rayner - Coast City"});
+  armorCollection.push({name:"Mastermind's Compound Goggles",            type:"Face",role:"Controller",style:"Compound Goggles",drops:"OMAC Batman - Batcave: Brainiac Sub-Construct"});
 
-  armorCollection.push({name:"Overlord's Mask",type:"Face",role:"Controller",style:"Shaded",drops:"The Gatekeeper - Kahndaq"});
+  armorCollection.push({name:"Oan Tech Mask",                            type:"Face",role:"DPS",style:"Oan Tech",drops:"Kyle Rayner - Coast City"});
 
-  armorCollection.push({name:"Professional's Mask",type:"Face",role:"Tank",style:"Technician",drops:"Bat Sentinels"});
+  armorCollection.push({name:"Overlord's Mask",                          type:"Face",role:"Controller",style:"Shaded",drops:"The Gatekeeper - Kahndaq"});
 
-  armorCollection.push({name:"Terrasect Ventilated Mask",type:"Face",role:"Controller",style:"Riveted Ventilator",drops:"Sunstone Herald"});
+  armorCollection.push({name:"Professional's Mask",                      type:"Face",role:"Tank",style:"Technician",drops:"Bat Sentinels"});
 
-  armorCollection.push({name:"Visage of the Council",type:"Face",role:"Healer",style:"Skull Reinforcement",drops:"Prime Assassin - Fortress of Solitude: Power Core"});
+  armorCollection.push({name:"Terrasect Ventilated Mask",                type:"Face",role:"Controller",style:"Riveted Ventilator",drops:"Sunstone Herald"});
 
-  armorCollection.push({name:"Asylum Mask",type:"Face",role:"DPS",style:"Metalhead",drops:"Doomcrazed Giant - Smallville"});
+  armorCollection.push({name:"Visage of the Council",                    type:"Face",role:"Healer",style:"Skull Reinforcement",drops:"Prime Assassin - Fortress of Solitude: Power Core"});
 
-  armorCollection.push({name:"Cybernetic Jawplate",type:"Face",role:"Tank",style:"Skull Reinforcement",drops:"Prince Ulgo - Watchtower Containment Facility"});
+  armorCollection.push({name:"Asylum Mask",                              type:"Face",role:"DPS",style:"Metalhead",drops:"Doomcrazed Giant - Smallville"});
 
-  armorCollection.push({name:"Escapee's Mask",type:"Face",role:"Healer",style:"Full Domino",drops:"Gorilla Grodd"});
+  armorCollection.push({name:"Cybernetic Jawplate",                      type:"Face",role:"Tank",style:"Skull Reinforcement",drops:"Prince Ulgo - Watchtower Containment Facility"});
 
-  armorCollection.push({name:"Graphite Domino Mask",type:"Face",role:"Controller",style:"Classic",drops:"Riot Control Prototype"});
+  armorCollection.push({name:"Escapee's Mask",                           type:"Face",role:"Healer",style:"Full Domino",drops:"Gorilla Grodd"});
 
-  armorCollection.push({name:"Infiltrator's Mask",type:"Face",role:"Controller",style:"Infiltrator",drops:"The Metal Mines - Ace Chemicals"});
+  armorCollection.push({name:"Graphite Domino Mask",                     type:"Face",role:"Controller",style:"Classic",drops:"Riot Control Prototype"});
 
-  armorCollection.push({name:"Mask of Darkest Night",type:"Face",role:"Controller",style:"Half Domino",drops:"Sinestro"});
+  armorCollection.push({name:"Infiltrator's Mask",                       type:"Face",role:"Controller",style:"Infiltrator",drops:"The Metal Mines - Ace Chemicals"});
 
-  armorCollection.push({name:"Mask of the Blessed",type:"Face",role:"Healer",style:"Druid", drops:"Clownsanity"});
+  armorCollection.push({name:"Mask of Darkest Night",                    type:"Face",role:"Controller",style:"Half Domino",drops:"Sinestro"});
 
-  armorCollection.push({name:"Mask of the Elders",type:"Face",role:"DPS",style:"Druid",drops:"Booster Gold"});
+  armorCollection.push({name:"Mask of the Blessed",                      type:"Face",role:"Healer",style:"Druid", drops:"Clownsanity"});
 
-  armorCollection.push({name:"Medic's Rebreather",type:"Face",role:"Healer",style:"Gas Ventilator",drops:"Oolong Enforcer"});
+  armorCollection.push({name:"Mask of the Elders",                       type:"Face",role:"DPS",style:"Druid",drops:"Booster Gold"});
 
-  armorCollection.push({name:"Shades of the Rogues",type:"Face",role:"Controller",style:"Biker",drops:"Zoom"});
+  armorCollection.push({name:"Medic's Rebreather",                       type:"Face",role:"Healer",style:"Gas Ventilator",drops:"Oolong Enforcer"});
 
-  armorCollection.push({name:"Shatterproof Defender's Goggles",type:"Face",role:"Tank",style:"Sniper Goggles",drops:"Captain Buzzzcutt"});
+  armorCollection.push({name:"Shades of the Rogues",                     type:"Face",role:"Controller",style:"Biker",drops:"Zoom"});
 
-  armorCollection.push({name:"The Demon's Mask",type:"Face",role:"DPS",style:"League of Assassins",drops:"Ra's al Ghul - League of Assassins Stronghold"});
+  armorCollection.push({name:"Shatterproof Defender's Goggles",          type:"Face",role:"Tank",style:"Sniper Goggles",drops:"Captain Buzzzcutt"});
 
-  armorCollection.push({name:"Amaranthine Mask",type:"Face",role:"DPS",style:"Full Domino",drops:"Archer Minor"});
+  armorCollection.push({name:"The Demon's Mask",                         type:"Face",role:"DPS",style:"League of Assassins",drops:"Ra's al Ghul - League of Assassins Stronghold"});
 
-  armorCollection.push({name:"Convex Synthium Eye Protectors",type:"Face",role:"DPS",style:"Bug Goggles",drops:"UGA Soldier"});
+  armorCollection.push({name:"Amaranthine Mask",                         type:"Face",role:"DPS",style:"Full Domino",drops:"Archer Minor"});
 
-  armorCollection.push({name:"Mask of the Magus",type:"Face",role:"DPS",style:"V Domino",drops:"Soul Eater"});
+  armorCollection.push({name:"Convex Synthium Eye Protectors",           type:"Face",role:"DPS",style:"Bug Goggles",drops:"UGA Soldier"});
+
+  armorCollection.push({name:"Mask of the Magus",                        type:"Face",role:"DPS",style:"V Domino",drops:"Soul Eater"});
 
   // Vault
   armorCollection.push({name:"Batman Hoodie",                              type:"Chest",     role:"DPS",        style:"Batman Hoodie",            drops:"Present in Vault",  faction:"Both"});
@@ -6135,15 +6191,18 @@ function isAccessory(lineString)
   armorCollection.push({name:"Sharpshooter's Shoulderpads",                type:"Shouders",  role:"DPS",        style:"Sharpshooter",             drops:"Present in Vault",  faction:"Both"});
   armorCollection.push({name:"Sharpshooter's Gloves",                      type:"Hands",     role:"DPS",        style:"Sharpshooter",             drops:"Present in Vault",  faction:"Both"});
   armorCollection.push({name:"Sharpshooter's Boots",                       type:"Feet",      role:"DPS",        style:"Sharpshooter",             drops:"Present in Vault",  faction:"Both"});
-  armorCollection.push({name:"Aeronaut's Helmet",                          type:"Head",      role:"DPS",        style:"Aeronaut",                 drops:"Present in Vault",  faction:"Both"});
+
   armorCollection.push({name:"Aeronaut's Vest",                            type:"Chest",     role:"DPS",        style:"Aeronaut",                 drops:"Present in Vault",  faction:"Both"});
-  armorCollection.push({name:"Aeronaut's Boots",                           type:"Feet",      role:"DPS",        style:"Aeronaut",                 drops:"Present in Vault",  faction:"Both"});
-  armorCollection.push({name:"Aeronaut's Shoulders",                       type:"Shoulders", role:"DPS",        style:"Aeronaut",                 drops:"Present in Vault",  faction:"Both"});
-  armorCollection.push({name:"Aeronaut's Pack",                            type:"Back",      role:"DPS",        style:"Aeronaut",                 drops:"Present in Vault",  faction:"Both"});
   armorCollection.push({name:"Aeronaut's Pants",                           type:"Legs",      role:"DPS",        style:"Aeronaut",                 drops:"Present in Vault",  faction:"Both"});
+  armorCollection.push({name:"Aeronaut's Helmet",                          type:"Head",      role:"DPS",        style:"Aeronaut",                 drops:"Present in Vault",  faction:"Both"});
+  armorCollection.push({name:"Aeronaut's Shoulders",                       type:"Shoulders", role:"DPS",        style:"Aeronaut",                 drops:"Present in Vault",  faction:"Both"});
+  armorCollection.push({name:"Aeronaut's Belt",                            type:"Waist",     role:"DPS",        style:"Aeronaut",                 drops:"Present in Vault",  faction:"Both"});
+  armorCollection.push({name:"Aeronaut's Boots",                           type:"Feet",      role:"DPS",        style:"Aeronaut",                 drops:"Present in Vault",  faction:"Both"});
+  armorCollection.push({name:"Aeronaut's Pack",                            type:"Back",      role:"DPS",        style:"Aeronaut",                 drops:"Present in Vault",  faction:"Both"});
+
   armorCollection.push({name:"Logistics Officer's Helmet",                 type:"Head",      role:"DPS",        style:"Logistics Officer",        drops:"Present in Vault",  faction:"Both"});
-  armorCollection.push({name:"Logistics Officer's Pack",                   type:"Back",      role:"DPS",        style:"Logistics Officer",        drops:"Present in Vault",  faction:"Both"});
   armorCollection.push({name:"Logistics Officer's Gloves",                 type:"Hands",     role:"DPS",        style:"Logistics Officer",        drops:"Present in Vault",  faction:"Both"});
+  armorCollection.push({name:"Logistics Officer's Pack",                   type:"Back",      role:"DPS",        style:"Logistics Officer",        drops:"Present in Vault",  faction:"Both"});
 
   // Demonic style
   armorCollection.push({name:"Chestguard of the Abyss",                    type:"Chest",     role:"DPS",        style:"Demonic",             drops:"Present in Vault",                                faction:"Both"});
@@ -6421,39 +6480,39 @@ function isAccessory(lineString)
   // Druid
   armorCollection.push({name:"Archdruid's Shirt",                          type:"Chest",     role:"DPS",        style:"Druid",               drops:"Treasure Chest - Ferris Aircraft, Gorilla Grodd's Lab (Duo), Gotham University (Duo)",                                                faction:"Both"});
 
-  armorCollection.push({name:"Battlechest of Azar",type:"Chest",role:"DPS",style:"Druid",drops:"Treasure Chest in Isis duo"});
-  armorCollection.push({name:"Dread Warlock's Robes",type:"Chest",role:"DPS",style:"Druid",drops:"Treasure Chest - Metropolis City Hall"});
+  armorCollection.push({name:"Battlechest of Azar",                        type:"Chest",     role:"DPS",        style:"Druid",               drops:"Treasure Chest in Isis duo"});
+  armorCollection.push({name:"Dread Warlock's Robes",                      type:"Chest",     role:"DPS",        style:"Druid",               drops:"Treasure Chest - Metropolis City Hall"});
 
-  armorCollection.push({name:"Embroided Shirt of the Archdruid",type:"Chest",role:"DPS",style:"Druid",drops:"Hoplite Spearmaiden"});
-  armorCollection.push({name:"Summoner's Embellished Shirt",type:"Chest",role:"DPS",style:"Druid",drops:"Lazarus Thief, Treasure Chest, Waterkeeper - Kahndaq"});
+  armorCollection.push({name:"Embroided Shirt of the Archdruid",           type:"Chest",     role:"DPS",        style:"Druid",               drops:"Hoplite Spearmaiden"});
+  armorCollection.push({name:"Summoner's Embellished Shirt",               type:"Chest",     role:"DPS",        style:"Druid",               drops:"Lazarus Thief, Treasure Chest, Waterkeeper - Kahndaq"});
 
-  armorCollection.push({name:"Kilt of the Stag Lord",type:"Legs",role:"DPS",style:"Druid",drops:"Soulless Shell - Gotham University"});
+  armorCollection.push({name:"Kilt of the Stag Lord",                      type:"Legs",      role:"DPS",        style:"Druid",               drops:"Soulless Shell - Gotham University"});
 
-  armorCollection.push({name:"Shadowcrest Kilt",type:"Legs",role:"DPS",style:"Druid",drops:"Drop"});
+  armorCollection.push({name:"Shadowcrest Kilt",                           type:"Legs",      role:"DPS",        style:"Druid",               drops:"Drop"});
   armorCollection.push({name:"Duelist's Nth-Metal Helmet",                 type:"Head",      role:"DPS",        style:"Druid",               drops:"Vendor in Gotham safehouse",                         faction:"Both"});
   armorCollection.push({name:"Hood of the Ancients",                       type:"Head",      role:"DPS",        style:"Druid",               drops:"Isis, HIVE, and OMAC Duos",                              faction:"Both"});
-  armorCollection.push({name:"Solemn Ritual Hood",                         type:"Head",      role:"DPS",        style:"Druid",drops:"Gorilla Grodd in duo"});
-  armorCollection.push({name:"Archdruid's All-Powerful Pauldrons",         type:"Shoulders", role:"Controller", style:"Druid",drops:"Waterkeeper - Kahndaq"});
+  armorCollection.push({name:"Solemn Ritual Hood",                         type:"Head",      role:"DPS",        style:"Druid",               drops:"Gorilla Grodd in duo"});
+  armorCollection.push({name:"Archdruid's All-Powerful Pauldrons",         type:"Shoulders", role:"Controller", style:"Druid",               drops:"Waterkeeper - Kahndaq"});
 
   armorCollection.push({name:"Tenacious Nth-Metal Shoulders",              type:"Shoulders", role:"DPS",        style:"Druid",               drops:"Vendor in Gotham safehouse",                         faction:"Both"});
-  armorCollection.push({name:"Gloves of the Ancients",type:"Hands",role:"DPS",style:"Druid",drops:"Treasure chest in Grodd Duo"});
-  armorCollection.push({name:"Grasp of the Shadowpact",type:"Hands",role:"DPS",style:"Druid",drops:"Treasure Chest"});
-  armorCollection.push({name:"Grips of the Archdruid",type:"Hands",role:"DPS",style:"Druid",drops:"Soulless Shell"});
-  armorCollection.push({name:"Moonglow Gloves",type:"Hands",role:"DPS",style:"Druid",drops:"Whitetip in Aquaman mission"});
-  armorCollection.push({name:"Summoner's Mystic Gloves",type:"Hands",role:"DPS",style:"Druid",drops:"Treasure Chest"});
-  armorCollection.push({name:"Belt of Dreams",type:"Waist",role:"Tank",style:"Druid",drops:"Vanguard"});
-  armorCollection.push({name:"Foreststep Belt",type:"Waist",role:"Healer",style:"Druid",drops:"Warder"});
-  armorCollection.push({name:"Nightwalker's Belt",type:"Waist",role:"DPS",style:"Druid",drops:"T1 duos, Grodd, OMAC"});
-  armorCollection.push({name:"Nightwalker's Shrouded Belt",type:"Waist",role:"DPS",style:"Druid",drops:"Batcave raids"});
-  armorCollection.push({name:"Archdruid's Treads",type:"Feet",role:"DPS",style:"Druid",drops:"Drop"});
-  armorCollection.push({name:"Druid's Boots",type:"Feet",role:"DPS",style:"Druid",drops:"Soulless Skirmisher"});
-  armorCollection.push({name:"Manawalkers",type:"Feet",role:"DPS",style:"Druid",drops:"Treasure Chest - Cosmic Treadmill: Flashback, Gotham University DUO, Omac Base DUO"});
-  armorCollection.push({name:"Riverrock Treads",type:"Feet",role:"DPS",style:"Druid",drops:""});
-  armorCollection.push({name:"Battleworn Cloak of the Ancients",type:"Back",role:"DPS",style:"Druid",drops:"Worker - Hive Base Duo, Treasure Chest - Ferris Aircraft, Omac Base Duo"});
-  armorCollection.push({name:"Shadowy Cloak",type:"Back",role:"DPS",style:"Druid",drops:""});
-  armorCollection.push({name:"Timeworn Slayer's Cloak",type:"Back",role:"Controller",style:"Druid",drops:"Minion of Wrath"});
+  armorCollection.push({name:"Gloves of the Ancients",                     type:"Hands",role:"DPS",style:"Druid",drops:"Treasure chest in Grodd Duo"});
+  armorCollection.push({name:"Grasp of the Shadowpact",                    type:"Hands",role:"DPS",style:"Druid",drops:"Treasure Chest"});
+  armorCollection.push({name:"Grips of the Archdruid",                     type:"Hands",role:"DPS",style:"Druid",drops:"Soulless Shell"});
+  armorCollection.push({name:"Moonglow Gloves",                            type:"Hands",role:"DPS",style:"Druid",drops:"Whitetip in Aquaman mission"});
+  armorCollection.push({name:"Summoner's Mystic Gloves",                   type:"Hands",role:"DPS",style:"Druid",drops:"Treasure Chest"});
+  armorCollection.push({name:"Belt of Dreams",                             type:"Waist",role:"Tank",style:"Druid",drops:"Vanguard"});
+  armorCollection.push({name:"Foreststep Belt",                            type:"Waist",role:"Healer",style:"Druid",drops:"Warder"});
+  armorCollection.push({name:"Nightwalker's Belt",                         type:"Waist",role:"DPS",style:"Druid",drops:"T1 duos, Grodd, OMAC"});
+  armorCollection.push({name:"Nightwalker's Shrouded Belt",                type:"Waist",role:"DPS",style:"Druid",drops:"Batcave raids"});
+  armorCollection.push({name:"Archdruid's Treads",                         type:"Feet",role:"DPS",style:"Druid",drops:"Drop"});
+  armorCollection.push({name:"Druid's Boots",                              type:"Feet",role:"DPS",style:"Druid",drops:"Soulless Skirmisher"});
+  armorCollection.push({name:"Manawalkers",                                type:"Feet",role:"DPS",style:"Druid",drops:"Treasure Chest - Cosmic Treadmill: Flashback, Gotham University DUO, Omac Base DUO"});
+  armorCollection.push({name:"Riverrock Treads",                           type:"Feet",role:"DPS",style:"Druid",drops:""});
+  armorCollection.push({name:"Battleworn Cloak of the Ancients",           type:"Back",role:"DPS",style:"Druid",drops:"Worker - Hive Base Duo, Treasure Chest - Ferris Aircraft, Omac Base Duo"});
+  armorCollection.push({name:"Shadowy Cloak",                              type:"Back",role:"DPS",style:"Druid",drops:""});
+  armorCollection.push({name:"Timeworn Slayer's Cloak",                    type:"Back",role:"Controller",style:"Druid",drops:"Minion of Wrath"});
 
-  // Unknown
+  // Style Unknown
   armorCollection.push({name:"Alloyed Inertron Legguards",                 type:"Legs",      role:"DPS", style:"", drops:"UGA Commander in Gorilla Island Alert"});
   armorCollection.push({name:"Amalgamated Promethium Boots",               type:"Feet",      role:"DPS", style:"", drops:"Chang Tzu in Oolong Alert"});
   armorCollection.push({name:"Bioshaped Gloves",                           type:"Hands",     role:"DPS", style:"", drops:"The Flash Villain mission"});
@@ -6493,53 +6552,53 @@ function isAccessory(lineString)
   armorCollection.push({name:"Crusader's Mask",                            type:"Face",      role:"DPS",	style:"Valiant",           drops:"Drops in Kahndaq",      faction:"Both"});
 
   // Trinkets
-  armorCollection.push({name:"Clown Nose",                    type:"Trinket",drops:"Present in Vault",style:"",role:""});
-  armorCollection.push({name:"Kryptonian Bouncy Sphere",      type:"Trinket",drops:"Present in Vault",style:"",role:""});
-  armorCollection.push({name:"Sinister Clockwork Key",        type:"Trinket",drops:"Present in Vault",style:"",role:""});
-  armorCollection.push({name:"Lion Tooth Juju",               type:"Trinket",drops:"Present in Vault",style:"",role:""});
-  armorCollection.push({name:"Demon Figurine",                type:"Trinket",drops:"Present in Vault",style:"",role:""});
-  armorCollection.push({name:"Manhunter Circuitry",           type:"Trinket",drops:"Present in Vault",style:"",role:""});
-  armorCollection.push({name:"OMAC Nanite Circuitry",         type:"Trinket",drops:"Present in Vault",style:"",role:""});
-  armorCollection.push({name:"Phantom Zone Kryptonite Chunk", type:"Trinket",drops:"Present in Vault",style:"",role:""});
-  armorCollection.push({name:"Prize Pumpkin",                 type:"Trinket",drops:"Present in Vault",style:"",role:""});
-  armorCollection.push({name:"Bladed Batarang",               type:"Trinket",drops:"Preorder special from DCUO",style:"",role:""});
-  armorCollection.push({name:"Augmentitive Healing Conduit",  type:"Trinket",role:"Healer",drops:"Sunstone Broodmother - Fortress of Solitude: The Chasm"});
+  armorCollection.push({name:"Clown Nose",                      type:"Trinket", drops:"Present in Vault",style:"",role:""});
+  armorCollection.push({name:"Kryptonian Bouncy Sphere",        type:"Trinket", drops:"Present in Vault",style:"",role:""});
+  armorCollection.push({name:"Sinister Clockwork Key",          type:"Trinket", drops:"Present in Vault",style:"",role:""});
+  armorCollection.push({name:"Lion Tooth Juju",                 type:"Trinket", drops:"Present in Vault",style:"",role:""});
+  armorCollection.push({name:"Demon Figurine",                  type:"Trinket", drops:"Present in Vault",style:"",role:""});
+  armorCollection.push({name:"Manhunter Circuitry",             type:"Trinket", drops:"Present in Vault",style:"",role:""});
+  armorCollection.push({name:"OMAC Nanite Circuitry",           type:"Trinket", drops:"Present in Vault",style:"",role:""});
+  armorCollection.push({name:"Phantom Zone Kryptonite Chunk",   type:"Trinket", drops:"Present in Vault",style:"",role:""});
+  armorCollection.push({name:"Prize Pumpkin",                   type:"Trinket", drops:"Present in Vault",style:"",role:""});
+  armorCollection.push({name:"Bladed Batarang",                 type:"Trinket", drops:"Preorder special from DCUO",style:"",role:""});
+  armorCollection.push({name:"Augmentitive Healing Conduit",    type:"Trinket", role:"Healer",drops:"Sunstone Broodmother - Fortress of Solitude: The Chasm"});
 
-  armorCollection.push({name:"Badge of Supremacy",type:"Trinket",role:"Controller",drops:"Bat Family - Batcave: Outer Caverns"});
+  armorCollection.push({name:"Badge of Supremacy",              type:"Trinket", role:"Controller",drops:"Bat Family - Batcave: Outer Caverns"});
 
-  armorCollection.push({name:"Charm of the All-Father",type:"Trinket",role:"Healer",drops:"Black Adam - Kahndaq"});
+  armorCollection.push({name:"Charm of the All-Father",         type:"Trinket", role:"Healer",drops:"Black Adam - Kahndaq"});
 
-  armorCollection.push({name:"Crystalline Energy Conduit",type:"Trinket",role:"Controller",drops:"Corrupt Jor-El A.I. - Fortress of Solitude: Power Core"});
+  armorCollection.push({name:"Crystalline Energy Conduit",      type:"Trinket", role:"Controller",drops:"Corrupt Jor-El A.I. - Fortress of Solitude: Power Core"});
 
-  armorCollection.push({name:"Energized Shard of the Defender",type:"Trinket",role:"Tank",drops:"Scorpionod MK-1 - Fortress of Solitude: The Chasm"});
+  armorCollection.push({name:"Energized Shard of the Defender", type:"Trinket", role:"Tank",drops:"Scorpionod MK-1 - Fortress of Solitude: The Chasm"});
 
-  armorCollection.push({name:"Enforcer's Badge of Retribution",type:"Trinket",role:"DPS",drops:"Scorpionod MK-1 - Fortress of Solitude: The Chasm"});
+  armorCollection.push({name:"Enforcer's Badge of Retribution", type:"Trinket", role:"DPS",drops:"Scorpionod MK-1 - Fortress of Solitude: The Chasm"});
 
-  armorCollection.push({name:"Maniac's Zeal",type:"Trinket",role:"DPS",drops:"Bat Family - Batcave: Outer Caverns"});
+  armorCollection.push({name:"Maniac's Zeal",                   type:"Trinket", role:"DPS",drops:"Bat Family - Batcave: Outer Caverns"});
 
-  armorCollection.push({name:"Shard of the Great Stone",type:"Trinket",role:"Tank",drops:"Black Adam - Kahndaq"});
+  armorCollection.push({name:"Shard of the Great Stone",        type:"Trinket", role:"Tank",drops:"Black Adam - Kahndaq"});
 
-  armorCollection.push({name:"Aeroelastic Enhancing Device",type:"Trinket",role:"DPS",drops:"Atrocitus - Ferris Aircraft"});
+  armorCollection.push({name:"Aeroelastic Enhancing Device",    type:"Trinket", role:"DPS",drops:"Atrocitus - Ferris Aircraft"});
 
-  armorCollection.push({name:"Alien Artifact Device",type:"Trinket",role:"Controller",drops:"Poison Ivy - Arkham Asylum"});
+  armorCollection.push({name:"Alien Artifact Device",           type:"Trinket", role:"Controller",drops:"Poison Ivy - Arkham Asylum"});
 
-  armorCollection.push({name:"Bracing Brew",type:"Trinket",role:"Controller",drops:"Mister Freeze - Gotham Mercy Hospital (Duo)"});
+  armorCollection.push({name:"Bracing Brew",                    type:"Trinket", role:"Controller",drops:"Mister Freeze - Gotham Mercy Hospital (Duo)"});
 
-  armorCollection.push({name:"Healer's Focus",type:"Trinket",role:"Healer",drops:"Scarecrow - Arkham Asylum"});
+  armorCollection.push({name:"Healer's Focus",                  type:"Trinket", role:"Healer",drops:"Scarecrow - Arkham Asylum"});
 
-  armorCollection.push({name:"Horn of Legend",type:"Trinket",role:"Tank",drops:"Mister Freeze - Arkham Asylum"});
+  armorCollection.push({name:"Horn of Legend",                  type:"Trinket", role:"Tank",drops:"Mister Freeze - Arkham Asylum"});
 
-  armorCollection.push({name:"Korllium Shield Generator",type:"Trinket",role:"Tank",drops:"Isis - Gotham University (Duo)"});
+  armorCollection.push({name:"Korllium Shield Generator",       type:"Trinket", role:"Tank",drops:"Isis - Gotham University (Duo)"});
 
-  armorCollection.push({name:"Modular Psionic Enhancer",type:"Trinket",role:"Healer",drops:"Atrocitus - Ferris Aircraft"});
+  armorCollection.push({name:"Modular Psionic Enhancer",        type:"Trinket", role:"Healer",drops:"Atrocitus - Ferris Aircraft"});
 
-  armorCollection.push({name:"Molecular Dispersion Device",type:"Trinket",role:"Controller",drops:"Atrocitus - Ferris Aircraft"});
+  armorCollection.push({name:"Molecular Dispersion Device",     type:"Trinket", role:"Controller",drops:"Atrocitus - Ferris Aircraft"});
 
-  armorCollection.push({name:"Mysterious Egg",type:"Trinket",role:"DPS",drops:"Villianry United - Arkham Asylum"});
+  armorCollection.push({name:"Mysterious Egg",                  type:"Trinket", role:"DPS",drops:"Villianry United - Arkham Asylum"});
 
-  armorCollection.push({name:"OmniScry Vitalizer",type:"Trinket",role:"Healer",drops:"Queen Bee - Hive Base (Duo)"});
+  armorCollection.push({name:"OmniScry Vitalizer",              type:"Trinket", role:"Healer",drops:"Queen Bee - Hive Base (Duo)"});
 
-  armorCollection.push({name:"Sharded Energy Conduit",type:"Trinket",role:"Controller",drops:"Avatar of Meta - Fortress of Solitude: Power Core"});
+  armorCollection.push({name:"Sharded Energy Conduit",          type:"Trinket", role:"Controller",drops:"Avatar of Meta - Fortress of Solitude: Power Core"});
 
   var weaponCollection = [];
 
@@ -6552,11 +6611,13 @@ function isAccessory(lineString)
   // Shields
   weaponCollection.push({name:"Aegis of Containment",           type:"Shield", role:"Controller", dps:97.1,  drops:"General Adnan in Kahndaq raid",style:"Giant Gear"});
   weaponCollection.push({name:"Ardent Buckler",                 type:"Shield", role:"DPS",        dps:20.0,  drops:"",style:"Tech Spiral"});
+  weaponCollection.push({name:"Blazoned Buckler",               type:"Shield", role:"Healer",     dps:77.9,  drops:"Prime Servitor last boss Area 51 hard alert",style:"Plated Scarab"});
   weaponCollection.push({name:"Challenger's Relentless Shield", type:"Shield", role:"Controller", dps:125.9, drops:"PVP vendor",style:"Hypno Shield"});
   weaponCollection.push({name:"Defender's Plate",               type:"Shield", role:"DPS",        dps:58.7,  drops:"Vendor in Gotham safehouse", style:"Turtle Shell"});
   weaponCollection.push({name:"Despot's Assault Plate",         type:"Shield", role:"DPS",        dps:113.1, drops:"General Zod in Fortress of Solitude 3 Raid", style:"Energized Shield"});
   weaponCollection.push({name:"Despot's Imperious Plate",       type:"Shield", role:"Controller", dps:113.1, drops:"General Zod in Fortress of Solitude 3 Raid", style:"Energized Shield"});
   weaponCollection.push({name:"Frozen Stone Shield",            type:"Shield", role:"DPS",        dps:68.3,  drops:"",style:"Targe"});
+  weaponCollection.push({name:"Guard of the Conqueror",         type:"Shield", role:"Tank",       dps:90.7,  drops:"Scion of Fear in Star Labs Alert",style:"Summoner's Shield"});
   weaponCollection.push({name:"Guard of the Deathstalkers",     type:"Shield", role:"DPS",        dps:25.5,  drops:"",style:"Heater Shield"});
   weaponCollection.push({name:"Guard of the Enforcer",          type:"Shield", role:"Healer",     dps:97,    drops:"Broodmother in FOS 1",style:""});
   weaponCollection.push({name:"Heavy Shield of Force",          type:"Shield", role:"DPS",        dps:0,     drops:"PVP vendor",style:""});
@@ -7368,8 +7429,8 @@ function arraySortByValues( arrayIn )
   var arrayCouplets = new Array();
   for( var key in arrayIn ) {
     arrayCouplets.push({
-      key: key,
-      value: arrayIn[ key ]
+        key: key,
+        value: arrayIn[ key ]
     });
   }
   arrayCouplets.sort( sort_couplets );
@@ -9573,18 +9634,18 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"Control Issues",              category:"General",subcategory:"General",stars:2,points:25,faction:"Both",description:"Use the Breakout ability 500 times"});
   featCollection.push({name:"Under Control",               category:"General",subcategory:"General",stars:2,points:25,faction:"Both",description:"Use the Breakout ability 1000 times"});
   featCollection.push({name:"Back From the Hack",          category:"General",subcategory:"General",stars:3,points:50,faction:"Both",description:"Survived the 2011 network hack!"});
-  featCollection.push({name:"Domination Unleashed",        category:"General",subcategory:"General",stars:1,points:10,faction:"Villain",description:"Become a member of the Society with Circe as your mentor"});
-  featCollection.push({name:"Masterminds Unleashed",       category:"General",subcategory:"General",stars:1,points:10,faction:"Villain",description:"Become a member of the Society with Lex Luthor as your mentor"});
-  featCollection.push({name:"Insanity Unleashed",          category:"General",subcategory:"General",stars:1,points:10,faction:"Villain",description:"Become a member of the Society with the Joker as your mentor"});
-  featCollection.push({name:"Amazons United",              category:"General",subcategory:"General",stars:1,points:10,faction:"Hero",description:"Become a member of the Justice League with Wonder Woman as your mentor"});
-  featCollection.push({name:"Superman United",             category:"General",subcategory:"General",stars:1,points:10,faction:"Hero",description:"Become a member of the Justice League with Superman as your mentor"});
-  featCollection.push({name:"Dark Knights United",         category:"General",subcategory:"General",stars:1,points:10,faction:"Hero",description:"Become a member of the Justice League with Batman as your mentor"});
-  featCollection.push({name:"Criminal Mastermind",         category:"General",subcategory:"General",stars:2,points:25,faction:"Villain",description:"Achieve level 30 as a villain mentored by Lex Luthor"});
-  featCollection.push({name:"The Queen's Favorite",        category:"General",subcategory:"General",stars:2,points:25,faction:"Villain",description:"Achieve level 30 as a villain mentored by Circe"});
-  featCollection.push({name:"The Joker in the Deck",       category:"General",subcategory:"General",stars:2,points:25,faction:"Villain",description:"Achieve level 30 as a villain mentored by the Joker"});
-  featCollection.push({name:"Champion of Earth",           category:"General",subcategory:"General",stars:2,points:25,faction:"Hero",description:"Achieve level 30 as a hero mentored by Superman"});
-  featCollection.push({name:"Warrior of Truth",            category:"General",subcategory:"General",stars:2,points:25,faction:"Hero",description:"Achieve level 30 as a hero mentored by Wonder Woman"});
-  featCollection.push({name:"Knight for Justice",          category:"General",subcategory:"General",stars:2,points:25,faction:"Hero",description:"Achieve level 30 as a hero mentored by Batman"});
+  featCollection.push({name:"Domination Unleashed",        category:"General",subcategory:"General",type:"Circe",       stars:1,points:10,faction:"Villain",description:"Become a member of the Society with Circe as your mentor"});
+  featCollection.push({name:"Masterminds Unleashed",       category:"General",subcategory:"General",type:"LexLuthor",   stars:1,points:10,faction:"Villain",description:"Become a member of the Society with Lex Luthor as your mentor"});
+  featCollection.push({name:"Insanity Unleashed",          category:"General",subcategory:"General",type:"Joker",       stars:1,points:10,faction:"Villain",description:"Become a member of the Society with the Joker as your mentor"});
+  featCollection.push({name:"Amazons United",              category:"General",subcategory:"General",type:"WonderWoman", stars:1,points:10,faction:"Hero",description:"Become a member of the Justice League with Wonder Woman as your mentor"});
+  featCollection.push({name:"Superman United",             category:"General",subcategory:"General",type:"Superman",    stars:1,points:10,faction:"Hero",description:"Become a member of the Justice League with Superman as your mentor"});
+  featCollection.push({name:"Dark Knights United",         category:"General",subcategory:"General",type:"Batman",      stars:1,points:10,faction:"Hero",description:"Become a member of the Justice League with Batman as your mentor"});
+  featCollection.push({name:"Criminal Mastermind",         category:"General",subcategory:"General",type:"LexLuthor",   stars:2,points:25,faction:"Villain",description:"Achieve level 30 as a villain mentored by Lex Luthor"});
+  featCollection.push({name:"The Queen's Favorite",        category:"General",subcategory:"General",type:"Circe",       stars:2,points:25,faction:"Villain",description:"Achieve level 30 as a villain mentored by Circe"});
+  featCollection.push({name:"The Joker in the Deck",       category:"General",subcategory:"General",type:"Joker",       stars:2,points:25,faction:"Villain",description:"Achieve level 30 as a villain mentored by the Joker"});
+  featCollection.push({name:"Champion of Earth",           category:"General",subcategory:"General",type:"Superman",    stars:2,points:25,faction:"Hero",description:"Achieve level 30 as a hero mentored by Superman"});
+  featCollection.push({name:"Warrior of Truth",            category:"General",subcategory:"General",type:"WonderWoman", stars:2,points:25,faction:"Hero",description:"Achieve level 30 as a hero mentored by Wonder Woman"});
+  featCollection.push({name:"Knight for Justice",          category:"General",subcategory:"General",type:"Batman",      stars:2,points:25,faction:"Hero",description:"Achieve level 30 as a hero mentored by Batman"});
   featCollection.push({name:"Speedster Supreme",           category:"General",subcategory:"General",stars:2,points:25,faction:"Both",description:"Achieve level 30 as a speedster"});
   featCollection.push({name:"Fearless Flier",              category:"General",subcategory:"General",stars:2,points:25,faction:"Both",description:"Achieve level 30 as a flyer"});
   featCollection.push({name:"Acrobatic Ace",               category:"General",subcategory:"General",stars:2,points:25,faction:"Both",description:"Achieve level 30 as an acrobat"});
@@ -9678,14 +9739,14 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"Who Questions the Question?", category:"General",subcategory:"Collectibles",stars:2,points:25,faction:"Both",description:"Complete 25 collections, briefings, or investigations"});
   featCollection.push({name:"Riddle Me This",              category:"General",subcategory:"Collectibles",stars:2,points:25,faction:"Both",description:"Complete 50 collections, briefings, or investigations"});
 
-  featCollection.push({name:"Well-Equipped",                  category:"Styles",subcategory:"General",stars:1,points:10,faction:"Both",description:"Collect 10 Styles"});
-  featCollection.push({name:"Sharply Dressed",                category:"Styles",subcategory:"General",stars:1,points:10,faction:"Both",description:"Collect 25 Styles"});
-  featCollection.push({name:"Costumed Crusader",              category:"Styles",subcategory:"General",stars:1,points:10,faction:"Both",description:"Collect 50 Styles"});
-  featCollection.push({name:"Enormous Ensemble",              category:"Styles",subcategory:"General",stars:1,points:10,faction:"Both",description:"Collect 100 Styles"});
-  featCollection.push({name:"Mode Model",                     category:"Styles",subcategory:"General",stars:2,points:25,faction:"Both",description:"Collect 250 Styles"});
-  featCollection.push({name:"Fight Fire with Fashion",        category:"Styles",subcategory:"General",stars:2,points:25,faction:"Both",description:"Collect 500 Styles"});
-  featCollection.push({name:"Emblematic of Heroism",          category:"Styles",subcategory:"General",stars:1,points:10,faction:"Hero",description:"Collect all classic Hero faction emblems"});
-  featCollection.push({name:"The Signs of Villainy",          category:"Styles",subcategory:"General",stars:1,points:10,faction:"Villain",description:"Collect all classic Villain faction emblems"});
+  featCollection.push({name:"Well-Equipped",               category:"Styles",subcategory:"General",stars:1,points:10,faction:"Both",description:"Collect 10 Styles"});
+  featCollection.push({name:"Sharply Dressed",             category:"Styles",subcategory:"General",stars:1,points:10,faction:"Both",description:"Collect 25 Styles"});
+  featCollection.push({name:"Costumed Crusader",           category:"Styles",subcategory:"General",stars:1,points:10,faction:"Both",description:"Collect 50 Styles"});
+  featCollection.push({name:"Enormous Ensemble",           category:"Styles",subcategory:"General",stars:1,points:10,faction:"Both",description:"Collect 100 Styles"});
+  featCollection.push({name:"Mode Model",                  category:"Styles",subcategory:"General",stars:2,points:25,faction:"Both",description:"Collect 250 Styles"});
+  featCollection.push({name:"Fight Fire with Fashion",     category:"Styles",subcategory:"General",stars:2,points:25,faction:"Both",description:"Collect 500 Styles"});
+  featCollection.push({name:"Emblematic of Heroism",       category:"Styles",subcategory:"General",stars:1,points:10,faction:"Hero",description:"Collect all classic Hero faction emblems"});
+  featCollection.push({name:"The Signs of Villainy",       category:"Styles",subcategory:"General",stars:1,points:10,faction:"Villain",description:"Collect all classic Villain faction emblems"});
 
   featCollection.push({name:"Dressed to Kill",             category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Both",description:"Collect a complete Iconic PvP battle suit"});
   featCollection.push({name:"True Colors",                 category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Both",description:"Collect a complete iconic PvE battle suit"});
@@ -9721,51 +9782,44 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"Knight Moves",                category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Both",description:"Collect all styles of the Checkmate PvP Battlesuit"});
   featCollection.push({name:"The Armor Makes the Man",     category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Both",description:"Collect all styles of the Knight PvP Battlesuit"});
 
-  featCollection.push({name:"Otherworldly",               category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all Styles in the Fourth World set"});
-  featCollection.push({name:"Two Sides Of The Same Coin", category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Split Personality set"});
-  featCollection.push({name:"Strength of Voltan",         category:"Styles",subcategory:"Theme", stars:1,points:10,faction:"Both",description:"Collect all styles in the Mayan set"});
-  featCollection.push({name:"Dimensional Traveler",       category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Zonewalker set"});
-  featCollection.push({name:"On Metal Wings",             category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Winged Fury set"});
-  featCollection.push({name:"Pulsar STAR",                category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the STAR Ex set"});
-  featCollection.push({name:"The Immutable",              category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Villain",description:"Collect all styles in the Eternal set"});
-  featCollection.push({name:"Anubis Ascendant",           category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Egyptian Sorcerer set"});
-  featCollection.push({name:"Incurably Insane",           category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Villain",description:"Collect all styles in the Bulwark of Madness set"});
-  featCollection.push({name:"Avian Assassin",             category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Raptor Tech set"});
-  featCollection.push({name:"Shards of the Heart",        category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Heartshard set"});
-  featCollection.push({name:"Guise of the Enemy",         category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Hijacked Servitor set"});
-  featCollection.push({name:"Under the Sea",              category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Remora set"});
-  featCollection.push({name:"Shaken, Not Stirred",        category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Formal set"});
-  featCollection.push({name:"Go Go Gadgeteer",            category:"Styles",subcategory:"Theme", stars:1,points:10,faction:"Both",description:"Collect all styles in the Gadgeteer set"});
-  featCollection.push({name:"Nobody's Fool",              category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Jester set"});
-  featCollection.push({name:"Utterly Divine",             category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Divine set"});
-  featCollection.push({name:"Knight of the Round",        category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Medieval set"});
-  featCollection.push({name:"Shadows in the Night",       category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Villain",description:"Collect all styles in the Blood Bat set"});
-  featCollection.push({name:"Bone Daddy",                 category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Necromancer set"});
-  featCollection.push({name:"A New Classic",              category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the New Genesis set"});
-  featCollection.push({name:"Expeditionary Force Leader", category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Paramilitary set"});
-  featCollection.push({name:"Green Thumb",                category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Plant set"});
-  featCollection.push({name:"Difference Engine Designed", category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Steam Punk set"});
-  featCollection.push({name:"Dressed for the Streets",    category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Streets set"});
-  featCollection.push({name:"Good Mojo",                  category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Voodoo set"});
-  featCollection.push({name:"Bug Off",                    category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Insectoid set"});
-  featCollection.push({name:"God of the North",           category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Viking set"});
-  featCollection.push({name:"Boot to the Head",           category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Tech Ninja set"});
-  featCollection.push({name:"Merlin's Tailor",            category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Wizardly set"});
-  featCollection.push({name:"Mystically Masked",          category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Kabuki set"});
-  featCollection.push({name:"Praetorian Elite",           category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Greco-Roman set"});
-  featCollection.push({name:"Cyber-Reinforced",           category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Jah Kir set"});
-  featCollection.push({name:"Life Is a Big, Dark Room",   category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Metalhead set"});
-  featCollection.push({name:"Under the Spotlight",        category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Dresden 7 set"});
-  featCollection.push({name:"Bio Booster",                category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Biomech set"});
-  featCollection.push({name:"Like an Eagle",              category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Talon Lord set"});
-  featCollection.push({name:"Scion of Skartaris",         category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Barbarian set"});
-  featCollection.push({name:"Get Out On the Highway",     category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Biker set"});
-  featCollection.push({name:"Hellstalker of Dis",         category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Demonic set"});
-  featCollection.push({name:"Master of the Henge",        category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Druid set"});
-  featCollection.push({name:"Dress Like an Egyptian",     category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Egyptian set"});
-  featCollection.push({name:"Man in Tights",              category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Archer set"});
-  featCollection.push({name:"Staying Frosty",             category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Antifreeze set"});
-  featCollection.push({name:"Galactic Sentinel",          category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Alien Tech set"});
+  featCollection.push({name:"Otherworldly",                     category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all Styles in the Fourth World set"});
+  featCollection.push({name:"Two Sides Of The Same Coin",       category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Split Personality set"});
+  featCollection.push({name:"Strength of Voltan",               category:"Styles",subcategory:"Theme", stars:1,points:10,faction:"Both",description:"Collect all styles in the Mayan set"});
+  featCollection.push({name:"On Metal Wings",                   category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Winged Fury set"});
+  featCollection.push({name:"Avian Assassin",                   category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Raptor Tech set"});
+  featCollection.push({name:"Shards of the Heart",              category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Heartshard set"});
+  featCollection.push({name:"Under the Sea",                    category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Remora set"});
+  featCollection.push({name:"Shaken, Not Stirred",              category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Formal set"});
+  featCollection.push({name:"Go Go Gadgeteer",                  category:"Styles",subcategory:"Theme", stars:1,points:10,faction:"Both",description:"Collect all styles in the Gadgeteer set"});
+  featCollection.push({name:"Nobody's Fool",                    category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Jester set"});
+  featCollection.push({name:"Utterly Divine",                   category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Divine set"});
+  featCollection.push({name:"Knight of the Round",              category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Medieval set"});
+  featCollection.push({name:"Bone Daddy",                       category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Necromancer set"});
+  featCollection.push({name:"A New Classic",                    category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the New Genesis set"});
+  featCollection.push({name:"Expeditionary Force Leader",       category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Paramilitary set"});
+  featCollection.push({name:"Green Thumb",                      category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Plant set"});
+  featCollection.push({name:"Difference Engine Designed",       category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Steam Punk set"});
+  featCollection.push({name:"Dressed for the Streets",          category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Streets set"});
+  featCollection.push({name:"Good Mojo",                        category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Voodoo set"});
+  featCollection.push({name:"Bug Off",                          category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Insectoid set"});
+  featCollection.push({name:"God of the North",                 category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Viking set"});
+  featCollection.push({name:"Boot to the Head",                 category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Tech Ninja set"});
+  featCollection.push({name:"Merlin's Tailor",                  category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Wizardly set"});
+  featCollection.push({name:"Mystically Masked",                category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Kabuki set"});
+  featCollection.push({name:"Praetorian Elite",                 category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Greco-Roman set"});
+  featCollection.push({name:"Cyber-Reinforced",                 category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Jah Kir set"});
+  featCollection.push({name:"Life Is a Big, Dark Room",         category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Metalhead set"});
+  featCollection.push({name:"Under the Spotlight",              category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Dresden 7 set"});
+  featCollection.push({name:"Bio Booster",                      category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Biomech set"});
+  featCollection.push({name:"Like an Eagle",                    category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Talon Lord set"});
+  featCollection.push({name:"Scion of Skartaris",               category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Barbarian set"});
+  featCollection.push({name:"Get Out On the Highway",           category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Biker set"});
+  featCollection.push({name:"Hellstalker of Dis",               category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Demonic set"});
+  featCollection.push({name:"Master of the Henge",              category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Druid set"});
+  featCollection.push({name:"Dress Like an Egyptian",           category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Egyptian set"});
+  featCollection.push({name:"Man in Tights",                    category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Archer set"});
+  featCollection.push({name:"Staying Frosty",                   category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Antifreeze set"});
+  featCollection.push({name:"Galactic Sentinel",                category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Alien Tech set"});
   featCollection.push({name:"Looking like Six Million Bucks",   category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Contemporary Tech set"});
   featCollection.push({name:"Military Grade",                   category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Military Tech set"});
   featCollection.push({name:"Am I Here to Amuse You?",          category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Psycho set"});
@@ -9774,7 +9828,6 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"Ready for Class",                  category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Schoolyard set"});
   featCollection.push({name:"Man or Machine?",                  category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Shielded Robot set"});
   featCollection.push({name:"Scaled Armor",                     category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Snake set"});
-  featCollection.push({name:"Send Me An Angel",                 category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Archangel set"});
   featCollection.push({name:"Intergalactic Planetary",          category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Sector Agent set"});
   featCollection.push({name:"Planetary Intergalactic",          category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Sector Incendiary set"});
   featCollection.push({name:"Medicine Man",                     category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Shaman set"});
@@ -9786,13 +9839,22 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"Early Adopter",                    category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Oolong set"});
   featCollection.push({name:"In Excelsis Deo",                  category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Rapture set"});
   featCollection.push({name:"Seraph of Dominance",              category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Seraph set"});
-  featCollection.push({name:"Defender of the Universe",          category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Aerial Defender set"});
-  featCollection.push({name:"No Mission Is Impossible",          category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Spec Ops set"});
-  featCollection.push({name:"Building A Better Tomorrow",          category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Engineer set"});
-  featCollection.push({name:"That's Logistics",                           category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Logistics Officer set"});
-  featCollection.push({name:"Heavenly",                                   category:"Styles",subcategory:"Theme", stars:1,points:10,faction:"Both",description:"Collect all styles in the Angelic set"});
-  featCollection.push({name:"Controlled Breathing",                       category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Sharpshooter set"});
-  featCollection.push({name:"The Right Stuff",                            category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Aeronaut set"});
+  featCollection.push({name:"Defender of the Universe",         category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Aerial Defender set"});
+  featCollection.push({name:"No Mission Is Impossible",         category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Spec Ops set"});
+  featCollection.push({name:"Building A Better Tomorrow",       category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Engineer set"});
+  featCollection.push({name:"That's Logistics",                 category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Logistics Officer set"});
+  featCollection.push({name:"Heavenly",                         category:"Styles",subcategory:"Theme", stars:1,points:10,faction:"Both",description:"Collect all styles in the Angelic set"});
+  featCollection.push({name:"Controlled Breathing",             category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Sharpshooter set"});
+  featCollection.push({name:"The Right Stuff",                  category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Aeronaut set"});
+  featCollection.push({name:"Korllian Conquerer",               category:"Styles",subcategory:"Theme", stars:1,points:10,faction:"Both",description:"Collect all styles in the HIVE Defender set"});
+  featCollection.push({name:"Dimensional Traveler",             category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Hero",description:"Collect all styles in the Zonewalker set"});
+  featCollection.push({name:"Send Me An Angel",                 category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Hero",description:"Collect all styles in the Archangel set"});
+  featCollection.push({name:"Pulsar STAR",                      category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Hero",description:"Collect all styles in the STAR Ex set"});
+  featCollection.push({name:"Anubis Ascendant",                 category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Hero",description:"Collect all styles in the Egyptian Sorcerer set"});
+  featCollection.push({name:"Incurably Insane",                 category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Villain",description:"Collect all styles in the Bulwark of Madness set"});
+  featCollection.push({name:"Guise of the Enemy",               category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Villain",description:"Collect all styles in the Hijacked Servitor set"});
+  featCollection.push({name:"Shadows in the Night",             category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Villain",description:"Collect all styles in the Blood Bat set"});
+  featCollection.push({name:"The Immutable",                    category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Villain",description:"Collect all styles in the Eternal set"});
 
   featCollection.push({name:"Fight for Right",                            category:"Raids",subcategory:"General",stars:2,points:25,faction:"Hero",description:"Complete all of the Raids as a hero in the classic game"});
   featCollection.push({name:"Raid and Rule",                              category:"Raids",subcategory:"General",stars:2,points:25,faction:"Villain",description:"Complete all of the Raids as a villain in the classic game"});
@@ -11207,8 +11269,8 @@ function getFeatFaction(featName)
       return featCollection[j].faction;
     }
   }
-  alert("ERROR: we have a feat that is not in the feat collection" + featName);
-  console.log("ERROR: we have a feat that is not in the feat collection" + featName);
+  // alert("ERROR: Feat that is not in the feat collection" + featName);
+  console.log("ERROR: Feat that is not in the feat collection" + featName);
   return "None";
 }
 
@@ -11241,9 +11303,7 @@ function calculateFeatsNeeded(character, startDateString, endDateString)
     people = [ character ];
   }
 
-  var configureStr = document.getElementById("invisibleTextBoxHoldingVariables").value;
-  // Convert string into JSON object
-  var tempObj = JSON.parse(configureStr);
+  var tempObj = readConfigUsers();
   // Convert into an array of character objects
   var arrayObjs = tempObj["Users"];
 
@@ -11251,6 +11311,7 @@ function calculateFeatsNeeded(character, startDateString, endDateString)
     if (typeof(allLogLinesJSON[person]) != "undefined") {
 
       faction = determineFaction(person);
+
       if (allLogLinesJSON[person].hasOwnProperty(itype)) {
         var itemArray = allLogLinesJSON[person][itype];
 
@@ -11268,10 +11329,16 @@ function calculateFeatsNeeded(character, startDateString, endDateString)
       }
 
       var thisCharsMovementMode = "";
+      var thisCharsMentor = "";
+      var thisCharsFaction = "";
+      var thisCharsPowerset = "";
 
       for (var i = 0; i < arrayObjs.length; i++) {
         if (person == arrayObjs[i].name) {
           thisCharsMovementMode = arrayObjs[i].movementmode;
+          thisCharsMentor = arrayObjs[i].mentor;
+          thisCharsFaction = arrayObjs[i].faction;
+          thisCharsPowerset = arrayObjs[i].powerset;
           break;
         }
       }
@@ -11290,6 +11357,119 @@ function calculateFeatsNeeded(character, startDateString, endDateString)
             }
           }
         }
+      }
+
+      // Remove any feats this character can't obtain
+      if (thisCharsMovementMode == "Acrobatics") {
+        featList["Fearless Flier"] = 1;
+        featList["Speedster Supreme"] = 1;
+      }
+      else if (thisCharsMovementMode == "Superspeed") {
+        featList["Fearless Flier"] = 1;
+        featList["Acrobatic Ace"] = 1;
+      }
+      else if (thisCharsMovementMode == "Flight") {
+        featList["Speedster Supreme"] = 1;
+        featList["Acrobatic Ace"] = 1;
+      }
+
+      if (thisCharsMentor == "Batman") {
+        featList["Domination Unleashed"] = 1;
+        featList["Masterminds Unleashed"] = 1;
+        featList["Insanity Unleashed"] = 1;
+        featList["Amazons United"] = 1;
+        featList["Superman United"] = 1;
+        featList["Criminal Mastermind"] = 1;
+        featList["The Queen's Favorite"] = 1;
+        featList["The Joker in the Deck"] = 1;
+        featList["Champion of Earth"] = 1;
+        featList["Warrior of Truth"] = 1;
+      }
+      else if (thisCharsMentor == "Superman") {
+        featList["Domination Unleashed"] = 1;
+        featList["Masterminds Unleashed"] = 1;
+        featList["Insanity Unleashed"] = 1;
+        featList["Amazons United"] = 1;
+        featList["Dark Knights United"] = 1;
+        featList["Criminal Mastermind"] = 1;
+        featList["The Queen's Favorite"] = 1;
+        featList["The Joker in the Deck"] = 1;
+        featList["Warrior of Truth"] = 1;
+        featList["Knight for Justice"] = 1;
+      }
+      else if (thisCharsMentor == "WonderWoman") {
+        featList["Domination Unleashed"] = 1;
+        featList["Masterminds Unleashed"] = 1;
+        featList["Insanity Unleashed"] = 1;
+        featList["Superman United"] = 1;
+        featList["Dark Knights United"] = 1;
+        featList["Criminal Mastermind"] = 1;
+        featList["The Queen's Favorite"] = 1;
+        featList["The Joker in the Deck"] = 1;
+        featList["Champion of Earth"] = 1;
+        featList["Knight for Justice"] = 1;
+      }
+      else if (thisCharsMentor == "Circe") {
+        featList["Amazons United"] = 1;
+        featList["Masterminds Unleashed"] = 1;
+        featList["Insanity Unleashed"] = 1;
+        featList["Superman United"] = 1;
+        featList["Dark Knights United"] = 1;
+        featList["Criminal Mastermind"] = 1;
+        featList["The Joker in the Deck"] = 1;
+        featList["Champion of Earth"] = 1;
+        featList["Warrior of Truth"] = 1;
+        featList["Knight for Justice"] = 1;
+      }
+      else if (thisCharsMentor == "LexLuthor") {
+        featList["Amazons United"] = 1;
+        featList["Domination Unleashed"] = 1;
+        featList["Insanity Unleashed"] = 1;
+        featList["Superman United"] = 1;
+        featList["Dark Knights United"] = 1;
+        featList["The Queen's Favorite"] = 1;
+        featList["The Joker in the Deck"] = 1;
+        featList["Champion of Earth"] = 1;
+        featList["Warrior of Truth"] = 1;
+        featList["Knight for Justice"] = 1;
+      }
+      else if (thisCharsMentor == "Joker") {
+        featList["Amazons United"] = 1;
+        featList["Domination Unleashed"] = 1;
+        featList["Masterminds Unleashed"] = 1;
+        featList["Superman United"] = 1;
+        featList["Dark Knights United"] = 1;
+        featList["The Queen's Favorite"] = 1;
+        featList["Criminal Mastermind"] = 1;
+        featList["Champion of Earth"] = 1;
+        featList["Warrior of Truth"] = 1;
+        featList["Knight for Justice"] = 1;
+      }
+
+      if (thisCharsFaction == "Hero") {
+        featList["Villainous Scion"] = 1;
+      }
+      else if (thisCharsFaction == "Villain") {
+        featList["Heroic Legionnaire"] = 1;
+      }
+
+      if ((thisCharsPowerset == "Gadgets") ||
+          (thisCharsPowerset == "Mental")  ||
+          (thisCharsPowerset == "Hard Light")) {
+        featList["Tanks Very Much"] = 1;
+        featList["The Healing Touch"] = 1;
+      }
+      else if ((thisCharsPowerset == "Electric") || 
+               (thisCharsPowerset == "Nature")   ||
+               (thisCharsPowerset == "Sorcery")) {
+        featList["Tanks Very Much"] = 1;
+        featList["Mission Control"] = 1;
+      }
+      else if ((thisCharsPowerset == "Fire") ||
+               (thisCharsPowerset == "Ice")  ||
+               (thisCharsPowerset == "Earth")) {
+        featList["The Healing Touch"] = 1;
+        featList["Mission Control"] = 1;
       }
     }
   });
@@ -11801,9 +11981,7 @@ function calculateFeatsSummary(character, startDateString, endDateString)
   if (earliestTS < startTS) { earliestTS = startTS; }
   if (latestTS > endTS) { latestTS = endTS; }
 
-  var configureStr = document.getElementById("invisibleTextBoxHoldingVariables").value;
-  // Convert string into JSON object
-  var tempObj = JSON.parse(configureStr);
+  var tempObj = readConfigUsers();
   // Convert into an array of character objects
   var arrayObjs = tempObj["Users"];
 
@@ -12502,6 +12680,461 @@ function convertDateObjectToDateString(dateObj)
   dateStr = monthStr + "/" + dayStr + "/" + yearStr;
   return dateStr;
 };
+
+
+
+/**
+$Id: Iuppiter.js 3026 2010-06-23 10:03:13Z Bear $
+
+Copyright (c) 2010 Nuwa Information Co., Ltd, and individual contributors.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+  1. Redistributions of source code must retain the above copyright notice,
+     this list of conditions and the following disclaimer.
+
+  2. Redistributions in binary form must reproduce the above copyright
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
+
+  3. Neither the name of Nuwa Information nor the names of its contributors
+     may be used to endorse or promote products derived from this software
+     without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+$Author: Bear $
+$Date: 2010-06-23 18:03:13 +0800 (星期三, 23 六月 2010) $
+$Revision: 3026 $
+*/
+
+if (typeof Iuppiter === 'undefined')
+    Iuppiter = {
+        version: '$Revision: 3026 $'.substring(11).replace(" $", ""),
+    };
+
+/**
+ * Convert string value to a byte array.
+ *
+ * @param {String} input The input string value.
+ * @return {Array} A byte array from string value.
+ */
+
+Iuppiter.toByteArray = function(input) {
+    var b = [], i, unicode;
+    for(i = 0; i < input.length; i++) {
+        unicode = input.charCodeAt(i);
+        // 0x00000000 - 0x0000007f -> 0xxxxxxx
+        if (unicode <= 0x7f) {
+            b.push(unicode);
+        // 0x00000080 - 0x000007ff -> 110xxxxx 10xxxxxx
+        } else if (unicode <= 0x7ff) {
+            b.push((unicode >> 6) | 0xc0);
+            b.push((unicode & 0x3F) | 0x80);
+        // 0x00000800 - 0x0000ffff -> 1110xxxx 10xxxxxx 10xxxxxx
+        } else if (unicode <= 0xffff) {
+            b.push((unicode >> 12) | 0xe0);
+            b.push(((unicode >> 6) & 0x3f) | 0x80);
+            b.push((unicode & 0x3f) | 0x80);
+        // 0x00010000 - 0x001fffff -> 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
+        } else {
+            b.push((unicode >> 18) | 0xf0);
+            b.push(((unicode >> 12) & 0x3f) | 0x80);
+            b.push(((unicode >> 6) & 0x3f) | 0x80);
+            b.push((unicode & 0x3f) | 0x80);
+        }
+    }
+
+    return b;
+}
+
+
+/**
+ * Base64 Class.
+ * Reference: http://code.google.com/p/javascriptbase64/
+ *            http://www.stringify.com/static/js/base64.js
+ * They both under MIT License.
+ */
+Iuppiter.Base64 = {
+
+    /// Encoding characters table.
+    CA: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/",
+
+    /// Encoding characters table for url safe encoding.
+    CAS: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_",
+
+    /// Decoding reference table.
+    IA: new Array(256),
+
+    /// Decoding reference table for url safe encoded string.
+    IAS: new Array(256),
+
+    /**
+ * Constructor.
+ */
+    init: function(){
+        /// Initialize variables for Base64 namespace.
+        var i;
+
+        for (i = 0; i < 256; i++) {
+            Iuppiter.Base64.IA[i] = -1;
+            Iuppiter.Base64.IAS[i] = -1;
+        }
+
+        for (i = 0, iS = Iuppiter.Base64.CA.length; i < iS; i++) {
+            Iuppiter.Base64.IA[Iuppiter.Base64.CA.charCodeAt(i)] = i;
+            Iuppiter.Base64.IAS[Iuppiter.Base64.CAS.charCodeAt(i)] = i;
+        }
+
+        Iuppiter.Base64.IA['='] = Iuppiter.Base64.IAS['='] = 0;
+    },
+
+    /**
+ * Encode base64.
+ *
+ * @param {Array|String} input A byte array or a string.
+ * @param {Boolean} urlsafe True if you want to make encoded string is url
+ *                          safe.
+ * @return {String} Encoded base64 string.
+ */
+    encode: function(input, urlsafe) {
+        var ca, dArr, sArr, sLen,
+            eLen, dLen, s, d, left,
+            i;
+
+        if(urlsafe)
+            ca = Iuppiter.Base64.CAS;
+        else
+            ca = Iuppiter.Base64.CA;
+
+        if(input.constructor == Array)
+            sArr = input;
+        else
+            sArr = Iuppiter.toByteArray(input);
+
+        sLen = sArr.length;
+
+        eLen = (sLen / 3) * 3;              // Length of even 24-bits.
+        dLen = ((sLen - 1) / 3 + 1) << 2;   // Length of returned array
+        dArr = new Array(dLen);
+
+        // Encode even 24-bits
+        for (s = 0, d = 0; s < eLen;) {
+            // Copy next three bytes into lower 24 bits of int, paying attension to sign.
+            i = (sArr[s++] & 0xff) << 16 | (sArr[s++] & 0xff) << 8 |
+                (sArr[s++] & 0xff);
+
+            // Encode the int into four chars
+            dArr[d++] = ca.charAt((i >> 18) & 0x3f);
+            dArr[d++] = ca.charAt((i >> 12) & 0x3f);
+            dArr[d++] = ca.charAt((i >> 6) & 0x3f);
+            dArr[d++] = ca.charAt(i & 0x3f);
+        }
+
+        // Pad and encode last bits if source isn't even 24 bits.
+        left = sLen - eLen; // 0 - 2.
+        if (left > 0) {
+            // Prepare the int
+            i = ((sArr[eLen] & 0xff) << 10) |
+                 (left == 2 ? ((sArr[sLen - 1] & 0xff) << 2) : 0);
+
+            // Set last four chars
+            dArr[dLen - 4] = ca.charAt(i >> 12);
+            dArr[dLen - 3] = ca.charAt((i >> 6) & 0x3f);
+            dArr[dLen - 2] = left == 2 ? ca.charAt(i & 0x3f) : '=';
+            dArr[dLen - 1] = '=';
+        }
+
+        return dArr.join("");
+    },
+
+    /**
+ * Decode base64 encoded string or byte array.
+ *
+ * @param {Array|String} input A byte array or encoded string.
+ * @param {Object} urlsafe True if the encoded string is encoded by urlsafe.
+ * @return {Array|String} A decoded byte array or string depends on input
+ *                        argument's type.
+ */
+    decode: function(input, urlsafe) {
+        var ia, dArr, sArr, sLen, bytes,
+            sIx, eIx, pad, cCnt, sepCnt, len,
+            d, cc, left,
+            i, j, r;
+
+        if(urlsafe)
+            ia = Iuppiter.Base64.IAS;
+        else
+            ia = Iuppiter.Base64.IA;
+
+        if(input.constructor == Array) {
+            sArr = input;
+            bytes = true;
+        }
+        else {
+            sArr = Iuppiter.toByteArray(input);
+            bytes = false;
+        }
+
+        sLen = sArr.length;
+
+        sIx = 0;
+        eIx = sLen - 1;    // Start and end index after trimming.
+
+        // Trim illegal chars from start
+        while (sIx < eIx && ia[sArr[sIx]] < 0)
+            sIx++;
+
+        // Trim illegal chars from end
+        while (eIx > 0 && ia[sArr[eIx]] < 0)
+            eIx--;
+
+        // get the padding count (=) (0, 1 or 2)
+        // Count '=' at end.
+        pad = sArr[eIx] == '=' ? (sArr[eIx - 1] == '=' ? 2 : 1) : 0;
+        cCnt = eIx - sIx + 1;   // Content count including possible separators
+        sepCnt = sLen > 76 ? (sArr[76] == '\r' ? cCnt / 78 : 0) << 1 : 0;
+
+        // The number of decoded bytes
+        len = ((cCnt - sepCnt) * 6 >> 3) - pad;
+        dArr = new Array(len);       // Preallocate byte[] of exact length
+
+        // Decode all but the last 0 - 2 bytes.
+        d = 0;
+        for (cc = 0, eLen = (len / 3) * 3; d < eLen;) {
+            // Assemble three bytes into an int from four "valid" characters.
+            i = ia[sArr[sIx++]] << 18 | ia[sArr[sIx++]] << 12 |
+                ia[sArr[sIx++]] << 6 | ia[sArr[sIx++]];
+
+            // Add the bytes
+            dArr[d++] = (i >> 16) & 0xff;
+            dArr[d++] = (i >> 8) & 0xff;
+            dArr[d++] = i & 0xff;
+
+            // If line separator, jump over it.
+            if (sepCnt > 0 && ++cc == 19) {
+                sIx += 2;
+                cc = 0;
+            }
+        }
+
+        if (d < len) {
+            // Decode last 1-3 bytes (incl '=') into 1-3 bytes
+            i = 0;
+            for (j = 0; sIx <= eIx - pad; j++)
+                i |= ia[sArr[sIx++]] << (18 - j * 6);
+
+            for (r = 16; d < len; r -= 8)
+                dArr[d++] = (i >> r) & 0xff;
+        }
+
+        if(bytes) {
+            return dArr;
+        }
+        else {
+            for(i = 0; i < dArr.length; i++)
+                dArr[i] = String.fromCharCode(dArr[i]);
+
+            return dArr.join('');
+        }
+    }
+};
+
+Iuppiter.Base64.init();
+
+(function() {
+
+// Constants was used for compress/decompress function.
+NBBY = 8,
+MATCH_BITS = 6,
+MATCH_MIN = 3,
+MATCH_MAX = ((1 << MATCH_BITS) + (MATCH_MIN - 1)),
+OFFSET_MASK = ((1 << (16 - MATCH_BITS)) - 1),
+LEMPEL_SIZE = 256;
+
+/**
+ * Compress string or byte array using fast and efficient algorithm.
+ *
+ * Because of weak of javascript's natural, many compression algorithm
+ * become useless in javascript implementation. The main problem is
+ * performance, even the simple Huffman, LZ77/78 algorithm will take many
+ * many time to operate. We use LZJB algorithm to do that, it suprisingly
+ * fulfills our requirement to compress string fastly and efficiently.
+ *
+ * Our implementation is based on
+ * http://src.opensolaris.org/source/raw/onnv/onnv-gate/
+ * usr/src/uts/common/os/compress.c
+ * It is licensed under CDDL.
+ *
+ * Please note it depends on toByteArray utility function.
+ *
+ * @param {String|Array} input The string or byte array that you want to
+ *                             compress.
+ * @return {Array} Compressed byte array.
+ */
+Iuppiter.compress = function(input) {
+    var sstart, dstart = [], slen,
+        src = 0, dst = 0,
+        cpy, copymap,
+        copymask = 1 << (NBBY - 1),
+        mlen, offset,
+        hp,
+        lempel = new Array(LEMPEL_SIZE),
+        i, bytes;
+
+    // Initialize lempel array.
+    for(i = 0; i < LEMPEL_SIZE; i++)
+        lempel[i] = 3435973836;
+
+    // Using byte array or not.
+    if(input.constructor == Array) {
+        sstart = input;
+        bytes = true;
+    }
+    else {
+        sstart = Iuppiter.toByteArray(input);
+        bytes = false;
+    }
+
+    slen = sstart.length;
+
+    while (src < slen) {
+        if ((copymask <<= 1) == (1 << NBBY)) {
+            if (dst >= slen - 1 - 2 * NBBY) {
+                mlen = slen;
+                for (src = 0, dst = 0; mlen; mlen--)
+                    dstart[dst++] = sstart[src++];
+                return dstart;
+            }
+            copymask = 1;
+            copymap = dst;
+            dstart[dst++] = 0;
+        }
+        if (src > slen - MATCH_MAX) {
+            dstart[dst++] = sstart[src++];
+            continue;
+        }
+        hp = ((sstart[src] + 13) ^
+              (sstart[src + 1] - 13) ^
+               sstart[src + 2]) &
+             (LEMPEL_SIZE - 1);
+        offset = (src - lempel[hp]) & OFFSET_MASK;
+        lempel[hp] = src;
+        cpy = src - offset;
+        if (cpy >= 0 && cpy != src &&
+            sstart[src] == sstart[cpy] &&
+            sstart[src + 1] == sstart[cpy + 1] &&
+            sstart[src + 2] == sstart[cpy + 2]) {
+            dstart[copymap] |= copymask;
+            for (mlen = MATCH_MIN; mlen < MATCH_MAX; mlen++)
+                if (sstart[src + mlen] != sstart[cpy + mlen])
+                    break;
+            dstart[dst++] = ((mlen - MATCH_MIN) << (NBBY - MATCH_BITS)) |
+                            (offset >> NBBY);
+            dstart[dst++] = offset;
+            src += mlen;
+        } else {
+            dstart[dst++] = sstart[src++];
+        }
+    }
+
+    return dstart;
+};
+
+/**
+ * Decompress string or byte array using fast and efficient algorithm.
+ *
+ * Our implementation is based on
+ * http://src.opensolaris.org/source/raw/onnv/onnv-gate/
+ * usr/src/uts/common/os/compress.c
+ * It is licensed under CDDL.
+ *
+ * Please note it depends on toByteArray utility function.
+ *
+ * @param {String|Array} input The string or byte array that you want to
+ *                             compress.
+ * @param {Boolean} _bytes Returns byte array if true otherwise string.
+ * @return {String|Array} Decompressed string or byte array.
+ */
+Iuppiter.decompress = function(input, _bytes) {
+
+    var sstart, dstart = [], slen,
+        src = 0, dst = 0,
+        cpy, copymap,
+        copymask = 1 << (NBBY - 1),
+        mlen, offset,
+        i, bytes, get;
+        
+    // Using byte array or not.
+    if(input.constructor == Array) {
+        sstart = input;
+        bytes = true;
+    }
+    else {
+        sstart = Iuppiter.toByteArray(input);
+        bytes = false;
+    }    
+    
+    // Default output string result.
+    if(typeof(_bytes) == 'undefined')
+        bytes = false;
+    else
+        bytes = _bytes;
+    
+    slen = sstart.length;    
+    
+    get = function() {
+        if(bytes) {
+            return dstart;
+        }
+        else {
+            // Decompressed string.
+            for(i = 0; i < dst; i++)
+                dstart[i] = String.fromCharCode(dstart[i]);
+
+            return dstart.join('')
+        }
+    };   
+            
+	while (src < slen) {
+		if ((copymask <<= 1) == (1 << NBBY)) {
+			copymask = 1;
+			copymap = sstart[src++];
+		}
+		if (copymap & copymask) {
+			mlen = (sstart[src] >> (NBBY - MATCH_BITS)) + MATCH_MIN;
+			offset = ((sstart[src] << NBBY) | sstart[src + 1]) & OFFSET_MASK;
+			src += 2;
+			if ((cpy = dst - offset) >= 0)
+				while (--mlen >= 0)
+					dstart[dst++] = dstart[cpy++];
+			else
+				/*
+				 * offset before start of destination buffer
+				 * indicates corrupt source data
+				 */
+				return get();
+		} else {
+			dstart[dst++] = sstart[src++];
+		}
+	}
+    
+	return get();
+};
+
+})();
+
 
 /**
 This is a JavaScript library that will allow you to easily add some basic DHTML
@@ -13499,8 +14132,6 @@ function alternate(table) {
 		}
 	}
 }
-
-
 
 </script>
 </body>
