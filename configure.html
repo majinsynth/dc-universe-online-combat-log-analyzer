@@ -121,11 +121,13 @@ The name in the bottom drop down menu will be removed and its data merged with m
 <br>
 <hr>
 <br>
-Click Export to construct an encoded string to cut and paste into a text file.
+Click Export to construct an encoded string to save into a text file.
 <br>
 Save this file and you can import it at a later time which will be faster than loading the combat log again.
 <br>
-This currently doesn't work well with large files.
+A window will pop up with the encoded text.  Right click on the white space and select Save As...
+<br>
+Use the import section below to import this file later.
 <br>
 <input id="exportButton" type="button" value="Export" onclick="javascript:exportData();" />
 <br>
@@ -232,6 +234,14 @@ function updateConfig() {
   // Get character selected using GUI
   var x=document.getElementById("DropDownMenu_Character").selectedIndex;
   var y=document.getElementById("DropDownMenu_Character").options;
+
+  if (typeof(y[x]) == "undefined") {
+    // User did not select a character but clicked on Sumbit Changes
+    // Maybe they did an export or import, just exit
+    window.close();
+    return false;
+  }
+
   var person = y[x].text;
 
   var id = -1;
