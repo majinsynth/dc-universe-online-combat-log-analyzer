@@ -3401,7 +3401,7 @@ function figureOutPowerset(obj) {
   powersetObj.conf2 = maxCount2;
 
   // We don't have enough information to make a determination.
-  if (maxCount < 99) {
+  if (maxCount < 139) {
     powersetObj.name = "";
   }
   return powersetObj;
@@ -3586,6 +3586,7 @@ function calculateRoles(character, startDateString, endDateString)
       var currentDay = convertTimestampToDateString(characterArray[i].time);
       results += '<tr>';
       results += '<th>' + characterArray[i].name + '</th><th>'  + characterArray[i].powerset + '</th><th>' + characterArray[i].role + '</th><th>' + characterArray[i].faction + '</th><th>'+ currentDay + '</th>';
+      // results += '<th>' + characterArray[i].name + '</th><th>'  + characterArray[i].powerset + '</th><th>' + characterArray[i].role + '</th><th>' + characterArray[i].faction + '</th><th>'+ currentDay + '</th><th>'+ characterArray[i].confidence + '</th><th>'+ characterArray[i].powerset2 + '</th><th>'+ characterArray[i].confidence2 + '</th>';
       results += '</tr>';
     }
     results += '</table>';
@@ -5249,7 +5250,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Terrasect Utility Belt",                 type:"Waist",     role:"Controller", style:"Aerial Defender", drops:"Scorpionod MK-1 in Fortress of Solitude: The Chasm Raid",           faction:"Both"});
   armorCollection.push({name:"Powered Terrasect Treads",               type:"Feet",      role:"Controller", style:"Aerial Defender", drops:"Sunstone Herald in Fortress of Solitude: The Chasm Raid",           faction:"Both"});
   armorCollection.push({name:"Terrasect Gliders",                      type:"Back",      role:"Controller", style:"Aerial Defender", drops:"Scorpionod MK-1 in Fortress of Solitude: The Chasm Raid",           faction:"Both"});
-  armorCollection.push({name:"Worn Terrasect Grips",type:"Hands",role:"Controller",style:"Aerial Defender",drops:"Corrupt Jor-El A.I. - Fortress of Solitude: Power Core", faction:"Both"});
+
   armorCollection.push({name:"Vestments of the Science Council",       type:"Chest",     role:"Healer",     style:"Talon Lord",      drops:"Avatar of Meta in Fortress of Solitude 2 The Power Core Raid",      faction:"Both"});
   armorCollection.push({name:"Plated Greaves of the Council",          type:"Legs",      role:"Healer",     style:"Talon Lord",      drops:"Prime Assassin in Fortress of Solitude 2 The Power Core Raid",      faction:"Both"});
   armorCollection.push({name:"Helm of the Councilor",                  type:"Head",      role:"Healer",     style:"Talon Lord",      drops:"Corrupt Jor-El A.I. in Fortress of Solitude 2 The Power Core Raid", faction:"Both"});
@@ -5270,6 +5271,24 @@ function isAccessory(lineString)
 
   armorCollection.push({name:"Corrupted Kryptonian Gauntlets",         type:"Hands",     role:"DPS",        style:"Kryptonian Crystal",  drops:"Corrupt Jor-El A.I. in Fortress of Solitude 2 The Power Core Raid", faction:"Both"});
 
+  // Novice FOS Raid gear
+  armorCollection.push({name:"Worn Terrasect Grips",                   type:"Hands",     role:"Controller", style:"Aerial Defender", drops:"Corrupt Jor-El A.I. in FOS2 Novice Raid",            faction:"Both"});
+  armorCollection.push({name:"Worn Terrasect Belt",                    type:"Waist",     role:"DPS", style:"", drops:"Sunstone Broodmother in Fortress of Solitude The Chasm Novice Raid",            faction:"Both"});
+  armorCollection.push({name:"Broodling's Braincase",                  type:"Head",      role:"DPS", style:"", drops:"Sunstone Broodmother in Fortress of Solitude The Chasm Novice Raid",            faction:"Both"});
+  armorCollection.push({name:"Scarred Enforcer's Chestguard",          type:"Chest",     role:"DPS", style:"", drops:"Sunstone Broodmother in Fortress of Solitude The Chasm Novice Raid",            faction:"Both"});
+  armorCollection.push({name:"Sharded Carapace",                       type:"Chest",     role:"DPS", style:"", drops:"Sunstone Herald in Fortress of Solitude The Chasm Novice Raid",            faction:"Both"});
+  armorCollection.push({name:"Sharded Shoulderguards",                 type:"Shoulders", role:"DPS", style:"", drops:"Scorpionod MK-1 in Fortress of Solitude The Chasm Novice Raid",            faction:"Both"});
+  armorCollection.push({name:"Sharded Greaves",                        type:"Legs",      role:"DPS", style:"", drops:"Scorpionod MK-1 in Fortress of Solitude The Chasm Novice Raid",            faction:"Both"});
+  armorCollection.push({name:"Tattered Councillor's Gloves",           type:"Hands",     role:"DPS", style:"", drops:"Sunstone Herald in Fortress of Solitude The Chasm Novice Raid",            faction:"Both"});
+  armorCollection.push({name:"Torn Epaulets of the Council",           type:"Shoulders", role:"DPS", style:"", drops:"Sunstone Dominator in Fortress of Solitude The Chasm Novice Raid",            faction:"Both"});
+  armorCollection.push({name:"Light Terrasect Helm",                   type:"Head",      role:"DPS", style:"", drops:"General Zod in FOS3 Novice Raid",            faction:"Both"});
+  armorCollection.push({name:"Mask of the Council",                    type:"Face",      role:"DPS", style:"", drops:"Sunstone Dominator in Fortress of Solitude The Chasm Novice Raid",            faction:"Both"});
+  armorCollection.push({name:"Polycrystalline Facemask",               type:"Face",      role:"DPS", style:"", drops:"General Zod in FOS3 Novice Raid",            faction:"Both"});
+  armorCollection.push({name:"Polycrystalline Headgear",               type:"Head",      role:"DPS", style:"", drops:"General Zod in FOS3 Novice Raid",            faction:"Both"});
+  armorCollection.push({name:"Neophyte Band of Panacea",               type:"Ring",      role:"DPS", style:"", drops:"General Zod in FOS3 Novice Raid",            faction:"Both"});
+  armorCollection.push({name:"Kandorian Enforcer's Collar",            type:"Neck",      role:"DPS", style:"", drops:"Corrupt Jor-El A.I. in Fortress of Solitude The Chasm Raid",            faction:"Both"});
+
+  // Oolong gear from FOS raids 
   armorCollection.push({name:"Swiftweave Enforcer's Chestguard",       type:"Chest",     role:"DPS",        style:"Oolong",              drops:"Avatar of Meta - Fortress of Solitude: Power Core",                                          faction:"Both"});
 
   armorCollection.push({name:"Armored Enforcer's Legplates",           type:"Legs",      role:"DPS",        style:"Oolong",              drops:"Corrupt Jor-El A.I. - Fortress of Solitude: Power Core",                                     faction:"Both"});
@@ -5719,7 +5738,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Standard of the Round",                  type:"Back",      role:"Controller", style:"Medieval",            drops:"Lying Claw - League of Assassins Stronghold",                                         faction:"Both"});
 
   armorCollection.push({name:"Long Cape of the Round",                 type:"Back",      role:"Controller", style:"Medieval",            drops:"Lying Claw - League of Assassins Stronghold",                                         faction:"Both"});
-  armorCollection.push({name:"Clarion Chestplate of Courage",          type:"Chest",     role:"Tank",       style:"Viking",              drops:"System Hacker in Watchtower Alert, Villianry United - Arkham Asylum",                  faction:"Both"});
+  armorCollection.push({name:"Clarion Chestplate of Courage",          type:"Chest",     role:"Tank",       style:"Viking",              drops:"System Hacker in Watchtower Alert, Villainy United - Arkham Asylum",                  faction:"Both"});
 
   armorCollection.push({name:"Legplates of Thera",                     type:"Legs",      role:"Tank",       style:"Viking",              drops:"Scarecrow",                                          faction:"Both"});
   armorCollection.push({name:"Battlelord's Helm",                      type:"Head",      role:"Tank",       style:"Viking",              drops:"Prime Servitor",                                     faction:"Both"});
@@ -5728,7 +5747,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Angor's Belt",                           type:"Waist",     role:"Tank",       style:"Viking",              drops:"Doomsday - Smallville",                                           faction:"Both"});
 
   armorCollection.push({name:"Treads of Brawn",                        type:"Feet",      role:"Tank",       style:"Viking",              drops:"Gorilla Grodd",                                      faction:"Both"});
-  armorCollection.push({name:"Promethium-Thread Cape",                 type:"Back",      role:"Tank",       style:"Viking",              drops:"Rogues - Stryker's Island Penitentiary",                                             faction:"Both"});
+  armorCollection.push({name:"Promethium-Thread Cape",                 type:"Back",      role:"Tank",       style:"Viking",              drops:"Rogues - Stryker's Island Penitentiary",                                               faction:"Both"});
   armorCollection.push({name:"Beatific Chestplate",                    type:"Chest",     role:"Healer",     style:"Seraph",              drops:"Villainy United",                                    faction:"Both"});
   armorCollection.push({name:"Threefold Legplates",                    type:"Legs",      role:"Healer",     style:"Seraph",              drops:"Poison Ivy - Arkham Asylum",                                         faction:"Both"});
 
@@ -6551,10 +6570,13 @@ function isAccessory(lineString)
   armorCollection.push({name:"Pilfered Prototype BioBoots",                type:"Feet",      role:"DPS", style:"", drops:"The Joker in Batman mentor mission"});
   armorCollection.push({name:"Power-Reinforced Gloves",                    type:"Hands",     role:"DPS", style:"", drops:"Safehouse Vendor"});
   armorCollection.push({name:"Riveted Coluan Belt",                        type:"Waist",     role:"DPS", style:"", drops:"Brainiac Subjugator in Area 51 alert"});
-  armorCollection.push({name:"Scarred Enforcer's Chestguard",              type:"Chest",     role:"DPS", style:"", drops:"Sunstone Broodmother in Fortress of Solitude The Chasm Novice Raid"});
   armorCollection.push({name:"Shielded Alloy Boots",                       type:"Feet",      role:"DPS", style:"", drops:"Metallo in Superman mentor mission"});
   armorCollection.push({name:"Spiked Synthium Shoulderguards",             type:"Shoulders", role:"DPS", style:"", drops:"Present in Vault"});
-  armorCollection.push({name:"Belt of Legend",             type:"Waist", role:"DPS", style:"", drops:"Superman in secret STAR Labs base"});
+  armorCollection.push({name:"Belt of Legend",                             type:"Waist",     role:"DPS", style:"", drops:"Superman in secret STAR Labs base"});
+  armorCollection.push({name:"Plated Synthium Shirt",                      type:"Chest",     role:"DPS", style:"", drops:"Treasure Chest in Brainiac Overseer"});
+  armorCollection.push({name:"Subjugator's Waistguard",                    type:"Waist",     role:"DPS", style:"", drops:"Brainiac Overseer"});
+  armorCollection.push({name:"ServitorTech Boots",                         type:"Feet",      role:"DPS", style:"", drops:"Treasure Chest in Brainiac Overseer"});
+  armorCollection.push({name:"Synthium-Thread Cape",                       type:"Back",      role:"DPS", style:"", drops:"Brainiac Guardian"});
 
   armorCollection.push({name:"Athletic Slimline Tights",                   type:"Legs",      role:"DPS", style:"Athletic Slimline", drops:""});
   armorCollection.push({name:"Brimstone Short Cape",                       type:"Back",      role:"DPS", style:"Short", drops:""});
@@ -6579,53 +6601,53 @@ function isAccessory(lineString)
   armorCollection.push({name:"Crusader's Mask",                            type:"Face",      role:"DPS",	style:"Valiant",           drops:"Drops in Kahndaq",      faction:"Both"});
 
   // Trinkets
-  armorCollection.push({name:"Clown Nose",                      type:"Trinket", drops:"Present in Vault",style:"",role:""});
-  armorCollection.push({name:"Kryptonian Bouncy Sphere",        type:"Trinket", drops:"Present in Vault",style:"",role:""});
-  armorCollection.push({name:"Sinister Clockwork Key",          type:"Trinket", drops:"Present in Vault",style:"",role:""});
-  armorCollection.push({name:"Lion Tooth Juju",                 type:"Trinket", drops:"Present in Vault",style:"",role:""});
-  armorCollection.push({name:"Demon Figurine",                  type:"Trinket", drops:"Present in Vault",style:"",role:""});
-  armorCollection.push({name:"Manhunter Circuitry",             type:"Trinket", drops:"Present in Vault",style:"",role:""});
-  armorCollection.push({name:"OMAC Nanite Circuitry",           type:"Trinket", drops:"Present in Vault",style:"",role:""});
-  armorCollection.push({name:"Phantom Zone Kryptonite Chunk",   type:"Trinket", drops:"Present in Vault",style:"",role:""});
-  armorCollection.push({name:"Prize Pumpkin",                   type:"Trinket", drops:"Present in Vault",style:"",role:""});
-  armorCollection.push({name:"Bladed Batarang",                 type:"Trinket", drops:"Preorder special from DCUO",style:"",role:""});
-  armorCollection.push({name:"Augmentitive Healing Conduit",    type:"Trinket", role:"Healer",drops:"Sunstone Broodmother - Fortress of Solitude: The Chasm"});
+  armorCollection.push({name:"Clown Nose",                      type:"Trinket", role:"DPS",        drops:"Present in Vault", style:""});
+  armorCollection.push({name:"Kryptonian Bouncy Sphere",        type:"Trinket", role:"DPS",        drops:"Present in Vault", style:""});
+  armorCollection.push({name:"Sinister Clockwork Key",          type:"Trinket", role:"DPS",        drops:"Present in Vault", style:""});
+  armorCollection.push({name:"Lion Tooth Juju",                 type:"Trinket", role:"DPS",        drops:"Present in Vault", style:""});
+  armorCollection.push({name:"Demon Figurine",                  type:"Trinket", role:"DPS",        drops:"Present in Vault", style:""});
+  armorCollection.push({name:"Manhunter Circuitry",             type:"Trinket", role:"DPS",        drops:"Present in Vault", style:""});
+  armorCollection.push({name:"OMAC Nanite Circuitry",           type:"Trinket", role:"DPS",        drops:"Present in Vault", style:""});
+  armorCollection.push({name:"Phantom Zone Kryptonite Chunk",   type:"Trinket", role:"DPS",        drops:"Present in Vault", style:""});
+  armorCollection.push({name:"Prize Pumpkin",                   type:"Trinket", role:"DPS",        drops:"Present in Vault", style:""});
+  armorCollection.push({name:"Bladed Batarang",                 type:"Trinket", role:"DPS",        drops:"Preorder special from DCUO",style:""});
+  armorCollection.push({name:"Augmentitive Healing Conduit",    type:"Trinket", role:"Healer",     drops:"Sunstone Broodmother - Fortress of Solitude: The Chasm"});
 
-  armorCollection.push({name:"Badge of Supremacy",              type:"Trinket", role:"Controller",drops:"Bat Family - Batcave: Outer Caverns"});
+  armorCollection.push({name:"Badge of Supremacy",              type:"Trinket", role:"Controller", drops:"Bat Family - Batcave: Outer Caverns"});
 
-  armorCollection.push({name:"Charm of the All-Father",         type:"Trinket", role:"Healer",drops:"Black Adam - Kahndaq"});
+  armorCollection.push({name:"Charm of the All-Father",         type:"Trinket", role:"Healer",     drops:"Black Adam - Kahndaq"});
 
-  armorCollection.push({name:"Crystalline Energy Conduit",      type:"Trinket", role:"Controller",drops:"Corrupt Jor-El A.I. - Fortress of Solitude: Power Core"});
+  armorCollection.push({name:"Crystalline Energy Conduit",      type:"Trinket", role:"Controller", drops:"Corrupt Jor-El A.I. - Fortress of Solitude: Power Core"});
 
-  armorCollection.push({name:"Energized Shard of the Defender", type:"Trinket", role:"Tank",drops:"Scorpionod MK-1 - Fortress of Solitude: The Chasm"});
+  armorCollection.push({name:"Energized Shard of the Defender", type:"Trinket", role:"Tank",       drops:"Scorpionod MK-1 - Fortress of Solitude: The Chasm"});
 
-  armorCollection.push({name:"Enforcer's Badge of Retribution", type:"Trinket", role:"DPS",drops:"Scorpionod MK-1 - Fortress of Solitude: The Chasm"});
+  armorCollection.push({name:"Enforcer's Badge of Retribution", type:"Trinket", role:"DPS",        drops:"Scorpionod MK-1 - Fortress of Solitude: The Chasm"});
 
-  armorCollection.push({name:"Maniac's Zeal",                   type:"Trinket", role:"DPS",drops:"Bat Family - Batcave: Outer Caverns"});
+  armorCollection.push({name:"Maniac's Zeal",                   type:"Trinket", role:"DPS",        drops:"Bat Family - Batcave: Outer Caverns"});
 
-  armorCollection.push({name:"Shard of the Great Stone",        type:"Trinket", role:"Tank",drops:"Black Adam - Kahndaq"});
+  armorCollection.push({name:"Shard of the Great Stone",        type:"Trinket", role:"Tank",       drops:"Black Adam - Kahndaq"});
 
-  armorCollection.push({name:"Aeroelastic Enhancing Device",    type:"Trinket", role:"DPS",drops:"Atrocitus - Ferris Aircraft"});
+  armorCollection.push({name:"Aeroelastic Enhancing Device",    type:"Trinket", role:"DPS",        drops:"Atrocitus - Ferris Aircraft"});
 
-  armorCollection.push({name:"Alien Artifact Device",           type:"Trinket", role:"Controller",drops:"Poison Ivy - Arkham Asylum"});
+  armorCollection.push({name:"Alien Artifact Device",           type:"Trinket", role:"Controller", drops:"Poison Ivy - Arkham Asylum"});
 
-  armorCollection.push({name:"Bracing Brew",                    type:"Trinket", role:"Controller",drops:"Mister Freeze - Gotham Mercy Hospital (Duo)"});
+  armorCollection.push({name:"Bracing Brew",                    type:"Trinket", role:"Controller", drops:"Mister Freeze - Gotham Mercy Hospital (Duo)"});
 
-  armorCollection.push({name:"Healer's Focus",                  type:"Trinket", role:"Healer",drops:"Scarecrow - Arkham Asylum"});
+  armorCollection.push({name:"Healer's Focus",                  type:"Trinket", role:"Healer",     drops:"Scarecrow - Arkham Asylum"});
 
-  armorCollection.push({name:"Horn of Legend",                  type:"Trinket", role:"Tank",drops:"Mister Freeze - Arkham Asylum"});
+  armorCollection.push({name:"Horn of Legend",                  type:"Trinket", role:"Tank",       drops:"Mister Freeze - Arkham Asylum"});
 
-  armorCollection.push({name:"Korllium Shield Generator",       type:"Trinket", role:"Tank",drops:"Isis - Gotham University (Duo)"});
+  armorCollection.push({name:"Korllium Shield Generator",       type:"Trinket", role:"Tank",       drops:"Isis - Gotham University (Duo)"});
 
-  armorCollection.push({name:"Modular Psionic Enhancer",        type:"Trinket", role:"Healer",drops:"Atrocitus - Ferris Aircraft"});
+  armorCollection.push({name:"Modular Psionic Enhancer",        type:"Trinket", role:"Healer",     drops:"Atrocitus - Ferris Aircraft"});
 
-  armorCollection.push({name:"Molecular Dispersion Device",     type:"Trinket", role:"Controller",drops:"Atrocitus - Ferris Aircraft"});
+  armorCollection.push({name:"Molecular Dispersion Device",     type:"Trinket", role:"Controller", drops:"Atrocitus - Ferris Aircraft"});
 
-  armorCollection.push({name:"Mysterious Egg",                  type:"Trinket", role:"DPS",drops:"Villianry United - Arkham Asylum"});
+  armorCollection.push({name:"Mysterious Egg",                  type:"Trinket", role:"DPS",        drops:"Villainy United - Arkham Asylum"});
 
-  armorCollection.push({name:"OmniScry Vitalizer",              type:"Trinket", role:"Healer",drops:"Queen Bee - Hive Base (Duo)"});
+  armorCollection.push({name:"OmniScry Vitalizer",              type:"Trinket", role:"Healer",     drops:"Queen Bee - Hive Base (Duo)"});
 
-  armorCollection.push({name:"Sharded Energy Conduit",          type:"Trinket", role:"Controller",drops:"Avatar of Meta - Fortress of Solitude: Power Core"});
+  armorCollection.push({name:"Sharded Energy Conduit",          type:"Trinket", role:"Controller", drops:"Avatar of Meta - Fortress of Solitude: Power Core"});
 
   var weaponCollection = [];
 
@@ -6727,7 +6749,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Slimline Sniper's Bow",type:"Bow",role:"DPS",dps:61.9,drops:"Wing Armor, Bastion Turret - Batcave: Outer Caverns, OMAC - Omac Base (Duo), Wisecracker - Joker's Funhouse (Challenge)",style:"Tech Bow"});
 
   weaponCollection.push({name:"Spellhunter's Bow",type:"Bow",role:"Controller",dps:58.7,drops:"Vengeful Spirit"});
-  weaponCollection.push({name:"Stagg Industries Proto-Line Bow",type:"Bow",role:"DPS",dps:25.5,drops:"Stagg Industries Proto-Line Bow", style:"Recurve Bow"});
+  weaponCollection.push({name:"Stagg Industries Proto-Line Bow",type:"Bow",role:"DPS",dps:25.5,drops:"Recruit Sentry, Muscle, Epsilon", style:"Recurve Bow"});
 
   weaponCollection.push({name:"STAR Proto-Power Battelbow Mk II",type:"Bow",role:"Controller",dps:97.1,drops:"Krona in Oan Sciencecells Alert"});
   weaponCollection.push({name:"STAR Assault Battlebow",type:"Bow",role:"DPS",dps:90.7,drops:"The Lanterns - Coast City"});
@@ -6789,9 +6811,9 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Lunar Crystal Cestus",type:"Brawling",role:"DPS",dps:68.3,drops:""});
   weaponCollection.push({name:"Machined Evosynth Claws",type:"Brawling",role:"Controller",dps:60.3,drops:"",style:"Power Glaive"});
   weaponCollection.push({name:"Norselord's Cestus",type:"Brawling",role:"Controller",dps:61.9,drops:""});
-  weaponCollection.push({name:"OmniScry Offset Gauntlets",type:"Brawling",role:"DPS",dps:58.7,drops:""});
-  weaponCollection.push({name:"Peerless Simium Cestus",type:"Brawling",role:"DPS",dps:61.9,drops:""});
-  weaponCollection.push({name:"Plated Knuckle Dusters",type:"Brawling",role:"DPS",dps:20.0,style:"Spiked Fist", drops:""});
+  weaponCollection.push({name:"OmniScry Offset Gauntlets",type:"Brawling",role:"DPS",dps:58.7,drops:"T1 Duos and alerts"});
+  weaponCollection.push({name:"Peerless Simium Cestus",type:"Brawling",role:"DPS",dps:61.9,drops:"T1 Duos and alerts"});
+  weaponCollection.push({name:"Plated Knuckle Dusters",type:"Brawling",role:"DPS",dps:20.0,style:"Spiked Fist", drops:"Vendor"});
   weaponCollection.push({name:"Plated Plexiderm Knuckles",type:"Brawling",role:"DPS",dps:61.9,drops:""});
   weaponCollection.push({name:"Prismatic Cestus",type:"Brawling",role:"DPS",dps:103.5,drops:"Sunstone Broodmother - Fortress of Solitude: The Chasm"});
 
@@ -6843,16 +6865,16 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Despot's Imperious Sub-Machine Guns",type:"Dual Pistol",role:"Controller",dps:113.1,drops:"Non, Ursa, & General Zod - Fortress of Solitude: Sunstone Matrix"});
   weaponCollection.push({name:"Despot's Shielded Sub-Machine Guns",type:"Dual Pistol",role:"Tank",dps:113.1,drops:"Non, Ursa, & General Zod - Fortress of Solitude: Sunstone Matrix"});
   weaponCollection.push({name:"Eliminator's Pistols",type:"Dual Pistol",role:"Controller",dps:97.1,drops:"General Adnan in Kahndaq raid"});
-  weaponCollection.push({name:"Elkhorn Pistols",type:"Dual Pistol",role:"Healer",dps:37.9,drops:"",style:"Flintlock Pistol"});
+  weaponCollection.push({name:"Elkhorn Pistols",type:"Dual Pistol",role:"Healer",dps:37.9,drops:"Minion of Wrath",style:"Flintlock Pistol"});
   weaponCollection.push({name:"Heavensent Pistols",type:"Dual Pistol",role:"Healer",dps:77.9,drops:"Rogues - Stryker's Island Penitentiary"});
 
   weaponCollection.push({name:"HIVE Guardian's Pistols",type:"Dual Pistol",role:"DPS",dps:68.3,drops:"Doomclone Citizen - Smallville, Treasure Chest - Ace Chemicals"});
 
   weaponCollection.push({name:"Large Capacity Bolt Pistols",type:"Dual Pistol",role:"Tank",dps:68.3,drops:"Penguin"});
-  weaponCollection.push({name:"LK-9600 Spec-Ops Pistols",type:"Dual Pistol",role:"Controller",dps:61.9,drops:""});
+  weaponCollection.push({name:"LK-9600 Spec-Ops Pistols",type:"Dual Pistol",role:"Controller",dps:61.9,drops:"OMAC Incinerator, Tiger Lord, Cheetah Claw"});
   weaponCollection.push({name:"Pistols of Galactic Conquest",type:"Dual Pistol",role:"DPS",dps:97.1,drops:"The Gatekeeper - Kahndaq"});
 
-  weaponCollection.push({name:"Pistols of Magick Obscura",type:"Dual Pistol",role:"DPS",dps:77.9,drops:""});
+  weaponCollection.push({name:"Pistols of Magick Obscura",type:"Dual Pistol",role:"DPS",dps:77.9,drops:"Treasure Chest in Coast City Alert and LOA"});
   weaponCollection.push({name:"Pistols of the Deathbringer",type:"Dual Pistol",role:"DPS",dps:49.1,drops:"Soulless Shell"});
   weaponCollection.push({name:"Pistols of the Marshal",type:"Dual Pistol",role:"DPS",dps:39.5,drops:"",style:"Machine Pistol"});
   weaponCollection.push({name:"Plated Neutronium Pistols",type:"Dual Pistol",role:"DPS",dps:97.1,drops:"Brother Eye"});
@@ -7047,20 +7069,20 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Advanced Carbon Katar",type:"Martial Arts",role:"Tank",dps:90.7,drops:"Bat Family in Batcave: Outer Caverns Alert"});
   weaponCollection.push({name:"Advanced Veridium Katar",type:"Martial Arts",role:"DPS",dps:68.3,drops:"Treasure Chest - Ace Chemicals"});
 
-  weaponCollection.push({name:"Alloyed Promethium Claws",type:"Martial Arts",role:"Healer",dps:41.1,drops:"",style:"Energy Blade Katar"});
-  weaponCollection.push({name:"Ancient Coluan Claws",type:"Martial Arts",role:"DPS",dps:61.9,drops:""});
+  weaponCollection.push({name:"Alloyed Promethium Claws",type:"Martial Arts",role:"Healer",dps:41.1,drops:"Seedling, Android in Robin/Ivy or Oolong",style:"Energy Blade Katar"});
+  weaponCollection.push({name:"Ancient Coluan Claws",type:"Martial Arts",role:"DPS",dps:61.9,drops:"Soulless Lord, Wisecracker in Spectre or Harley instances"});
   weaponCollection.push({name:"Anodized Evosynth Katar",type:"Martial Arts",role:"DPS",dps:58.7,drops:"Drone"});
   weaponCollection.push({name:"Blades of the Dragon",type:"Martial Arts",role:"Tank",dps:68.3,drops:"Atrocitus"});
   weaponCollection.push({name:"Ceremonial Blades of Skyra",type:"Martial Arts",role:"DPS",dps:55.5,drops:"Soul Eater"});
   weaponCollection.push({name:"Claws of Shadow",type:"Martial Arts",role:"Tank",dps:97.1,drops:"Pharaoh Vezina in Kahndaq raid"});
-  weaponCollection.push({name:"Cleric's Hoop Katar",type:"Martial Arts",role:"Healer",dps:61.9,drops:""});
+  weaponCollection.push({name:"Cleric's Hoop Katar",type:"Martial Arts",role:"Healer",dps:61.9,drops:"T1 Duos and alerts"});
   weaponCollection.push({name:"Dark Mirrored Blades",type:"Martial Arts",role:"DPS",dps:61.9,drops:"Treasure Chest - Hive Base (Duo)"});
 
   weaponCollection.push({name:"Despot's Assault Spikes",type:"Martial Arts",role:"DPS",dps:113.1,drops:"Non, Ursa, & General Zod - Fortress of Solitude: Sunstone Matrix"});
   weaponCollection.push({name:"Despot's Convalescent Spikes",type:"Martial Arts",role:"Healer",dps:113.1,drops:"Non, Ursa, & General Zod - Fortress of Solitude: Sunstone Matrix"});
   weaponCollection.push({name:"Despot's Imperious Spikes",type:"Martial Arts",role:"Controller",dps:113.1,drops:"Non, Ursa, & General Zod - Fortress of Solitude: Sunstone Matrix"});
   weaponCollection.push({name:"Despot's Shielded Spikes",type:"Martial Arts",role:"Tank",dps:113.1,drops:"Non, Ursa, & General Zod - Fortress of Solitude: Sunstone Matrix"});
-  weaponCollection.push({name:"Elementalist's Cestus",type:"Martial Arts",role:"DPS",dps:61.9,drops:""});
+  weaponCollection.push({name:"Elementalist's Cestus",type:"Martial Arts",role:"DPS",dps:61.9,drops:"T1 Duos and alerts"});
   weaponCollection.push({name:"Enhanced Neomagnetic Katars",type:"Martial Arts",role:"Healer",dps:90.7,drops:"Burning Claw in League of Assassin's Alert"});
   weaponCollection.push({name:"Grip of Death",type:"Martial Arts",role:"Healer",dps:97.1,drops:"Pharaoh Vezina in Kahndaq raid"});
   weaponCollection.push({name:"H'levenite Technician's Katar",type:"Martial Arts",role:"DPS",dps:61.9,drops:""});
@@ -7071,7 +7093,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Jeweled Claws of Gold",type:"Martial Arts",role:"Healer",dps:53.9,drops:"Thresher"});
   weaponCollection.push({name:"Katar of Power",type:"Martial Arts",role:"Tank",dps:77.9,drops:"Doomcrazed Giant in Smallville Alert"});
   weaponCollection.push({name:"Katar of the Ancient Protectors",type:"Martial Arts",role:"DPS",dps:68.3,drops:""});
-  weaponCollection.push({name:"Katar of the Desert Wanderers",type:"Martial Arts",role:"DPS",dps:25.5,drops:"Mystic's Katar"});
+  weaponCollection.push({name:"Katar of the Desert Wanderers",type:"Martial Arts",role:"DPS",dps:25.5,drops:"Soul Scream in Raven/Titans instance", style:"Mystic's Katar"});
   weaponCollection.push({name:"Katar of the Future",type:"Martial Arts",role:"Controller",dps:77.9,drops:"Rogues - Stryker's Island Penitentiary"});
 
   weaponCollection.push({name:"Katar of the Sun",type:"Martial Arts",role:"DPS",dps:97.1,drops:"General Adnan - Kahndaq"});
@@ -7086,12 +7108,12 @@ function isAccessory(lineString)
 
   weaponCollection.push({name:"Pit Fighter's Claws",type:"Martial Arts",role:"DPS",dps:65.1,drops:"Sequoia Lord"});
   weaponCollection.push({name:"Plated Inertron Claws",type:"Martial Arts",role:"DPS",dps:42.7,drops:"Enraged Metal Man"});
-  weaponCollection.push({name:"Prismatic Champion Katars",type:"Martial Arts",role:"Tank",dps:103.5,drops:"Bizarro, Power Girl, Supergirl - Fortress of Solitude: Power Core"});
+  weaponCollection.push({name:"Prismatic Champion Katars",type:"Martial Arts",role:"Tank",dps:103.5,drops:"Bizarro - Fortress of Solitude: Power Core"});
 
-  weaponCollection.push({name:"Prismatic Control Katars",type:"Martial Arts",role:"Controller",dps:103.5,drops:"Bizarro, Power Girl, Supergirl - Fortress of Solitude: Power Core"});
+  weaponCollection.push({name:"Prismatic Control Katars",type:"Martial Arts",role:"Controller",dps:103.5,drops:"Power Girl - Fortress of Solitude: Power Core"});
 
   weaponCollection.push({name:"Prismatic Katars",type:"Martial Arts",role:"DPS",dps:103.5,drops:"Scorpionod MK-1 - Fortress of Solitude: The Chasm"});
-  weaponCollection.push({name:"Prismatic Medico Katars",type:"Martial Arts",role:"Healer",dps:103.5,drops:""});
+  weaponCollection.push({name:"Prismatic Medico Katars",type:"Martial Arts",role:"Healer",dps:103.5,drops:"Supergirl in FOS2"});
   weaponCollection.push({name:"Simium Claws",type:"Martial Arts",role:"Healer",dps:68.3,drops:"Gorilla Grodd"});
   weaponCollection.push({name:"Sorceror's Hoopblade",type:"Martial Arts",role:"Healer",dps:77.9,drops:"Watchman Duncan & Watchdog Rinty in Ace Chemicals Alert"});
   weaponCollection.push({name:"Spacefarer's Katar",type:"Martial Arts",role:"DPS",dps:68.3,drops:"Bizarro, Power Girl, Supergirl - Fortress of Solitude: Power Core"});
@@ -7165,7 +7187,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Prismatic Champion Sword",type:"One-Handed",role:"Tank",dps:103.5,drops:""});
   weaponCollection.push({name:"Prismatic Control Sword",type:"One-Handed",role:"Controller",dps:103.5,drops:""});
   weaponCollection.push({name:"Prismatic Kora Sword",type:"One-Handed",role:"DPS",dps:103.5,drops:"Sunstone Broodmother - Fortress of Solitude: The Chasm"});
-  weaponCollection.push({name:"Promethium Shinobi Blade",type:"One-Handed",role:"DPS",dps:33.1,drops:"",style:"Tech Katana"});
+  weaponCollection.push({name:"Promethium Shinobi Blade",type:"One-Handed",role:"DPS",dps:33.1,drops:"Wisecracker, UGA Commander",style:"Tech Katana"});
   weaponCollection.push({name:"Pulsehammer of the Stars",type:"One-Handed",role:"Controller",dps:97.1,drops:"General Adnan - Kahndaq"});
 
   weaponCollection.push({name:"Ritual Katana of the Risen",type:"One-Handed",role:"DPS",dps:97.1,drops:"Ra's al Ghul - League of Assassins Stronghold"});
@@ -7324,7 +7346,7 @@ function isAccessory(lineString)
 
   weaponCollection.push({name:"Seven-Fold Crescent Staff",        type:"Staff",role:"DPS",dps:61.9,drops:"Brainiac Drone - Hive Base (Duo)"});
 
-  weaponCollection.push({name:"Sharpened Synthium Scythe",        type:"Staff",role:"DPS",dps:24.4,drops:"",style:"Reaper Scythe"});
+  weaponCollection.push({name:"Sharpened Synthium Scythe",        type:"Staff",role:"DPS",dps:24.4,drops:"Razor or Hopper outside Bane Lighthouse",style:"Reaper Scythe"});
   weaponCollection.push({name:"Shielded Promethium Staff",        type:"Staff",role:"DPS",dps:31.5,drops:"",style:"Magnetic Staff"});
   weaponCollection.push({name:"Specialized Grappler's Staff",     type:"Staff",role:"Controller",dps:41.1,drops:"Altered Android - Oolong Island"});
 
@@ -7413,7 +7435,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Triline Warhammer",                     type:"Two-Handed",role:"Tank",dps:61.9,drops:"Android - Oolong Island (Hard), Killer Bee - Hive Base (Duo), Prison Guard - Stryker's Island Penitentiary, Security Sentry - Batcave: Outer Caverns (Hard), Soulless Shell - Gotham University (Duo)"});
 
   weaponCollection.push({name:"Umber's Hammer",                        type:"Two-Handed",role:"Tank",dps:77.9,drops:"Eradicator"});
-  weaponCollection.push({name:"Unique Synthium Flamberge",             type:"Two-Handed",role:"DPS",dps:31.5,drops:"Flamberge"});
+  weaponCollection.push({name:"Unique Synthium Flamberge",             type:"Two-Handed",role:"DPS",dps:31.5,drops:"Lunatic, UGA Soldier, UGA Engineer"});
   weaponCollection.push({name:"Wicked Sawhammer",                      type:"Two-Handed",role:"Controller",dps:68.3,drops:"Queen Bee"});
 
 function isWeapon(weaponString)
