@@ -472,6 +472,8 @@ function AboutWindow() {
   aboutMessage += "  This tool reads from the DCUO combat log files on your PC and \r\n";
   aboutMessage += "      aggregates the data\r\n\r\n";
   aboutMessage += "  Send bug reports or duel invites to ClassicFumbles (USPC) \r\n\r\n";
+  aboutMessage += "  Source and latest copy found at Google Project site:\r\n";
+  aboutMessage += "	http://code.google.com/p/dc-universe-online-combat-log-analyzer/\r\n\r\n";
   aboutMessage += "  DC UNIVERSE software © 2012 Sony Online Entertainment LLC.\r\n";
   aboutMessage += "  DC UNIVERSE and all related characters and elements are trademarks of and © DC Comics.\r\n";
   alert(aboutMessage);
@@ -483,6 +485,8 @@ function HelpWindow() {
   helpMessage += "Your combat logs basically have information about your character.\r\n";
   helpMessage += "  There is some information about other characters but basically only how it affects you.\r\n\r\n";
   helpMessage += "It is written entirely in javascript and HTML5.\r\n";
+  helpMessage += "  Source and latest copy found at Google Project site:\r\n";
+  helpMessage += "	http://code.google.com/p/dc-universe-online-combat-log-analyzer/\r\n\r\n";
   helpMessage += "You can view the code by loading it into Notepad.\r\n\r\n";
   helpMessage += "You will have to load the combat log files yourself.  To do this, click the Browse button.\r\n";
   helpMessage += "Generally there are two combat log files you can load.  First load one, then the other\r\n";
@@ -591,6 +595,7 @@ function aliasMergeCharacters() {
         if (arrayObjs[key].alias != arrayObjs[key].name) {
           mainUser = arrayObjs[key].name;
           mainAlias = arrayObjs[key].alias;
+
           var aliasData = allLogLinesJSON[mainAlias];
           delete allLogLinesJSON[mainAlias]; 
           var newObj = {};
@@ -599,6 +604,7 @@ function aliasMergeCharacters() {
           concatenateData(logLineJSON);
           allUsers.splice(allUsers.indexOf(mainAlias), 1);
           // Have to find where the index in the array of the to be removed character is
+
           for(var key2 in arrayObjs) {
             if (arrayObjs[key2].name == mainAlias) {
               arrayObjs.splice(key2, 1);
@@ -670,15 +676,22 @@ function saveDataFile() {
     alert("Browser does not recognize HTML local storage.  Cannot save data file");
     return;
   }
+  //  console.log("saving stored data to localstorage");
 
   var allJSON = JSON.stringify(allLogLinesJSON);
-  var compressedJSON = Iuppiter.compress(allJSON);
-  var encodedJSON = Iuppiter.Base64.encode(compressedJSON, true);
+  //  consolePrintLargeData(allJSON, "allJSON");
 
-//  console.log("saving stored data to localstorage");
-//  consolePrintLargeData(allJSON, "allJSON");
-//  consolePrintLargeData(compressedJSON, "compressedJSON");
-//  consolePrintLargeData(encodedJSON, "encodedJSON");
+  // Seems to be a problem here where compress silently dies with large datasets
+  if (allJSON.length > 18000000) {
+    // But local storage probably won't hold this much even compressed so just don't try to save
+    return;
+  }
+  
+  var compressedJSON = Iuppiter.compress(allJSON);
+  //  consolePrintLargeData(compressedJSON, "compressedJSON");
+
+  var encodedJSON = Iuppiter.Base64.encode(compressedJSON, true);
+  //  consolePrintLargeData(encodedJSON, "encodedJSON");
  
   try {
     localStorage.setItem("CLA_DATA_JSON_FULL", encodedJSON);	
@@ -765,22 +778,20 @@ function exportDataToFile() {
   var allJSON = JSON.stringify(allLogLinesJSON);
   var compressedJSON = Iuppiter.compress(allJSON);
   var encodedJSON = Iuppiter.Base64.encode(compressedJSON, true);
-  document.getElementById('StatsDisplay').style.display="block";
-  document.getElementById('TableDisplay').style.display="none";
-  document.getElementById("StatsDisplay").innerHTML = encodedJSON;
-  document.getElementById('LeftChartDiv').innerHTML = "";
-  var messageText = "Press Control-A to select all the encoded data above.\r\n";
-  messageText += "Then press Control-C to copy to your clipboard.\r\n";
-  messageText += "Then open a text editor such as notepad and paste the encoded data into notepad and save as a text file.\r\n";
-  messageText += "Then later you can import this data by clicking the Configure button and selecting the file and performing an Import.\r\n";
-  messageText += "This should be much faster than importing a large old combat log.\r\n";
-  document.getElementById('RightChartDiv').innerHTML = messageText;
 
-//  var bb = new BlobBuilder();
-//  bb.append((new XMLSerializer).serializeToString(document));
-//  var blob = bb.getBlob("application/xhtml+xml;charset=" + document.characterSet);
-//  saveAs(blob, "document.xhtml");
+//  document.getElementById('StatsDisplay').style.display="block";
+//  document.getElementById('TableDisplay').style.display="none";
+//  document.getElementById("StatsDisplay").innerHTML = encodedJSON;
+//  document.getElementById('LeftChartDiv').innerHTML = "";
+//  var messageText = "Press Control-A to select all the encoded data above.\r\n";
+//  messageText += "Then press Control-C to copy to your clipboard.\r\n";
+//  messageText += "Then open a text editor such as notepad and paste the encoded data into notepad and save as a text file.\r\n";
+//  messageText += "Then later you can import this data by clicking the Configure button and selecting the file and performing an Import.\r\n";
+//  messageText += "This should be much faster than importing a large old combat log.\r\n";
+//  document.getElementById('RightChartDiv').innerHTML = messageText;
 
+  var blob = new Blob([encodedJSON], { type: "text/plain" });
+  saveAs(blob, "dcuo_cla_encoded_combat_log.txt");
 }
 
 
@@ -3228,6 +3239,7 @@ function displaymessage()
   var people = Object.keys(allLogLinesJSON);
   console.log("Number of characters = " + people.length);
 
+  /*
   var compressTimeStart = new Date();
   var compressed1 = Iuppiter.compress(logLineJSON);
   var compressTimeEnd = new Date();
@@ -3248,6 +3260,8 @@ function displaymessage()
   else {
     console.log("Compression check failed");
   }
+
+  */
 
   for (var i = 0; i < allUsers.length; i++) {
     console.log(i + " allUser character = " + allUsers[i]);
@@ -5648,9 +5662,9 @@ function isAccessory(lineString)
   armorCollection.push({name:"Slim Sensormise Jacket",                 type:"Chest",     role:"DPS",        style:"Biker",               drops:"",                                                   faction:"Both"});
   armorCollection.push({name:"Barbed Shoulderguards of the Enforcer",  type:"Shoulders", role:"DPS",        style:"Biker",               drops:"Bane in Cape Carmine Lighthouse mission",            faction:"Both"});
   armorCollection.push({name:"Brutal Outlaw's Leggings",               type:"Legs",      role:"DPS",        style:"Biker",               drops:"Vendor in Gotham safehouse",                         faction:"Both"});
-  armorCollection.push({name:"Battleworn Synthium Helm",               type:"Head",      role:"DPS",        style:"Biker",               drops:"",                                                   faction:"Both"});
+  armorCollection.push({name:"Battleworn Synthium Helm",               type:"Head",      role:"DPS",        style:"Biker",               drops:"Reward or vendor, does not drop from boss",          faction:"Both"});
   armorCollection.push({name:"Brutal Outlaw's Helmet",                 type:"Head",      role:"DPS",        style:"Biker",               drops:"Vendor in Gotham safehouse",                         faction:"Both"});
-  armorCollection.push({name:"Diego's Plated Belt",                    type:"Waist",     role:"DPS",        style:"Biker",               drops:"",                                                   faction:"Both"});
+  armorCollection.push({name:"Diego's Plated Belt",                    type:"Waist",     role:"DPS",        style:"Biker",               drops:"Venom Supplier Diego",                               faction:"Both"});
   armorCollection.push({name:"Biker Gloves",                           type:"Hands",     role:"DPS",        style:"Biker",               drops:"Vendor in Gotham safehouse",                         faction:"Both"});
   armorCollection.push({name:"Armor-Plated Treads",                    type:"Feet",      role:"DPS",        style:"Biker",               drops:"",                                                   faction:"Both"});
   armorCollection.push({name:"Brutal Outlaw's Boots",                  type:"Feet",      role:"DPS",        style:"Biker",               drops:"Vendor in Gotham safehouse",                         faction:"Both"});
@@ -5664,7 +5678,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Surplus Field Belt",                     type:"Waist",     role:"DPS",        style:"Paramilitary",        drops:"Vendor in safehouse",                                faction:"Both"});
   armorCollection.push({name:"Surplus Field Boots",                    type:"Feet",      role:"DPS",        style:"Paramilitary",        drops:"Vendor in safehouse",                                faction:"Both"});
   armorCollection.push({name:"Surplus Field Pack",                     type:"Back",      role:"DPS",        style:"Paramilitary",        drops:"Vendor in safehouse",                                faction:"Both"});
-  armorCollection.push({name:"Dense Synthweave Cap",                   type:"Head",      role:"DPS",        style:"Paramilitary",        drops:"",                                                   faction:"Both"});
+  armorCollection.push({name:"Dense Synthweave Cap",                   type:"Head",      role:"DPS",        style:"Paramilitary",        drops:"Vendor in safehouse",                                faction:"Both"});
 
   // Alien Tech style (originally controller only) from bosses in alerts
   armorCollection.push({name:"Superior Coluan Chestplate",             type:"Chest",     role:"Controller", style:"Alien Tech",          drops:"Villainy United, final room of Arkham Asylum alert", faction:"Both"});
@@ -5785,15 +5799,15 @@ function isAccessory(lineString)
   armorCollection.push({name:"Networked Nanobot Carapace",             type:"Chest",     role:"DPS",        style:"Retro Tech",          drops:"Greater Accumulator in Area 51 alert",                  faction:"Both"});
   armorCollection.push({name:"Asylum Guard's Leggings",                type:"Legs",      role:"DPS",        style:"Retro Tech",          drops:"Harley Quinn",                                          faction:"Both"});
   armorCollection.push({name:"Cybernetic Interfaced Legguards",        type:"Legs",      role:"DPS",        style:"Retro Tech",          drops:"Prime Servitor",                                        faction:"Both"});
-  armorCollection.push({name:"WT-9 Covert Ops Leggings",               type:"Legs",      role:"DPS",        style:"Retro Tech",          drops:"",                                                      faction:"Both"});
+  armorCollection.push({name:"WT-9 Covert Ops Leggings",               type:"Legs",      role:"DPS",        style:"Retro Tech",          drops:"Batman in Regal Hotel Villain instance",                faction:"Both"});
   armorCollection.push({name:"Advanced ServitorGuard Helmet",          type:"Head",      role:"DPS",        style:"Retro Tech",          drops:"Batman in Hero Robot Batman mission",                   faction:"Both"});
   armorCollection.push({name:"Raptor's Slimline Helmet",               type:"Head",      role:"DPS",        style:"Retro Tech",          drops:"Harley Quinn",                                          faction:"Both"});
   armorCollection.push({name:"Synthium-Hardened Deathmask",            type:"Head",      role:"DPS",        style:"Retro Tech",          drops:"Harley Quinn",                                          faction:"Both"});
   armorCollection.push({name:"Twelfth-Level Thinking Helmet",          type:"Head",      role:"Controller", style:"Retro Tech",          drops:"Subprime Regulator Alpha",                              faction:"Both"});
   armorCollection.push({name:"Enhanced ServitorTech Shoulderguards",   type:"Shoulders", role:"DPS",        style:"Retro Tech",          drops:"Brainiac Joker-bot",                                    faction:"Both"});
-  armorCollection.push({name:"Lunar Exterminator's Gloves",            type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"",                                                      faction:"Both"});
+  armorCollection.push({name:"Lunar Exterminator's Gloves",            type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"reward or vendor",                                      faction:"Both"});
   armorCollection.push({name:"Prototype Fieldscanner Grips",           type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"Micro Security Bot",                                    faction:"Both"});
-  armorCollection.push({name:"Spiked Kamikaze Gauntlets",              type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"",                                                      faction:"Both"});
+  armorCollection.push({name:"Spiked Kamikaze Gauntlets",              type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"Villain reward",                                        faction:"Both"});
   armorCollection.push({name:"Synthium-Hardended Grips",               type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"Harley Quinn",                                          faction:"Both"});
   armorCollection.push({name:"WayneTech Equilibrity Gauntlets",        type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"",                                                      faction:"Both"});
   armorCollection.push({name:"Belt of the Genetrix",                   type:"Waist",     role:"DPS",        style:"Retro Tech",          drops:"Queen Bee",                                             faction:"Both"});
@@ -5804,9 +5818,9 @@ function isAccessory(lineString)
   armorCollection.push({name:"Shielded Synthium Sash",                 type:"Waist",     role:"DPS",        style:"Retro Tech",          drops:"Buzzbomber",                                            faction:"Both"});
   armorCollection.push({name:"Cruel Stompers",                         type:"Feet",      role:"DPS",        style:"Retro Tech",          drops:"Brainiac Joker-bot",                                    faction:"Both"});
   armorCollection.push({name:"Enhanced Evosynthium Boots",             type:"Feet",      role:"DPS",        style:"Retro Tech",          drops:"Drone near OMAC",                                       faction:"Both"});
-  armorCollection.push({name:"Sadist's Spine Stompers",                type:"Feet",      role:"DPS",        style:"Retro Tech",          drops:"",                                                      faction:"Both"});
+  armorCollection.push({name:"Sadist's Spine Stompers",                type:"Feet",      role:"DPS",        style:"Retro Tech",          drops:"Villain reward",                                        faction:"Both"});
   armorCollection.push({name:"Advanced-Tech Utility Pack",             type:"Back",      role:"DPS",        style:"Retro Tech",          drops:"Robin",                                                 faction:"Both"});
-  armorCollection.push({name:"Advanced Nanoguided Rocketpack",         type:"Back",      role:"DPS",        style:"Retro Tech",          drops:"",                                                      faction:"Both"});
+  armorCollection.push({name:"Advanced Nanoguided Rocketpack",         type:"Back",      role:"DPS",        style:"Retro Tech",          drops:"reward",                                                faction:"Both"});
   armorCollection.push({name:"Deathgrin Combat Pack",                  type:"Back",      role:"DPS",        style:"Retro Tech",          drops:"The Joker",                                             faction:"Both"});
   armorCollection.push({name:"Depleted Promethium Pack",               type:"Back",      role:"DPS",        style:"Retro Tech",          drops:"Deathstroke",                                           faction:"Both"});
   armorCollection.push({name:"Plated Assault Pack",                    type:"Back",      role:"DPS",        style:"Retro Tech",          drops:"Harley Quinn",                                          faction:"Both"});
@@ -5850,8 +5864,8 @@ function isAccessory(lineString)
 
   // Angelic
   armorCollection.push({name:"Helm of the Eternal Sentinel",             type:"Head",      role:"DPS",        style:"Angelic",             drops:"Vendor",                                                faction:"Both"});
-  armorCollection.push({name:"Kandorian Battlehelm",                     type:"Head",      role:"DPS",        style:"Angelic",             drops:"",                                                      faction:"Both"});
-  armorCollection.push({name:"Synthium Combat Helmet",                   type:"Head",      role:"DPS",        style:"Angelic",             drops:"Lunatic",    faction:"Both"});
+  armorCollection.push({name:"Kandorian Battlehelm",                     type:"Head",      role:"DPS",        style:"Angelic",             drops:"Villain reward?",                                       faction:"Both"});
+  armorCollection.push({name:"Synthium Combat Helmet",                   type:"Head",      role:"DPS",        style:"Angelic",             drops:"Lunatic",                                               faction:"Both"});
   armorCollection.push({name:"Shoulderguards of the Divine",             type:"Shoulders", role:"DPS",        style:"Angelic",             drops:"Sandtiger - Condemed Shipping Office",                  faction:"Both"});
 
   armorCollection.push({name:"Gloves of the Maker",                      type:"Hands",     role:"DPS",        style:"Angelic",             drops:"Whitetip in Aquaman instance or T3 Duo",                faction:"Both"});
@@ -5860,7 +5874,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Sabatons of the Seraph",                   type:"Feet",      role:"DPS",        style:"Angelic",             drops:"Soulless Shell - Gotham University",                    faction:"Both"});
 
   armorCollection.push({name:"Proud Valorium Wings",                     type:"Back",      role:"DPS",        style:"Angelic",             drops:"",                                                      faction:"Both"});
-  armorCollection.push({name:"Heavenly Leggings",                        type:"Legs",      role:"DPS",        style:"Angelic",             drops:"",                                                      faction:"Both"});
+  armorCollection.push({name:"Heavenly Leggings",                        type:"Legs",      role:"DPS",        style:"Angelic",             drops:"Minion of Lust in Brother Blood instance",              faction:"Both"});
 
   // Remora
   armorCollection.push({name:"Beachlord's Chestplate",                   type:"Chest",     role:"DPS",        style:"Remora",              drops:"Sandtiger - Condemed Shipping Office",                  faction:"Both"});
@@ -5901,11 +5915,11 @@ function isAccessory(lineString)
   armorCollection.push({name:"Gorillatech Survivalist's Belt",           type:"Waist",     role:"DPS",        style:"Insectoid",           drops:"Starport Worker in HIVE alert",                         faction:"Both"});
   armorCollection.push({name:"Three-Son Belt",                           type:"Waist",     role:"DPS",        style:"Insectoid",           drops:"Gorilla Smasher in Gorilla Grodd duo",                  faction:"Both"});
   armorCollection.push({name:"Augmented Chitin Boots",                   type:"Feet",      role:"DPS",        style:"Insectoid",           drops:"NeurOMAC in Inner Raid",                                faction:"Both"});
-  armorCollection.push({name:"Clawed Centurion's Boots",                 type:"Feet",      role:"DPS",        style:"Insectoid",           drops:"",                                                      faction:"Both"});
+  armorCollection.push({name:"Clawed Centurion's Boots",                 type:"Feet",      role:"DPS",        style:"Insectoid",           drops:"UGA Soldier in Grodd duo, Wisecracker near Full House", faction:"Both"});
   armorCollection.push({name:"H'levenite Battleboots",                   type:"Feet",      role:"DPS",        style:"Insectoid",           drops:"Gorilla Smasher",                                       faction:"Both"});
   armorCollection.push({name:"Large Mechanical Wings",                   type:"Back",      role:"Tank",       style:"Insectoid",           drops:"OMAC",                                                  faction:"Both"});
   armorCollection.push({name:"Specialized Combat Wings",                 type:"Back",      role:"DPS",        style:"Insectoid",           drops:"Bludhaven Avenger",                                     faction:"Both"});
-  armorCollection.push({name:"Superior Gorilla-Grown Wings",             type:"Back",      role:"DPS",        style:"Insectoid",           drops:"",                                                      faction:"Both"});
+  armorCollection.push({name:"Superior Gorilla-Grown Wings",             type:"Back",      role:"DPS",        style:"Insectoid",           drops:"Enraged Metal Man in Easy Oolong Alert, Treasure Chest in Robin/Ivy challenge", faction:"Both"});
 
   // Archangel style from PVP vendor in reactor meta wing watchtower hero
   armorCollection.push({name:"Wingman's Valorium Chestplate",            type:"Chest",     role:"DPS",        style:"Archangel",           drops:"PVP vendor in Reactor Meta Wing of Watchtower",         faction:"Hero"});
@@ -5996,11 +6010,11 @@ function isAccessory(lineString)
 
   // New Genesis style
   armorCollection.push({name:"Embellished Powersuit Shirt",              type:"Chest",     role:"DPS",        style:"New Genesis",         drops:"Present in Vault",                                      faction:"Both"});
-  armorCollection.push({name:"Kryptonian Battlechest",                   type:"Chest",     role:"DPS",        style:"New Genesis",         drops:"",                                                      faction:"Both"});
+  armorCollection.push({name:"Kryptonian Battlechest",                   type:"Chest",     role:"DPS",        style:"New Genesis",         drops:"Supergirl in Doctor Psycho villain instance",           faction:"Both"});
   armorCollection.push({name:"LX-1500 Biomat Shirt",                     type:"Chest",     role:"DPS",        style:"New Genesis",         drops:"Doctor Psycho or Supergirl in mission",                 faction:"Both"});
   armorCollection.push({name:"Slim Crystalline Shirt",                   type:"Chest",     role:"DPS",        style:"New Genesis",         drops:"Doctor Psycho",                                         faction:"Both"});
   armorCollection.push({name:"Advanced Biomesh Leggings",                type:"Legs",      role:"DPS",        style:"New Genesis",         drops:"Power Girl",                                            faction:"Both"});
-  armorCollection.push({name:"Krypton-Tech Leggings",                    type:"Legs",      role:"DPS",        style:"New Genesis",         drops:"",                                                      faction:"Both"});
+  armorCollection.push({name:"Krypton-Tech Leggings",                    type:"Legs",      role:"DPS",        style:"New Genesis",         drops:"Power Girl",                                                      faction:"Both"});
   armorCollection.push({name:"Powersuit Tights",                         type:"Legs",      role:"DPS",        style:"New Genesis",         drops:"Present in Vault",                                      faction:"Both"});
   armorCollection.push({name:"Kandorian Helmet of Power",                type:"Head",      role:"DPS",        style:"New Genesis",         drops:"Present in Vault",                                      faction:"Both"});
   armorCollection.push({name:"Riveted Powersuit Helmet",                 type:"Head",      role:"DPS",        style:"New Genesis",         drops:"Brainiac Spark MK-II in Superman Overlord mission",     faction:"Both"});
@@ -6009,7 +6023,7 @@ function isAccessory(lineString)
 
   armorCollection.push({name:"New Genesis Gloves",                       type:"Hands",     role:"DPS",        style:"New Genesis",         drops:"Present in Vault",                                      faction:"Both"});
   armorCollection.push({name:"Pit Fighter's Gauntlets",                  type:"Hands",     role:"DPS",        style:"New Genesis",         drops:"Power Girl",                                            faction:"Both"});
-  armorCollection.push({name:"Prototype AmerTek Power Gauntlets",        type:"Hands",     role:"DPS",        style:"New Genesis",         drops:"",                                                      faction:"Both"});
+  armorCollection.push({name:"Prototype AmerTek Power Gauntlets",        type:"Hands",     role:"DPS",        style:"New Genesis",         drops:"Steel in Superman secret STAR Labs instance",           faction:"Both"});
   armorCollection.push({name:"Clasped Kandorian Belt",                   type:"Waist",     role:"DPS",        style:"New Genesis",         drops:"",                                                      faction:"Both"});
   armorCollection.push({name:"Ectoplasmic Girdle",                       type:"Waist",     role:"DPS",        style:"New Genesis",         drops:"Doctor Psycho",                                         faction:"Both"});
   armorCollection.push({name:"Kryptonian Battlebelt",                    type:"Waist",     role:"DPS",        style:"New Genesis",         drops:"Supergirl",                                             faction:"Both"});
@@ -6540,6 +6554,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Scarred Enforcer's Chestguard",              type:"Chest",     role:"DPS", style:"", drops:"Sunstone Broodmother in Fortress of Solitude The Chasm Novice Raid"});
   armorCollection.push({name:"Shielded Alloy Boots",                       type:"Feet",      role:"DPS", style:"", drops:"Metallo in Superman mentor mission"});
   armorCollection.push({name:"Spiked Synthium Shoulderguards",             type:"Shoulders", role:"DPS", style:"", drops:"Present in Vault"});
+  armorCollection.push({name:"Belt of Legend",             type:"Waist", role:"DPS", style:"", drops:"Superman in secret STAR Labs base"});
 
   armorCollection.push({name:"Athletic Slimline Tights",                   type:"Legs",      role:"DPS", style:"Athletic Slimline", drops:""});
   armorCollection.push({name:"Brimstone Short Cape",                       type:"Back",      role:"DPS", style:"Short", drops:""});
@@ -7134,7 +7149,7 @@ function isAccessory(lineString)
 
   weaponCollection.push({name:"Hellforged Butcher's Blade",type:"One-Handed",role:"DPS",dps:25.5,drops:"",style:"Monk Sword"});
   weaponCollection.push({name:"Honed Inertron Sword",type:"One-Handed",role:"DPS",dps:68.3,drops:"Arkillo"});
-  weaponCollection.push({name:"Inertron Baton",type:"One-Handed",role:"Controller",dps:34.7,drops:""});
+  weaponCollection.push({name:"Inertron Baton",type:"One-Handed",role:"Controller",dps:34.7,drops:"Security Attendant in secret STAR labs base"});
   weaponCollection.push({name:"Innovative Blade of Vengeance",type:"One-Handed",role:"Controller",dps:90.7,drops:"Riot Control Prototype"});
   weaponCollection.push({name:"Jeweled Focusing Rod",type:"One-Handed",role:"Tank",dps:68.3,drops:"Killer Croc & Deathstroke Cape Carmine Lighthouse DUO"});
   weaponCollection.push({name:"Lizardman's Blade",type:"One-Handed",role:"Tank",dps:77.9,drops:"Lady Doombringer in Smallville Alert"});
@@ -9610,62 +9625,62 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"Explore Bludhaven",                 category:"Exploration",subcategory:"Alerts",    stars:1,points:10,faction:"Both",description:"Explore toxic-wrecked areas of downtown Bludhaven"});
   featCollection.push({name:"Explore Smallville",                category:"Exploration",subcategory:"Alerts",    stars:1,points:10,faction:"Both",description:"Explore key areas of Smallville, KS"});
 
-  featCollection.push({name:"Prepared",                    category:"General",subcategory:"General",stars:1,points:10,faction:"Both",description:"Obtain 1 Mark of Conquest or Mark of Legend"});
-  featCollection.push({name:"More than You Could Chew",    category:"General",subcategory:"General",stars:2,points:25,faction:"Both",description:"Encounter all 5 preoccupied iconic villains"});
-  featCollection.push({name:"Fanboy",                      category:"General",subcategory:"General",stars:2,points:25,faction:"Both",description:"Encounter all 6 preoccupied iconic heroes"});
-  featCollection.push({name:"Bounty Hunter",               category:"General",subcategory:"General",stars:3,points:50,faction:"Hero",description:"Complete all of the classic wanted poster missions as a Hero"});
-  featCollection.push({name:"Hired Gun",                   category:"General",subcategory:"General",stars:3,points:50,faction:"Villain",description:"Complete all of the classic wanted poster missions as a Villain"});
-  featCollection.push({name:"Gotham Boost-Tour",           category:"General",subcategory:"General",stars:1,points:10,faction:"Both",description:"Complete all of the classic Booster Gold city travel missions in Gotham"});
-  featCollection.push({name:"Metropolis Boost-Tour",       category:"General",subcategory:"General",stars:1,points:10,faction:"Both",description:"Complete all of the classic Booster Gold city travel missions in Metropolis"});
-  featCollection.push({name:"Everyday Hero",               category:"General",subcategory:"General",stars:1,points:10,faction:"Hero",description:"Accomplish 25 everyday heroic acts"});
-  featCollection.push({name:"Everyday Villain",            category:"General",subcategory:"General",stars:2,points:25,faction:"Villain",description:"Perpetrate 25 everyday villainous acts"});
-  featCollection.push({name:"Red Barrel Buster Rookie",    category:"General",subcategory:"General",stars:1,points:10,faction:"Both",description:"Break 5 red Explosion Barrels"});
-  featCollection.push({name:"Red Barrel Buster Expert",    category:"General",subcategory:"General",stars:1,points:10,faction:"Both",description:"Break 25 red Explosion Barrels"});
-  featCollection.push({name:"Red Barrel Buster Master",    category:"General",subcategory:"General",stars:2,points:25,faction:"Both",description:"Break 100 red Explosion barrels"});
-  featCollection.push({name:"BOOM!",                       category:"General",subcategory:"General",stars:3,points:50,faction:"Both",description:"Break 250 red Explosion barrels"});
-  featCollection.push({name:"Orange Barrel Buster Rookie", category:"General",subcategory:"General",stars:1,points:10,faction:"Both",description:"Break 5 orange Restoration barrels"});
-  featCollection.push({name:"Orange Barrel Buster Expert", category:"General",subcategory:"General",stars:1,points:10,faction:"Both",description:"Break 25 orange Restoration barrels"});
-  featCollection.push({name:"Orange Barrel Buster Master", category:"General",subcategory:"General",stars:2,points:25,faction:"Both",description:"Break 100 orange Restoration barrels"});
-  featCollection.push({name:"Heals Yeeeah!",               category:"General",subcategory:"General",stars:3,points:50,faction:"Both",description:"Break 250 orange Restoration barrels"});
-  featCollection.push({name:"Barrel of Monkeys",           category:"General",subcategory:"General",stars:3,points:50,faction:"Both",description:"Break 500 orange Restoration barrels"});
-  featCollection.push({name:"Get Your Kong On",            category:"General",subcategory:"General",stars:3,points:50,faction:"Both",description:"Break 1000 orange Restoration barrels"});
-  featCollection.push({name:"Loot!",                       category:"General",subcategory:"General",stars:1,points:10,faction:"Both",description:"Open 5 treasure chests"});
-  featCollection.push({name:"Jackpot!",                    category:"General",subcategory:"General",stars:1,points:10,faction:"Both",description:"Open 10 treasure chests"});
-  featCollection.push({name:"Lunch Money",                 category:"General",subcategory:"General",stars:1,points:10,faction:"Both",description:"Open 50 treasure chests"});
-  featCollection.push({name:"Money in Your Pocket",        category:"General",subcategory:"General",stars:1,points:10,faction:"Both",description:"Open 100 treasure chests"});
-  featCollection.push({name:"Cashing Checks",              category:"General",subcategory:"General",stars:1,points:10,faction:"Both",description:"Open 250 treasure chests"});
-  featCollection.push({name:"Upcoming Mogul",              category:"General",subcategory:"General",stars:2,points:25,faction:"Both",description:"Open 500 treasure chests"});
-  featCollection.push({name:"Young Billionaire",           category:"General",subcategory:"General",stars:3,points:50,faction:"Both",description:"Open 1000 treasure chests"});
-  featCollection.push({name:"25X Hit!",                    category:"General",subcategory:"General",stars:1,points:10,faction:"Both",description:"Reach 25 hits on the hit counter"});
-  featCollection.push({name:"50X Hit!",                    category:"General",subcategory:"General",stars:1,points:10,faction:"Both",description:"Reach 50 hits on the hit counter"});
-  featCollection.push({name:"100X Hit!",                   category:"General",subcategory:"General",stars:2,points:25,faction:"Both",description:"Reach 100 hits on the hit counter"});
-  featCollection.push({name:"Jailbird",                    category:"General",subcategory:"General",stars:1,points:10,faction:"Both",description:"Use the Breakout ability 1 times"});
-  featCollection.push({name:"Escape Artist",               category:"General",subcategory:"General",stars:1,points:10,faction:"Both",description:"Use the Breakout ability 5 times"});
-  featCollection.push({name:"Escape Artist Pro",           category:"General",subcategory:"General",stars:1,points:10,faction:"Both",description:"Use the Breakout ability 25 times"});
-  featCollection.push({name:"Master Escape Artist",        category:"General",subcategory:"General",stars:1,points:10,faction:"Both",description:"Use the Breakout ability 100 times"});
-  featCollection.push({name:"Control Issues",              category:"General",subcategory:"General",stars:2,points:25,faction:"Both",description:"Use the Breakout ability 500 times"});
-  featCollection.push({name:"Under Control",               category:"General",subcategory:"General",stars:2,points:25,faction:"Both",description:"Use the Breakout ability 1000 times"});
-  featCollection.push({name:"Back From the Hack",          category:"General",subcategory:"General",stars:3,points:50,faction:"Both",description:"Survived the 2011 network hack!"});
-  featCollection.push({name:"Domination Unleashed",        category:"General",subcategory:"General",type:"Circe",       stars:1,points:10,faction:"Villain",description:"Become a member of the Society with Circe as your mentor"});
-  featCollection.push({name:"Masterminds Unleashed",       category:"General",subcategory:"General",type:"LexLuthor",   stars:1,points:10,faction:"Villain",description:"Become a member of the Society with Lex Luthor as your mentor"});
-  featCollection.push({name:"Insanity Unleashed",          category:"General",subcategory:"General",type:"Joker",       stars:1,points:10,faction:"Villain",description:"Become a member of the Society with the Joker as your mentor"});
-  featCollection.push({name:"Amazons United",              category:"General",subcategory:"General",type:"WonderWoman", stars:1,points:10,faction:"Hero",description:"Become a member of the Justice League with Wonder Woman as your mentor"});
-  featCollection.push({name:"Superman United",             category:"General",subcategory:"General",type:"Superman",    stars:1,points:10,faction:"Hero",description:"Become a member of the Justice League with Superman as your mentor"});
-  featCollection.push({name:"Dark Knights United",         category:"General",subcategory:"General",type:"Batman",      stars:1,points:10,faction:"Hero",description:"Become a member of the Justice League with Batman as your mentor"});
-  featCollection.push({name:"Criminal Mastermind",         category:"General",subcategory:"General",type:"LexLuthor",   stars:2,points:25,faction:"Villain",description:"Achieve level 30 as a villain mentored by Lex Luthor"});
-  featCollection.push({name:"The Queen's Favorite",        category:"General",subcategory:"General",type:"Circe",       stars:2,points:25,faction:"Villain",description:"Achieve level 30 as a villain mentored by Circe"});
-  featCollection.push({name:"The Joker in the Deck",       category:"General",subcategory:"General",type:"Joker",       stars:2,points:25,faction:"Villain",description:"Achieve level 30 as a villain mentored by the Joker"});
-  featCollection.push({name:"Champion of Earth",           category:"General",subcategory:"General",type:"Superman",    stars:2,points:25,faction:"Hero",description:"Achieve level 30 as a hero mentored by Superman"});
-  featCollection.push({name:"Warrior of Truth",            category:"General",subcategory:"General",type:"WonderWoman", stars:2,points:25,faction:"Hero",description:"Achieve level 30 as a hero mentored by Wonder Woman"});
-  featCollection.push({name:"Knight for Justice",          category:"General",subcategory:"General",type:"Batman",      stars:2,points:25,faction:"Hero",description:"Achieve level 30 as a hero mentored by Batman"});
-  featCollection.push({name:"Speedster Supreme",           category:"General",subcategory:"General",stars:2,points:25,faction:"Both",description:"Achieve level 30 as a speedster"});
-  featCollection.push({name:"Fearless Flier",              category:"General",subcategory:"General",stars:2,points:25,faction:"Both",description:"Achieve level 30 as a flyer"});
-  featCollection.push({name:"Acrobatic Ace",               category:"General",subcategory:"General",stars:2,points:25,faction:"Both",description:"Achieve level 30 as an acrobat"});
-  featCollection.push({name:"Tanks Very Much",             category:"General",subcategory:"General",stars:1,points:10,faction:"Both",description:"Achieve level 10 and gain the Tank Role"});
-  featCollection.push({name:"Mission Control",             category:"General",subcategory:"General",stars:1,points:10,faction:"Both",description:"Achieve level 10 and gain the Controller Role"});
-  featCollection.push({name:"The Healing Touch",           category:"General",subcategory:"General",stars:1,points:10,faction:"Both",description:"Achieve level 10 and gain the Healer Role"});
-  featCollection.push({name:"Villainous Scion",            category:"General",subcategory:"General",stars:2,points:25,faction:"Villain",description:"Achieve level 20 as a villain"});
-  featCollection.push({name:"Heroic Legionnaire",          category:"General",subcategory:"General",stars:1,points:10,faction:"Hero",description:"Achieve level 20 as a hero"});
+  featCollection.push({name:"Prepared",                    category:"General",subcategory:"General",mentor:"",            stars:1,points:10,faction:"Both",description:"Obtain 1 Mark of Conquest or Mark of Legend"});
+  featCollection.push({name:"More than You Could Chew",    category:"General",subcategory:"General",mentor:"",            stars:2,points:25,faction:"Both",description:"Encounter all 5 preoccupied iconic villains"});
+  featCollection.push({name:"Fanboy",                      category:"General",subcategory:"General",mentor:"",            stars:2,points:25,faction:"Both",description:"Encounter all 6 preoccupied iconic heroes"});
+  featCollection.push({name:"Bounty Hunter",               category:"General",subcategory:"General",mentor:"",            stars:3,points:50,faction:"Hero",description:"Complete all of the classic wanted poster missions as a Hero"});
+  featCollection.push({name:"Hired Gun",                   category:"General",subcategory:"General",mentor:"",            stars:3,points:50,faction:"Villain",description:"Complete all of the classic wanted poster missions as a Villain"});
+  featCollection.push({name:"Gotham Boost-Tour",           category:"General",subcategory:"General",mentor:"",            stars:1,points:10,faction:"Both",description:"Complete all of the classic Booster Gold city travel missions in Gotham"});
+  featCollection.push({name:"Metropolis Boost-Tour",       category:"General",subcategory:"General",mentor:"",            stars:1,points:10,faction:"Both",description:"Complete all of the classic Booster Gold city travel missions in Metropolis"});
+  featCollection.push({name:"Everyday Hero",               category:"General",subcategory:"General",mentor:"",            stars:1,points:10,faction:"Hero",description:"Accomplish 25 everyday heroic acts"});
+  featCollection.push({name:"Everyday Villain",            category:"General",subcategory:"General",mentor:"",            stars:2,points:25,faction:"Villain",description:"Perpetrate 25 everyday villainous acts"});
+  featCollection.push({name:"Red Barrel Buster Rookie",    category:"General",subcategory:"General",mentor:"",            stars:1,points:10,faction:"Both",description:"Break 5 red Explosion Barrels"});
+  featCollection.push({name:"Red Barrel Buster Expert",    category:"General",subcategory:"General",mentor:"",            stars:1,points:10,faction:"Both",description:"Break 25 red Explosion Barrels"});
+  featCollection.push({name:"Red Barrel Buster Master",    category:"General",subcategory:"General",mentor:"",            stars:2,points:25,faction:"Both",description:"Break 100 red Explosion barrels"});
+  featCollection.push({name:"BOOM!",                       category:"General",subcategory:"General",mentor:"",            stars:3,points:50,faction:"Both",description:"Break 250 red Explosion barrels"});
+  featCollection.push({name:"Orange Barrel Buster Rookie", category:"General",subcategory:"General",mentor:"",            stars:1,points:10,faction:"Both",description:"Break 5 orange Restoration barrels"});
+  featCollection.push({name:"Orange Barrel Buster Expert", category:"General",subcategory:"General",mentor:"",            stars:1,points:10,faction:"Both",description:"Break 25 orange Restoration barrels"});
+  featCollection.push({name:"Orange Barrel Buster Master", category:"General",subcategory:"General",mentor:"",            stars:2,points:25,faction:"Both",description:"Break 100 orange Restoration barrels"});
+  featCollection.push({name:"Heals Yeeeah!",               category:"General",subcategory:"General",mentor:"",            stars:3,points:50,faction:"Both",description:"Break 250 orange Restoration barrels"});
+  featCollection.push({name:"Barrel of Monkeys",           category:"General",subcategory:"General",mentor:"",            stars:3,points:50,faction:"Both",description:"Break 500 orange Restoration barrels"});
+  featCollection.push({name:"Get Your Kong On",            category:"General",subcategory:"General",mentor:"",            stars:3,points:50,faction:"Both",description:"Break 1000 orange Restoration barrels"});
+  featCollection.push({name:"Loot!",                       category:"General",subcategory:"General",mentor:"",            stars:1,points:10,faction:"Both",description:"Open 5 treasure chests"});
+  featCollection.push({name:"Jackpot!",                    category:"General",subcategory:"General",mentor:"",            stars:1,points:10,faction:"Both",description:"Open 10 treasure chests"});
+  featCollection.push({name:"Lunch Money",                 category:"General",subcategory:"General",mentor:"",            stars:1,points:10,faction:"Both",description:"Open 50 treasure chests"});
+  featCollection.push({name:"Money in Your Pocket",        category:"General",subcategory:"General",mentor:"",            stars:1,points:10,faction:"Both",description:"Open 100 treasure chests"});
+  featCollection.push({name:"Cashing Checks",              category:"General",subcategory:"General",mentor:"",            stars:1,points:10,faction:"Both",description:"Open 250 treasure chests"});
+  featCollection.push({name:"Upcoming Mogul",              category:"General",subcategory:"General",mentor:"",            stars:2,points:25,faction:"Both",description:"Open 500 treasure chests"});
+  featCollection.push({name:"Young Billionaire",           category:"General",subcategory:"General",mentor:"",            stars:3,points:50,faction:"Both",description:"Open 1000 treasure chests"});
+  featCollection.push({name:"25X Hit!",                    category:"General",subcategory:"General",mentor:"",            stars:1,points:10,faction:"Both",description:"Reach 25 hits on the hit counter"});
+  featCollection.push({name:"50X Hit!",                    category:"General",subcategory:"General",mentor:"",            stars:1,points:10,faction:"Both",description:"Reach 50 hits on the hit counter"});
+  featCollection.push({name:"100X Hit!",                   category:"General",subcategory:"General",mentor:"",            stars:2,points:25,faction:"Both",description:"Reach 100 hits on the hit counter"});
+  featCollection.push({name:"Jailbird",                    category:"General",subcategory:"General",mentor:"",            stars:1,points:10,faction:"Both",description:"Use the Breakout ability 1 times"});
+  featCollection.push({name:"Escape Artist",               category:"General",subcategory:"General",mentor:"",            stars:1,points:10,faction:"Both",description:"Use the Breakout ability 5 times"});
+  featCollection.push({name:"Escape Artist Pro",           category:"General",subcategory:"General",mentor:"",            stars:1,points:10,faction:"Both",description:"Use the Breakout ability 25 times"});
+  featCollection.push({name:"Master Escape Artist",        category:"General",subcategory:"General",mentor:"",            stars:1,points:10,faction:"Both",description:"Use the Breakout ability 100 times"});
+  featCollection.push({name:"Control Issues",              category:"General",subcategory:"General",mentor:"",            stars:2,points:25,faction:"Both",description:"Use the Breakout ability 500 times"});
+  featCollection.push({name:"Under Control",               category:"General",subcategory:"General",mentor:"",            stars:2,points:25,faction:"Both",description:"Use the Breakout ability 1000 times"});
+  featCollection.push({name:"Back From the Hack",          category:"General",subcategory:"General",mentor:""     ,       stars:3,points:50,faction:"Both",description:"Survived the 2011 network hack!"});
+  featCollection.push({name:"Domination Unleashed",        category:"General",subcategory:"General",mentor:"Circe",       stars:1,points:10,faction:"Villain",description:"Become a member of the Society with Circe as your mentor"});
+  featCollection.push({name:"Masterminds Unleashed",       category:"General",subcategory:"General",mentor:"LexLuthor",   stars:1,points:10,faction:"Villain",description:"Become a member of the Society with Lex Luthor as your mentor"});
+  featCollection.push({name:"Insanity Unleashed",          category:"General",subcategory:"General",mentor:"Joker",       stars:1,points:10,faction:"Villain",description:"Become a member of the Society with the Joker as your mentor"});
+  featCollection.push({name:"Amazons United",              category:"General",subcategory:"General",mentor:"WonderWoman", stars:1,points:10,faction:"Hero",description:"Become a member of the Justice League with Wonder Woman as your mentor"});
+  featCollection.push({name:"Superman United",             category:"General",subcategory:"General",mentor:"Superman",    stars:1,points:10,faction:"Hero",description:"Become a member of the Justice League with Superman as your mentor"});
+  featCollection.push({name:"Dark Knights United",         category:"General",subcategory:"General",mentor:"Batman",      stars:1,points:10,faction:"Hero",description:"Become a member of the Justice League with Batman as your mentor"});
+  featCollection.push({name:"Criminal Mastermind",         category:"General",subcategory:"General",mentor:"LexLuthor",   stars:2,points:25,faction:"Villain",description:"Achieve level 30 as a villain mentored by Lex Luthor"});
+  featCollection.push({name:"The Queen's Favorite",        category:"General",subcategory:"General",mentor:"Circe",       stars:2,points:25,faction:"Villain",description:"Achieve level 30 as a villain mentored by Circe"});
+  featCollection.push({name:"The Joker in the Deck",       category:"General",subcategory:"General",mentor:"Joker",       stars:2,points:25,faction:"Villain",description:"Achieve level 30 as a villain mentored by the Joker"});
+  featCollection.push({name:"Champion of Earth",           category:"General",subcategory:"General",mentor:"Superman",    stars:2,points:25,faction:"Hero",description:"Achieve level 30 as a hero mentored by Superman"});
+  featCollection.push({name:"Warrior of Truth",            category:"General",subcategory:"General",mentor:"WonderWoman", stars:2,points:25,faction:"Hero",description:"Achieve level 30 as a hero mentored by Wonder Woman"});
+  featCollection.push({name:"Knight for Justice",          category:"General",subcategory:"General",mentor:"Batman",      stars:2,points:25,faction:"Hero",description:"Achieve level 30 as a hero mentored by Batman"});
+  featCollection.push({name:"Speedster Supreme",           category:"General",subcategory:"General",mentor:"",            stars:2,points:25,faction:"Both",description:"Achieve level 30 as a speedster"});
+  featCollection.push({name:"Fearless Flier",              category:"General",subcategory:"General",mentor:"",            stars:2,points:25,faction:"Both",description:"Achieve level 30 as a flyer"});
+  featCollection.push({name:"Acrobatic Ace",               category:"General",subcategory:"General",mentor:"",            stars:2,points:25,faction:"Both",description:"Achieve level 30 as an acrobat"});
+  featCollection.push({name:"Tanks Very Much",             category:"General",subcategory:"General",mentor:"",            stars:1,points:10,faction:"Both",description:"Achieve level 10 and gain the Tank Role"});
+  featCollection.push({name:"Mission Control",             category:"General",subcategory:"General",mentor:"",            stars:1,points:10,faction:"Both",description:"Achieve level 10 and gain the Controller Role"});
+  featCollection.push({name:"The Healing Touch",           category:"General",subcategory:"General",mentor:"",            stars:1,points:10,faction:"Both",description:"Achieve level 10 and gain the Healer Role"});
+  featCollection.push({name:"Villainous Scion",            category:"General",subcategory:"General",mentor:"",            stars:2,points:25,faction:"Villain",description:"Achieve level 20 as a villain"});
+  featCollection.push({name:"Heroic Legionnaire",          category:"General",subcategory:"General",mentor:"",            stars:1,points:10,faction:"Hero",description:"Achieve level 20 as a hero"});
 
   featCollection.push({name:"Insert Token",                       category:"General",subcategory:"Tokens of Merit",stars:1,points:10,faction:"Both",description:"Add 1 Token of Merit"});
   featCollection.push({name:"Tokens of Appreciation",             category:"General",subcategory:"Tokens of Merit",stars:1,points:10,faction:"Both",description:"Add 10 Tokens of Merit"});
@@ -10132,6 +10147,11 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"Challenge Dynamo",                          category:"Solo",subcategory:"General",stars:2,points:25,faction:"Both",description:"Complete 250 Challenges"});
   featCollection.push({name:"Danger is My Trade",                        category:"Solo",subcategory:"General",stars:3,points:50,faction:"Both",description:"Complete 500 Challenges"});
 
+  // NOTE:  There are two feats with the exact same name.  The Hard Knocks: Lex Luthor and the Hard Knocks: Circe each represent two different feats
+  //        As far as I know, there is no way to tell which is which.
+  //        Lex is in STAR Labs base and in Hall of Doom instances
+  //        And Circe has a Hard Knocks feat for beating her in the Shadowlands and also one for her secret base
+  
   featCollection.push({name:"School of Hard Knocks: Giganta",       category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Both",description:"Defeat Giganta without using any consumable items or supercharge abilities"});
   featCollection.push({name:"School of Hard Knocks: Deathstroke",   category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Both",description:"Defeat Deathstroke without using any consumable items or supercharge abilities"});
   featCollection.push({name:"School of Hard Knocks: Brother Eye",   category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Both",description:"Defeat Brother Eye without using any consumable items or supercharge abilities"});
@@ -10401,7 +10421,6 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"Riverfront Shortsale",                         category:"DLC",subcategory:"Battle for Earth",stars:1,points:10,faction:"Both",description:"Complete the Riverfront Center duo in 10 minutes or less"});
   featCollection.push({name:"No Waiting Room",                              category:"DLC",subcategory:"Battle for Earth",stars:1,points:10,faction:"Both",description:"Complete the Gotham Hospital duo in 10 minutes or less"});
   featCollection.push({name:"Brief Stay",                                   category:"DLC",subcategory:"Battle for Earth",stars:1,points:10,faction:"Both",description:"Complete the Riverside Hotel duo in 10 minutes or less"});
-  featCollection.push({name:"Luthor's Union!",                              category:"DLC",subcategory:"Battle for Earth",stars:1,points:10,faction:"Both",description:"Convert 250 Civilians inside of the Battle for Earth duos"});
   featCollection.push({name:"Pod Breaker",                                  category:"DLC",subcategory:"Battle for Earth",stars:1,points:10,faction:"Both",description:"Destroy 250 Cybernetic Viral Pods inside of the Battle for Earth duos"});
   featCollection.push({name:"Bomb Squad",                                   category:"DLC",subcategory:"Battle for Earth",stars:1,points:10,faction:"Both",description:"Detonate 250 Bombs inside of the Battle for Earth duos"});
   featCollection.push({name:"Conversion Therapy",                           category:"DLC",subcategory:"Battle for Earth",stars:1,points:10,faction:"Both",description:"Complete all Battle for Earth duos"});
@@ -10414,7 +10433,8 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"Uncover the Truth",                            category:"DLC",subcategory:"Battle for Earth",stars:2,points:25,faction:"Both",description:"Complete all of the Collections, Briefings, and Investigations available in the Battle for Earth DLC"});
   featCollection.push({name:"No Tag Out!",                                  category:"DLC",subcategory:"Battle for Earth",stars:2,points:25,faction:"Both",description:"Defeat each Prime Avatar before any of them get the chance to 'transition out' in the Prime Battleground raid"});
   featCollection.push({name:"Bottle Hardened",                              category:"DLC",subcategory:"Battle for Earth",stars:1,points:10,faction:"Both",description:"Complete 25 Battle for Earth Duos"});
-  featCollection.push({name:"Come With Me If You Want To Live",             category:"DLC",subcategory:"Battle for Earth",stars:1,points:10,faction:"Both",description:"Save 250 Civilians Inside of the Battle for Earth duos"});
+  featCollection.push({name:"Come With Me If You Want To Live",             category:"DLC",subcategory:"Battle for Earth",stars:1,points:10,faction:"Hero",description:"Save 250 Civilians Inside of the Battle for Earth duos"});
+  featCollection.push({name:"Luthor's Union!",                              category:"DLC",subcategory:"Battle for Earth",stars:1,points:10,faction:"Villain",description:"Convert 250 Civilians inside of the Battle for Earth duos"});
 
   featCollection.push({name:"Doom Control",                                 category:"DLC",subcategory:"The Last Laugh",stars:1,points:10,faction:"Both",description:"Win 20 Assault: Headquarters arena matches in the Hall of Doom"});
   featCollection.push({name:"Menace to Society",                            category:"DLC",subcategory:"The Last Laugh",stars:1,points:10,faction:"Both",description:"Win an Assault: Headquarters arena match in The Hall of Doom"});
@@ -11519,19 +11539,29 @@ function calculateFeatsNeeded(character, startDateString, endDateString)
       if ((thisCharsPowerset == "Gadgets") ||
           (thisCharsPowerset == "Mental")  ||
           (thisCharsPowerset == "Hard Light")) {
+        // Can't get tank specific feats
         featList["Tanks Very Much"] = 1;
+        featList["Shards of the Heart"] = 1;
+        featList["God of the North"] = 1;
+        // Can't get healer specific feats
         featList["The Healing Touch"] = 1;
+        featList["Like an Eagle"] = 1;
+        featList["In Excelsis Deo"] = 1;
       }
       else if ((thisCharsPowerset == "Electric") || 
                (thisCharsPowerset == "Nature")   ||
                (thisCharsPowerset == "Sorcery")) {
         featList["Tanks Very Much"] = 1;
+        featList["Shards of the Heart"] = 1;
+        featList["God of the North"] = 1;
         featList["Mission Control"] = 1;
       }
       else if ((thisCharsPowerset == "Fire") ||
                (thisCharsPowerset == "Ice")  ||
                (thisCharsPowerset == "Earth")) {
         featList["The Healing Touch"] = 1;
+        featList["Like an Eagle"] = 1;
+        featList["In Excelsis Deo"] = 1;
         featList["Mission Control"] = 1;
       }
     }
@@ -12001,7 +12031,7 @@ function calculateFeatsSummary(character, startDateString, endDateString)
                       "StylesIconic", "Exploration", "ExplorationGeneral", "ExplorationRaids", "ExplorationMetropolis", "ExplorationGotham",
                       "ExplorationAlerts", "Alerts", "AlertsGeneral", "AlertsNormal", "AlertsHard", "RandD", "RandDGeneral", "RandDAssembly",
                       "RandDParts", "SeasonalStPatrick", "SeasonalValentine", "SeasonalWinter", "SeasonalSpringtime", "SeasonalSpooktacular",
-                      "SeasonalTidesOfWar", "DLCLantern", "DLCFlash", "DLCEarth", "DLCLaugh", "DuosGeneral", "DuosSpeedForce", 
+                      "SeasonalTidesOfWar", "DLCLantern", "DLCFlash", "DLCEarth", "DLCLaugh", "DuosGeneral", "DuosSpeedForce", "GeneralGeneral", 
                       "GeneralTokens", "GeneralRaces", "GeneralCollectibles" ];
 
   var maximumFeatCount = {};
@@ -12073,6 +12103,11 @@ function calculateFeatsSummary(character, startDateString, endDateString)
         // There are 3 General Race feats that are not specific to movement mode, everyone gets them
         maximumFeatCount["GeneralRaces"][person] += 3; 
 
+        // There are 2 General Mentor specific feats that everyone gets
+        maximumFeatCount["GeneralGeneral"][person] += 2; 
+        maximumFeatCount["All"][person] += 2;
+        maximumFeatCount["General"][person] += 2; 
+
         for (var j=0; j<featCollection.length; j++) {
           if ((featCollection[j].faction == faction) || (featCollection[j].faction == "Both")) {
 
@@ -12086,9 +12121,25 @@ function calculateFeatsSummary(character, startDateString, endDateString)
                   if (thisCharsMovementMode == featCollection[j].movement) {
                     maximumFeatCount["GeneralRaces"][person] += 1; 
                   }
+                  else {
+                    // This feat is not available to the player, subtract it 
+                    maximumFeatCount["All"][person] -= 1;
+                    maximumFeatCount["General"][person] -= 1; 
+                  }
                 }
                 else {
                   maximumFeatCount["GeneralRaces"][person] += 1; 
+                }
+              }
+              else if (featCollection[j].subcategory == "General") { 
+                // Cat = General, Subcat = General
+                if (featCollection[j].mentor == "") {
+                  maximumFeatCount["GeneralGeneral"][person] += 1; 
+                }
+                else {
+                  // We already counted this feat above, don't double count it
+                  maximumFeatCount["All"][person] -= 1;
+                  maximumFeatCount["General"][person] -= 1; 
                 }
               }
               else if (featCollection[j].subcategory == "Tokens of Merit") { 
@@ -12190,6 +12241,9 @@ function calculateFeatsSummary(character, startDateString, endDateString)
                   numberFeatCount["General"][person] += 1; 
                   if (featCollection[j].subcategory == "Races") { 
                     numberFeatCount["GeneralRaces"][person] += 1; 
+                  }
+                  else if (featCollection[j].subcategory == "General") {
+                    numberFeatCount["GeneralGeneral"][person] += 1; 
                   }
                   else if (featCollection[j].subcategory == "Tokens of Merit") { 
                     numberFeatCount["GeneralTokens"][person] += 1; 
@@ -12352,6 +12406,7 @@ function calculateFeatsSummary(character, startDateString, endDateString)
       results += '    </li>';
       results += '    <li style="font-family:' + font + ';">General' + printSpaces(19) + numberFeatCount["General"][characterName] + '/' + maximumFeatCount["General"][characterName];
       results += '      <ul>';
+      results += '        <li style="font-family:' + font + ';">General' + printSpaces(19) + numberFeatCount["GeneralGeneral"][characterName] + '/' + maximumFeatCount["GeneralGeneral"][characterName] + '</li>';
       results += '        <li style="font-family:' + font + ';">Tokens of Merit' + printSpaces(11) + numberFeatCount["GeneralTokens"][characterName] + '/' + maximumFeatCount["GeneralTokens"][characterName] + '</li>';
       results += '        <li style="font-family:' + font + ';">Races' + printSpaces(21) + numberFeatCount["GeneralRaces"][characterName]  + '/' + maximumFeatCount["GeneralRaces"][characterName]  + '</li>';
       results += '        <li style="font-family:' + font + ';">Collectibles' + printSpaces(14) + numberFeatCount["GeneralCollectibles"][characterName]  + '/' + maximumFeatCount["GeneralCollectibles"][characterName]  + '</li>';
@@ -14195,6 +14250,220 @@ function alternate(table) {
 		}
 	}
 }
+
+/* FileSaver.js
+ * A saveAs() FileSaver implementation.
+ * 2011-08-02
+ * 
+ * By Eli Grey, http://eligrey.com
+ * License: X11/MIT
+ *   See LICENSE.md
+ */
+
+/*global self */
+/*jslint bitwise: true, regexp: true, confusion: true, es5: true, vars: true, white: true,
+  plusplus: true */
+
+/*! @source http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js */
+
+var saveAs = saveAs || (function(view) {
+	"use strict";
+	var
+		  doc = view.document
+		  // only get URL when necessary in case BlobBuilder.js hasn't overridden it yet
+		, get_URL = function() {
+			return view.URL || view.webkitURL || view;
+		}
+		, URL = view.URL || view.webkitURL || view
+		, save_link = doc.createElementNS("http://www.w3.org/1999/xhtml", "a")
+		, can_use_save_link = "download" in save_link
+		, click = function(node) {
+			var event = doc.createEvent("MouseEvents");
+			event.initMouseEvent(
+				"click", true, false, view, 0, 0, 0, 0, 0
+				, false, false, false, false, 0, null
+			);
+			return node.dispatchEvent(event); // false if event was cancelled
+		}
+		, webkit_req_fs = view.webkitRequestFileSystem
+		, req_fs = view.requestFileSystem || webkit_req_fs || view.mozRequestFileSystem
+		, throw_outside = function (ex) {
+			(view.setImmediate || view.setTimeout)(function() {
+				throw ex;
+			}, 0);
+		}
+		, force_saveable_type = "application/octet-stream"
+		, fs_min_size = 0
+		, deletion_queue = []
+		, process_deletion_queue = function() {
+			var i = deletion_queue.length;
+			while (i--) {
+				var file = deletion_queue[i];
+				if (typeof file === "string") { // file is an object URL
+					URL.revokeObjectURL(file);
+				} else { // file is a File
+					file.remove();
+				}
+			}
+			deletion_queue.length = 0; // clear queue
+		}
+		, dispatch = function(filesaver, event_types, event) {
+			event_types = [].concat(event_types);
+			var i = event_types.length;
+			while (i--) {
+				var listener = filesaver["on" + event_types[i]];
+				if (typeof listener === "function") {
+					try {
+						listener.call(filesaver, event || filesaver);
+					} catch (ex) {
+						throw_outside(ex);
+					}
+				}
+			}
+		}
+		, FileSaver = function(blob, name) {
+			// First try a.download, then web filesystem, then object URLs
+			var
+				  filesaver = this
+				, type = blob.type
+				, blob_changed = false
+				, object_url
+				, target_view
+				, get_object_url = function() {
+					var object_url = get_URL().createObjectURL(blob);
+					deletion_queue.push(object_url);
+					return object_url;
+				}
+				, dispatch_all = function() {
+					dispatch(filesaver, "writestart progress write writeend".split(" "));
+				}
+				// on any filesys errors revert to saving with object URLs
+				, fs_error = function() {
+					// don't create more object URLs than needed
+					if (blob_changed || !object_url) {
+						object_url = get_object_url(blob);
+					}
+					target_view.location.href = object_url;
+					filesaver.readyState = filesaver.DONE;
+					dispatch_all();
+				}
+				, abortable = function(func) {
+					return function() {
+						if (filesaver.readyState !== filesaver.DONE) {
+							return func.apply(this, arguments);
+						}
+					};
+				}
+				, create_if_not_found = {create: true, exclusive: false}
+				, slice
+			;
+			filesaver.readyState = filesaver.INIT;
+			if (!name) {
+				name = "download";
+			}
+			if (can_use_save_link) {
+				object_url = get_object_url(blob);
+				save_link.href = object_url;
+				save_link.download = name;
+				if (click(save_link)) {
+					filesaver.readyState = filesaver.DONE;
+					dispatch_all();
+					return;
+				}
+			}
+			// Object and web filesystem URLs have a problem saving in Google Chrome when
+			// viewed in a tab, so I force save with application/octet-stream
+			// http://code.google.com/p/chromium/issues/detail?id=91158
+			if (view.chrome && type && type !== force_saveable_type) {
+				slice = blob.slice || blob.webkitSlice;
+				blob = slice.call(blob, 0, blob.size, force_saveable_type);
+				blob_changed = true;
+			}
+			// Since I can't be sure that the guessed media type will trigger a download
+			// in WebKit, I append .download to the filename.
+			// https://bugs.webkit.org/show_bug.cgi?id=65440
+			if (webkit_req_fs && name !== "download") {
+				name += ".download";
+			}
+			if (type === force_saveable_type || webkit_req_fs) {
+				target_view = view;
+			} else {
+				target_view = view.open();
+			}
+			if (!req_fs) {
+				fs_error();
+				return;
+			}
+			fs_min_size += blob.size;
+			req_fs(view.TEMPORARY, fs_min_size, abortable(function(fs) {
+				fs.root.getDirectory("saved", create_if_not_found, abortable(function(dir) {
+					var save = function() {
+						dir.getFile(name, create_if_not_found, abortable(function(file) {
+							file.createWriter(abortable(function(writer) {
+								writer.onwriteend = function(event) {
+									target_view.location.href = file.toURL();
+									deletion_queue.push(file);
+									filesaver.readyState = filesaver.DONE;
+									dispatch(filesaver, "writeend", event);
+								};
+								writer.onerror = function() {
+									var error = writer.error;
+									if (error.code !== error.ABORT_ERR) {
+										fs_error();
+									}
+								};
+								"writestart progress write abort".split(" ").forEach(function(event) {
+									writer["on" + event] = filesaver["on" + event];
+								});
+								writer.write(blob);
+								filesaver.abort = function() {
+									writer.abort();
+									filesaver.readyState = filesaver.DONE;
+								};
+								filesaver.readyState = filesaver.WRITING;
+							}), fs_error);
+						}), fs_error);
+					};
+					dir.getFile(name, {create: false}, abortable(function(file) {
+						// delete file if it already exists
+						file.remove();
+						save();
+					}), abortable(function(ex) {
+						if (ex.code === ex.NOT_FOUND_ERR) {
+							save();
+						} else {
+							fs_error();
+						}
+					}));
+				}), fs_error);
+			}), fs_error);
+		}
+		, FS_proto = FileSaver.prototype
+		, saveAs = function(blob, name) {
+			return new FileSaver(blob, name);
+		}
+	;
+	FS_proto.abort = function() {
+		var filesaver = this;
+		filesaver.readyState = filesaver.DONE;
+		dispatch(filesaver, "abort");
+	};
+	FS_proto.readyState = FS_proto.INIT = 0;
+	FS_proto.WRITING = 1;
+	FS_proto.DONE = 2;
+	
+	FS_proto.error =
+	FS_proto.onwritestart =
+	FS_proto.onprogress =
+	FS_proto.onwrite =
+	FS_proto.onabort =
+	FS_proto.onerror =
+	FS_proto.onwriteend =
+		null;
+	
+	view.addEventListener("unload", process_deletion_queue, false);
+	return saveAs;
+}(self));
 
 </script>
 </body>
