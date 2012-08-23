@@ -520,7 +520,7 @@ function  isEmpty(obj) {
 //    mentor they have, movement mode, etc.
 
 function configure() {
-  var popup = window.open("configure.html","Configure","menubar=no,width=1000,height=630");
+  var popup = window.open("configure.html","Configure","menubar=no,scrollbars=yes,width=1000,height=639");
 }
 
 
@@ -5449,7 +5449,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Zealot's Shoulders",                     type:"Shoulders", role:"DPS",        style:"Psycho",              drops:"Scarecrow in Arkham Asylum alert",                        faction:"Both"});
   armorCollection.push({name:"Deranger's Grips",                       type:"Hands",     role:"DPS",        style:"Psycho",              drops:"Poison Ivy in Arkham Asylum alert",                       faction:"Both"});
   armorCollection.push({name:"Hallucinator's Guard",                   type:"Waist",     role:"DPS",        style:"Psycho",              drops:"Subprime Regulator Alpha in Area 51 alert",               faction:"Both"});
-  armorCollection.push({name:"Spiked Boots of Lunacy",                 type:"Feet",      role:"DPS",        style:"Psycho",              drops:"Brainiac Spark in Area 51 alert",                         faction:"Both"});
+  armorCollection.push({name:"Spiked Boots of Lunacy",                 type:"Feet",      role:"DPS",        style:"Psycho",              drops:"Subprime Regulator Beta in Area 51 hard alert",           faction:"Both"});
   armorCollection.push({name:"Aberrant's Pack",                        type:"Back",      role:"DPS",        style:"Psycho",              drops:"Prime Servitor in Area 51 alert",                         faction:"Both"});
 
   // Spec Ops Style from T3 Duo Shady Nightclub (Battle for Earth DLC)
@@ -6043,11 +6043,11 @@ function isAccessory(lineString)
   armorCollection.push({name:"New Genesis Gloves",                       type:"Hands",     role:"DPS",        style:"New Genesis",         drops:"Present in Vault",                                      faction:"Both"});
   armorCollection.push({name:"Pit Fighter's Gauntlets",                  type:"Hands",     role:"DPS",        style:"New Genesis",         drops:"Power Girl",                                            faction:"Both"});
   armorCollection.push({name:"Prototype AmerTek Power Gauntlets",        type:"Hands",     role:"DPS",        style:"New Genesis",         drops:"Steel in Superman secret STAR Labs instance",           faction:"Both"});
-  armorCollection.push({name:"Clasped Kandorian Belt",                   type:"Waist",     role:"DPS",        style:"New Genesis",         drops:"",                                                      faction:"Both"});
+  armorCollection.push({name:"Clasped Kandorian Belt",                   type:"Waist",     role:"DPS",        style:"New Genesis",         drops:"Superman in the secret STAR labs base villain instance",faction:"Both"});
   armorCollection.push({name:"Ectoplasmic Girdle",                       type:"Waist",     role:"DPS",        style:"New Genesis",         drops:"Doctor Psycho",                                         faction:"Both"});
   armorCollection.push({name:"Kryptonian Battlebelt",                    type:"Waist",     role:"DPS",        style:"New Genesis",         drops:"Supergirl",                                             faction:"Both"});
   armorCollection.push({name:"Riveted Powersuit Belt",                   type:"Waist",     role:"DPS",        style:"New Genesis",         drops:"Present in Vault",                                      faction:"Both"});
-  armorCollection.push({name:"Specimen Relocation Sash",                 type:"Waist",     role:"DPS",        style:"New Genesis",         drops:"",                                                      faction:"Both"});
+  armorCollection.push({name:"Specimen Relocation Sash",                 type:"Waist",     role:"DPS",        style:"New Genesis",         drops:"villain reward",                                        faction:"Both"});
   armorCollection.push({name:"Simple Kandorian Battleboots",             type:"Feet",      role:"DPS",        style:"New Genesis",         drops:"Present in Vault",                                      faction:"Both"});
   armorCollection.push({name:"Crystal-Thread Cape",                      type:"Back",      role:"DPS",        style:"New Genesis",         drops:"Present in Vault",                                      faction:"Both"});
   armorCollection.push({name:"Kryptonian Lord's Cloak",                  type:"Back",      role:"DPS",        style:"New Genesis",         drops:"",                                                      faction:"Both"});
@@ -6065,7 +6065,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Dread Horned Helmet",                      type:"Head",      role:"DPS",        style:"Necromancer",         drops:"Cheetah Lord - Gotham University Warehouse, Eagle Soldier - Kahndaq, Lion Soldier - Kahndaq, Machine Gun Tommy - Gotham Old Subway (Challenge), Soul Striker - Science Police HQ (Challlenge)",                                             faction:"Both"});
   armorCollection.push({name:"Crystalline Avenger's Spaulders",          type:"Shoulders", role:"DPS",        style:"Necromancer",         drops:"Treasure Chest in Kahndaq raid",                        faction:"Both"});
   armorCollection.push({name:"Necrolord's Enchanted Shoulderguards",     type:"Shoulders", role:"DPS",        style:"Necromancer",         drops:"T1 Duos",    faction:"Both"});
-  armorCollection.push({name:"Swampdweller's Shoulders",                 type:"Shoulders", role:"DPS",        style:"Necromancer",         drops:"",    faction:"Both"});
+  armorCollection.push({name:"Swampdweller's Shoulders",                 type:"Shoulders", role:"DPS",        style:"Necromancer",         drops:"Treasure Chest in Oolong Normal Alert, LOA, Kahndaq",   faction:"Both"});
   armorCollection.push({name:"Necropolis Gauntlets",                     type:"Hands",     role:"DPS",        style:"Necromancer",         drops:"Drops in The Greenhouse Challenge, Hush in Gotham Old Subway Challenge, Gotham University Warehouse, Gotham University DUO, Venom Supplier Diego in Cape Carmine Lighthouse DUO", faction:"Both"});
   armorCollection.push({name:"Blackgate Sash",                           type:"Waist",     role:"DPS",        style:"Necromancer",         drops:"Shield Armor in Outer Raid",                            faction:"Both"});
   armorCollection.push({name:"Dragon Belt of the Dark Lords",            type:"Waist",     role:"DPS",        style:"Necromancer",         drops:"T1 Duos",    faction:"Both"});
@@ -6094,7 +6094,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Light Evosynth Shoulderguards",            type:"Shoulders", role:"Healer",     style:"Fourth World",        drops:"T1 Alerts",                                             faction:"Both"});
   armorCollection.push({name:"Riveted Shoulderplates",                   type:"Shoulders", role:"DPS",        style:"Fourth World",        drops:"Neuromite in Watchtower alert",                         faction:"Both"});
   armorCollection.push({name:"Compound Inertron Gloves",                 type:"Hands",     role:"Tank",       style:"Fourth World",        drops:"Treasure Chest in Area 51 alert also Flash duo",        faction:"Both"});
-  armorCollection.push({name:"Laminated Synthium Gauntlets",             type:"Hands",     role:"DPS",        style:"Fourth World",        drops:"",                                                      faction:"Both"});
+  armorCollection.push({name:"Laminated Synthium Gauntlets",             type:"Hands",     role:"DPS",        style:"Fourth World",        drops:"Brainiac Overseer",                                     faction:"Both"});
   armorCollection.push({name:"Riveted Korllium Belt",                    type:"Waist",     role:"DPS",        style:"Fourth World",        drops:"Treasure Chest",                                        faction:"Both"});
   armorCollection.push({name:"Shielded Promethium Belt",                 type:"Waist",     role:"DPS",        style:"Fourth World",        drops:"T1 Duos",                                               faction:"Both"});
   armorCollection.push({name:"Cellkeeper's Stompers",                    type:"Feet",      role:"DPS",        style:"Fourth World",        drops:"Treasure Chest in Stryker's Island alert",              faction:"Both"});
@@ -6102,13 +6102,13 @@ function isAccessory(lineString)
   armorCollection.push({name:"Reinforced Chem-Proof Boots",              type:"Feet",      role:"Tank",       style:"Fourth World",        drops:"Doomcrazed Citizen in Smallville alert",                faction:"Both"});
   armorCollection.push({name:"Versatile Equilibrity Boots",              type:"Feet",      role:"DPS",        style:"Fourth World",        drops:"Vendor in Tech Wing",                                   faction:"Both"});
   armorCollection.push({name:"Batterylord's Backplate",                  type:"Back",      role:"DPS",        style:"Fourth World",        drops:"Watchtower Alert",                                      faction:"Both"});
-  armorCollection.push({name:"Inscribed Coluan Backguard",               type:"Back",      role:"DPS",        style:"Fourth World",        drops:"",                                                      faction:"Both"});
+  armorCollection.push({name:"Inscribed Coluan Backguard",               type:"Back",      role:"DPS",        style:"Fourth World",        drops:"Doomsday in Smallville Alert, Stryker's alert",         faction:"Both"});
   armorCollection.push({name:"Powerful Promethium Backplate",            type:"Back",      role:"DPS",        style:"Fourth World",        drops:"Veteran",                                               faction:"Both"});
   armorCollection.push({name:"Riveted Coluan Backplate",                 type:"Back",      role:"Tank",       style:"Fourth World",        drops:"Doomcrazed Citizen in Smallville alert",                faction:"Both"});
 
   // Iconics
   armorCollection.push({name:"Deathstroke's Menacing Bandolier",         type:"Chest",     role:"DPS",        style:"Deathstroke",         drops:"Deathstroke",                                           faction:"Both"});
-  armorCollection.push({name:"Gardner-style Vest",                       type:"Chest",     role:"DPS",        style:"Gardner-style:",      drops:"Guy Gardner briefing",                                 faction:"Both"});
+  armorCollection.push({name:"Gardner-style Vest",                       type:"Chest",     role:"DPS",        style:"Gardner-style:",      drops:"Guy Gardner briefing",                                  faction:"Both"});
   armorCollection.push({name:"Cat Burglar's Leggings",                   type:"Legs",      role:"DPS",        style:"Cat Burglar",         drops:"Catwoman",                                              faction:"Both"});
   armorCollection.push({name:"Android Batman's Cowl",                    type:"Head",      role:"DPS",        style:"Robot Batman",        drops:"OMAC Batman - Batcave: Brainiac Sub-Construct",         faction:"Both"});
 
@@ -6116,7 +6116,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Brother Blood's Sinister Hood",            type:"Head",      role:"DPS",        style:"Brother Blood",       drops:"Brother Blood",                                         faction:"Both"});
   armorCollection.push({name:"Brother Eye's Helm of the OMAC Centurion", type:"Head",      role:"DPS",        style:"Brother Eye",         drops:"OMAC in either mission or open world?",                 faction:"Both"});
   armorCollection.push({name:"Captain Cold's Furred Hood",               type:"Head",      role:"DPS",        style:"Captain Cold",        drops:"Rogues in Stryker's Island Alert",                      faction:"Both"});
-  armorCollection.push({name:"Deathmask of the Spectre",                 type:"Head",      role:"DPS",        style:"Spectre",             drops:"Eclipso",    faction:"Both"});
+  armorCollection.push({name:"Deathmask of the Spectre",                 type:"Head",      role:"DPS",        style:"Spectre",             drops:"Eclipso",                                               faction:"Both"});
   armorCollection.push({name:"Elite OMAC Centurion Helmet",              type:"Head",      role:"DPS",        style:"Brother Eye",         drops:"OMAC Delta in Duo",                                     faction:"Both"});
   armorCollection.push({name:"Faust's Orichalcum Helm",                  type:"Head",      role:"DPS",        style:"Felix Faust",         drops:"Felix Faust",                                           faction:"Both"});
   armorCollection.push({name:"Harley's Sinister Masquerade",             type:"Head",      role:"DPS",        style:"Harley Quinn",        drops:"Harley Quinn",                                          faction:"Both"});
@@ -6253,22 +6253,22 @@ function isAccessory(lineString)
   armorCollection.push({name:"Chestguard of the Abyss",                    type:"Chest",     role:"DPS",        style:"Demonic",             drops:"Present in Vault",                                faction:"Both"});
   armorCollection.push({name:"Demonleather Chestguard",                    type:"Chest",     role:"DPS",        style:"Demonic",             drops:"Possessed Raven Spirit - 8th Precinct Interior - Raven's Destiny",         faction:"Both"});
   armorCollection.push({name:"Hellforged Exoskeletal Chestguard",          type:"Chest",     role:"DPS",        style:"Demonic",             drops:"The Titans villain mission - A Shadow of Hell",                            faction:"Both"});
-  armorCollection.push({name:"Unhallowed Chestguard",                      type:"Chest",     role:"DPS",        style:"Demonic",             drops:"",                                                faction:"Both"});
+  armorCollection.push({name:"Unhallowed Chestguard",                      type:"Chest",     role:"DPS",        style:"Demonic",             drops:"Doctor Fate in the Sentinels of magic hidden base villain instance",       faction:"Both"});
   armorCollection.push({name:"Legguards of the Demon Host",                type:"Legs",      role:"DPS",        style:"Demonic",             drops:"Present in Vault",                                faction:"Both"});
-  armorCollection.push({name:"Templeforged Legplates",                     type:"Legs",      role:"DPS",        style:"Demonic",             drops:"",                                                faction:"Both"});
+  armorCollection.push({name:"Templeforged Legplates",                     type:"Legs",      role:"DPS",        style:"Demonic",             drops:"Villain reward",                                  faction:"Both"});
   armorCollection.push({name:"Abyssal Helmet",                             type:"Head",      role:"DPS",        style:"Demonic",             drops:"Possessed Raven Spirit, Spirit of Raven - Science Police HQ (Challlenge)", faction:"Both"});
   armorCollection.push({name:"Demonforged Helmet",                         type:"Head",      role:"DPS",        style:"Demonic",             drops:"Present in Vault",                                faction:"Both"});
-  armorCollection.push({name:"Serpentine Crown of Azar",                   type:"Head",      role:"DPS",        style:"Demonic",             drops:"",                                                faction:"Both"});
+  armorCollection.push({name:"Serpentine Crown of Azar",                   type:"Head",      role:"DPS",        style:"Demonic",             drops:"Villain reward",                                  faction:"Both"});
   armorCollection.push({name:"Tempter's Visage",                           type:"Head",      role:"DPS",        style:"Demonic",             drops:"Possessed Raven Spirit - 8th Precinct Interior - Raven's Destiny",         faction:"Both"});
-  armorCollection.push({name:"Nefarious Shoulderguards",                   type:"Shoulders", role:"DPS",        style:"Demonic",             drops:"",                                                faction:"Both"});
+  armorCollection.push({name:"Nefarious Shoulderguards",                   type:"Shoulders", role:"DPS",        style:"Demonic",             drops:"Villain reward",                                  faction:"Both"});
   armorCollection.push({name:"Orichalcum Mantle",                          type:"Shoulders", role:"DPS",        style:"Demonic",             drops:"Felix Faust - Mannheim's Chinese Theater",                                 faction:"Both"});
   armorCollection.push({name:"Soulbond Shoulderplates",                    type:"Shoulders", role:"DPS",        style:"Demonic",             drops:"Possessed Raven Spirit - 8th Precinct Interior - Raven's Destiny",         faction:"Both"});
   armorCollection.push({name:"Sulphuric Shoulderplates",                   type:"Shoulders", role:"DPS",        style:"Demonic",             drops:"Present in Vault",                                faction:"Both"});
   armorCollection.push({name:"Abyssal Peril Gauntlets",                    type:"Hands",     role:"DPS",        style:"Demonic",             drops:"Present in Vault",                                faction:"Both"});
   armorCollection.push({name:"Azarathian Warlock's Gloves",                type:"Hands",     role:"DPS",        style:"Demonic",             drops:"The Titans villain mission A Shadow of Hell",     faction:"Both"});
-  armorCollection.push({name:"Covenant Cincture",                          type:"Waist",     role:"DPS",        style:"Demonic",             drops:"",                                                faction:"Both"});
+  armorCollection.push({name:"Covenant Cincture",                          type:"Waist",     role:"DPS",        style:"Demonic",             drops:"Villain reward",                                  faction:"Both"});
   armorCollection.push({name:"Hellthreat Belt",                            type:"Waist",     role:"DPS",        style:"Demonic",             drops:"Present in Vault",                                faction:"Both"});
-  armorCollection.push({name:"Devilish Talons",                            type:"Feet",      role:"DPS",        style:"Demonic",             drops:"",                                                faction:"Both"});
+  armorCollection.push({name:"Devilish Talons",                            type:"Feet",      role:"DPS",        style:"Demonic",             drops:"Reward",                                          faction:"Both"});
   armorCollection.push({name:"Frightening Helltreads",                     type:"Feet",      role:"DPS",        style:"Demonic",             drops:"Present in Vault",                                faction:"Both"});
 
   // Contemporary Tech style
@@ -6278,7 +6278,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Prototype Veridium Chestguard",              type:"Chest",     role:"Controller", style:"Contemporary Tech",   drops:"Failed Metal Man in Oolong alert",                faction:"Both"});
   armorCollection.push({name:"Wayfarer's Shirt",                           type:"Chest",     role:"Tank",       style:"Contemporary Tech",   drops:"Lunatic",                                         faction:"Both"});
   armorCollection.push({name:"Alloyed Synthium Leggings",                  type:"Legs",      role:"DPS",        style:"Contemporary Tech",   drops:"UGA Soldier",                                     faction:"Both"});
-  armorCollection.push({name:"LCX-40 Centurion Legguards",                 type:"Legs",      role:"DPS",        style:"Contemporary Tech",   drops:"",                                                faction:"Both"});
+  armorCollection.push({name:"LCX-40 Centurion Legguards",                 type:"Legs",      role:"DPS",        style:"Contemporary Tech",   drops:"Villain vendor",                                  faction:"Both"});
   armorCollection.push({name:"Riveted Evosynth Leggings",                  type:"Legs",      role:"DPS",        style:"Contemporary Tech",   drops:"Tornado Tyrant in Oolong Alert",                  faction:"Both"});
   armorCollection.push({name:"Alloyed Synthium Helmet",                    type:"Head",      role:"DPS",        style:"Contemporary Tech",   drops:"UGA Commando",                                    faction:"Both"});
   armorCollection.push({name:"Dark Visage of the Necropolis",              type:"Head",      role:"DPS",        style:"Contemporary Tech",   drops:"Bruno Mannheim",                                  faction:"Both"});
@@ -6287,7 +6287,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Riveted Evosynth Helmet",                    type:"Head",      role:"Tank",       style:"Contemporary Tech",   drops:"Failed Metal Man - Oolong Island, Star-SL - Old STAR Labs",                  faction:"Both"});
 
   armorCollection.push({name:"Anodized Nth-Metal Shoulderplates",          type:"Shoulders", role:"DPS",        style:"Contemporary Tech",   drops:"Treasure Chest in TOMorrow/Spectre/Robot Batman", faction:"Both"});
-  armorCollection.push({name:"Polished Promethium Shoulders",              type:"Shoulders", role:"DPS",        style:"Contemporary Tech",   drops:"",                                                faction:"Both"});
+  armorCollection.push({name:"Polished Promethium Shoulders",              type:"Shoulders", role:"DPS",        style:"Contemporary Tech",   drops:"Reward",                                          faction:"Both"});
   armorCollection.push({name:"Stagg Industries Stable-ize Shoulderplates", type:"Shoulders", role:"DPS",        style:"Contemporary Tech",   drops:"HIVE",                                            faction:"Both"});
   armorCollection.push({name:"Enhanced Plexiderm Gauntlets",               type:"Hands",     role:"DPS",        style:"Contemporary Tech",   drops:"",                                                faction:"Both"});
   armorCollection.push({name:"Grips of Asgaard",                           type:"Hands",     role:"DPS",        style:"Contemporary Tech",   drops:"Bruno Mannheim",                                  faction:"Both"});
@@ -6324,11 +6324,11 @@ function isAccessory(lineString)
   armorCollection.push({name:"Galactic Guardian's Leggings",               type:"Legs",      role:"DPS",        style:"Shielded Robot",      drops:"Present in Vault",                                faction:"Both"});
   armorCollection.push({name:"Legplates of Free Thought",                  type:"Legs",      role:"DPS",        style:"Shielded Robot",      drops:"John Stewart",                                    faction:"Both"});
   armorCollection.push({name:"Ancient Qwardian Helmet",                    type:"Head",      role:"DPS",        style:"Shielded Robot",      drops:"Present in Vault",                                faction:"Both"});
-  armorCollection.push({name:"Helmet of the Lightbringer",                 type:"Head",      role:"DPS",        style:"Shielded Robot",      drops:"",                                                faction:"Both"});
-  armorCollection.push({name:"Innovative Nanochined Helmet",               type:"Head",      role:"DPS",        style:"Shielded Robot",      drops:"",                                                faction:"Both"});
-  armorCollection.push({name:"Machined Veridium Headguard",                type:"Head",      role:"DPS",        style:"Shielded Robot",      drops:"",                                                faction:"Both"});
+  armorCollection.push({name:"Helmet of the Lightbringer",                 type:"Head",      role:"DPS",        style:"Shielded Robot",      drops:"Reward",                                          faction:"Both"});
+  armorCollection.push({name:"Innovative Nanochined Helmet",               type:"Head",      role:"DPS",        style:"Shielded Robot",      drops:"Reward",                                          faction:"Both"});
+  armorCollection.push({name:"Machined Veridium Headguard",                type:"Head",      role:"DPS",        style:"Shielded Robot",      drops:"Reward",                                          faction:"Both"});
   armorCollection.push({name:"Honored H'levenite Shoulderguards",          type:"Shoulders", role:"DPS",        style:"Shielded Robot",      drops:"Present in Vault",                                faction:"Both"});
-  armorCollection.push({name:"Ring Defender's Shoulderguards",             type:"Shoulders", role:"DPS",        style:"Shielded Robot",      drops:"",                                                faction:"Both"});
+  armorCollection.push({name:"Ring Defender's Shoulderguards",             type:"Shoulders", role:"DPS",        style:"Shielded Robot",      drops:"Reward",                                          faction:"Both"});
   armorCollection.push({name:"Starheart-Shard Shoulderguards",             type:"Shoulders", role:"DPS",        style:"Shielded Robot",      drops:"",                                                faction:"Both"});
   armorCollection.push({name:"Laminated Korugarian Handguards",            type:"Hands",     role:"DPS",        style:"Shielded Robot",      drops:"Sinestro",                                        faction:"Both"});
   armorCollection.push({name:"Starguard Gloves",                           type:"Hands",     role:"DPS",        style:"Shielded Robot",      drops:"Present in Vault",                                faction:"Both"});
@@ -6349,7 +6349,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Shielded Synthium Gauntlets",                type:"Hands",     role:"DPS",        style:"Robotic",             drops:"UGA Soldier in Gorilla Island Alert",                    faction:"Both"});
   armorCollection.push({name:"Advanced Commander's Boots",                 type:"Feet",      role:"DPS",        style:"Robotic",             drops:"Chang Tzu in Oolong Alert",                              faction:"Both"});
   armorCollection.push({name:"Anodized Inertron Treads",                   type:"Feet",      role:"Healer",     style:"Robotic",             drops:"Queen Bee in HIVE alert",                                faction:"Both"});
-  armorCollection.push({name:"Central City Cleats",                        type:"Feet",      role:"DPS",        style:"Robotic",             drops:"",                                                       faction:"Both"});
+  armorCollection.push({name:"Central City Cleats",                        type:"Feet",      role:"DPS",        style:"Robotic",             drops:"Reward",                                                 faction:"Both"});
 
   // Biomech style
   armorCollection.push({name:"Alloyed Inertron Chestguard",                type:"Chest",     role:"DPS",        style:"Biomech",             drops:"Ultra-Humanite in Gorilla Island Alert",                 faction:"Both"});
@@ -6401,7 +6401,7 @@ function isAccessory(lineString)
   // Antifreeze
   armorCollection.push({name:"Imbued Spore Chestplate",                    type:"Chest",     role:"DPS",        style:"Antifreeze",          drops:"Felix Faust",                                            faction:"Both"});
   armorCollection.push({name:"Master's Volcanic Chestguard",               type:"Chest",     role:"Controller", style:"Antifreeze",          drops:"Doomfused Citizen in Smallville Alert",                  faction:"Both"});
-  armorCollection.push({name:"Polar Shelter",                              type:"Chest",     role:"DPS",        style:"Antifreeze",          drops:"",                                                       faction:"Both"});
+  armorCollection.push({name:"Polar Shelter",                              type:"Chest",     role:"DPS",        style:"Antifreeze",          drops:"Villain Reward",                                         faction:"Both"});
   armorCollection.push({name:"Shirt of Ice",                               type:"Chest",     role:"DPS",        style:"Antifreeze",          drops:"Present in Vault",                                       faction:"Both"});
   armorCollection.push({name:"Foreman's Veridium Legplates",               type:"Legs",      role:"Controller", style:"Antifreeze",          drops:"Smallville Alert",                                       faction:"Both"});
   armorCollection.push({name:"Imbued Spore Legplates",                     type:"Legs",      role:"DPS",        style:"Antifreeze",          drops:"Felix Faust",                                            faction:"Both"});
@@ -6412,13 +6412,13 @@ function isAccessory(lineString)
   armorCollection.push({name:"Streamlined Vinestalker Helmet",             type:"Head",      role:"DPS",        style:"Antifreeze",          drops:"Sequoia Lord",                                           faction:"Both"});
   armorCollection.push({name:"Master's CobraTech Shoulderguards",          type:"Shoulders", role:"Controller", style:"Antifreeze",          drops:"Treasure Chest",                                         faction:"Both"});
   armorCollection.push({name:"Neomagnetic Shoulderguards",                 type:"Shoulders", role:"DPS",        style:"Antifreeze",          drops:"Present in Vault",                                       faction:"Both"});
-  armorCollection.push({name:"Wintry Shoulderguards",                      type:"Shoulders", role:"DPS",        style:"Antifreeze",          drops:"",                                                       faction:"Both"});
+  armorCollection.push({name:"Wintry Shoulderguards",                      type:"Shoulders", role:"DPS",        style:"Antifreeze",          drops:"Coldcut in Villain duo",                                 faction:"Both"});
   armorCollection.push({name:"Acid-Proof Gloves",                          type:"Hands",     role:"Controller", style:"Antifreeze",          drops:"Hypnotized CCPD Deputy - Cosmic Treadmill: Flashback, Treasure Chest - Ace Chemicals", faction:"Both"});
   armorCollection.push({name:"Antifreeze Belt",                            type:"Waist",     role:"DPS",        style:"Antifreeze",          drops:"Present in Vault",                                       faction:"Both"});
-  armorCollection.push({name:"Cryostatis Sash",                            type:"Waist",     role:"DPS",        style:"Antifreeze",          drops:"",                                                       faction:"Both"});
+  armorCollection.push({name:"Cryostatis Sash",                            type:"Waist",     role:"DPS",        style:"Antifreeze",          drops:"Mister Freeze in Villain instance",                      faction:"Both"});
   armorCollection.push({name:"Mutant Lord's Belt",                         type:"Waist",     role:"Controller", style:"Antifreeze",          drops:"T1 Alerts",                                              faction:"Both"});
   armorCollection.push({name:"Boots of Nightmare",                         type:"Feet",      role:"DPS",        style:"Antifreeze",          drops:"Eddie in Scarecrow Gotham Sewer mission",                faction:"Both"});
-  armorCollection.push({name:"Cryosine Footwraps",                         type:"Feet",      role:"DPS",        style:"Antifreeze",          drops:"",                                                       faction:"Both"});
+  armorCollection.push({name:"Cryosine Footwraps",                         type:"Feet",      role:"DPS",        style:"Antifreeze",          drops:"Mister Freeze in Villain instance",                      faction:"Both"});
   armorCollection.push({name:"Studded Blackmail Boots",                    type:"Feet",      role:"DPS",        style:"Antifreeze",          drops:"Present in Vault",                                       faction:"Both"});
   armorCollection.push({name:"Foreman's Backplate",                        type:"Back",      role:"Controller", style:"Antifreeze",          drops:"Treasure Chest in Ace Chemicals Alert",                  faction:"Both"});
   armorCollection.push({name:"Light Biosculpted Backplate",                type:"Back",      role:"DPS",        style:"Antifreeze",          drops:"Ancient Bloodroot",                                      faction:"Both"});
@@ -6439,7 +6439,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Crested Helmet of Themyscira",               type:"Head",      role:"DPS",        style:"Greco-Roman",         drops:"Present in Vault",                                       faction:"Both"});
   armorCollection.push({name:"Helmet of Polaris",                          type:"Head",      role:"DPS",        style:"Greco-Roman",         drops:"Vendor in Gotham safehouse",                             faction:"Both"});
   armorCollection.push({name:"Helmet of the Deceiver",                     type:"Head",      role:"DPS",        style:"Greco-Roman",         drops:"Circe",                                                  faction:"Both"});
-  armorCollection.push({name:"Necromancer's Foul Heaume",                  type:"Head",      role:"DPS",        style:"Greco-Roman",         drops:"",                                                       faction:"Both"});
+  armorCollection.push({name:"Necromancer's Foul Heaume",                  type:"Head",      role:"DPS",        style:"Greco-Roman",         drops:"Villain reward",                                         faction:"Both"});
   armorCollection.push({name:"Vengeance-Bound Helmet",                     type:"Head",      role:"DPS",        style:"Greco-Roman",         drops:"Eclipso",                                                faction:"Both"});
   armorCollection.push({name:"Duelist's Nth-Metal Shoulderguards",         type:"Shoulders", role:"DPS",        style:"Greco-Roman",         drops:"Vendor in Gotham safehouse",                             faction:"Both"});
   armorCollection.push({name:"Managem Shoulderguards",                     type:"Shoulders", role:"DPS",        style:"Greco-Roman",         drops:"Giganta",                                                faction:"Both"});
@@ -6448,22 +6448,22 @@ function isAccessory(lineString)
   armorCollection.push({name:"Shoulders of the Colossus",                  type:"Shoulders", role:"DPS",        style:"Greco-Roman",         drops:"Enchanted Colossus",                                     faction:"Both"});
   armorCollection.push({name:"Vengeful Runed Shoulderguards",              type:"Shoulders", role:"DPS",        style:"Greco-Roman",         drops:"Eclipso",                                                faction:"Both"});
   armorCollection.push({name:"Battle-Worn Gauntlets",                      type:"Hands",     role:"DPS",        style:"Greco-Roman",         drops:"Clayface",                                               faction:"Both"});
-  armorCollection.push({name:"Bonespur Gauntlets",                         type:"Hands",     role:"DPS",        style:"Greco-Roman",         drops:"",                                                       faction:"Both"});
+  armorCollection.push({name:"Bonespur Gauntlets",                         type:"Hands",     role:"DPS",        style:"Greco-Roman",         drops:"Villain reward",                                         faction:"Both"});
   armorCollection.push({name:"Gauntlets of the Deceiver",                  type:"Hands",     role:"DPS",        style:"Greco-Roman",         drops:"Circe",                                                  faction:"Both"});
-  armorCollection.push({name:"Grips of the Shadowmen",                     type:"Hands",     role:"DPS",        style:"Greco-Roman",         drops:"",                                                       faction:"Both"});
+  armorCollection.push({name:"Grips of the Shadowmen",                     type:"Hands",     role:"DPS",        style:"Greco-Roman",         drops:"Villain reward",                                         faction:"Both"});
   armorCollection.push({name:"Hyperion Sun Gauntlets",                     type:"Hands",     role:"DPS",        style:"Greco-Roman",         drops:"Circe",                                                  faction:"Both"});
   armorCollection.push({name:"Spiked Amazon's Gauntlets",                  type:"Hands",     role:"DPS",        style:"Greco-Roman",         drops:"Present in Vault",                                       faction:"Both"});
   armorCollection.push({name:"Braced Spartan Girdle",                      type:"Waist",     role:"DPS",        style:"Greco-Roman",         drops:"Guard Captain Bombus",                                   faction:"Both"});
-  armorCollection.push({name:"Metamorphosis Belt",                         type:"Waist",     role:"DPS",        style:"Greco-Roman",         drops:"",                                                       faction:"Both"});
+  armorCollection.push({name:"Metamorphosis Belt",                         type:"Waist",     role:"DPS",        style:"Greco-Roman",         drops:"Villain reward",                                         faction:"Both"});
   armorCollection.push({name:"Synthium-Studded Belt",                      type:"Waist",     role:"DPS",        style:"Greco-Roman",         drops:"Present in Vault",                                       faction:"Both"});
   armorCollection.push({name:"Io's Boneweave Boots",                       type:"Feet",      role:"DPS",        style:"Greco-Roman",         drops:"Panarchos Io",                                           faction:"Both"});
   armorCollection.push({name:"Sabatons of the Legion",                     type:"Feet",      role:"DPS",        style:"Greco-Roman",         drops:"General Tethytus - Metro Station Building",              faction:"Both"});
 
   armorCollection.push({name:"Spartan Shin Greaves",                       type:"Feet",      role:"DPS",        style:"Greco-Roman",         drops:"Oolong Enforcer",                                        faction:"Both"});
   armorCollection.push({name:"Spiked Amazon's Sabatons",                   type:"Feet",      role:"DPS",        style:"Greco-Roman",         drops:"Present in Vault",                                       faction:"Both"});
-  armorCollection.push({name:"Cape of the Giant Killer",                   type:"Back",      role:"DPS",        style:"Greco-Roman",         drops:"",                                                       faction:"Both"});
-  armorCollection.push({name:"Cloak of Lies",                              type:"Back",      role:"DPS",        style:"Greco-Roman",         drops:"Circe",                                                  faction:"Both"});
-  armorCollection.push({name:"Cloak of Truth",                             type:"Back",      role:"DPS",        style:"Greco-Roman",         drops:"",                                                       faction:"Both"});
+  armorCollection.push({name:"Cape of the Giant Killer",                   type:"Back",      role:"DPS",        style:"Greco-Roman",         drops:"Reward",                                                 faction:"Both"});
+  armorCollection.push({name:"Cloak of Lies",                              type:"Back",      role:"DPS",        style:"Greco-Roman",         drops:"Circe in Chinatown Cafe Hero instance",                  faction:"Both"});
+  armorCollection.push({name:"Cloak of Truth",                             type:"Back",      role:"DPS",        style:"Greco-Roman",         drops:"Wonder Woman in Villain instance",                       faction:"Both"});
   armorCollection.push({name:"Embellished Spartan Cape",                   type:"Back",      role:"DPS",        style:"Greco-Roman",         drops:"Bat Family in Batcave: Outer Caverns Alert",             faction:"Both"});
   armorCollection.push({name:"Hero's Embellished Cape",                    type:"Back",      role:"DPS",        style:"Greco-Roman",         drops:"Present in Vault",                                       faction:"Both"});
   armorCollection.push({name:"Tenebrous Cloak",                            type:"Back",      role:"DPS",        style:"Greco-Roman",         drops:"Lightkeeper Janis",                                      faction:"Both"});
@@ -7040,7 +7040,7 @@ function isAccessory(lineString)
 
   weaponCollection.push({name:"Slayer's Blasters",type:"Hand Blaster",role:"Controller",dps:97.1,drops:"The Gatekeeper - Kahndaq"});
 
-  weaponCollection.push({name:"Soullinked Blaster Gloves",type:"Hand Blaster",role:"DPS",dps:61.9,drops:"",style:"Magical Blast Foci"});
+  weaponCollection.push({name:"Soullinked Blaster Gloves",type:"Hand Blaster",role:"DPS",dps:61.9,drops:"Brainiac Analyzer in Area 51 Hard Alert",style:"Magical Blast Foci"});
   weaponCollection.push({name:"Spellpulse Gauntlets",type:"Hand Blaster",role:"DPS",dps:53.9,drops:"Sandtiger - Condemed Shipping Office"});
 
   weaponCollection.push({name:"Spiritwalker Blasters",type:"Hand Blaster",role:"Healer",dps:97.1,drops:"General Adnan - Kahndaq"});
@@ -7407,7 +7407,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Lionshead Hammer",                      type:"Two-Handed",role:"DPS",dps:68.3,drops:"",style:"Lionhead Hammer"});
   weaponCollection.push({name:"Machined Synthium Hammer",              type:"Two-Handed",role:"DPS",dps:26.6,drops:"Muscle"});
   weaponCollection.push({name:"Mallet of Krypton",                     type:"Two-Handed",role:"Controller",dps:77.9,drops:"Subprime Regulator Alpha"});
-  weaponCollection.push({name:"Mastermind's Claymore",                 type:"Two-Handed",role:"Controller",dps:53.9,drops:""});
+  weaponCollection.push({name:"Mastermind's Claymore",                 type:"Two-Handed",role:"Controller",dps:53.9,drops:"Tigershark, Thresher, Whitetip"});
   weaponCollection.push({name:"Mentalist's Hammer",                    type:"Two-Handed",role:"Healer",dps:68.3,drops:"Necro Magent Gruhn in Kahndaq raid"});
   weaponCollection.push({name:"Meteorite Hammer",                      type:"Two-Handed",role:"DPS",dps:57.1,drops:"",style:"Kryptonian Mallet"});
   weaponCollection.push({name:"OmniScry Millennia Hammer",             type:"Two-Handed",role:"DPS",dps:68.3,drops:"Isis"});
@@ -7422,7 +7422,7 @@ function isAccessory(lineString)
 
   weaponCollection.push({name:"Shovel of the Insane Gardener",         type:"Two-Handed",role:"DPS",dps:45.9,drops:"",style:"Shovel"});
   weaponCollection.push({name:"Stagg Industries Proto-Line Warhammer", type:"Two-Handed",role:"DPS",dps:26.6,drops:"Stinger"});
-  weaponCollection.push({name:"Starsoul's Mace",                       type:"Two-Handed",role:"DPS",dps:61.9,drops:""});
+  weaponCollection.push({name:"Starsoul's Mace",                       type:"Two-Handed",role:"DPS",dps:61.9,drops:"Lion Lady, Gorilla Grodd, Prisoner, Mummy, lots of T1 content"});
   weaponCollection.push({name:"STAR Assault Sword Mk II",              type:"Two-Handed",role:"DPS",dps:97.1,drops:"Atrocitus"});
   weaponCollection.push({name:"STAR Assault Sword",                    type:"Two-Handed",role:"DPS",dps:90.7,drops:"Lyssa Drak in Oan Sciencecells Alert"});
   weaponCollection.push({name:"STAR Proto-Power Sword",                type:"Two-Handed",role:"Controller",dps:90.7,drops:"Kyle Rayner - Coast City"});
@@ -9647,7 +9647,6 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"Explore Bludhaven",                 category:"Exploration",subcategory:"Alerts",    stars:1,points:10,faction:"Both",description:"Explore toxic-wrecked areas of downtown Bludhaven"});
   featCollection.push({name:"Explore Smallville",                category:"Exploration",subcategory:"Alerts",    stars:1,points:10,faction:"Both",description:"Explore key areas of Smallville, KS"});
 
-  featCollection.push({name:"Prepared",                    category:"General",subcategory:"General",mentor:"",            stars:1,points:10,faction:"Both",description:"Obtain 1 Mark of Conquest or Mark of Legend"});
   featCollection.push({name:"More than You Could Chew",    category:"General",subcategory:"General",mentor:"",            stars:2,points:25,faction:"Both",description:"Encounter all 5 preoccupied iconic villains"});
   featCollection.push({name:"Fanboy",                      category:"General",subcategory:"General",mentor:"",            stars:2,points:25,faction:"Both",description:"Encounter all 6 preoccupied iconic heroes"});
   featCollection.push({name:"Bounty Hunter",               category:"General",subcategory:"General",mentor:"",            stars:3,points:50,faction:"Hero",description:"Complete all of the classic wanted poster missions as a Hero"});
@@ -9938,8 +9937,6 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"Crazy Fast",                     category:"Alerts",subcategory:"Hard",stars:2,points:25,faction:"Both",description:"Beat the Arkham Asylum Alert in 30 minutes or less"});
   featCollection.push({name:"Nightmare Asylum",               category:"Alerts",subcategory:"Hard",stars:2,points:25,faction:"Both",description:"Defeat Dr Alyce Sinner's Nightmare and Scarecrow"});
   featCollection.push({name:"Freezer Burned",                 category:"Alerts",subcategory:"Hard",stars:2,points:25,faction:"Both",description:"Defeat Mister Freeze in 90 seconds or less"});
-  featCollection.push({name:"Don't Fight the Power",          category:"Alerts",subcategory:"Hard",stars:2,points:25,faction:"Hero",description:"Defeat the Eradicator without destroying any drones"});
-  featCollection.push({name:"Fast Responders",                category:"Alerts",subcategory:"Hard",stars:2,points:25,faction:"Hero",description:"Complete the Watchtower Containment Facility Alert in 30 minutes or less"});
   featCollection.push({name:"Smallville - Sightseer",         category:"Alerts",subcategory:"Hard",stars:2,points:25,faction:"Both",description:"Complete the Smallville Alert in 20 minutes or less"});
   featCollection.push({name:"Area 51 - Layover",              category:"Alerts",subcategory:"Hard",stars:2,points:25,faction:"Both",description:"Complete the Area 51 Alert in 20 minutes or less on hard mode"});
   featCollection.push({name:"Oolong Island - Layover",        category:"Alerts",subcategory:"Hard",stars:2,points:25,faction:"Both",description:"Complete the Oolong Island Alert in 20 minutes or less on hard mode"});
@@ -9952,6 +9949,9 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"Safety is Job One",              category:"Alerts",subcategory:"Hard",stars:2,points:25,faction:"Both",description:"Defeat Sentinel DP-5 and Sentinel C-CU without getting stuck by special attacks"});
   featCollection.push({name:"Breaking the Chain of Command",  category:"Alerts",subcategory:"Hard",stars:2,points:25,faction:"Villain",description:"Defeat the Iron Statue before the Bronze Idol"});
   featCollection.push({name:"Quick System Restore",           category:"Alerts",subcategory:"Hard",stars:2,points:25,faction:"Villain",description:"Complete the Hall of Doom Armory Alert in 30 minutes or less"});
+  featCollection.push({name:"Overclocked",                    category:"Alerts",subcategory:"Hard",stars:2,points:25,faction:"Villain",description:"Defeat the System Breaker in 2 minutes or less"});
+  featCollection.push({name:"Don't Fight the Power",          category:"Alerts",subcategory:"Hard",stars:2,points:25,faction:"Hero",description:"Defeat the Eradicator without destroying any drones"});
+  featCollection.push({name:"Fast Responders",                category:"Alerts",subcategory:"Hard",stars:2,points:25,faction:"Hero",description:"Complete the Watchtower Containment Facility Alert in 30 minutes or less"});
 
   featCollection.push({name:"Gorilla Island - Sightseer", category:"Alerts",subcategory:"Normal",stars:2,points:25,faction:"Both",description:"Complete the Gorilla Island Alert in 20 minutes or less"});
   featCollection.push({name:"Area 51 - Sightseer",        category:"Alerts",subcategory:"Normal",stars:2,points:25,faction:"Both",description:"Complete the Area 51 Alert in 20 minutes or less"});
@@ -9991,11 +9991,19 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"WANTED: Knocked Out or Alive",                          category:"Player vs Player",subcategory:"General",stars:1,points:10,faction:"Both",description:"Complete 25 player Bounty missions"});
   featCollection.push({name:"Fistfull of Cash",                                      category:"Player vs Player",subcategory:"General",stars:2,points:25,faction:"Both",description:"Complete 50 player Bounty missions"});
   featCollection.push({name:"My Backpack's Got Jets",                                category:"Player vs Player",subcategory:"General",stars:3,points:50,faction:"Both",description:"Complete 250 player Bounty missions"});
-  featCollection.push({name:"Give No Quarter",             category:"Player vs Player",subcategory:"General",stars:1,points:10,faction:"Both",description:"Obtain 25 marks of victory"});
-  featCollection.push({name:"Man That's Harshad",          category:"Player vs Player",subcategory:"General",stars:2,points:25,faction:"Both",description:"Obtain 500 marks of victory"});
-  featCollection.push({name:"Centurion",                   category:"Player vs Player",subcategory:"General",stars:2,points:25,faction:"Both",description:"Obtain 100 marks of victory"});
-  featCollection.push({name:"A Grand Feat",                category:"Player vs Player",subcategory:"General",stars:3,points:50,faction:"Both",description:"Obtain 1000 marks of victory, Conquest, Tactics or Strategy"});
-
+  featCollection.push({name:"Give No Quarter",                                       category:"Player vs Player",subcategory:"General",stars:1,points:10,faction:"Both",description:"Obtain 25 marks of victory"});
+  featCollection.push({name:"Man That's Harshad",                                    category:"Player vs Player",subcategory:"General",stars:2,points:25,faction:"Both",description:"Obtain 500 marks of victory"});
+  featCollection.push({name:"Centurion",                                             category:"Player vs Player",subcategory:"General",stars:2,points:25,faction:"Both",description:"Obtain 100 marks of victory"});
+  featCollection.push({name:"A Grand Feat",                                          category:"Player vs Player",subcategory:"General",stars:3,points:50,faction:"Both",description:"Obtain 1000 marks of victory, Conquest, Tactics or Strategy"});
+  featCollection.push({name:"KO Spree!",                                             category:"Player vs Player",subcategory:"General",stars:1,points:10,faction:"Both",description:"Achieve a streak of 5 KOs before being KO'd in an arena match"});
+  featCollection.push({name:"Gotta Catch Em' All!",                                  category:"Player vs Player",subcategory:"General",stars:2,points:25,faction:"Both",description:"Knock out one player of each power type in the arena"});
+  featCollection.push({name:"Think Fast!",                                           category:"Player vs Player",subcategory:"General",stars:2,points:25,faction:"Both",description:"Win an arena match in 5 minutes or less"});
+  featCollection.push({name:"Prepared",                                              category:"Player vs Player",subcategory:"General",stars:1,points:10,faction:"Both",description:"Obtain 1 Mark of Conquest or Mark of Legend"});
+  featCollection.push({name:"Down for the Count",                                    category:"Player vs Player",subcategory:"General",stars:1,points:10,faction:"Both",description:"Knock out an enemy player in an arena match"});
+  featCollection.push({name:"25 Down for the Count",                                 category:"Player vs Player",subcategory:"General",stars:1,points:10,faction:"Both",description:"Knock out 25 enemy players in arena matches"});
+  featCollection.push({name:"100 Down for the Count",                                category:"Player vs Player",subcategory:"General",stars:1,points:10,faction:"Both",description:"Knock out 100 enemy players in arena matches"});
+  featCollection.push({name:"500 Down for the Count",                                category:"Player vs Player",subcategory:"General",stars:1,points:10,faction:"Both",description:"Knock out 500 enemy players in arena matches"});
+  featCollection.push({name:"1000 Down for the Count",                               category:"Player vs Player",subcategory:"General",stars:2,points:25,faction:"Both",description:"Knock out 1000 enemy players in arena matches"});
 
   featCollection.push({name:"Legendary Initiate",             category:"Player vs Player",subcategory:"Legendary Battles", stars:1,points:10,faction:"Both",description:"Achieve level 5 to begin Legendary Battles"});
   featCollection.push({name:"Getting the Band Back Together", category:"Player vs Player",subcategory:"Legendary Battles", stars:3,points:50,faction:"Both",description:"Unlock all the classic Legendary Battle Arena Avatars"});
@@ -10022,20 +10030,13 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"Arena Master",                                      category:"Player vs Player",subcategory:"Arenas",stars:1,points:10,faction:"Both",description:"Win 10 normal arena matches"});
   featCollection.push({name:"Global Enforcer",                                   category:"Player vs Player",subcategory:"Arenas",stars:2,points:25,faction:"Both",description:"Win one match in each arena map in the classic game"});
   featCollection.push({name:"PvP MVP",                                           category:"Player vs Player",subcategory:"Arenas",stars:2,points:25,faction:"Both",description:"Win an arena match with no deaths and 10 captures"});
-  featCollection.push({name:"Think Fast!",                                       category:"Player vs Player",subcategory:"Arenas",stars:2,points:25,faction:"Both",description:"Win an arena match in 5 minutes or less"});
   featCollection.push({name:"Winning Streak X",                                  category:"Player vs Player",subcategory:"Arenas",stars:3,points:50,faction:"Both",description:"Win 10 matches on the arena maps in a row"});
   featCollection.push({name:"High Rolling Healer",                               category:"Player vs Player",subcategory:"Arenas",stars:2,points:25,faction:"Both",description:"Heal 100,000 damage or more in a single arena match"});
   featCollection.push({name:"Attack the Weak Point for Massive Damage",          category:"Player vs Player",subcategory:"Arenas",stars:2,points:25,faction:"Both",description:"Do 100,000 damage or more in a single arena match"});
-  featCollection.push({name:"Gotta Catch Em' All!",                              category:"Player vs Player",subcategory:"Arenas",stars:2,points:25,faction:"Both",description:"Knock out one player of each power type in the arena"});
   featCollection.push({name:"25X Under Fire!",                                   category:"Player vs Player",subcategory:"Arenas",stars:1,points:10,faction:"Both",description:"Reach 25 hits on the hit counter in PvP arena"});
   featCollection.push({name:"10X Under Fire!",                                   category:"Player vs Player",subcategory:"Arenas",stars:1,points:10,faction:"Both",description:"Reach 10 hits on the hit counter in PvP arena"});
   featCollection.push({name:"Crush Your Enemies and See Them Driven Before You", category:"Player vs Player",subcategory:"Arenas",stars:3,points:50,faction:"Both",description:"Knock out 10000 enemy players in arena matches"});
   featCollection.push({name:"Killing Is My Business, and Business Is Good",      category:"Player vs Player",subcategory:"Arenas",stars:2,points:25,faction:"Both",description:"Knock out 5000 enemy players in arena matches"});
-  featCollection.push({name:"1000 Down for the Count",                           category:"Player vs Player",subcategory:"Arenas",stars:2,points:25,faction:"Both",description:"Knock out 1000 enemy players in arena matches"});
-  featCollection.push({name:"500 Down for the Count",                            category:"Player vs Player",subcategory:"Arenas",stars:1,points:10,faction:"Both",description:"Knock out 500 enemy players in arena matches"});
-  featCollection.push({name:"100 Down for the Count",                            category:"Player vs Player",subcategory:"Arenas",stars:1,points:10,faction:"Both",description:"Knock out 100 enemy players in arena matches"});
-  featCollection.push({name:"25 Down for the Count",                             category:"Player vs Player",subcategory:"Arenas",stars:1,points:10,faction:"Both",description:"Knock out 25 enemy players in arena matches"});
-  featCollection.push({name:"Down for the Count",                                category:"Player vs Player",subcategory:"Arenas",stars:1,points:10,faction:"Both",description:"Knock out an enemy player in an arena match"});
   featCollection.push({name:"One Giant Beating for Mankind",                     category:"Player vs Player",subcategory:"Arenas",stars:3,points:50,faction:"Both",description:"Win 250 arena matches on the Moon"});
   featCollection.push({name:"Moon Base Master",                                  category:"Player vs Player",subcategory:"Arenas",stars:2,points:25,faction:"Both",description:"Win 100 arena matches on the Moon"});
   featCollection.push({name:"Moon Base Expert",                                  category:"Player vs Player",subcategory:"Arenas",stars:1,points:10,faction:"Both",description:"Win 50 arena matches on the Moon"});
@@ -10051,7 +10052,6 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"Come At Me!",                                       category:"Player vs Player",subcategory:"Arenas",stars:1,points:10,faction:"Both",description:"Defeat 50 opponents in a single arena game"});
   featCollection.push({name:"Place Your Bets!",                                  category:"Player vs Player",subcategory:"Arenas",stars:2,points:25,faction:"Both",description:"Defeat 25 opponents in a single arena game"});
   featCollection.push({name:"M-M-Multi KO!",                                     category:"Player vs Player",subcategory:"Arenas",stars:2,points:25,faction:"Both",description:"Achieve a streak of 25 KO's before being KO'd in an arena match"});
-  featCollection.push({name:"KO Spree!",                                         category:"Player vs Player",subcategory:"Arenas",stars:1,points:10,faction:"Both",description:"Achieve a streak of 5 KOs before being KO'd in an arena match"});
 
   featCollection.push({name:"Threw Down the Gauntlet",  category:"Player vs Player",subcategory:"Dueling",stars:1,points:10,faction:"Both",description:"Win a duel"});
   featCollection.push({name:"Send 'em Packing",         category:"Player vs Player",subcategory:"Dueling",stars:1,points:10,faction:"Both",description:"Dominate a duel"});
@@ -10081,15 +10081,15 @@ function calculateTime(character, startDateString, endDateString)
 
   featCollection.push({name:"Zephyr Winds",       category:"Duos",subcategory:"Speed Force",stars:1,points:10,faction:"Both",description:"Complete the Gotham University Duo in 10 minutes or less"});
   featCollection.push({name:"Busy Bee",           category:"Duos",subcategory:"Speed Force",stars:1,points:10,faction:"Both",description:"Complete the Hive Base Duo in 10 minutes or less"});
-  featCollection.push({name:"Gorilla Hustle",     category:"Duos",subcategory:"Speed Force",stars:1,points:10,faction:"Both",description:"Complete the Gorilla Grodd Lab Duo in 8 minutes or less"});
   featCollection.push({name:"OMAC Velocity",      category:"Duos",subcategory:"Speed Force",stars:1,points:10,faction:"Both",description:"Complete the OMAC Base Duo in 11 minutes or less"});
   featCollection.push({name:"Venom Rush",         category:"Duos",subcategory:"Speed Force",stars:1,points:10,faction:"Both",description:"Complete the Cape Carmine Lighthouse Duo in 10 minutes or less"});
   featCollection.push({name:"Speedy Coin",        category:"Duos",subcategory:"Speed Force",stars:1,points:10,faction:"Both",description:"Complete the Old Gotham Subway Duo in 11 minutes or less"});
   featCollection.push({name:"Light Speed Ahead",  category:"Duos",subcategory:"Speed Force",stars:1,points:10,faction:"Both",description:"Complete the Metropolis City Hall Duo in 8 minutes or less"});
-  featCollection.push({name:"Lightcrusher",       category:"Duos",subcategory:"Speed Force",stars:1,points:10,faction:"Both",description:"Defeat Arkillo/Kilowog after allowing him to reach 5x power"});
-  featCollection.push({name:"Faster Than Light",  category:"Duos",subcategory:"Speed Force",stars:1,points:10,faction:"Both",description:"Defeat Arkillo/Kilowog before the drudges power ups his ring once"});
+  featCollection.push({name:"Gorilla Hustle",     category:"Duos",subcategory:"Speed Force",stars:1,points:10,faction:"Hero",description:"Complete the Gorilla Grodd Lab Duo in 8 minutes or less"});
   featCollection.push({name:"Arctic Breeze",      category:"Duos",subcategory:"Speed Force",stars:1,points:10,faction:"Villain",description:"Defeat the Gotham Mercy Hospital Villain Duo in 8 minutes or less"});
-  featCollection.push({name:"Freeze!",            category:"Duos",subcategory:"Speed Force",stars:1,points:10,faction:"Villain",description:"Defeat Mister Freeze's two remaining goons in Mercy Hospital"});
+
+  featCollection.push({name:"Lightcrusher",       category:"Duos",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Defeat Arkillo/Kilowog after allowing him to reach 5x power"});
+  featCollection.push({name:"Faster Than Light",  category:"Duos",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Defeat Arkillo/Kilowog before the drudges power ups his ring once"});
 
   featCollection.push({name:"Research Assistant",       category:"R&D",subcategory:"General",stars:1,points:10,faction:"Both",description:"Research 50 different plans"});
   featCollection.push({name:"Journeyman Technician",    category:"R&D",subcategory:"General",stars:2,points:25,faction:"Both",description:"Research 100 different plans"});
@@ -10169,7 +10169,8 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"Challenge Dynamo",                          category:"Solo",subcategory:"General",stars:2,points:25,faction:"Both",description:"Complete 250 Challenges"});
   featCollection.push({name:"Danger is My Trade",                        category:"Solo",subcategory:"General",stars:3,points:50,faction:"Both",description:"Complete 500 Challenges"});
 
-  // NOTE:  There are two feats with the exact same name.  The Hard Knocks: Lex Luthor and the Hard Knocks: Circe each represent two different feats
+  // NOTE:  There are 4 sets of two feats with the exact same name.  
+  //    The Hard Knocks feats have 2 Superman, 2 Lex Luthor, 2 Wonder Woman, and 2 Circe feats with the exact same name
   //        As far as I know, there is no way to tell which is which.
   //        Lex is in STAR Labs base and in Hall of Doom instances
   //        And Circe has a Hard Knocks feat for beating her in the Shadowlands and also one for her secret base
@@ -10201,7 +10202,7 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"School of Hard Knocks: The Flash",     category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Villain",description:"Defeat The Flash without using any consumable items or supercharge abilities"});
   featCollection.push({name:"School of Hard Knocks: Wonder Girl",   category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Villain",description:"Defeat Wonder Girl without using any consumable items or supercharge abilities"});
   featCollection.push({name:"School of Hard Knocks: Power Girl",    category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Villain",description:"Defeat Power Girl without using any consumable items or supercharge abilities"});
-  featCollection.push({name:"School of Hard Knocks: Doctor Fate",   category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Villain",description:"Defeat Doctor Fate without using any consumable items or supercharge abilities"});
+  featCollection.push({name:"School of Hard Knocks: Doctor Fate",   category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Villain",description:"Defeat Doctor Fate in the Sentinels of magic hidden base without using any consumable items or supercharge abilities"});
   featCollection.push({name:"School of Hard Knocks: Supergirl",     category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Villain",description:"Defeat Supergirl without using any consumable items or supercharge abilities"});
   featCollection.push({name:"School of Hard Knocks: Mister Freeze", category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Villain",description:"Defeat Mister Freeze without using any consumable items or supercharge abilities"});
   featCollection.push({name:"School of Hard Knocks: Wonder Woman",  category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Villain",description:"Defeat Wonder Woman without using any consumable items or supercharge abilities"});
@@ -10212,7 +10213,7 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"School of Hard Knocks: Alan Scott",    category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Villain",description:"Defeat Alan Scott without using any consumable items or supercharge abilities"});
   featCollection.push({name:"School of Hard Knocks: Batman",        category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Villain",description:"Defeat Batman without using any consumable items or supercharge abilities"});
   featCollection.push({name:"School of Hard Knocks: Robot Joker",   category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Villain",description:"Defeat Robot Joker without using any consumable items or supercharge abilities"});
-  featCollection.push({name:"School of Hard Knocks: Superman",      category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Villain",description:"Defeat Superman without using any consumable items or supercharge abilities"});
+  featCollection.push({name:"School of Hard Knocks: Superman",      category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Villain",description:"Defeat Superman in the secret STAR labs base without using any consumable items or supercharge abilities"});
   featCollection.push({name:"School of Hard Knocks: John Stewart",  category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Villain",description:"Defeat John Stewart without using any consumable items or supercharge abilities"});
   featCollection.push({name:"Fire Falls!",                          category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Villain",description:"Defeat Fire in Gotham's Otisburg Neighborhood"});
   featCollection.push({name:"Killer Frost Falls!",                  category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Hero",description:"Defeat Killer Frost in Gotham's Otisburg Neighborhood"});
@@ -10295,63 +10296,66 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"By Her Will",                    category:"Solo",subcategory:"Survival",stars:1,points:10,faction:"Villain",description:"Complete the Sentinels of Magic Base solo instance without being KO'd"});
   featCollection.push({name:"Undefeated",                     category:"Solo",subcategory:"Survival",stars:1,points:10,faction:"Villain",description:"Complete the Cape Carmine Lighthouse solo instance without being KO'd"});
 
-  featCollection.push({name:"Pop Quiz, Hotshot!",              category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Diffuse the bombs before the police officers die in Regal Hotel"});
-  featCollection.push({name:"Detox",                           category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Hero",description:"Destroy all Venom cannisters in Burnley Warehouse"});
-  featCollection.push({name:"On Your Feet!",                   category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Revive all the defeated Amazons in Circe's Hidden Base"});
-  featCollection.push({name:"Green Machine",                   category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Incinerate dangerous bio-hazardous materials strewn around Metro General Hospital"});
-  featCollection.push({name:"Fire Sale",                       category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Extinguish all of the magical flames in the Chinatown magic shop"});
-  featCollection.push({name:"Counselor",                       category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Break Circe's control over the bewitched Amazons in Circe's Citadel"});
-  featCollection.push({name:"Gate Crasher",                    category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Open the gate to Scarecrow's inner lair within 3 minutes of entering the sewers"});
-  featCollection.push({name:"Brute Force",                     category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Complete the adventure in STAR's secret lab without activating any turrets"});
-  featCollection.push({name:"Leader Of The Pride",             category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Save all Lion Cubs in the Gotham University Warehouse"});
-  featCollection.push({name:"Quick Crags",                     category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Secure 14 crags in the Shadowlands in 100 seconds or less"});
-  featCollection.push({name:"Single Minded",                   category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Defeat the Overlord in the Hall of Doom without defeating his robots"});
-  featCollection.push({name:"Pain in the Brainiac",            category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Defeat 50 of Brainiac's robots on the STAR Lab satellite"});
-  featCollection.push({name:"Fumigator",                       category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Secure the 4 pressure valves in 80 secoonds or under in the Gotham University Warehouse"});
-  featCollection.push({name:"Eye Blinked",                     category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Defeat Brother Eye underneath Gotham's Knightsdome Sporting Complex without knocking out his guardian drones"});
-  featCollection.push({name:"Re-Evolver",                      category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Free all the civilians in Gorilla Grodd's hideout from the devolution process"});
   featCollection.push({name:"The Androids You're Looking For", category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Defeat 30 of T.O.Morrow's Androids in T.O.Morrow's Lab"});
   featCollection.push({name:"Brain Intact",                    category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Make it through the waves of zombies in the Tomb of Isis"});
-  featCollection.push({name:"Shadow-Packed",                   category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Defeat 30 Ghosts in the Glenmorgan Square Office Building"});
-  featCollection.push({name:"Emancipator",                     category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Rescue all of the enslaved citizens from the Condemned Shipyards"});
-  featCollection.push({name:"Spy Smasher",                     category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Arrest all of the LexCorp SpecOps who infiltrated the HIVE Metrodome"});
-  featCollection.push({name:"Soul Saver",                      category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Smash all the soul globes in Mannheim's Chinese Theatre"});
-  featCollection.push({name:"Out of Service",                  category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Stop the disabled J1N1 from reactivating inside the Monarch Playing Card Company"});
-  featCollection.push({name:"Staunching the Flow",             category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Destroy 15 blood vats located throughout Ellsworth Memorial Hospital"});
-  featCollection.push({name:"Lead from the Front",             category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Defeat the Manhunter in City Hall while all allies are still in the fight"});
-  featCollection.push({name:"Peas Officer",                    category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Free all of the GPCD officer's from Poison Ivy's pods underneath the Botanical Gardens"});
-  featCollection.push({name:"No More Funny Business",          category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Defeat 30 Joker Clowns in the Amusement Mile Funhouse"});
-  featCollection.push({name:"Blue Christmas",                  category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Hero",description:"Free 12 of the SCU troops trapped in SCU Police Station"});
-  featCollection.push({name:"Sin No More",                     category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Defeat all of Trigon's sin demons in the Science Police Headquarters"});
-  featCollection.push({name:"Beast Basher",                    category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Defeat 60 of the Beastiamorphs in the Metro Station"});
+  featCollection.push({name:"Eye Blinked",                     category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Defeat Brother Eye underneath Gotham's Knightsdome Sporting Complex without knocking out his guardian drones"});
+  featCollection.push({name:"Quick Crags",                     category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Secure 14 crags in the Shadowlands in 100 seconds or less"});
+  featCollection.push({name:"Pain in the Brainiac",            category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Defeat 50 of Brainiac's robots on the STAR Lab satellite"});
+  featCollection.push({name:"Leader Of The Pride",             category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Save all Lion Cubs in the Gotham University Warehouse"});
+  featCollection.push({name:"Fumigator",                       category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Secure the 4 pressure valves in 80 secoonds or under in the Gotham University Warehouse"});
   featCollection.push({name:"Taking Out The Laundering",       category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Collect all of Intergang's Counterfeit Money in their Warehouse"});
-  featCollection.push({name:"Lights Out in the Lighthouse",    category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Defeat all enemies and destroy all Venom canisters in the Lighthouse up to Bane"});
   featCollection.push({name:"Extreme Birdwatching",            category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Investigate all of the Bird Statues in the Gotham Old Subway"});
-  featCollection.push({name:"Mister J's Special BBQ Recipe",   category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Set 30 police officers on fire in Amusement Mile Funhouse"});
-  featCollection.push({name:"Smashing Science",                category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Defeat 30 Science Police Officers in Science Police HQ"});
-  featCollection.push({name:"Go for the Throat!",              category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Defeat Shevla'nuhur Kyramud in the Watchtower without defeating his robots"});
-  featCollection.push({name:"Man Down!",                       category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Reach the final confrontation in STAR's secret lab without losing any men"});
-  featCollection.push({name:"Evidence? What Evidence?",        category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Burn evidence of LexCorp's activities at Metro General"});
-  featCollection.push({name:"Blitz",                           category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Defeat the Alpha Lantern in City Hall while all allies are still in the fight"});
-  featCollection.push({name:"Stuffed",                         category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Let Cold Cut eat from the vending machine 8 times before defeating him inside Mister Freeze's lair"});
-  featCollection.push({name:"Now You See Me...",               category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Disable all security cameras and consoles inside Metro University"});
-  featCollection.push({name:"Favor for the Family",            category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Free 13 Falcone mobsters in the Burnley Freight Yards"});
-  featCollection.push({name:"Bestiamorph Ethics",              category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Free all of the captured Bestiamorphs in Circe's Citadel"});
-  featCollection.push({name:"No Respect!",                     category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Desecrate the Amazonian's Enchanted Colossus in Circe's Hidden Base"});
-  featCollection.push({name:"Information Warfare",             category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Burn all the bookcases in the Sentinels of Magic Citadel"});
-  featCollection.push({name:"Watch Your Step",                 category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Redirect all the portals in the Sentinels of Magic base to Hades"});
-  featCollection.push({name:"Two Birds with One Stone",        category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Defeat Hawkman and Hawkgirl within 10 seconds of each other in the JSA Metropolis HQ"});
-  featCollection.push({name:"Are We Not Men?",                 category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Complete the Old STAR Labs without devolving into a super gorilla"});
-  featCollection.push({name:"Yoink!",                          category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Steal all the Venom canisters in the Burnley Warehouse"});
-  featCollection.push({name:"Ringmaster",                      category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Fight through the Regal Hotel without losing a single clown"});
-  featCollection.push({name:"Look Ma, No Hands",               category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Free Eclipso in the Sentinel Hold without securing the Hands of Shadow"});
-  featCollection.push({name:"Pig in a Blanket",                category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Gift wrap 50 defeated SCU troops in the SCU Police Station"});
-  featCollection.push({name:"Bacon in a Box",                  category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Gift wrap 25 defeated SCU troops in the SCU Police Station"});
-  featCollection.push({name:"Soul Reaper",                     category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Collect every soul in Brother Blood's inner sanctum and defeat Raven"});
-  featCollection.push({name:"Titanic",                         category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Convert all five Titans in Brother Blood's inner Sanctum (may require multiple playthroughs)"});
-  featCollection.push({name:"Veterinarian",                    category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Resurrect the fallen Bestiamorphs in the Metro Station"});
-  featCollection.push({name:"The Croc Hunter",                 category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Complete the Scarecrow boss fight in the Gotham Sewer without allowing any Killer Croc Hallucinations to rise"});
   featCollection.push({name:"Can't Get Enough Of That Justice",category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Encounter and Defeat both Bane and Hush in the Gotham Old Subway"});
+  featCollection.push({name:"Spy Smasher",                     category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Arrest all of the LexCorp SpecOps who infiltrated the HIVE Metrodome"});
+  featCollection.push({name:"Lights Out in the Lighthouse",    category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Both",description:"Defeat all enemies and destroy all Venom canisters in the Lighthouse up to Bane"});
+
+  featCollection.push({name:"Soul Saver",                      category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Hero",description:"Smash all the soul globes in Mannheim's Chinese Theatre"});
+  featCollection.push({name:"Blue Christmas",                  category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Hero",description:"Free 12 of the SCU troops trapped in SCU Police Station"});
+  featCollection.push({name:"Brute Force",                     category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Hero",description:"Complete the adventure in STAR's secret lab without activating any turrets"});
+  featCollection.push({name:"Pop Quiz, Hotshot!",              category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Hero",description:"Diffuse the bombs before the police officers die in Regal Hotel"});
+  featCollection.push({name:"Detox",                           category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Hero",description:"Destroy all Venom cannisters in Burnley Warehouse"});
+  featCollection.push({name:"Sin No More",                     category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Hero",description:"Defeat all of Trigon's sin demons in the Science Police Headquarters"});
+  featCollection.push({name:"Green Machine",                   category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Hero",description:"Incinerate dangerous bio-hazardous materials strewn around Metro General Hospital"});
+  featCollection.push({name:"Fire Sale",                       category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Hero",description:"Extinguish all of the magical flames in the Chinatown magic shop"});
+  featCollection.push({name:"On Your Feet!",                   category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Hero",description:"Revive all the defeated Amazons in Circe's Hidden Base"});
+  featCollection.push({name:"Counselor",                       category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Hero",description:"Break Circe's control over the bewitched Amazons in Circe's Citadel"});
+  featCollection.push({name:"Single Minded",                   category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Hero",description:"Defeat the Overlord in the Hall of Doom without defeating his robots"});
+  featCollection.push({name:"Beast Basher",                    category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Hero",description:"Defeat 60 of the Beastiamorphs in the Metro Station"});
+  featCollection.push({name:"No More Funny Business",          category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Hero",description:"Defeat 30 Joker Clowns in the Amusement Mile Funhouse"});
+  featCollection.push({name:"Peas Officer",                    category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Hero",description:"Free all of the GPCD officer's from Poison Ivy's pods underneath the Botanical Gardens"});
+  featCollection.push({name:"Gate Crasher",                    category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Hero",description:"Open the gate to Scarecrow's inner lair within 3 minutes of entering the sewers"});
+  featCollection.push({name:"Re-Evolver",                      category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Hero",description:"Free all the civilians in Gorilla Grodd's hideout from the devolution process"});
+  featCollection.push({name:"Shadow-Packed",                   category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Hero",description:"Defeat 30 Ghosts in the Glenmorgan Square Office Building"});
+  featCollection.push({name:"Emancipator",                     category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Hero",description:"Rescue all of the enslaved citizens from the Condemned Shipyards"});
+  featCollection.push({name:"Out of Service",                  category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Hero",description:"Stop the disabled J1N1 from reactivating inside the Monarch Playing Card Company"});
+  featCollection.push({name:"Staunching the Flow",             category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Hero",description:"Destroy 15 blood vats located throughout Ellsworth Memorial Hospital"});
+  featCollection.push({name:"Lead from the Front",             category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Hero",description:"Defeat the Manhunter in City Hall while all allies are still in the fight"});
+  featCollection.push({name:"The Croc Hunter",                 category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Hero",description:"Complete the Scarecrow boss fight in the Gotham Sewer without allowing any Killer Croc Hallucinations to rise"});
+
+  featCollection.push({name:"Soul Reaper",                     category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Collect every soul in Brother Blood's inner sanctum and defeat Raven"});
+  featCollection.push({name:"Bacon in a Box",                  category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Gift wrap 25 defeated SCU troops in the SCU Police Station"});
+  featCollection.push({name:"Pig in a Blanket",                category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Gift wrap 50 defeated SCU troops in the SCU Police Station"});
+  featCollection.push({name:"Are We Not Men?",                 category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Complete the Old STAR Labs without devolving into a super gorilla"});
+  featCollection.push({name:"Look Ma, No Hands",               category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Free Eclipso in the Sentinel Hold without securing the Hands of Shadow"});
+  featCollection.push({name:"Ringmaster",                      category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Fight through the Regal Hotel without losing a single clown"});
+  featCollection.push({name:"Yoink!",                          category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Steal all the Venom canisters in the Burnley Warehouse"});
+  featCollection.push({name:"Titanic",                         category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Convert all five Titans in Brother Blood's inner Sanctum (may require multiple playthroughs)"});
+  featCollection.push({name:"Now You See Me...",               category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Disable all security cameras and consoles inside Metro University"});
+  featCollection.push({name:"Evidence? What Evidence?",        category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Burn evidence of LexCorp's activities at Metro General"});
+  featCollection.push({name:"Watch Your Step",                 category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Redirect all the portals in the Sentinels of Magic base to Hades"});
+  featCollection.push({name:"Information Warfare",             category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Burn all the bookcases in the Sentinels of Magic Citadel"});
+  featCollection.push({name:"No Respect!",                     category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Desecrate the Amazonian's Enchanted Colossus in Circe's Hidden Base"});
+  featCollection.push({name:"Bestiamorph Ethics",              category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Free all of the captured Bestiamorphs in Circe's Citadel"});
+  featCollection.push({name:"Favor for the Family",            category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Free 13 Falcone mobsters in the Burnley Freight Yards"});
+  featCollection.push({name:"Stuffed",                         category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Let Cold Cut eat from the vending machine 8 times before defeating him inside Mister Freeze's lair"});
+  featCollection.push({name:"Blitz",                           category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Defeat the Alpha Lantern in City Hall while all allies are still in the fight"});
+  featCollection.push({name:"Two Birds with One Stone",        category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Defeat Hawkman and Hawkgirl within 10 seconds of each other in the JSA Metropolis HQ"});
+  featCollection.push({name:"Man Down!",                       category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Reach the final confrontation in STAR's secret lab without losing any men"});
+  featCollection.push({name:"Go for the Throat!",              category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Defeat Shevla'nuhur Kyramud in the Watchtower without defeating his robots"});
+  featCollection.push({name:"Smashing Science",                category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Defeat 30 Science Police Officers in Science Police HQ"});
+  featCollection.push({name:"Veterinarian",                    category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Resurrect the fallen Bestiamorphs in the Metro Station"});
+  featCollection.push({name:"Mister J's Special BBQ Recipe",   category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Set 30 police officers on fire in Amusement Mile Funhouse"});
+  featCollection.push({name:"Freeze!",                         category:"Solo",subcategory:"Hideouts",stars:1,points:10,faction:"Villain",description:"Defeat Mister Freeze's two remaining goons in Mercy Hospital"});
 
   featCollection.push({name:"Pot of Gold",                          category:"Seasonal",subcategory:"St. Patrick's Day",stars:2,points:25,faction:"Both",description:"Complete all of the St. Patrick's Day seasonal feats"});
   featCollection.push({name:"Drink Up!",                            category:"Seasonal",subcategory:"St. Patrick's Day",stars:1,points:10,faction:"Both",description:"Drink all varieties of Mister Mxyzptlk Brew"});
@@ -11807,7 +11811,7 @@ function calculateFeatsNeeded(character, startDateString, endDateString)
     printIntro = 1;
   }
 
-  var categoriesSolo = [ "General", "Hideouts", "Iconic Battles", "Contacts", "Survival" ];
+  var categoriesSolo = [ "General", "Survival", "Hideouts", "Contacts", "Iconic Battles" ];
 
   for (var j=0; j<categoriesSolo.length; j++) {
     for (var i=0; i<featCollection.length; i++) {
@@ -12049,12 +12053,12 @@ function calculateFeatsSummary(character, startDateString, endDateString)
   var latestTS = 0;
 
   var categoryList = ["All", "Seasonal", "Raids", "DLC", "Renown", "General", "Duos", "PVP", "PVPGeneral", "PVPLegend", "PVPArenas", "PVPDueling",
-                      "Solo", "SoloGeneral", "SoloIconic", "SoloContacts", "SoloSurvival", "SoloHideouts", "Styles", "StylesGeneral", "StylesTheme",
+                      "Solo", "SoloGeneral", "SoloSurvival", "SoloHideouts", "SoloContacts", "SoloIconic", "Styles", "StylesGeneral", "StylesTheme",
                       "StylesIconic", "Exploration", "ExplorationGeneral", "ExplorationRaids", "ExplorationMetropolis", "ExplorationGotham",
                       "ExplorationAlerts", "Alerts", "AlertsGeneral", "AlertsNormal", "AlertsHard", "RandD", "RandDGeneral", "RandDAssembly",
                       "RandDParts", "SeasonalStPatrick", "SeasonalValentine", "SeasonalWinter", "SeasonalSpringtime", "SeasonalSpooktacular",
-                      "SeasonalTidesOfWar", "DLCLantern", "DLCFlash", "DLCEarth", "DLCLaugh", "DuosGeneral", "DuosSpeedForce", "GeneralGeneral", 
-                      "GeneralTokens", "GeneralRaces", "GeneralCollectibles" ];
+                      "SeasonalTidesOfWar", "DLCLantern", "DLCFlash", "DLCEarth", "DLCLaugh", "DuosGeneral", "DuosSpeedForce", "DuosHideouts", 
+                      "GeneralGeneral", "GeneralTokens", "GeneralRaces", "GeneralCollectibles" ];
 
   var maximumFeatCount = {};
   var numberFeatCount = {};
@@ -12177,6 +12181,7 @@ function calculateFeatsSummary(character, startDateString, endDateString)
               maximumFeatCount["Duos"][person] += 1;
               if (featCollection[j].subcategory == "General")          { maximumFeatCount["DuosGeneral"][person] += 1; }
               else if (featCollection[j].subcategory == "Speed Force") { maximumFeatCount["DuosSpeedForce"][person] += 1; }
+              else if (featCollection[j].subcategory == "Hideouts")    { maximumFeatCount["DuosHideouts"][person] += 1; }
             }
             else if (featCollection[j].category == "R&D") {
               maximumFeatCount["RandD"][person] += 1;
@@ -12280,6 +12285,7 @@ function calculateFeatsSummary(character, startDateString, endDateString)
                   numberFeatCount["Duos"][person] += 1;
                   if (featCollection[j].subcategory == "General")          { numberFeatCount["DuosGeneral"][person] += 1; }
                   else if (featCollection[j].subcategory == "Speed Force") { numberFeatCount["DuosSpeedForce"][person] += 1; }
+                  else if (featCollection[j].subcategory == "Hideouts")    { numberFeatCount["DuosHideouts"][person] += 1; }
                 }
                 else if (cat == "R&D") {
                   numberFeatCount["RandD"][person] += 1;
@@ -12401,10 +12407,10 @@ function calculateFeatsSummary(character, startDateString, endDateString)
       results += '    <li style="font-family:' + font + ';">Solo' + printSpaces(22) + numberFeatCount["Solo"][characterName] + '/' + maximumFeatCount["Solo"][characterName];
       results += '      <ul>';
       results += '        <li style="font-family:' + font + ';">General' + printSpaces(19) + numberFeatCount["SoloGeneral"][characterName] + '/' + maximumFeatCount["SoloGeneral"][characterName] + '</li>';
-      results += '        <li style="font-family:' + font + ';">Iconic Battles' + printSpaces(12) + numberFeatCount["SoloIconic"][characterName] + '/' + maximumFeatCount["SoloIconic"][characterName] + '</li>';
-      results += '        <li style="font-family:' + font + ';">Contacts' + printSpaces(18) + numberFeatCount["SoloContacts"][characterName] + '/' + maximumFeatCount["SoloContacts"][characterName] + '</li>';
       results += '        <li style="font-family:' + font + ';">Survival' + printSpaces(18) + numberFeatCount["SoloSurvival"][characterName] + '/' + maximumFeatCount["SoloSurvival"][characterName] + '</li>';
       results += '        <li style="font-family:' + font + ';">Hideouts' + printSpaces(18) + numberFeatCount["SoloHideouts"][characterName] + '/' + maximumFeatCount["SoloHideouts"][characterName] + '</li>';
+      results += '        <li style="font-family:' + font + ';">Contacts' + printSpaces(18) + numberFeatCount["SoloContacts"][characterName] + '/' + maximumFeatCount["SoloContacts"][characterName] + '</li>';
+      results += '        <li style="font-family:' + font + ';">Iconic Battles' + printSpaces(12) + numberFeatCount["SoloIconic"][characterName] + '/' + maximumFeatCount["SoloIconic"][characterName] + '</li>';
       results += '      </ul>';
       results += '    </li>';
       results += '    <li style="font-family:' + font + ';">Raids' + printSpaces(21) + numberFeatCount["Raids"][characterName] + '/' + maximumFeatCount["Raids"][characterName];
@@ -12445,6 +12451,7 @@ function calculateFeatsSummary(character, startDateString, endDateString)
       results += '    <li style="font-family:' + font + ';">Duos' + printSpaces(22) + numberFeatCount["Duos"][characterName] + '/' + maximumFeatCount["Duos"][characterName];
       results += '      <ul>';
       results += '        <li style="font-family:' + font + ';">General' + printSpaces(19) + numberFeatCount["DuosGeneral"][characterName] + '/' + maximumFeatCount["DuosGeneral"][characterName] + '</li>';
+      results += '        <li style="font-family:' + font + ';">Hideouts' + printSpaces(18) + numberFeatCount["DuosHideouts"][characterName] + '/' + maximumFeatCount["DuosHideouts"][characterName] + '</li>';
       results += '        <li style="font-family:' + font + ';">Speed Force' + printSpaces(15) + numberFeatCount["DuosSpeedForce"][characterName] + '/' + maximumFeatCount["DuosSpeedForce"][characterName] + '</li>';
       results += '      </ul>';
       results += '    </li>';
