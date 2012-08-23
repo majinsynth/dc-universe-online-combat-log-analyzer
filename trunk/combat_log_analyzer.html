@@ -1771,8 +1771,20 @@ npcCollection.push({name:"Light Carver",                  location:"Metropolis C
 npcCollection.push({name:"Bouncer",                       location:"Shady Nightclub",             type:"Duo",   level:30, species:"Humanoid"});
 npcCollection.push({name:"Triggerman Tony",               location:"Shady Nightclub",             type:"Duo",   level:30, species:"Humanoid"});
 npcCollection.push({name:"Fast Freddy",                   location:"Shady Nightclub",             type:"Duo",   level:30, species:"Humanoid"});
-npcCollection.push({name:"Agent Jana",                    location:"Shady Nightclub",             type:"Duo",   level:30, species:"Humanoid"});
 npcCollection.push({name:"Revolver Rob",                  location:"Shady Nightclub",             type:"Duo",   level:30, species:"Humanoid"});
+npcCollection.push({name:"Agent Jana",                    location:"Shady Nightclub",             type:"Duo",   level:30, species:"Humanoid"});
+npcCollection.push({name:"Agent Temperance",              location:"Shady Nightclub",             type:"Duo",   level:30, species:"Humanoid"});
+npcCollection.push({name:"Agent Order",                   location:"Shady Nightclub",             type:"Duo",   level:30, species:"Humanoid"});
+npcCollection.push({name:"Agent Vigilance",               location:"Shady Nightclub",             type:"Duo",   level:30, species:"Humanoid"});
+npcCollection.push({name:"Shazam",                        location:"Shady Nightclub",             type:"Duo",   level:30, species:"Humanoid"});
+npcCollection.push({name:"Superman",                      location:"Shady Nightclub",             type:"Duo",   level:30, species:"Humanoid"});
+npcCollection.push({name:"SWAT Officer",                  location:"Shady Nightclub",             type:"Duo",   level:30, species:"Humanoid"});
+npcCollection.push({name:"Officer",                       location:"Shady Nightclub",             type:"Duo",   level:30, species:"Humanoid"});
+npcCollection.push({name:"Detective",                     location:"Shady Nightclub",             type:"Duo",   level:30, species:"Humanoid"});
+npcCollection.push({name:"Officer Walden",                location:"Shady Nightclub",             type:"Duo",   level:30, species:"Humanoid"});
+npcCollection.push({name:"Sergeant Doak",                 location:"Shady Nightclub",             type:"Duo",   level:30, species:"Humanoid"});
+npcCollection.push({name:"Detective Nevala",              location:"Shady Nightclub",             type:"Duo",   level:30, species:"Humanoid"});
+npcCollection.push({name:"Mister Buschmann",              location:"Shady Nightclub",             type:"Duo",   level:30, species:"Humanoid"});
 
 npcCollection.push({name:"Aquaman",                       location:"Tides of War Seasonal Event", type:"Event", level:30, species:"Humanoid"});
 npcCollection.push({name:"Atlantean",                     location:"Tides of War Seasonal Event", type:"Event", level:30, species:"Humanoid"});
@@ -1880,6 +1892,10 @@ npcCollection.push({name:"Scary Jack",          location:"Any", type:"Pets", lev
 npcCollection.push({name:"Eerie Jack",          location:"Any", type:"Pets", level:0});
 npcCollection.push({name:"Mister Boo",          location:"Any", type:"Pets", level:0});
 npcCollection.push({name:"Robot Sidekick",      location:"Any", type:"Pets", level:0});
+npcCollection.push({name:"Deep Sea Chanter",    location:"Any", type:"Pets", level:0});
+npcCollection.push({name:"Deep Sea Ritualist",  location:"Any", type:"Pets", level:0});
+npcCollection.push({name:"Deep Sea Slayer",     location:"Any", type:"Pets", level:0});
+npcCollection.push({name:"Deep Sea Sentinel",   location:"Any", type:"Pets", level:0});
 
 npcCollection.push({name:"Lex Luthor",			location:"STAR Lab Secret Facility", type:"Instance", level:15, species:"Humanoid"});
 
@@ -1961,7 +1977,6 @@ function isNPC(characterName) {
       (characterName == "Serrated Guard") ||
       (characterName == "Bruno Mannheim") ||
       (characterName == "Aquaman") ||
-      (characterName == "Superman") ||
       (characterName == "Batman") ||
       (characterName == "Red Tornado") ||
       (characterName == "Brainiac Spark MK-II") ||
@@ -2051,7 +2066,8 @@ powerCollection.push({name:"Electroburst",          type:"Electric",role:"Healer
 powerCollection.push({name:"Megavolt",              type:"Electric",role:"Healer"});
 powerCollection.push({name:"Shockwave",             type:"Electric",role:"Healer"});
 powerCollection.push({name:"Group Transducer",      type:"Electric",role:"Healer"});
-powerCollection.push({name:"Electrogenesis",        type:"Electric",role:"Healer"});
+// Bug where combat log writes electrogenesis wrong causing problems determining roles
+// powerCollection.push({name:"Electrogenesis",        type:"Electric",role:"Healer"});
 powerCollection.push({name:"Arc Lightning",         type:"Electric",role:"Healer"});
 powerCollection.push({name:"Ionic Drain",           type:"Electric",role:"Healer"});
 powerCollection.push({name:"Voltaic Bolt",          type:"Electric",role:"Healer"});
@@ -2099,6 +2115,7 @@ powerCollection.push({name:"Bloom",                 type:"Nature",role:"Healer"}
 powerCollection.push({name:"Cross Pollination",     type:"Nature",role:"Healer"});
 powerCollection.push({name:"Regeneration",          type:"Nature",role:"Healer"});
 powerCollection.push({name:"Impaling Thorns",       type:"Nature",role:"Healer"});
+powerCollection.push({name:"Thorn Shield",          type:"Nature",role:"Healer"});
 powerCollection.push({name:"Insect Primary Attack", type:"Nature",role:"Healer"});
 powerCollection.push({name:"Wolf Melee Combo",      type:"Nature",role:"Healer"});
 powerCollection.push({name:"Wolf Primary Attack",   type:"Nature",role:"Healer"});
@@ -2165,6 +2182,10 @@ powerCollection.push({name:"Epicenter",             type:"Earth",role:"Tank"});
 powerCollection.push({name:"Pebble Blast",          type:"Earth",role:"Tank"});
 powerCollection.push({name:"Earthquake",            type:"Earth",role:"Tank"});
 powerCollection.push({name:"Shards",                type:"Earth",role:"Tank"});
+powerCollection.push({name:"Meteor Shower",         type:"Earth",role:"Tank"});
+powerCollection.push({name:"Rumblecrush",           type:"Earth",role:"Tank"});
+powerCollection.push({name:"Entomb",                type:"Earth",role:"Tank"});
+
 
 function determineRoleFromPowers(actionStr) {
 
@@ -6589,8 +6610,8 @@ function isAccessory(lineString)
 // Mighty Cobra Mantle   some mission reward
 
   // Face gear
-  armorCollection.push({name:"All-Seeing Eyes of the Archdruid",           type:"Face",      role:"DPS",        style:"Druid",             drops:"",      faction:"Both"});
-  armorCollection.push({name:"Enforcer's Compound Goggles",                type:"Face",      role:"DPS",        style:"Compound Goggles",  drops:"",      faction:"Both"});
+  armorCollection.push({name:"All-Seeing Eyes of the Archdruid",           type:"Face",      role:"DPS",        style:"Druid",             drops:"Whitetip, Sandtiger",      faction:"Both"});
+  armorCollection.push({name:"Enforcer's Compound Goggles",                type:"Face",      role:"DPS",        style:"Compound Goggles",  drops:"UGA Soldier",      faction:"Both"});
   armorCollection.push({name:"Mastermind's Goggles",                       type:"Face",      role:"Controller", style:"Incursion",         drops:"Eagle Soldier - Kahndaq, Lazarus Warrior - Kahndaq, Protector of Anubis - Kahndaq, Vengeful Spirit - Lair of the Spectre",      faction:"Both"});
 
   armorCollection.push({name:"Militant Rivethead Mask",                    type:"Face",      role:"DPS",        style:"Metalhead",         drops:"",      faction:"Both"});
@@ -6648,6 +6669,10 @@ function isAccessory(lineString)
   armorCollection.push({name:"OmniScry Vitalizer",              type:"Trinket", role:"Healer",     drops:"Queen Bee - Hive Base (Duo)"});
 
   armorCollection.push({name:"Sharded Energy Conduit",          type:"Trinket", role:"Controller", drops:"Avatar of Meta - Fortress of Solitude: Power Core"});
+  armorCollection.push({name:"Sentinel's Sunken Rune",          type:"Trinket", role:"DPS",        drops:"Seasonal Vendor Summer Tides of War Atlantis"});
+  armorCollection.push({name:"Slayer's Sunken Rune",            type:"Trinket", role:"DPS",        drops:"Seasonal Vendor Summer Tides of War Atlantis"});
+  armorCollection.push({name:"Chanter's Sunken Rune",           type:"Trinket", role:"DPS",        drops:"Seasonal Vendor Summer Tides of War Atlantis"});
+  armorCollection.push({name:"Ritualist's Sunken Rune",         type:"Trinket", role:"DPS",        drops:"Seasonal Vendor Summer Tides of War Atlantis"});
 
   var weaponCollection = [];
 
@@ -6762,11 +6787,11 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Surplus Armored Bow",type:"Bow",role:"Tank",dps:97.1,drops:"Queen Bee"});
   weaponCollection.push({name:"Surplus Assault Bow",type:"Bow",role:"DPS",dps:97.1,drops:"Serpent Claw - League of Assassins Stronghold"});
 
-  weaponCollection.push({name:"Synth-Plated Shortbow",type:"Bow",role:"DPS",dps:24.4,drops:"",style:"Engraved Bow"});
+  weaponCollection.push({name:"Synth-Plated Shortbow",type:"Bow",role:"DPS",dps:24.4,drops:"Razor",style:"Engraved Bow"});
   weaponCollection.push({name:"Timeworn Dragon Bow",type:"Bow",role:"DPS",dps:77.9,drops:"Power Strike - League of Assassins Stronghold, Treasure Chest - Coast City"});
 
   weaponCollection.push({name:"Titanium-Infused Composite Bow",type:"Bow",role:"Controller",dps:90.7,drops:"Queen Bee in HIVE Hard alert"});
-  weaponCollection.push({name:"Urban Hunter's Bow",type:"Bow",role:"DPS",dps:44.3,drops:"",style:"Winged Longbow"});
+  weaponCollection.push({name:"Urban Hunter's Bow",type:"Bow",role:"DPS",dps:44.3,drops:"Laboratory Security in Oolong",style:"Winged Longbow"});
   weaponCollection.push({name:"Valiant Bow of the Ten",type:"Bow",role:"DPS",dps:77.9,drops:"Villainy United"});
   weaponCollection.push({name:"Valorium-Plated Bow",type:"Bow",role:"Controller",dps:97.1,drops:"OMAC Batman - Batcave: Brainiac Sub-Construct"});
 
