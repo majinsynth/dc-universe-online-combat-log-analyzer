@@ -1197,6 +1197,7 @@ npcCollection.push({name:"Soul Glutton",                location:"Cosmic Treadmi
 npcCollection.push({name:"The Supreme Justice",         location:"South Gotham Courthouse",type:"Alert"});
 npcCollection.push({name:"The Bailiff",                 location:"South Gotham Courthouse",type:"Alert"});
 npcCollection.push({name:"The Defense Attorney",        location:"South Gotham Courthouse",type:"Alert"});
+npcCollection.push({name:"The Whole Truth",             location:"South Gotham Courthouse",type:"Alert"});
 npcCollection.push({name:"The Prosecutor",              location:"South Gotham Courthouse",type:"Alert"});
 npcCollection.push({name:"Brainiac Witness",            location:"South Gotham Courthouse",type:"Alert"});
 npcCollection.push({name:"Evidence Courier",            location:"South Gotham Courthouse",type:"Alert"});
@@ -5358,6 +5359,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Slimline Layered Leggings",              type:"Legs",      role:"DPS",        style:"Paneled Bodysuit",     drops:"Brainiac Guardian MK-III in Riverside Hotel T2 Duo",           faction:"Both"});
   armorCollection.push({name:"Slimline Pointed Leggings",              type:"Legs",      role:"DPS",        style:"Paneled Bodysuit",     drops:"Brainiac Guardian MK-IV in Gotham Hospital T2 Duo",            faction:"Both"});
 
+  armorCollection.push({name:"Planar Shifter's Plate",                 type:"Chest",     role:"DPS",        style:"Astral Alloy",    drops:"Sub-Avatar in South Gotham",                  faction:"Both"});
   armorCollection.push({name:"Greaves of the Astral Planarite",        type:"Legs",      role:"DPS",        style:"Astral Alloy",    drops:"Sub-Avatar in South Gotham",                  faction:"Both"});
   armorCollection.push({name:"Legplates of Planar Change",             type:"Legs",      role:"DPS",        style:"Astral Alloy",    drops:"Sub-Avatar in South Gotham",                  faction:"Both"});
   armorCollection.push({name:"Helmet of Planar Vision",                type:"Head",      role:"DPS",        style:"Astral Alloy",    drops:"Sub-Avatar in South Gotham",                  faction:"Both"});
@@ -6230,6 +6232,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Logistics Officer's Vest",                   type:"Chest",     role:"DPS",        style:"Logistics Officer",        drops:"Present in Vault",  faction:"Both"});
   armorCollection.push({name:"Logistics Officer's Helmet",                 type:"Head",      role:"DPS",        style:"Logistics Officer",        drops:"Present in Vault",  faction:"Both"});
   armorCollection.push({name:"Logistics Officer's Gloves",                 type:"Hands",     role:"DPS",        style:"Logistics Officer",        drops:"Present in Vault",  faction:"Both"});
+  armorCollection.push({name:"Logistics Officer's Belt",                   type:"Waist",     role:"DPS",        style:"Logistics Officer",        drops:"Present in Vault",  faction:"Both"});
   armorCollection.push({name:"Logistics Officer's Pack",                   type:"Back",      role:"DPS",        style:"Logistics Officer",        drops:"Present in Vault",  faction:"Both"});
 
   // Demonic style
@@ -6690,6 +6693,7 @@ function isAccessory(lineString)
 
   armorCollection.push({name:"Aeroelastic Enhancing Device",    type:"Trinket", role:"DPS",        drops:"Atrocitus - Ferris Aircraft"});
 
+  armorCollection.push({name:"Agent's Secret",                  type:"Trinket", role:"DPS",        drops:""});
   armorCollection.push({name:"Alien Artifact Device",           type:"Trinket", role:"Controller", drops:"Poison Ivy - Arkham Asylum"});
 
   armorCollection.push({name:"Bracing Brew",                    type:"Trinket", role:"Controller", drops:"Mister Freeze - Gotham Mercy Hospital (Duo)"});
@@ -6727,27 +6731,39 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Unattuned: Prime Bow",                  type:"Bow",          role:"DPS",        dps:125,   drops:"Brainiac Prime Battleground Raid",style:""});
   weaponCollection.push({name:"Unattuned: Prime Blade",                type:"One-Handed",   role:"DPS",        dps:125,   drops:"Brainiac Prime Battleground Raid",style:""});
   weaponCollection.push({name:"Unattuned: Prime Brawling Gloves",      type:"Brawling",     role:"DPS",        dps:125,   drops:"Brainiac Prime Battleground Raid",style:""});
+  weaponCollection.push({name:"Unattuned: Prime Scythe",               type:"Staff",        role:"DPS",        dps:125,   drops:"Brainiac Prime Battleground Raid",style:""});
+  weaponCollection.push({name:"Unattuned: Prime Hand Blasters",        type:"Hand Blaster", role:"DPS",        dps:125,   drops:"Brainiac Prime Battleground Raid",style:""});
 
   // Shields
   weaponCollection.push({name:"Aegis of Containment",           type:"Shield", role:"Controller", dps:97.1,  drops:"General Adnan in Kahndaq raid",style:"Giant Gear"});
-  weaponCollection.push({name:"Ardent Buckler",                 type:"Shield", role:"DPS",        dps:20.0,  drops:"",style:"Tech Spiral"});
+  weaponCollection.push({name:"Ardent Buckler",                 type:"Shield", role:"DPS",        dps:20.0,  drops:"vendor",style:"Tech Spiral"});
+  weaponCollection.push({name:"Assassin's Resolve",             type:"Shield", role:"DPS",        dps:0,     drops:"Ra's Al Ghul from League of Assassin's alert",style:"Hypno Shield"});
+  weaponCollection.push({name:"Augmented Guard",                type:"Shield", role:"Tank",       dps:0,     drops:"Riot Control Prototype in Batcave: Outer Caverns Raid", style:"Turtle Shell"});
   weaponCollection.push({name:"Blazoned Buckler",               type:"Shield", role:"Healer",     dps:77.9,  drops:"Prime Servitor last boss Area 51 hard alert",style:"Plated Scarab"});
   weaponCollection.push({name:"Challenger's Relentless Shield", type:"Shield", role:"Controller", dps:125.9, drops:"PVP vendor",style:"Hypno Shield"});
+  weaponCollection.push({name:"Deathly Targe",                  type:"Shield", role:"DPS",        dps:0,     drops:"Black Adam in Kahndaq raid", style:"Sun Dial"});
   weaponCollection.push({name:"Defender's Plate",               type:"Shield", role:"DPS",        dps:58.7,  drops:"Vendor in Gotham safehouse", style:"Turtle Shell"});
   weaponCollection.push({name:"Despot's Assault Plate",         type:"Shield", role:"DPS",        dps:113.1, drops:"General Zod in Fortress of Solitude 3 Raid", style:"Energized Shield"});
   weaponCollection.push({name:"Despot's Imperious Plate",       type:"Shield", role:"Controller", dps:113.1, drops:"General Zod in Fortress of Solitude 3 Raid", style:"Energized Shield"});
-  weaponCollection.push({name:"Frozen Stone Shield",            type:"Shield", role:"DPS",        dps:68.3,  drops:"",style:"Targe"});
+  weaponCollection.push({name:"Diviner's Plate",                type:"Shield", role:"Healer",     dps:0,     drops:"Super Girl in Fortress of Solitude 2 Raid", style:"Crusader"});
+  weaponCollection.push({name:"Frozen Stone Shield",            type:"Shield", role:"DPS",        dps:68.3,  drops:"Lady Doombringer in Smallville Alert",style:"Targe"});
   weaponCollection.push({name:"Guard of the Conqueror",         type:"Shield", role:"Tank",       dps:90.7,  drops:"Scion of Fear in Star Labs Alert",style:"Summoner's Shield"});
-  weaponCollection.push({name:"Guard of the Deathstalkers",     type:"Shield", role:"DPS",        dps:25.5,  drops:"",style:"Heater Shield"});
-  weaponCollection.push({name:"Guard of the Enforcer",          type:"Shield", role:"Healer",     dps:97,    drops:"Broodmother in FOS 1",style:""});
+  weaponCollection.push({name:"Guard of the Deathstalkers",     type:"Shield", role:"DPS",        dps:25.5,  drops:"Treasure Chest in the Distribution Center",style:"Heater Shield"});
+  weaponCollection.push({name:"Guard of the Enforcer",          type:"Shield", role:"Healer",     dps:97,    drops:"Broodmother in FOS 1",style:"Lion's Roar"});
+  weaponCollection.push({name:"Guard of the Hunter",            type:"Shield", role:"DPS",        dps:0,     drops:"Zetta-Drone in Batcave: Inner Sanctum Raid",style:"Guardian's Plate"});
   weaponCollection.push({name:"Heavy Shield of Force",          type:"Shield", role:"DPS",        dps:0,     drops:"PVP vendor",style:""});
   weaponCollection.push({name:"Hellforged Plate",               type:"Shield", role:"DPS",        dps:61.9,  drops:"Manhunter in Yellow Lantern duo",style:"Arcane Shield"});
-  weaponCollection.push({name:"Iron Plate",                     type:"Shield", role:"DPS",        dps:77.9,  drops:"",style:"Multi-Plated Shield"});
+  weaponCollection.push({name:"Iceshard Aegis",                 type:"Shield", role:"Healer",     dps:0,     drops:"Booster Gold in HIVE duo",style:"Mechanized"});
+  weaponCollection.push({name:"Iron Plate",                     type:"Shield", role:"DPS",        dps:77.9,  drops:"Star Labs T2 treasure chest",style:"Multi-Plated Shield"});
   weaponCollection.push({name:"Lifegiver's Plate",              type:"Shield", role:"Healer",     dps:97.1,  drops:"Last bosses of Batcave Outercaverns Raid",style:"Plated Buckler"});
   weaponCollection.push({name:"Machined Plate",                 type:"Shield", role:"DPS",        dps:49.1,  drops:"Safehouse vendor",style:"Buzzsaw Blade"});
   weaponCollection.push({name:"Massive Bulwark",                type:"Shield", role:"DPS",        dps:61.9,  drops:"Safehouse vendor",style:"Trashcan Lid"});
   weaponCollection.push({name:"Nomad's Aegis",                  type:"Shield", role:"DPS",        dps:58.7,  drops:"Vendor in Gotham safehouse", style:"Summoner's Shield"});
+  weaponCollection.push({name:"Overseer's Plate",               type:"Shield", role:"DPS",        dps:0,     drops:"Sinestro in the Metropolis City Hall Duo", style:"Fleur de Lis"});
+  weaponCollection.push({name:"Plate of Mercy",                 type:"Shield", role:"Tank",       dps:0,     drops:"Killer Croc/Deathstroke in Bane Lighthouse duo", style:"Crusader"});
   weaponCollection.push({name:"Polar Plate",                    type:"Shield", role:"DPS",        dps:45.9,  drops:"", style:"Lion's Roar"});
+  weaponCollection.push({name:"Prime Enforcer's Guard",         type:"Shield", role:"DPS",        dps:125.9, drops:"Brainiac in Prime Battleground raid", style:"Giant Gear"});
+  weaponCollection.push({name:"Promethium Plate",               type:"Shield", role:"Controller", dps:68.3,  drops:"OMAC duo final boss", style:"Plated Scarab"});
   weaponCollection.push({name:"Solid War Plate",                type:"Shield", role:"DPS",        dps:0,     drops:"PVP vendor",style:"Trashcan Lid"});
   weaponCollection.push({name:"SPARC Assault Shield",           type:"Shield", role:"DPS",        dps:103.5, drops:"Vendor in Central City accepting Marks of Momentum", style:"Tech Spiral"});
   weaponCollection.push({name:"SPARC Assault Shield Mk II",     type:"Shield", role:"DPS",        dps:113.1, drops:"Vendor in Central City",style:"Tech Cross"});
@@ -6760,14 +6776,14 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Steadfast Guard",                type:"Shield", role:"DPS",        dps:44.3,  drops:"", style:"Trashcan Lid"});
   weaponCollection.push({name:"Thanagarian Guard",              type:"Shield", role:"Controller", dps:103.5, drops:"Power Girl in FOS2 Raid", style:"Fleur de Lis"});
   weaponCollection.push({name:"Timeword Guard",                 type:"Shield", role:"DPS",        dps:61.9,  drops:"Doomcrazed Giant in Smallville alert", style:"Summoner's Shield"});
-  weaponCollection.push({name:"Trigonic Plate",                 type:"Shield", role:"DPS",        dps:65.1,  drops:"", style:"Future Tech Shield"});
+  weaponCollection.push({name:"Trigonic Plate",                 type:"Shield", role:"DPS",        dps:65.1,  drops:"Raven in Raven Challenge", style:"Future Tech Shield"});
   weaponCollection.push({name:"Trooper's Standard",             type:"Shield", role:"DPS",        dps:31.5,  drops:"", style:"Segmented Shield"});
-  weaponCollection.push({name:"Warrior's Cover",                type:"Shield", role:"DPS",        dps:77.9,  drops:"", style:"Segmented Shield"});
-  weaponCollection.push({name:"Weighted Bulwark",               type:"Shield", role:"DPS",        dps:33.1,  drops:"", style:"Reinforced Crest"});
-  weaponCollection.push({name:"Worker's Ward",                  type:"Shield", role:"Tank",       dps:77.9,  drops:"", style:"Chakram"});
+  weaponCollection.push({name:"Warrior's Cover",                type:"Shield", role:"DPS",        dps:77.9,  drops:"Rogues in Stryker's Island alert", style:"Segmented Shield"});
+  weaponCollection.push({name:"Weighted Bulwark",               type:"Shield", role:"DPS",        dps:33.1,  drops:"Safehouse vendor", style:"Reinforced Crest"});
+  weaponCollection.push({name:"Worker's Ward",                  type:"Shield", role:"Tank",       dps:77.9,  drops:"Smallville alert", style:"Chakram"});
 
   // Bows
-  weaponCollection.push({name:"Advanced Nanoguided Bow",type:"Bow",role:"DPS",dps:31.5,drops:"Treasure Chest in Grodd Alert"});
+  weaponCollection.push({name:"Advanced Nanoguided Bow",type:"Bow",role:"DPS",dps:31.5,drops:"Treasure Chest in Grodd Alert",style:"Composite Bow"});
   weaponCollection.push({name:"Ardent Longbow",type:"Bow",role:"DPS",dps:0,drops:"Vendor"});
   weaponCollection.push({name:"Bow of Anger",type:"Bow",role:"Controller",dps:97.1,drops:"Pharaoh Vezina - Kahndaq"});
   weaponCollection.push({name:"Bow of the Galactic Emporer",type:"Bow",role:"Controller",dps:77.9,drops:"Sludge Thing - Ace Chemicals"});
@@ -6776,7 +6792,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Bow of the Necrolite Legion",type:"Bow",role:"DPS",dps:52.3,drops:"Mummy"});
   weaponCollection.push({name:"Bow of the Rapture",type:"Bow",role:"Healer",dps:77.9,drops:"Meta-Human Leaders"});
   weaponCollection.push({name:"Brimstone Bow",type:"Bow",role:"DPS",dps:65.1,drops:"Possessed Raven Spirit - Science Police HQ (Challlenge)"});
-  weaponCollection.push({name:"Canopy Longbow",type:"Bow",role:"DPS",dps:41.1,drops:"Warder"});
+  weaponCollection.push({name:"Canopy Longbow",type:"Bow",role:"DPS",dps:41.1,drops:"Warder",style:"Tree Branch Bow"});
   weaponCollection.push({name:"Compound Hunting Bow",type:"Bow",role:"DPS",dps:68.3,drops:"Killer Croc & Deathstroke Cape Carmine Lighthouse DUO"});
   weaponCollection.push({name:"Compound Tech Bow",type:"Bow",role:"DPS",dps:68.3,drops:"Atrocitus - Ferris Aircraft"});
   weaponCollection.push({name:"Demonhunter's Aim",type:"Bow",role:"DPS",dps:27.7,style:"Amazon",drops:""});
@@ -7314,7 +7330,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Sharpened Synthium Katana",type:"One-Handed",role:"DPS",dps:26.6,drops:"Stinger"});
   weaponCollection.push({name:"Silver Blade of Azar",type:"One-Handed",role:"DPS",dps:65.1,drops:"Possessed Raven Spirit, Spirit of Raven - Science Police HQ (Challlenge)"});
   weaponCollection.push({name:"Skartaris Shortsword",type:"One-Handed",role:"Controller",dps:58.7,drops:"Vengeful Spirit"});
-  weaponCollection.push({name:"Skartaris Tech Sword",type:"One-Handed",role:"DPS",dps:77.9,drops:"Treasure Chest - Kahndaq"});
+  weaponCollection.push({name:"Skartaris Tech Sword",type:"One-Handed",role:"DPS",dps:77.9,drops:"Treasure Chest - Kahndaq, Outer raid"});
 
   weaponCollection.push({name:"Stalwart Flowsteel Sabre",type:"One-Handed",role:"DPS",dps:0,drops:"OMAC Batman in Subconstruct raid"});
 
@@ -7411,7 +7427,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Steamheart Shotgun",type:"Rifle",role:"DPS",dps:65.1,drops:"Doctor Fate"});
   weaponCollection.push({name:"Surplus Resto Rifle",type:"Rifle",role:"Healer",dps:90.7,drops:"Bat Family in Batcave: Outer Caverns Alert"});
 
-  weaponCollection.push({name:"Thanagarian Rifle",type:"Rifle",role:"DPS",dps:97.1,drops:"Bat Sentinels"});
+  weaponCollection.push({name:"Thanagarian Rifle",type:"Rifle",role:"DPS",dps:97.1,drops:"Bat Sentinels in Batcave: Outer Caverns Alert"});
   weaponCollection.push({name:"Unsanctioned Elementium Repulser",type:"Rifle",role:"DPS",dps:90.7,drops:"Riot Control Prototype"});
   weaponCollection.push({name:"Utopian's Shotgun",type:"Rifle",role:"DPS",dps:68.3,drops:"Treasure Chest - Ace Chemicals",style:"Arcane Shotgun"});
 
@@ -7471,7 +7487,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Queen's Royal Rod",                type:"Staff",role:"DPS",dps:27.7,style:"Tech Staff",drops:""});
   weaponCollection.push({name:"Ringstaff of Thanagar",            type:"Staff",role:"DPS",dps:97.1,drops:"Bat Family in Batcave: Outer Caverns Alert"});
   weaponCollection.push({name:"Rod of the Deathstalker",          type:"Staff",role:"DPS",dps:61.9,drops:""});
-  weaponCollection.push({name:"Ruthless Staff of the Risen",      type:"Staff",role:"DPS",dps:90.7,drops:"Captain Buzzzcutt"});
+  weaponCollection.push({name:"Ruthless Staff of the Risen",      type:"Staff",role:"DPS",dps:90.7,style:"Toothed Staff",drops:"Captain Buzzzcutt"});
   weaponCollection.push({name:"Scarablord's Staff",               type:"Staff",role:"DPS",dps:77.9,drops:"Safe"});
   weaponCollection.push({name:"Sealord's Staff",                  type:"Staff",role:"Healer",dps:97.1,drops:"Pharaoh Vezina in Kahndaq raid"});
   weaponCollection.push({name:"Sea King's Trident",               type:"Staff",role:"DPS",dps:58.7,drops:"Circe - Condemned Shipping Office"});
