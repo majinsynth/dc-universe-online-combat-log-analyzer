@@ -56,7 +56,6 @@
 For character:
 <select id="DropDownMenu_Character" name="DropDownMenu_Character" onchange="javascript:fillData();"></select>
 <br>
-<br>
 <table id="table0" width="100%">
   <tr>
     <td>
@@ -119,6 +118,11 @@ Make alias is for merging the data from characters with two different names (cha
 The name in the bottom drop down menu will be removed and its data merged with main character name.
 <br>
 <br>
+<!--
+<hr>
+<input type="checkbox" id="detailCheckbox" onclick="javascript:setDetail();" />Keep detailed information (Will take lots of memory and slow things down; use for small combat logs)
+<br>
+-->
 <hr>
 <br>
 Click Export to construct an encoded string to save into a text file.
@@ -175,6 +179,15 @@ addEvent(window, "load", windowInit);
 
 function windowInit() {
 
+  if (window.opener.saveDetailedData == true) {
+    if (document.getElementById('detailCheckbox') != null) {
+      document.getElementById('detailCheckbox').checked = true;
+    }
+  } 
+
+  // Hide the progress bar until import started
+  document.getElementById('progress_bar').style.display="none";
+
   // Load the select drop down menu with characters this user plays
   loadDropDownMenu("DropDownMenu_Character");
 
@@ -182,9 +195,6 @@ function windowInit() {
   //   So fill in the proper radio button for movement mode if we
   //   have already stored it, else it will be blank
   fillData();
-
-  // Hide the progress bar until import started
-  document.getElementById('progress_bar').style.display="none";
 }
 
 function loadDropDownMenu(dropDownID) {
@@ -424,7 +434,7 @@ function fillData() {
   } 
   else if (arrayObjs[id].powerset == "Ice") {
     document.getElementById('powersetIce').checked = true;
-  } 
+  }
 }
 
 var aliasDropDownLoaded = 0;
@@ -654,6 +664,15 @@ importFile.onchange = function (e) {
 
   return false;
 };
+
+
+function setDetail() {
+  var value = false;
+  if (document.getElementById('detailCheckbox').checked == true) {
+    value = true;
+  }
+  window.opener.setsaveDetailedData(value);
+}
 
 </script>
 </body>
