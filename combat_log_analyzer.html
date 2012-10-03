@@ -13,7 +13,6 @@ Source and latest copy found at Google Project site:
 //*
 //*  File:          combat_log_data_analyzer.html
 //*  Author:        ClassicFumbles	USPC	classicfumbles@rocketmail.com
-//*  Version:       6.1
 //*
 //*  Description:   Scans DC Universe Online (DCUO) combat log text files
 //*                   and accumulates the data to display to the user
@@ -358,7 +357,7 @@ table.sortable tr.sortbottom td {
 <script>
 
 
-var VERSION = "6.1";
+var VERSION = "6.2";
 
 // Check for the various File API support.
 
@@ -650,7 +649,7 @@ function saveDataFile() {
   consolePrintLargeData(allJSON, "allJSON");
 
   // Seems to be a problem here where compress silently dies with large datasets
-  if (allJSON.length > 10000000) {
+  if (allJSON.length > 15000000) {
     // But local storage probably won't hold this much even compressed so just don't try to save
     return;
   }
@@ -755,17 +754,6 @@ function exportDataToFile() {
 
   var compressedJSON = Iuppiter.compress(allJSON);
   var encodedJSON = Iuppiter.Base64.encode(compressedJSON, true);
-
-//  document.getElementById('StatsDisplay').style.display="block";
-//  document.getElementById('TableDisplay').style.display="none";
-//  document.getElementById("StatsDisplay").innerHTML = encodedJSON;
-//  document.getElementById('LeftChartDiv').innerHTML = "";
-//  var messageText = "Press Control-A to select all the encoded data above.\n";
-//  messageText += "Then press Control-C to copy to your clipboard.\n";
-//  messageText += "Then open a text editor such as notepad and paste the encoded data into notepad and save as a text file.\n";
-//  messageText += "Then later you can import this data by clicking the Configure button and selecting the file and performing an Import.\n";
-//  messageText += "This should be much faster than importing a large old combat log.\n";
-//  document.getElementById('RightChartDiv').innerHTML = messageText;
 
   var blob = new Blob([encodedJSON], { type: "text/plain" });
   saveAs(blob, "dcuo_cla_encoded_combat_log.txt");
@@ -2500,6 +2488,8 @@ npcCollection.push({name:"Protostar-SL",                location:"STAR Labs Secr
 
 npcCollection.push({name:"Magnetar-SL",                 location:"STAR Labs Secret Facility", type:"Challenge"});
 
+npcCollection.push({name:"Magnetar-SL ",                location:"STAR Labs Secret Facility", type:"Challenge"});
+
 npcCollection.push({name:"Neutron SL-1",                location:"STAR Labs Secret Facility", type:"Challenge"});
 
 npcCollection.push({name:"Original Flash",              location:"STAR Labs Secret Facility", type:"Challenge"});
@@ -2826,7 +2816,6 @@ powerCollection.push({name:"Shockwave",             type:"Electric",role:"Healer
 powerCollection.push({name:"Group Transducer",      type:"Electric",role:"Healer"});
 // Bug where combat log writes electrogenesis wrong causing problems determining roles
 // powerCollection.push({name:"Electrogenesis",        type:"Electric",role:"Healer"});
-// powerCollection.push({name:"electrogénesis",        type:"Electric",role:"Healer"});
 powerCollection.push({name:"Arc Lightning",         type:"Electric",role:"Healer"});
 powerCollection.push({name:"Ionic Drain",           type:"Electric",role:"Healer"});
 powerCollection.push({name:"Voltaic Bolt",          type:"Electric",role:"Healer"});
@@ -2944,6 +2933,7 @@ powerCollection.push({name:"Shards",                type:"Earth",role:"Tank"});
 powerCollection.push({name:"Meteor Shower",         type:"Earth",role:"Tank"});
 powerCollection.push({name:"Rumblecrush",           type:"Earth",role:"Tank"});
 powerCollection.push({name:"Entomb",                type:"Earth",role:"Tank"});
+powerCollection.push({name:"Gemstone Shield",       type:"Earth",role:"Tank"});
 
 // Spanish
 powerCollection.push({name:"empujón táser",         type:"Gadgets",role:"Controller"});
@@ -2989,7 +2979,7 @@ powerCollection.push({name:"rayo de Tesla",         type:"Electric",role:"Healer
 powerCollection.push({name:"bola de Tesla",         type:"Electric",role:"Healer"});
 powerCollection.push({name:"bomba electroestática", type:"Electric",role:"Healer"});
 powerCollection.push({name:"electrocutar",          type:"Electric",role:"Healer"});
-powerCollection.push({name:"electrogénesis",        type:"Electric",role:"Healer"});
+//powerCollection.push({name:"electrogénesis",        type:"Electric",role:"Healer"});
 powerCollection.push({name:"puñalada con voltereta",type:"Electric",role:"Healer"});
 powerCollection.push({name:"descarga bioeléctrica", type:"Electric",role:"Healer"});
 powerCollection.push({name:"vigorizar",             type:"Electric",role:"Healer"});
@@ -3000,11 +2990,24 @@ powerCollection.push({name:"bola de fuego",         type:"Fire",role:"Tank"});
 powerCollection.push({name:"arma flamígera",        type:"Fire",role:"Tank"});
 powerCollection.push({name:"golpe meteórico",       type:"Fire",role:"Tank"});
 powerCollection.push({name:"punto de inflamación",  type:"Fire",role:"Tank"});
+powerCollection.push({name:"consumir objetos",      type:"Fire",role:"Tank"});
 powerCollection.push({name:"tormenta de viento",    type:"Ice",role:"Tank"});
 powerCollection.push({name:"viento descendente",    type:"Ice",role:"Tank"});
 powerCollection.push({name:"viento glacial",        type:"Ice",role:"Tank"});
 powerCollection.push({name:"onda de hielo",         type:"Ice",role:"Tank"});
 powerCollection.push({name:"hielo empalador",       type:"Ice",role:"Tank"});
+powerCollection.push({name:"reflejo",               type:"Ice",role:"Tank"});
+powerCollection.push({name:"golpe de hielo",        type:"Ice",role:"Tank"});
+powerCollection.push({name:"sala invernal",         type:"Ice",role:"Tank"});
+powerCollection.push({name:"hibernación",           type:"Ice",role:"Tank"});
+powerCollection.push({name:"bola de nieve",         type:"Ice",role:"Tank"});
+powerCollection.push({name:"fragmentos",            type:"Earth",role:"Tank"});
+powerCollection.push({name:"zona de desguace",      type:"Earth",role:"Tank"});
+powerCollection.push({name:"terremoto",             type:"Earth",role:"Tank"});
+powerCollection.push({name:"chorro de arena",       type:"Earth",role:"Tank"});
+powerCollection.push({name:"piedras aplastantes",   type:"Earth",role:"Tank"});
+powerCollection.push({name:"rotura tectónica",      type:"Earth",role:"Tank"});
+powerCollection.push({name:"imparable",             type:"Earth",role:"Tank"});
 
 function determineRoleFromPowers(actionStr) {
 
@@ -3871,6 +3874,94 @@ function storeHealed(timestamp, characterName, line) {
 }
 
 
+function storeHits(timestamp, characterName, line) {
+
+  // For speed reasons, compute timestamp here since regex can be slow
+  timestamp=line.slice(0,10);
+
+  // If the log line has the string "hits", figure out what type of tank did it
+
+  // Lets skip some types of Hits since they won't tell me the char's role/powers
+  if ((line.indexOf("Innate") > 13) ||
+      (line.indexOf("Neo-Venom") > 13) ||
+      (line.indexOf("Taunt") > 13)) {
+    return;
+  }
+
+  var itemType = "Roles";
+
+  // Determine character name since done differently in different languages
+
+  var characterName = "";
+
+  if (line.indexOf(" visitas ") > 13) {
+    useSpanish = true;
+
+    var startOfActionString = line.indexOf(" visitas ");
+    var tempcharacterName = line.slice(12, startOfActionString);
+    var startOfCharName = tempcharacterName.indexOf(" de ");
+    var offset = 4;
+    if (startOfCharName < 1) {
+      var startOfCharName = tempcharacterName.indexOf(" del ");
+      if (startOfCharName < 1) {
+        // console.log("Cannot find name delimiter: discarding: " + line);
+        return;
+      }
+      offset = 5;
+    }
+    characterName = tempcharacterName.slice(startOfCharName+offset, tempcharacterName.length);
+  }
+  else {
+    var startOfActionString = line.indexOf(" hits ");
+    var tempcharacterName = line.slice(12, startOfActionString+1);
+    var endOfCharName = tempcharacterName.indexOf("'s ");
+    if (endOfCharName < 1) {
+      // Add one because the "s" belongs at the end of the character's name
+      endOfCharName = tempcharacterName.indexOf("s' ") + 1;
+    }
+    if (endOfCharName > 1) {
+      characterName = tempcharacterName.slice(0, endOfCharName);
+    }
+    else {
+      // Can't find char name; skip
+      return;
+    }
+  }
+
+  // Don't save data for non-player characters
+  if (isNPC(characterName)) {
+    return;
+  }
+
+  characterName = characterName.toLowerCase();
+
+  var roleObject = determineRoleFromPowers(tempcharacterName);
+
+  if (typeof(allLogLinesJSON_before[characterName]) == "undefined") {
+    allLogLinesJSON_before[characterName] = {};
+    allLogLinesJSON_before[characterName][itemType] = {};
+  }
+  else {
+    if (!allLogLinesJSON_before[characterName].hasOwnProperty(itemType)) {
+      allLogLinesJSON_before[characterName][itemType] = {};
+    }
+  }
+
+  if (typeof(allLogLinesJSON_before[characterName]["Roles"][roleObject.powerset]) == "undefined") {
+    allLogLinesJSON_before[characterName]["Roles"][roleObject.powerset] = 0;
+  }
+  allLogLinesJSON_before[characterName]["Roles"][roleObject.powerset] += 1;
+  if (typeof(allLogLinesJSON_before[characterName][itemType].time) == "undefined") {
+    allLogLinesJSON_before[characterName][itemType].time = timestamp;
+  }
+  else {
+    if (timestamp > allLogLinesJSON_before[characterName][itemType].time) {
+      allLogLinesJSON_before[characterName][itemType].time = timestamp;
+    }
+  }
+}
+
+
 function storeKnockout(timestamp, characterName, line) {
 
   var currentDay = convertTimestampToDateString(timestamp);
@@ -4075,10 +4166,14 @@ function storeReceived(timestamp, characterName, line) {
           allLogLinesJSON_before[characterName] = {};
           allLogLinesJSON_before[characterName]["PVPMatch"] = [{time:timestamp, item:matchString}];
         }
-      } 
+      }
+      currentlyInPVP = 0;
+      currentlyInPVPLocation = "";
     }
-    currentlyInPVP = 0;
-    currentlyInPVPLocation = "";
+    if (itemName.indexOf("of Triumph") > 4) {
+      currentlyInPVP = 0;
+      currentlyInPVPLocation = "";
+    }
   }
 
   else if (itemName.indexOf("Plans: ") >=0)   {
@@ -4097,7 +4192,8 @@ function storeReceived(timestamp, characterName, line) {
   }
   else if (itemName.indexOf("Exobyte") >= 0)  { 
     itemType = "Exobit"; 
-    currentlyInPVP = 0; 
+    currentlyInPVP = 0;
+    currentlyInPVPLocation = "";
     // Some log lines are just trash or stuff gotten from trade or email
     if ((itemName.indexOf("Depleted ") >= 0) ||
         (itemName.indexOf("Exobytes") >= 0) ||
@@ -4311,6 +4407,7 @@ function parseLogLinesForKeywords(lineArray)
     if (lineArray[i].indexOf(" damaged ") > 13)        { storeDamage(timestamp, characterName, lineArray[i]); continue; }
     else if (lineArray[i].indexOf(" daña ") > 13)      { storeDamage(timestamp, characterName, lineArray[i]); continue; }
     else if (lineArray[i].indexOf(" healed ") > 13)    { storeHealed(timestamp, characterName, lineArray[i]); continue; }
+    else if (lineArray[i].indexOf(" hits ") > 13)      { storeHits(timestamp, characterName, lineArray[i]); continue; }
 
     // Every log line should have a timestamp and character name first
     //    so received should appear after at least 13 chars into the line
@@ -4322,13 +4419,15 @@ function parseLogLinesForKeywords(lineArray)
       continue;
     }
     timestamp = parseInt(RegExp.$1);
-    characterName = RegExp.$2.toLowerCase();
+    characterName = RegExp.$2;
     action = RegExp.$3;
 
     // Don't save data for non-player characters
     if (isNPC(characterName)) {
       continue;
     }
+
+    characterName = RegExp.$2.toLowerCase();
 
     switch (action) {
           case "damaged":
@@ -7151,6 +7250,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Worn Terrasect Helmet",                  type:"Head",      role:"Controller", style:"Aerial Defender",     drops:"Scorpionod MK-1 in Fortress of Solitude The Chasm Novice Raid",            faction:"Both"});
   armorCollection.push({name:"Worn Terrasect Treads",                  type:"Feet",      role:"Controller", style:"Aerial Defender",     drops:"Novice Fortress of Solitude Raid",                                         faction:"Both"});
   armorCollection.push({name:"Worn Terrasect Gliders",                 type:"Back",      role:"Controller", style:"Aerial Defender",     drops:"Novice Fortress of Solitude Raid",                                         faction:"Both"});
+  armorCollection.push({name:"Worn Terrasect Mask",                    type:"Face",      role:"Controller", style:"Riveted Ventilator",  drops:"Prime Assassin in Novice Fortress of Solitude 2 Power Core Raid",          faction:"Both"});
 
   armorCollection.push({name:"Scarred Enforcer's Chestguard",          type:"Chest",     role:"DPS",        style:"Oolong",              drops:"Sunstone Broodmother in Fortress of Solitude The Chasm Novice Raid",       faction:"Both"});
   armorCollection.push({name:"Enforcer's Scarred Shoulderguards",      type:"Shoulders", role:"DPS",        style:"Oolong",              drops:"Sunstone Domineer in Fortress of Solitude The Chasm Novice Raid",          faction:"Both"});
@@ -7158,6 +7258,7 @@ function isAccessory(lineString)
 
   armorCollection.push({name:"Scarred Enforcer's Helm",                type:"Head",      role:"DPS",        style:"Oolong",              drops:"Novice Fortress of Solitude Raid",                                         faction:"Both"});
 
+  armorCollection.push({name:"Depleted Boots of the Enforcer",         type:"Feet",      role:"DPS",        style:"Oolong",              drops:"Corrupt Jor-El A.I. in Novice Fortress of Solitude 2 Power Core Raid",     faction:"Both"});
   armorCollection.push({name:"Enforcer's Scarred Back Armor",          type:"Back",      role:"DPS",        style:"Oolong",              drops:"Novice Fortress of Solitude Raid",                                         faction:"Both"});
 
   armorCollection.push({name:"Sharded Carapace",                       type:"Chest",     role:"Tank",       style:"Kryptonian",          drops:"Sunstone Herald in Fortress of Solitude The Chasm Novice Raid",            faction:"Both"});
@@ -7165,6 +7266,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Sharded Greaves",                        type:"Legs",      role:"Tank",       style:"Kryptonian",          drops:"Scorpionod MK-1 in Fortress of Solitude The Chasm Novice Raid",            faction:"Both"});
   armorCollection.push({name:"Sharded Treads",                         type:"Feet",      role:"Tank",       style:"Kryptonian",          drops:"Sunstone Broodmother in Fortress of Solitude The Chasm Novice Raid",       faction:"Both"});
   armorCollection.push({name:"Sharded Back Protector",                 type:"Back",      role:"Tank",       style:"Kryptonian",          drops:"Novice Fortress of Solitude Raid",                                         faction:"Both"});
+  armorCollection.push({name:"Tarnished Back Protector",               type:"Back",      role:"Tank",       style:"Kryptonian",          drops:"Prime Assassin in Novice Fortress of Solitude 2 Power Core Raid",          faction:"Both"});
 
   armorCollection.push({name:"Tattered Councillor's Gloves",           type:"Hands",     role:"Healer",     style:"Talon Lord",          drops:"Sunstone Herald in Fortress of Solitude The Chasm Novice Raid",            faction:"Both"});
   armorCollection.push({name:"Torn Epaulets of the Council",           type:"Shoulders", role:"Healer",     style:"Talon Lord",          drops:"Sunstone Domineer in Fortress of Solitude The Chasm Novice Raid",          faction:"Both"});
@@ -7662,15 +7764,15 @@ function isAccessory(lineString)
   armorCollection.push({name:"Sacred Legguards",                       type:"Legs",      role:"DPS",        style:"Angelic",             drops:"Shady Nightclub T3 Duo (The Last Laugh DLC)",        faction:"Both"});
   armorCollection.push({name:"Helm of the Sacred Wanderer",            type:"Head",      role:"DPS",        style:"Angelic",             drops:"Shady Nightclub T3 Duo (The Last Laugh DLC)",        faction:"Both"});
   armorCollection.push({name:"Sacred Pauldrons",                       type:"Shoulders", role:"DPS",        style:"Angelic",             drops:"Shady Nightclub T3 Duo (The Last Laugh DLC)",        faction:"Both"});
-  armorCollection.push({name:"Shoulderguards of the Divine",           type:"Shoulders", role:"DPS",        style:"Angelic",             drops:"Sandtiger - Condemned Shipping Office, Shady Nightclub T3 Duo (The Last Laugh DLC)",        faction:"Both"});
+  armorCollection.push({name:"Shoulderguards of the Divine",           type:"Shoulders", role:"DPS",        style:"Angelic",             drops:"Shady Nightclub T3 Duo (The Last Laugh DLC), Sandtiger - Condemned Shipping Office", faction:"Both"});
 
   armorCollection.push({name:"Wrap of the Sacred Wanderer",            type:"Waist",     role:"DPS",        style:"Angelic",             drops:"Shady Nightclub T3 Duo (The Last Laugh DLC)",        faction:"Both"});
-  armorCollection.push({name:"Boots of the Roaming Angel",             type:"Feet",      role:"DPS",        style:"Angelic",             drops:"Shady Nightclub T3 Duo (The Last Laugh DLC)",        faction:"Both"});
+  armorCollection.push({name:"Boots of the Roaming Angel",             type:"Feet",      role:"DPS",        style:"Angelic",             drops:"Shady Nightclub T3 Duo (The Last Laugh DLC), Bizarro in Novice FOS2",        faction:"Both"});
   armorCollection.push({name:"Wings of the Roaming Angel",             type:"Back",      role:"DPS",        style:"Angelic",             drops:"Shady Nightclub T3 Duo (The Last Laugh DLC)",        faction:"Both"});
 
   armorCollection.push({name:"Cape of the Lost Victory",               type:"Chest",     role:"DPS",        style:"Barbarian",           drops:"Shady Nightclub T3 Duo (The Last Laugh DLC)",        faction:"Both"});
   armorCollection.push({name:"Chestpiece of the Vagabond",             type:"Chest",     role:"DPS",        style:"Barbarian",           drops:"Shady Nightclub T3 Duo (The Last Laugh DLC)",        faction:"Both"});
-  armorCollection.push({name:"Vagabond's Legplates",                   type:"Legs",      role:"DPS",        style:"Barbarian",           drops:"Shady Nightclub T3 Duo (The Last Laugh DLC)",        faction:"Both"});
+  armorCollection.push({name:"Vagabond's Legplates",                   type:"Legs",      role:"DPS",        style:"Barbarian",           drops:"Shady Nightclub T3 Duo (The Last Laugh DLC), Power Girl in Novice FOS2",        faction:"Both"});
   armorCollection.push({name:"Vagabond's Shoulderplates",              type:"Shoulders", role:"DPS",        style:"Barbarian",           drops:"Shady Nightclub T3 Duo (The Last Laugh DLC)",        faction:"Both"});
   armorCollection.push({name:"Helm of the Wandering Barbarian",        type:"Head",      role:"DPS",        style:"Barbarian",           drops:"Shady Nightclub T3 Duo (The Last Laugh DLC)",        faction:"Both"});
   armorCollection.push({name:"Handwraps of the Wandering Warrior",     type:"Hands",     role:"DPS",        style:"Barbarian",           drops:"Shady Nightclub T3 Duo (The Last Laugh DLC)",        faction:"Both"});
@@ -8017,7 +8119,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Crustacean Cinch",                         type:"Waist",     role:"DPS",        style:"Remora",              drops:"Sandtiger - Condemed Shipping Office",                  faction:"Both"});
 
   armorCollection.push({name:"Briny Chitinous Boots",                    type:"Feet",      role:"DPS",        style:"Remora",              drops:"Soul Striker",                                          faction:"Both"});
-  armorCollection.push({name:"Seafloor Boots",                           type:"Feet",      role:"DPS",        style:"Remora",              drops:"T3 Duo",                                                faction:"Both"});
+  armorCollection.push({name:"Seafloor Boots",                           type:"Feet",      role:"DPS",        style:"Remora",              drops:"T3 Duo, Supergirl in Novice FOS2",                      faction:"Both"});
 
   armorCollection.push({name:"Marramgrass Cloak",                        type:"Back",      role:"Tank",       style:"Remora",              drops:"Kitefin",                                               faction:"Both"});
   armorCollection.push({name:"Wayfarer's Cloak",                         type:"Back",      role:"DPS",        style:"Remora",              drops:"Soul Eater",                                            faction:"Both"});
@@ -8908,7 +9010,8 @@ function isAccessory(lineString)
 
   // Utility Belts
   armorCollection.push({name:"Guardian's Utility Container",               type:"Trinket",   role:"Tank",       style:"Utility Belt",          drops:"Superman in T3 Shady Nighthouse duo", faction:"Both"});
-  armorCollection.push({name:"Defender's Tech Pouch",                      type:"Trinket",   role:"Tank",       style:"Utility Belt",          drops:"X in 8 Player Tier 4 Operation A Black Dawn from DLC5",       faction:"Both"});
+  armorCollection.push({name:"Defender's Tech Pouch",                      type:"Trinket",   role:"Tank",       style:"Utility Belt",          drops:"X in 8 Player Tier 4 Operation A Black Dawn from DLC5", faction:"Both"});
+  armorCollection.push({name:"Physician's Utility Pouch",                  type:"Trinket",   role:"Controller", style:"Utility Belt",          drops:"Novice FOS2 Raid",       faction:"Both"});
 
   // Rings
   armorCollection.push({name:"Defender's Loop of Steel",                   type:"Ring",      role:"Tank",       style:"",                      drops:"Reward for Tanks Very Much feat", faction:"Both"});
@@ -8947,6 +9050,8 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Augmented Guard",                type:"Shield", role:"Tank",       dps:0,     drops:"Riot Control Prototype in Batcave: Outer Caverns Raid", style:"Turtle Shell"});
   weaponCollection.push({name:"Blazoned Buckler",               type:"Shield", role:"Healer",     dps:77.9,  drops:"Prime Servitor last boss Area 51 hard alert",style:"Plated Scarab"});
   weaponCollection.push({name:"Challenger's Relentless Shield", type:"Shield", role:"Controller", dps:125.9, drops:"PVP vendor",style:"Hypno Shield"});
+  weaponCollection.push({name:"Combatant's Aggressive Shield",  type:"Shield", role:"DPS",        dps:131.1, drops:"PvP vendor", style:""});
+  weaponCollection.push({name:"Combatant's Convalescent Shield",type:"Shield", role:"Healer",     dps:131.1, drops:"PvP vendor", style:""});
   weaponCollection.push({name:"Deathly Targe",                  type:"Shield", role:"DPS",        dps:0,     drops:"Black Adam in Kahndaq raid", style:"Sun Dial"});
   weaponCollection.push({name:"Defender's Plate",               type:"Shield", role:"DPS",        dps:58.7,  drops:"Vendor in Gotham safehouse", style:"Turtle Shell"});
   weaponCollection.push({name:"Despot's Assault Plate",         type:"Shield", role:"DPS",        dps:113.1, drops:"General Zod in Fortress of Solitude 3 Raid", style:"Energized Shield"});
@@ -8971,7 +9076,8 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Polar Plate",                    type:"Shield", role:"DPS",        dps:45.9,  drops:"", style:"Lion's Roar"});
   weaponCollection.push({name:"Prime Enforcer's Guard",         type:"Shield", role:"DPS",        dps:125.9, drops:"Brainiac in Prime Battleground raid", style:"Giant Gear"});
   weaponCollection.push({name:"Promethium Plate",               type:"Shield", role:"Controller", dps:68.3,  drops:"OMAC duo final boss", style:"Plated Scarab"});
-  weaponCollection.push({name:"Shield of the Manipulative Goddess", type:"Shield",     role:"Controller", dps:103.5,  drops:"Clayface in Old Gotham Subway Duo",style:"Guardian's Plate"});
+  weaponCollection.push({name:"Shield of the Manipulative Goddess", type:"Shield", role:"Controller", dps:103.5, drops:"Clayface in Old Gotham Subway Duo",style:"Guardian's Plate"});
+  weaponCollection.push({name:"Shield of the Watchful Goddess", type:"Shield", role:"Healer",     dps:103.5, drops:"Bane in Old Gotham Subway Duo",style:"Guardian's Plate"});
   weaponCollection.push({name:"Solid War Plate",                type:"Shield", role:"DPS",        dps:0,     drops:"PVP vendor",style:"Trashcan Lid"});
   weaponCollection.push({name:"SPARC Assault Shield",           type:"Shield", role:"DPS",        dps:103.5, drops:"Vendor in Central City accepting Marks of Momentum", style:"Tech Spiral"});
   weaponCollection.push({name:"SPARC Assault Shield Mk II",     type:"Shield", role:"DPS",        dps:113.1, drops:"Vendor in Central City",style:"Tech Cross"});
@@ -9783,21 +9889,21 @@ function isAccessory(lineString)
 
   weaponCollection.push({name:"STAR Proto-Power Bolt Rifle",type:"Rifle",role:"Controller",dps:90.7,drops:"The Lanterns - Coast City"});
 
-  weaponCollection.push({name:"STAR Recovery Bolt Rifle",type:"Rifle",role:"Healer",dps:90.7,drops:"Parallax - STAR Labs Research Facility"});
+  weaponCollection.push({name:"STAR Recovery Bolt Rifle",         type:"Rifle", role:"Healer", dps:90.7,  drops:"Parallax - STAR Labs Research Facility"});
 
-  weaponCollection.push({name:"STAR Recovery Bolt Rifle Mk II",type:"Rifle",role:"Healer",dps:97.1,drops:"Krona"});
-  weaponCollection.push({name:"STAR Rifle",type:"Rifle",role:"DPS",dps:0,drops:"Hal Jordan in STAR Labs Alert"});
-  weaponCollection.push({name:"STAR Shielding Bolt Rifle",type:"Rifle",role:"Tank",dps:90.7,drops:"Krona"});
-  weaponCollection.push({name:"STAR Shielding Bolt Rifle Mk II",type:"Rifle",role:"Tank",dps:97.1,drops:"Kyle Rayner in Coast City Alert"});
-  weaponCollection.push({name:"Steamworks Rifle",type:"Rifle",role:"DPS",dps:27.7,drops:"",style:"Pump-Action Shotgun"});
-  weaponCollection.push({name:"Steamheart Shotgun",                        type:"Rifle",      role:"DPS",        dps:65.1,  drops:"Doctor Fate, Eclipso in 1 Player Tier 1 Challenge Lair of the Spectre",style:"Heavy-Barreled Sniper Rifle"});
-  weaponCollection.push({name:"Surplus Resto Rifle",type:"Rifle",role:"Healer",dps:90.7,drops:"Bat Family in Batcave: Outer Caverns Alert"});
+  weaponCollection.push({name:"STAR Recovery Bolt Rifle Mk II",   type:"Rifle", role:"Healer", dps:97.1,  drops:"Krona"});
+  weaponCollection.push({name:"STAR Rifle",                       type:"Rifle", role:"DPS",    dps:0,     drops:"Hal Jordan in STAR Labs Alert"});
+  weaponCollection.push({name:"STAR Shielding Bolt Rifle",        type:"Rifle", role:"Tank",   dps:90.7,  drops:"Krona"});
+  weaponCollection.push({name:"STAR Shielding Bolt Rifle Mk II",  type:"Rifle", role:"Tank",   dps:97.1,  drops:"Kyle Rayner in Coast City Alert"});
+  weaponCollection.push({name:"Steamworks Rifle",                 type:"Rifle", role:"DPS",    dps:27.7,  drops:"", style:"Pump-Action Shotgun"});
+  weaponCollection.push({name:"Steamheart Shotgun",               type:"Rifle", role:"DPS",    dps:65.1,  drops:"Doctor Fate, Eclipso in 1 Player Tier 1 Challenge Lair of the Spectre",style:"Heavy-Barreled Sniper Rifle"});
+  weaponCollection.push({name:"Surplus Resto Rifle",              type:"Rifle", role:"Healer", dps:90.7,  drops:"Bat Family in Batcave: Outer Caverns Alert"});
 
-  weaponCollection.push({name:"Thanagarian Rifle",type:"Rifle",role:"DPS",dps:97.1,drops:"Bat Sentinels in Batcave: Outer Caverns Alert"});
-  weaponCollection.push({name:"Unsanctioned Elementium Repulser",type:"Rifle",role:"DPS",dps:90.7,drops:"Riot Control Prototype"});
-  weaponCollection.push({name:"Utopian's Shotgun",type:"Rifle",role:"DPS",dps:68.3,drops:"Treasure Chest - Ace Chemicals",style:"Arcane Shotgun"});
+  weaponCollection.push({name:"Thanagarian Rifle",                type:"Rifle", role:"DPS",    dps:97.1,  drops:"Bat Sentinels in Batcave: Outer Caverns Alert"});
+  weaponCollection.push({name:"Unsanctioned Elementium Repulser", type:"Rifle", role:"DPS",    dps:90.7,  drops:"Riot Control Prototype"});
+  weaponCollection.push({name:"Utopian's Shotgun",                type:"Rifle", role:"DPS",    dps:68.3,  drops:"Treasure Chest - Ace Chemicals",style:"Arcane Shotgun"});
 
-  weaponCollection.push({name:"Warlord's Gorillatech Rifle",type:"Rifle",role:"DPS",dps:68.3,drops:"Treasure Chest - Ace Chemicals"});
+  weaponCollection.push({name:"Warlord's Gorillatech Rifle",      type:"Rifle", role:"DPS",    dps:68.3,  drops:"Treasure Chest - Ace Chemicals"});
 
   weaponCollection.push({name:"Bladed Reaper's Staff",            type:"Staff",role:"DPS",dps:68.3,drops:"Queen Bee - Hive Base (Duo)"});
 
@@ -12686,25 +12792,27 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"True Colors",                 category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Both",description:"Collect a complete iconic PvE battle suit"});
   featCollection.push({name:"Kryptonian Defender",         category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Hero",description:"Collect all styles in the House of El Warsuit set"});
   featCollection.push({name:"LexCorp Warbringer",          category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Villain",description:"Collect all styles of the LexCorp Salvation set"});
-  featCollection.push({name:"Thanagarian Vindicator",      category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Both",description:"Collect all styles in the Nth - Metal Battlesuit Set"});
+  featCollection.push({name:"Thanagarian Vindicator",      category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Hero",description:"Collect all styles in the Nth - Metal Battlesuit Set"});
   featCollection.push({name:"Heart of Kryptonite",         category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Villain",description:"Collect all styles in the Metallo's Maw set"});
-  featCollection.push({name:"One with the Speed Force",    category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Both",description:"Collect all styles of the Speed - Force Spectrum set"});
+  featCollection.push({name:"One with the Speed Force",    category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Hero",description:"Collect all styles of the Speed - Force Spectrum set"});
   featCollection.push({name:"Kneel Before Zod!",           category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Villain",description:"Collect all styles of the Phantom Zone Reaver set"});
   featCollection.push({name:"Steel Soldier",               category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Hero",description:"Collect all styles in the STEELsuit MK-1 set"});
-  featCollection.push({name:"Rockin' Robin",               category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Both",description:"Collect all styles of the Raptor Infiltrator set"});
+  featCollection.push({name:"Rockin' Robin",               category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Hero",description:"Collect all styles of the Raptor Infiltrator set"});
   featCollection.push({name:"Spear of Themyscira",         category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Hero",description:"Collect all styles of the Hera's Strength set"});
   featCollection.push({name:"Spearbearer of Nabu",         category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Hero",description:"Collect all styles of the Fate's Faith set"});
   featCollection.push({name:"Defender of Gotham",          category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Hero",description:"Collect all styles in the Dark Specter Batsuit set"});
-  featCollection.push({name:"Rock of Eternity's Guardian", category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Both",description:"Collect all styles of the Aegis of Eternity set"});
+  featCollection.push({name:"Rock of Eternity's Guardian", category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Hero",description:"Collect all styles of the Aegis of Eternity set"});
   featCollection.push({name:"Avatar of Trigon",            category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Villain",description:"Collect all styles of the Aegis of Azerath set"});
   featCollection.push({name:"Gauntlet of the Goddess",     category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Villain",description:"Collect all styles of the Vengeance of Hecate set"});
   featCollection.push({name:"The Fury of Teth-Adam",       category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Villain",description:"Collect all styles of the Shroud of Anubis set"});
   featCollection.push({name:"Heart of Ice",                category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Villain",description:"Collect all styles of the Frozen Fury set"});
+  featCollection.push({name:"The Joke's on You",           category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Villain",description:"Collect all styles of the Joker's Punchline set"});
   featCollection.push({name:"Mercenary for Hire",          category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Villain",description:"Collect all styles of the Mercenary's Malice set"});
   featCollection.push({name:"Bomber Man",                  category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Both",description:"Collect all styles of the Avatar Bombardier set"});
   featCollection.push({name:"Walking Rampart",             category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Both",description:"Collect all styles of the Sunstone Bulwark set"});
   featCollection.push({name:"Cutting Edge of Krypton",     category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Both",description:"Collect all styles of the Sunstone's Edge set"});
   featCollection.push({name:"Commanding Presence",         category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Both",description:"Collect all styles of the Kryptonian Commander set"});
+  featCollection.push({name:"Surgeon General",             category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Both",description:"Collect all styles of the Kryptonian Medico set"});
   featCollection.push({name:"Make Sparks Fly",             category:"Styles",subcategory:"Iconic", stars:2,points:25,faction:"Hero",description:"Collect all styles of the High Voltage set"});
   featCollection.push({name:"The Look Of Tomorrow, Today", category:"Styles",subcategory:"Iconic", stars:2,points:25,faction:"Villain",description:"Collect all styles of the Reverse set"});
   featCollection.push({name:"How Many Points Is That?",    category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Both",description:"Collect all styles of the Spirit of the Stag set"});
@@ -12715,8 +12823,6 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"Sneaky Service",              category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Both",description:"Collect all styles of the Checkmate Informant set"});
   featCollection.push({name:"Knight Moves",                category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Both",description:"Collect all styles of the Checkmate PvP Battlesuit"});
   featCollection.push({name:"The Armor Makes the Man",     category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Both",description:"Collect all styles of the Knight PvP Battlesuit"});
-  featCollection.push({name:"Surgeon General",             category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Both",description:"Collect all styles of the Kryptonian Medico set"});
-  featCollection.push({name:"The Joke's on You",           category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Villain",description:"Collect all styles of the Joker's Punchline set"});
 
   // Spanish
   featCollection.push({name:"Vestido para matar",                   category:"Styles",subcategory:"Iconic", stars:3,points:50,faction:"Both",description:"Collect a complete Iconic PvP battle suit",            language:1});
@@ -12729,7 +12835,7 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"Otherworldly",                     category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all Styles in the Fourth World set"});
   featCollection.push({name:"Two Sides Of The Same Coin",       category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Split Personality set"});
   featCollection.push({name:"Strength of Voltan",               category:"Styles",subcategory:"Theme", stars:1,points:10,faction:"Both",description:"Collect all styles in the Mayan set"});
-  featCollection.push({name:"On Metal Wings",                   category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Winged Fury set"});
+  featCollection.push({name:"On Metal Wings",                   category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Hero",description:"Collect all styles in the Winged Fury set"});
   featCollection.push({name:"Avian Assassin",                   category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Raptor Tech set"});
   featCollection.push({name:"Shards of the Heart",              category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Heartshard set"});
   featCollection.push({name:"Under the Sea",                    category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Remora set"});
@@ -12746,7 +12852,7 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"Dressed for the Streets",          category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Streets set"});
   featCollection.push({name:"Good Mojo",                        category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Voodoo set"});
   featCollection.push({name:"Bug Off",                          category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Insectoid set"});
-  featCollection.push({name:"God of the North",                 category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Viking set"});
+  featCollection.push({name:"God of the North",                 category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Hero",description:"Collect all styles in the Viking set"});
   featCollection.push({name:"Boot to the Head",                 category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Tech Ninja set"});
   featCollection.push({name:"Merlin's Tailor",                  category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Wizardly set"});
   featCollection.push({name:"Mystically Masked",                category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Kabuki set"});
@@ -12763,7 +12869,7 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"Dress Like an Egyptian",           category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Egyptian set"});
   featCollection.push({name:"Man in Tights",                    category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Archer set"});
   featCollection.push({name:"Staying Frosty",                   category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Antifreeze set"});
-  featCollection.push({name:"Galactic Sentinel",                category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Alien Tech set"});
+  featCollection.push({name:"Galactic Sentinel",                category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Hero",description:"Collect all styles in the Alien Tech set"});
   featCollection.push({name:"Looking like Six Million Bucks",   category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Contemporary Tech set"});
   featCollection.push({name:"Military Grade",                   category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Military Tech set"});
   featCollection.push({name:"Am I Here to Amuse You?",          category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Psycho set"});
@@ -13182,28 +13288,28 @@ function calculateTime(character, startDateString, endDateString)
   //        Lex is in STAR Labs base and in Hall of Doom instances
   //        And Circe has a Hard Knocks feat for beating her in the Shadowlands and also one for her secret base
   
-  featCollection.push({name:"School of Hard Knocks: Giganta",       category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Both",description:"Defeat Giganta without using any consumable items or supercharge abilities"});
-  featCollection.push({name:"School of Hard Knocks: Deathstroke",   category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Both",description:"Defeat Deathstroke without using any consumable items or supercharge abilities"});
+  featCollection.push({name:"School of Hard Knocks: Giganta",       category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Hero",description:"Defeat Giganta without using any consumable items or supercharge abilities"});
+  featCollection.push({name:"School of Hard Knocks: Deathstroke",   category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Hero",description:"Defeat Deathstroke without using any consumable items or supercharge abilities"});
   featCollection.push({name:"School of Hard Knocks: Brother Eye",   category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Both",description:"Defeat Brother Eye without using any consumable items or supercharge abilities"});
-  featCollection.push({name:"School of Hard Knocks: Scarecrow",     category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Both",description:"Defeat Scarecrow without using any consumable items or supercharge abilities"});
+  featCollection.push({name:"School of Hard Knocks: Scarecrow",     category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Hero",description:"Defeat Scarecrow without using any consumable items or supercharge abilities"});
   featCollection.push({name:"School of Hard Knocks: Isis",          category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Both",description:"Defeat Isis without using any consumable items or supercharge abilities"});
-  featCollection.push({name:"School of Hard Knocks: Felix Faust",   category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Both",description:"Defeat Felix Faust without using any consumable items or supercharge abilities"});
-  featCollection.push({name:"School of Hard Knocks: Brother Blood", category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Both",description:"Defeat Brother Blood without using any consumable items or supercharge abilities"});
-  featCollection.push({name:"School of Hard Knocks: Poison Ivy",    category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Both",description:"Defeat Poison Ivy without using any consumable items or supercharge abilities"});
-  featCollection.push({name:"School of Hard Knocks: Circe",         category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Both",description:"Defeat Circe without using any consumable items or supercharge abilities"});
+  featCollection.push({name:"School of Hard Knocks: Felix Faust",   category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Hero",description:"Defeat Felix Faust without using any consumable items or supercharge abilities"});
+  featCollection.push({name:"School of Hard Knocks: Brother Blood", category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Hero",description:"Defeat Brother Blood without using any consumable items or supercharge abilities"});
+  featCollection.push({name:"School of Hard Knocks: Poison Ivy",    category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Hero",description:"Defeat Poison Ivy without using any consumable items or supercharge abilities"});
+  featCollection.push({name:"School of Hard Knocks: Circe",         category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Hero",description:"Defeat Circe without using any consumable items or supercharge abilities"});
   featCollection.push({name:"School of Hard Knocks: Raven",         category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Both",description:"Defeat Raven without using any consumable items or supercharge abilities"});
-  featCollection.push({name:"School of Hard Knocks: Sinestro",      category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Both",description:"Defeat Sinestro without using any consumable items or supercharge abilities"});
-  featCollection.push({name:"School of Hard Knocks: Aquaman",       category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Both",description:"Defeat Aquaman without using any consumable items or supercharge abilities"});
-  featCollection.push({name:"School of Hard Knocks: Lex Luthor",    category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Both",description:"Defeat Lex Luthor without using any consumable items or supercharge abilities"});
+  featCollection.push({name:"School of Hard Knocks: Sinestro",      category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Hero",description:"Defeat Sinestro without using any consumable items or supercharge abilities"});
+  featCollection.push({name:"School of Hard Knocks: Aquaman",       category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Hero",description:"Defeat Aquaman without using any consumable items or supercharge abilities"});
+  featCollection.push({name:"School of Hard Knocks: Lex Luthor",    category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Hero",description:"Defeat Lex Luthor without using any consumable items or supercharge abilities"});
   featCollection.push({name:"School of Hard Knocks: Robot Batman",  category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Hero",description:"Defeat Robot Batman without using any consumable items or supercharge abilities"});
-  featCollection.push({name:"School of Hard Knocks: Doctor Psycho", category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Both",description:"Defeat Doctor Psycho in your final battle without using any consumable items or supercharge abilities"});
-  featCollection.push({name:"School of Hard Knocks: Harley Quinn",  category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Both",description:"Defeat Harley Quinn without using any consumable items or supercharge abilities"});
-  featCollection.push({name:"School of Hard Knocks: Joker",         category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Both",description:"Defeat The Joker without using any consumable items or supercharge abilities"});
-  featCollection.push({name:"School of Hard Knocks: Gorilla Grodd", category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Both",description:"Defeat Gorilla Grodd without using any consumable items or supercharge abilities"});
+  featCollection.push({name:"School of Hard Knocks: Doctor Psycho", category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Hero",description:"Defeat Doctor Psycho in your final battle without using any consumable items or supercharge abilities"});
+  featCollection.push({name:"School of Hard Knocks: Harley Quinn",  category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Hero",description:"Defeat Harley Quinn without using any consumable items or supercharge abilities"});
+  featCollection.push({name:"School of Hard Knocks: Joker",         category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Hero",description:"Defeat The Joker without using any consumable items or supercharge abilities"});
+  featCollection.push({name:"School of Hard Knocks: Gorilla Grodd", category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Hero",description:"Defeat Gorilla Grodd without using any consumable items or supercharge abilities"});
   featCollection.push({name:"School of Hard Knocks: Queen Bee",     category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Both",description:"Defeat Queen Bee without using any consumable items or supercharge abilities"});
   featCollection.push({name:"School of Hard Knocks: Bane",          category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Both",description:"Defeat Bane without using any consumable items or supercharge abilities"});
   featCollection.push({name:"School of Hard Knocks: Catwoman",      category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Both",description:"Defeat Catwoman without using any consumable items or supercharge abilities"});
-  featCollection.push({name:"School of Hard Knocks: Spectre",       category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Both",description:"Defeat Spectre without using any consumable items or supercharge abilities"});
+  featCollection.push({name:"School of Hard Knocks: Spectre",       category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Hero",description:"Defeat Spectre without using any consumable items or supercharge abilities"});
   featCollection.push({name:"School of Hard Knocks: Bruno Mannheim",category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Both",description:"Defeat Bruno Mannheim without using any consumable items or supercharge abilities"});
   featCollection.push({name:"School of Hard Knocks: The Penguin",   category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Both",description:"Defeat The Penguin without using any consumable items or supercharge abilities"});
   featCollection.push({name:"School of Hard Knocks: The Flash",     category:"Solo",subcategory:"Iconic Battles",stars:1,points:10,faction:"Villain",description:"Defeat The Flash without using any consumable items or supercharge abilities"});
