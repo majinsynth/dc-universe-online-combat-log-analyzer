@@ -316,7 +316,7 @@ table.sortable tr.sortbottom td {
       </select>
       <br>
       <br>Select Character to filter on.
-      <br>Only this character's data will be displayed.
+      <br>Only this character's data will be displayed
       <br>
       <select id="DropDownMenu_Character" name="DropDownMenu_Character" onchange="javascript:dataOptionExecute();"></select>
       <br>
@@ -2408,6 +2408,7 @@ npcCollection.push({name:"Eerie Jack",             location:"Any", type:"Pets", 
 npcCollection.push({name:"Spooky Jack",            location:"Any", type:"Pets", level:0});    // Pet from Halloween seasonal event trinket
 npcCollection.push({name:"Creepy Jack",            location:"Any", type:"Pets", level:0});    // Pet from Halloween seasonal event trinket
 npcCollection.push({name:"Mister Boo",             location:"Any", type:"Pets", level:0});    // Pet from Halloween seasonal event trinket
+npcCollection.push({name:"Ms Boo",                 location:"Any", type:"Pets", level:0});    // Pet from Halloween seasonal event trinket
 npcCollection.push({name:"Robot Sidekick",         location:"Any", type:"Pets", level:0});    // Iconic power pet
 npcCollection.push({name:"Deep Sea Chanter",       location:"Any", type:"Pets", level:0});    // Pet from Tides of War Atlantis Seasonal event trinket
 npcCollection.push({name:"Deep Sea Ritualist",     location:"Any", type:"Pets", level:0});    // Pet from Tides of War Atlantis Seasonal event trinket
@@ -2715,6 +2716,12 @@ npcCollection.push({name:"Burning Path Initiate",             location:"8 Player
 npcCollection.push({name:"Burning Path Devotee",              location:"8 Player Tier 4 Operation Unpaid Dues (Villain)", type:"Operation"});
 npcCollection.push({name:"Burning Path Master",               location:"8 Player Tier 4 Operation Unpaid Dues (Villain)", type:"Operation"});
 npcCollection.push({name:"Serpent Path Neophyte",             location:"8 Player Tier 4 Operation Unpaid Dues (Villain)", type:"Operation"});
+
+// 2012 seasonal halloween event under events tab
+npcCollection.push({name:"Klarion",                           location:"The Witching Hour Seasonal Event", type:"Event"});
+npcCollection.push({name:"Masked Apparition",                 location:"The Witching Hour Seasonal Event", type:"Event"});
+npcCollection.push({name:"Trick-or-Treater",                  location:"The Witching Hour Seasonal Event", type:"Event"});
+npcCollection.push({name:"Teekl",                             location:"The Witching Hour Seasonal Event", type:"Event"});
 
 
 function isNPC(characterName) {
@@ -5916,6 +5923,25 @@ function isCollectionGotham(collectionString)
   collectionCollection.push({name:"Semilla inactiva",                               category:"Seeds of Spring",city:"Event",zone:"Gotham", language:1});
   collectionCollection.push({name:"Semilla en germinación",                         category:"Seeds of Spring",city:"Event",zone:"Gotham", language:1});
 
+  // Collections from 2012 Halloween seasonal event
+  collectionCollection.push({name:"Smashed-In Pumpkin",                             category:"All Hallow's Peeves",city:"Event",zone:"Gotham"});
+  collectionCollection.push({name:"Stinky Paper Bag",                               category:"All Hallow's Peeves",city:"Event",zone:"Gotham"});
+  collectionCollection.push({name:"Toilet Paper Roll",                              category:"All Hallow's Peeves",city:"Event",zone:"Gotham"});
+  collectionCollection.push({name:"Carton of Eggs",                                 category:"All Hallow's Peeves",city:"Event",zone:"Gotham"});
+  collectionCollection.push({name:"Fake Bloody Hand",                               category:"All Hallow's Peeves",city:"Event",zone:"Gotham"});
+
+  // Collections from 2012 Halloween seasonal event
+  collectionCollection.push({name:"Plastic Fangs",                                  category:"Halloween Grab Bag!",city:"Event",zone:"Gotham"});
+  collectionCollection.push({name:"Incognito Moustache",                            category:"Halloween Grab Bag!",city:"Event",zone:"Gotham"});
+  collectionCollection.push({name:"Polystyrene Tombstone",                          category:"Halloween Grab Bag!",city:"Event",zone:"Gotham"});
+  collectionCollection.push({name:"Witch's Cauldron",                               category:"Halloween Grab Bag!",city:"Event",zone:"Gotham"});
+  collectionCollection.push({name:"Spider Webbing",                                 category:"Halloween Grab Bag!",city:"Event",zone:"Gotham"});
+  collectionCollection.push({name:"Spider Ring",                                    category:"Halloween Grab Bag!",city:"Event",zone:"Gotham"});
+  collectionCollection.push({name:"Spooky Sound FX Cassette",                       category:"Halloween Grab Bag!",city:"Event",zone:"Gotham"});
+  collectionCollection.push({name:"Wax Lips",                                       category:"Halloween Grab Bag!",city:"Event",zone:"Gotham"});
+
+
+
 function isCollectionOther(lineString)
 {
   for (var i=0; i<collectionCollection.length; i++) {
@@ -5990,7 +6016,7 @@ function isLockboxRing(lineString)
                        "Iron Claddagh",     "Iron Knucklespike",     "Iron Loop",     "Iron Ring",     "Iron Band",     "Iron Signet",
                        "Vanadium Claddagh", "Vanadium Knucklespike", "Vanadium Loop", "Vanadium Ring", "Vanadium Band", "Vanadium Signet", 
                        "Steel Claddagh",    "Steel Knucklespike",    "Steel Loop",    "Steel Ring",    "Steel Band",    "Steel Signet",
-                       "Band of Relief",    "Band of Accuracy",      "Band of Panacea", "Band of Endurance",
+                       "Band of Relief",    "Band of Accuracy",      "Band of Panacea",
                        "de eternio" ];
 
   // Special case where this item does not drop from lockbox but name is similar
@@ -6149,11 +6175,12 @@ function isAccessory(lineString)
   armorCollection.push({name:"Rune Greaves of the Warlord",            type:"Feet",      role:"DPS",        style:"Runes of the East",     drops:"X in 8 Player Tier 4 Operation A Black Dawn from DLC5",                                          faction:"Both"});
   armorCollection.push({name:"Rune Cloak of the Warlord",              type:"Back",      role:"DPS",        style:"Runes of the East",     drops:"Wraith of Vengeance in Tier 4 With A Vengeance (Hero) Operation from DLC5 (Hand of Fate)",  faction:"Both"});
 
+  armorCollection.push({name:"Runic Chestplate of the Defender",       type:"Chest",     role:"Tank",       style:"Demonic Runes",         drops:"Hellish Atlantean Overlord in Operation Black Dawn (Hero) from DLC5 (Hand of Fate)",       faction:"Both"});
   armorCollection.push({name:"Runic Leggings of the Defender",         type:"Legs",      role:"Tank",       style:"Demonic Runes",         drops:"GCPD Elite Enforcer in Operation Seeds of Rot (Villain) from DLC5",       faction:"Both"});
   armorCollection.push({name:"Rune Epaulets of the Defender",          type:"Shoulders", role:"Tank",       style:"Demonic Runes",         drops:"Burning Path Master in 8 Player Tier 4 Operation Unpaid Dues from DLC5 (Hand of Fate)",  faction:"Both"});
   armorCollection.push({name:"Rune Greaves of the Defender",           type:"Feet",      role:"Tank",       style:"Demonic Runes",         drops:"X Player Tier 4 Operation Y from DLC5 (Hand of Fate)",  faction:"Both"});
 
-  armorCollection.push({name:"Runic Hood of Manipulation",             type:"Head",      role:"Controller", style:"Demonic Runes",         drops:"X Player Tier 4 Operation Y from DLC5 (Hand of Fate)",  faction:"Both"});
+  armorCollection.push({name:"Runic Hood of Manipulation",             type:"Head",      role:"Controller", style:"Demonic Runes",         drops:"Maniacal Hellthrall Captain in 8 Player Tier 4 Operation A Black Dawn from DLC5 (Hand of Fate)",  faction:"Both"});
   armorCollection.push({name:"Rune Epaulets of Manipulation",          type:"Shoulders", role:"Controller", style:"Demonic Runes",         drops:"Hellish Atlantean Overlord in 8 Player Tier 4 Operation A Black Dawn from DLC5 (Hand of Fate), GCPD SWAT Lieutenant in Seeds of Rot Villain Operation",  faction:"Both"});
   armorCollection.push({name:"Rune Gauntlets of Manipulation",         type:"Hands",     role:"Controller", style:"Demonic Runes",         drops:"Revengewalker in Operation With A Vengeance from DLC5",       faction:"Both"});
   armorCollection.push({name:"Rune Sash of Manipulation",              type:"Waist",     role:"Controller", style:"Demonic Runes",         drops:"Vengeance Bee in Operation With A Vengeance from DLC5",       faction:"Both"});
@@ -6167,23 +6194,24 @@ function isAccessory(lineString)
 
   armorCollection.push({name:"Eradicator's Runic Legguards",           type:"Legs",      role:"DPS",        style:"Runes of the Anicents", drops:"X Player Tier 4 Operation Y from DLC5 (Hand of Fate)",  faction:"Both"});
   armorCollection.push({name:"Eradicator's Rune Gloves",               type:"Hands",     role:"DPS",        style:"Runes of the Anicents", drops:"X Player Tier 4 Operation Y from DLC5 (Hand of Fate)",  faction:"Both"});
-  armorCollection.push({name:"Eradicator's Rune Cincture",             type:"Waist",     role:"DPS",        style:"Runes of the Anicents", drops:"X Player Tier 4 Operation Y from DLC5 (Hand of Fate)",  faction:"Both"});
+  armorCollection.push({name:"Eradicator's Rune Cincture",             type:"Waist",     role:"DPS",        style:"Runes of the Anicents", drops:"Fierce Gorilla  in 4 Player Tier 4 Operation Soul Alchemy (Villain) (Hand of Fate DLC)",  faction:"Both"});
   armorCollection.push({name:"Eradicator's Rune Walkers",              type:"Feet",      role:"DPS",        style:"Runes of the Anicents", drops:"X Player Tier 4 Operation Y from DLC5 (Hand of Fate)",  faction:"Both"});
   armorCollection.push({name:"Eradicator's Rune Mantle",               type:"Back",      role:"DPS",        style:"Runes of the Anicents", drops:"X Player Tier 4 Operation Y from DLC5 (Hand of Fate)",  faction:"Both"});
 
   armorCollection.push({name:"Runic Legguards of the Sentry",          type:"Legs",      role:"Tank",       style:"Runes of the Ancients", drops:"Fused Soul in 4 Player Tier 4 Operation Soul Alchemy (Villain) (Hand of Fate DLC)",       faction:"Both"});
   armorCollection.push({name:"Runic Shoulderplates of the Sentry",     type:"Shoulders", role:"Tank",       style:"Runes of the Ancients", drops:"X in Operation X from DLC5",       faction:"Both"});
-  armorCollection.push({name:"Runic Cincture of the Sentry",           type:"Waist",     role:"Tank",       style:"Runes of the Ancients", drops:"Cannibal Soul in 4 Player Tier 4 Operation Wayward Souls (Hand of Fate DLC)",       faction:"Both"});
+  armorCollection.push({name:"Runic Cincture of the Sentry",           type:"Waist",     role:"Tank",       style:"Runes of the Ancients", drops:"Cannibal Soul in 4 Player Tier 4 Operation Wayward Souls (Hand of Fate DLC)",             faction:"Both"});
   armorCollection.push({name:"Rune Mantle of the Sentry",              type:"Back",      role:"Tank",       style:"Runes of the Ancients", drops:"Fused Soul in 4 Player Tier 4 Operation Soul Alchemy (Villain) (Hand of Fate DLC)",       faction:"Both"});
 
-  armorCollection.push({name:"Runic Shroud of the Inhibitor",          type:"Head",      role:"Controller", style:"Runes of the Ancients", drops:"Amazon Champion in 4 Player Tier 4 Operation Soul Alchemy (Villain) (Hand of Fate DLC)",       faction:"Both"});
+  armorCollection.push({name:"Runic Shroud of the Inhibitor",          type:"Head",      role:"Controller", style:"Runes of the Ancients", drops:"Amazon Champion in 4 Player Tier 4 Operation Soul Alchemy (Villain) (Hand of Fate DLC)",  faction:"Both"});
   armorCollection.push({name:"Runic Mantle of the Inhibitor",          type:"Back",      role:"Controller", style:"Runes of the Ancients", drops:"X in 4 Player Tier 4 Operation Y(Hand of Fate DLC)",       faction:"Both"});
+  armorCollection.push({name:"Rune Treads of the Inhibitor",           type:"Feet",      role:"Controller", style:"Runes of the Ancients", drops:"Fused Soul in 4 Player Tier 4 Operation Soul Alchemy (Villain) (Hand of Fate DLC)",       faction:"Both"});
 
   armorCollection.push({name:"Rune Shoulderplates of Rejuvenation",    type:"Shoulders", role:"Healer",     style:"Runes of the Ancients", drops:"Fused Soul in 4 Player Tier 4 Operation Soul Alchemy (Villain) (Hand of Fate DLC)",       faction:"Both"});
-  armorCollection.push({name:"Rune Gloves of Rejuvenation",            type:"Hands",     role:"Healer",     style:"Runes of the Ancients", drops:"Solomon Grundy in 4 Player Tier 4 Operation Wayward Souls (Hand of Fate DLC)",       faction:"Both"});
-  armorCollection.push({name:"Rune Cincture of Rejuvenation",          type:"Waist",     role:"Healer",     style:"Runes of the Ancients", drops:"Fierce Gorilla  in 4 Player Tier 4 Operation Soul Alchemy (Villain) (Hand of Fate DLC)",       faction:"Both"});
-  armorCollection.push({name:"Rune Walkers of Rejuvenation",           type:"Feet",      role:"Healer",     style:"Runes of the Ancients", drops:"Amazon Champion in 4 Player Operation Soul Alchemy from DLC5 Hand of Fate",       faction:"Both"});
-  armorCollection.push({name:"Rune Mantle of Rejuvenation",            type:"Back",      role:"Healer",     style:"Runes of the Ancients", drops:"Amazon Champion in 4 Player Tier 4 Operation Soul Alchemy (Villain) (Hand of Fate DLC)",       faction:"Both"});
+  armorCollection.push({name:"Rune Gloves of Rejuvenation",            type:"Hands",     role:"Healer",     style:"Runes of the Ancients", drops:"Solomon Grundy in 4 Player Tier 4 Operation Wayward Souls (Hand of Fate DLC)",            faction:"Both"});
+  armorCollection.push({name:"Rune Cincture of Rejuvenation",          type:"Waist",     role:"Healer",     style:"Runes of the Ancients", drops:"Fierce Gorilla  in 4 Player Tier 4 Operation Soul Alchemy (Villain) (Hand of Fate DLC)",  faction:"Both"});
+  armorCollection.push({name:"Rune Walkers of Rejuvenation",           type:"Feet",      role:"Healer",     style:"Runes of the Ancients", drops:"Amazon Champion in 4 Player Operation Soul Alchemy from DLC5 Hand of Fate",               faction:"Both"});
+  armorCollection.push({name:"Rune Mantle of Rejuvenation",            type:"Back",      role:"Healer",     style:"Runes of the Ancients", drops:"Amazon Champion in 4 Player Tier 4 Operation Soul Alchemy (Villain) (Hand of Fate DLC)",  faction:"Both"});
 
   // T3.5 Armor dropped in Gates of Themyscira raid
 
@@ -7405,13 +7433,14 @@ function isAccessory(lineString)
   armorCollection.push({name:"Healer's Segmented Chestguard",          type:"Chest",     role:"Healer",     style:"Heartshard",         drops:"Superman/Lex Luthor in 1 Player Tier 3 Challenge STAR Labs Facility", faction:"Both"});
   armorCollection.push({name:"Healer's Segmented Legplates",           type:"Legs",      role:"Healer",     style:"Heartshard",         drops:"Superman/Lex Luthor in 1 Player Tier 3 Challenge STAR Labs Facility", faction:"Both"});
   armorCollection.push({name:"Healer's Segmented Helm",                type:"Head",      role:"Healer",     style:"Heartshard",         drops:"Reward box",                                                          faction:"Both"});
+  armorCollection.push({name:"Healer's Segmented Shoulderpads",        type:"Shoulders", role:"Healer",     style:"Heartshard",         drops:"Wonder Woman/Circe in 1 Player Tier 3 Challenge Circe's Stronghold",  faction:"Both"});
   armorCollection.push({name:"Healer's Segmented Gauntlets",           type:"Hands",     role:"Healer",     style:"Heartshard",         drops:"Joker in 1 Player Tier 3 Challenge East End Regal Hotel",             faction:"Both"});
   armorCollection.push({name:"Healer's Segmented Boots",               type:"Feet",      role:"Healer",     style:"Heartshard",         drops:"Circe in 1 Player Tier 3 Challenge Circe's Stronghold",               faction:"Both"});
   armorCollection.push({name:"Healer's Segmented Backplate",           type:"Back",      role:"Healer",     style:"Heartshard",         drops:"Wonder Woman/Circe in 1 Player Tier 3 Challenge Circe's Stronghold",  faction:"Both"});
 
   // Spanish
-  armorCollection.push({name:"Espaldar segmentado de sanador",           type:"Back",      role:"Healer",     style:"Heartshard",         drops:"Circe in 1 Player Tier 3 Challenge Circe's Stronghold",    faction:"Both", language:1});
-  armorCollection.push({name:"Guanteletes segmentados de sanador",       type:"Hands",     role:"Healer",     style:"Heartshard",         drops:"Bane",                                                     faction:"Both", language:1});
+  armorCollection.push({name:"Espaldar segmentado de sanador",         type:"Back",      role:"Healer",     style:"Heartshard",         drops:"Circe in 1 Player Tier 3 Challenge Circe's Stronghold",    faction:"Both", language:1});
+  armorCollection.push({name:"Guanteletes segmentados de sanador",     type:"Hands",     role:"Healer",     style:"Heartshard",         drops:"Bane",                                                     faction:"Both", language:1});
 
   armorCollection.push({name:"Armored Chestplate of Dominance",        type:"Chest",     role:"Controller", style:"Winged Fury",        drops:"Bat Family in last room of Batcave: Outer Caverns Raid",   faction:"Both"});
   armorCollection.push({name:"Laminated Inertron Chestplate",          type:"Chest",     role:"Controller", style:"Winged Fury",        drops:"Brother Eye in Batcave: Inner Sanctum Raid",               faction:"Both"});
@@ -7434,6 +7463,8 @@ function isAccessory(lineString)
   armorCollection.push({name:"Protector's Shielded Helmet",            type:"Head",      role:"Tank",       style:"Winged Fury",        drops:"Riddler in 1 Player Tier 3 Challenge Monarch Playing Card Company",  faction:"Both"});
   armorCollection.push({name:"Protector's Shielded Shoulderguards",    type:"Shoulders", role:"Tank",       style:"Winged Fury",        drops:"Circe in 1 Player Tier 3 Challenge Circe's Stronghold",              faction:"Both"});
   armorCollection.push({name:"Protector's Shielded Gloves",            type:"Hands",     role:"Tank",       style:"Winged Fury",        drops:"Superman in 1 Player Tier 3 Challenge STAR Labs Facility (Villain)", faction:"Both"});
+  armorCollection.push({name:"Protector's Shielded Boots",             type:"Feet",      role:"Tank",       style:"Winged Fury",        drops:"Deathstroke in 1 Player Tier 3 Challenge Monarch Playing Card Company (Hero)", faction:"Both"});
+  armorCollection.push({name:"Protector's Shielded Belt",              type:"Waist",     role:"Tank",       style:"Winged Fury",        drops:"Deathstroke in 1 Player Tier 3 Challenge Monarch Playing Card Company (Hero)", faction:"Both"});
   armorCollection.push({name:"Protector's Shielded Wings",             type:"Back",      role:"Tank",       style:"Winged Fury",        drops:"Batman in 1 Player Tier 3 Challenge East End Regal Hotel",           faction:"Both"});
 
   armorCollection.push({name:"Pantalones blindados de protector",      type:"Legs",      role:"Tank",       style:"Winged Fury",        drops:"The Joker in 1 Player Tier 3 Challenge East End Regal Hotel (Hero)", faction:"Both", language:1});
@@ -7475,6 +7506,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Wings of the Lifegiver",                 type:"Back",      role:"Healer",     style:"Rapture",            drops:"Zetta-Drone in Batcave: Inner Sanctum Raid",               faction:"Both"});
 
   armorCollection.push({name:"Manipulator's Avian Shoulderguards",     type:"Shoulders", role:"Controller", style:"Rapture",            drops:"T3 alert",                                                 faction:"Both"});
+  armorCollection.push({name:"Manipulator's Avian Sabatons",           type:"Feet",      role:"Controller", style:"Rapture",            drops:"Rogues in Stryker's Island Alert",                         faction:"Both"});
 
   armorCollection.push({name:"Scaled Chestpiece of the Assassin",      type:"Chest",     role:"DPS",        style:"League of Assassins", drops:"Bolt Claw in League of Assassin's Alert",                 faction:"Both"});
   armorCollection.push({name:"Hood of the Assassins",                  type:"Head",      role:"DPS",        style:"League of Assassins", drops:"Ra's al Ghul in League of Assassin's Alert",              faction:"Both"});
@@ -8027,6 +8059,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Synthium-Hardened Deathmask",            type:"Head",      role:"DPS",        style:"Retro Tech",          drops:"Harley Quinn",                                          faction:"Both"});
   armorCollection.push({name:"Twelfth-Level Thinking Helmet",          type:"Head",      role:"Controller", style:"Retro Tech",          drops:"Subprime Regulator Alpha",                              faction:"Both"});
   armorCollection.push({name:"Enhanced ServitorTech Shoulderguards",   type:"Shoulders", role:"DPS",        style:"Retro Tech",          drops:"Brainiac Joker-bot",                                    faction:"Both"});
+  armorCollection.push({name:"Plated Synthium Shoulderguards",         type:"Shoulders", role:"DPS",        style:"Retro Tech",          drops:"Hallucination in Scarecrow instance",                     faction:"Both"});
   armorCollection.push({name:"Lunar Exterminator's Gloves",            type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"reward or vendor",                                      faction:"Both"});
   armorCollection.push({name:"Prototype Fieldscanner Grips",           type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"Micro Security Bot",                                    faction:"Both"});
   armorCollection.push({name:"Spiked Kamikaze Gauntlets",              type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"Villain reward for Level 13 Playing Joker's Game mission", faction:"Both"});
@@ -8248,6 +8281,7 @@ function isAccessory(lineString)
   // Kabuki style only from challenges introduced in update18
   armorCollection.push({name:"Enraged Oni Bogu",                         type:"Chest",     role:"DPS",        style:"Kabuki",              drops:"The Joker in 1 Player Tier 3 Challenge East End Regal Hotel (Hero)",      faction:"Both"});
   armorCollection.push({name:"Enraged Oni Gi Pants",                     type:"Legs",      role:"DPS",        style:"Kabuki",              drops:"Weekly Reward Box for T3 Challenge",                                      faction:"Both"});
+  armorCollection.push({name:"Enraged Oni Helm",                         type:"Head",      role:"DPS",        style:"Kabuki",              drops:"Superman in 1 Player Tier 3 Challenge STAR Labs Facility (Villain)",      faction:"Both"});
   armorCollection.push({name:"Enraged Oni Shoulderpads",                 type:"Shoulders", role:"DPS",        style:"Kabuki",              drops:"Batman in 1 Player Tier 3 Challenge East End Regal Hotel (Villain)",      faction:"Both"});
   armorCollection.push({name:"Enraged Oni Kote",                         type:"Hands",     role:"DPS",        style:"Kabuki",              drops:"Lex Luthor in 1 Player Tier 3 Challenge STAR Labs Facility",              faction:"Both"});
   armorCollection.push({name:"Enraged Oni Sash",                         type:"Waist",     role:"DPS",        style:"Kabuki",              drops:"Wonder Womain in 1 Player Tier 3 Challenge Circe's Stronghold (Villain)", faction:"Both"});
@@ -8877,6 +8911,7 @@ function isAccessory(lineString)
 
   //  armorCollection.push({name:"Pinions of Azazel",                          type:"Back",      role:"DPS",        style:"Small Demonic Wings",   drops:""});
   //  armorCollection.push({name:"Smoldering Pinions",                         type:"Back",      role:"DPS",        style:"Small Demonic Wings",   drops:"Possessed Raven Spirit, Spirit of Raven - Science Police HQ (Challlenge)"});
+  //  armorCollection.push({name:"Pitsinger Wings",                            type:"Back",      role:"DPS",        style:"Small Demonic Wings",   drops:"Brother Blood in instance"});
   //  armorCollection.push({name:"Wings of Liberty",                           type:"Back",      role:"DPS",        style:"Small Bird Wings",      drops:"Reward for BOUNTY: Hawkman and Hawkgirl mission"});
   // Mighty Cobra Mantle   some mission reward
 
@@ -9017,6 +9052,11 @@ function isAccessory(lineString)
   armorCollection.push({name:"Defender's Loop of Steel",                   type:"Ring",      role:"Tank",       style:"",                      drops:"Reward for Tanks Very Much feat", faction:"Both"});
   armorCollection.push({name:"Loop of Legend",                             type:"Ring",      role:"DPS",        style:"",                      drops:"",                                faction:"Both"});
 
+  // Styles only (not gear) from the 2012 Halloween seasonal event
+  armorCollection.push({name:"Bone Daddy Mask",                            type:"Face",      role:"DPS",        style:"Bone Daddy",            drops:"Seasonal vendor", faction:"Both"});
+  armorCollection.push({name:"Ghastly Ghoul Mask",                         type:"Face",      role:"DPS",        style:"Ghastly Ghoul",         drops:"Seasonal vendor", faction:"Both"});
+  // armorCollection.push({name:"High Market Buckled Boots",                  type:"Feet",      role:"DPS",        style:"Klarion",               drops:"Klarion in Seasonal Event", faction:"Both"});
+
   var weaponCollection = [];
 
   // PVP weapons
@@ -9047,6 +9087,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Aspis of Force",                 type:"Shield", role:"DPS",        dps:103.5, drops:"Gorilla Grodd in Strykers", style:"Tech Spiral"});
 
   weaponCollection.push({name:"Assassin's Resolve",             type:"Shield", role:"DPS",        dps:0,     drops:"Ra's Al Ghul from League of Assassin's alert",style:"Hypno Shield"});
+  weaponCollection.push({name:"Assault Shield of the Goddess",  type:"Shield", role:"DPS",        dps:103.5, drops:"Killer Croc in Gotham Lighthouse Duo",style:"Guardian's Plate"});
   weaponCollection.push({name:"Augmented Guard",                type:"Shield", role:"Tank",       dps:0,     drops:"Riot Control Prototype in Batcave: Outer Caverns Raid", style:"Turtle Shell"});
   weaponCollection.push({name:"Blazoned Buckler",               type:"Shield", role:"Healer",     dps:77.9,  drops:"Prime Servitor last boss Area 51 hard alert",style:"Plated Scarab"});
   weaponCollection.push({name:"Challenger's Relentless Shield", type:"Shield", role:"Controller", dps:125.9, drops:"PVP vendor",style:"Hypno Shield"});
@@ -10572,7 +10613,8 @@ function calculateCollectionsNeeded(character, startDateString, endDateString)
 
   var categoriesSeasonal = [ "Spiritual Wedding Vow", "Emotional Wedding Vow", "Renewal Wedding Vow",
                              "Classic Wedding Vow", "Four-Leaf Clover", "Seeds of Spring",
-                             "Holiday Naughty List", "Holiday Nice List", "Marine Life Fossils", "Atlantean Artifacts" ];
+                             "Holiday Naughty List", "Holiday Nice List", "Marine Life Fossils", "Atlantean Artifacts", 
+                             "All Hallow's Peeves", "Halloween Grab Bag!" ];
 
   for (var j=0; j<categoriesSeasonal.length; j++) {
     for (var i=0; i<collectionCollection.length; i++) {
@@ -12689,7 +12731,7 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"Token this Seriously",               category:"General",subcategory:"Tokens of Merit",stars:3,points:50,faction:"Both",description:"Add 10000 Tokens of Merit"});
   featCollection.push({name:"More Tokens than Sense",             category:"General",subcategory:"Tokens of Merit",stars:3,points:50,faction:"Both",description:"Add 15000 Tokens of Merit"});
   featCollection.push({name:"Exonumist",                          category:"General",subcategory:"Tokens of Merit",stars:3,points:50,faction:"Both",description:"Add 20000 Tokens of Merit"});
-  featCollection.push({name:"Commitment in the Field of Excellence", category:"General",subcategory:"Tokens of Merit",stars:3,points:50,faction:"Both",description:"Add 25000 Tokens of Merit"});
+  featCollection.push({name:"Feat for Outstanding Achievement in the Field of Excellence", category:"General",subcategory:"Tokens of Merit",stars:3,points:50,faction:"Both",description:"Add 25000 Tokens of Merit"});
 
   featCollection.push({name:"Erudito del mérito",                    category:"General",subcategory:"Tokens of Merit",stars:2,points:25,faction:"Both",description:"Add 250 Tokens of Merit", language:1});
 
@@ -12835,7 +12877,8 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"Otherworldly",                     category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all Styles in the Fourth World set"});
   featCollection.push({name:"Two Sides Of The Same Coin",       category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Split Personality set"});
   featCollection.push({name:"Strength of Voltan",               category:"Styles",subcategory:"Theme", stars:1,points:10,faction:"Both",description:"Collect all styles in the Mayan set"});
-  featCollection.push({name:"On Metal Wings",                   category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Hero",description:"Collect all styles in the Winged Fury set"});
+  featCollection.push({name:"On Metal Wings",                   category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Winged Fury set"});
+  featCollection.push({name:"Like a Stone",                     category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Kryptonian set"});
   featCollection.push({name:"Avian Assassin",                   category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Raptor Tech set"});
   featCollection.push({name:"Shards of the Heart",              category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Heartshard set"});
   featCollection.push({name:"Under the Sea",                    category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Remora set"});
@@ -12852,7 +12895,7 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"Dressed for the Streets",          category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Streets set"});
   featCollection.push({name:"Good Mojo",                        category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Voodoo set"});
   featCollection.push({name:"Bug Off",                          category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Insectoid set"});
-  featCollection.push({name:"God of the North",                 category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Hero",description:"Collect all styles in the Viking set"});
+  featCollection.push({name:"God of the North",                 category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Viking set"});
   featCollection.push({name:"Boot to the Head",                 category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Tech Ninja set"});
   featCollection.push({name:"Merlin's Tailor",                  category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Wizardly set"});
   featCollection.push({name:"Mystically Masked",                category:"Styles",subcategory:"Theme", stars:2,points:25,faction:"Both",description:"Collect all styles in the Kabuki set"});
@@ -13564,11 +13607,16 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"Sabor a fruta",                        category:"Seasonal",subcategory:"Springtime",stars:1,points:10,faction:"Both",description:"Eat all varieties of Boost! Snacks",           language:1});
   featCollection.push({name:"Semillas del éxito",                   category:"Seasonal",subcategory:"Springtime",stars:1,points:10,faction:"Both",description:"Purchase any of the Spring Seasonal Trinkets", language:1});
 
-  featCollection.push({name:"Eat, Drink and be Scary",              category:"Seasonal",subcategory:"Spooktacular",stars:2,points:25,faction:"Both",description:"Complete all of the Spooktacular feats"});
-  featCollection.push({name:"Trick Or Treat, Smell My Feat",        category:"Seasonal",subcategory:"Spooktacular",stars:1,points:10,faction:"Both",description:"Consume all of the different Spooktacular Tricks and Treats"});
-  featCollection.push({name:"I Must Not Fear",                      category:"Seasonal",subcategory:"Spooktacular",stars:1,points:10,faction:"Both",description:"Complete the Scarecrow Spooktacular Event 5 times"});
-  featCollection.push({name:"Costume Party",                        category:"Seasonal",subcategory:"Spooktacular",stars:1,points:10,faction:"Both",description:"Collect all styles from Skeets' Boo-tique"});
-  featCollection.push({name:"Candy Candy Candy Candy",              category:"Seasonal",subcategory:"Spooktacular",stars:1,points:10,faction:"Both",description:"Consume 25 Spooktacular Tricks or Treats"});
+  // 2011 Halloween Seasonal event feats called Spooktacular
+  featCollection.push({name:"I Must Not Fear",                      category:"Seasonal",subcategory:"The Witching Hour",stars:1,points:10,faction:"Both",description:"Complete the Scarecrow Spooktacular Event 5 times"});
+  featCollection.push({name:"Eat, Drink and be Scary",              category:"Seasonal",subcategory:"The Witching Hour",stars:2,points:25,faction:"Both",description:"Complete all of the The Witching Hour feats"});
+  featCollection.push({name:"Trick Or Treat, Smell My Feat",        category:"Seasonal",subcategory:"The Witching Hour",stars:1,points:10,faction:"Both",description:"Consume all of the different The Witching Hour Tricks and Treats"});
+  featCollection.push({name:"Costume Party",                        category:"Seasonal",subcategory:"The Witching Hour",stars:1,points:10,faction:"Both",description:"Collect all styles from Skeets' Boo-tique"});
+  featCollection.push({name:"Candy Candy Candy Candy",              category:"Seasonal",subcategory:"The Witching Hour",stars:1,points:10,faction:"Both",description:"Consume 25 The Witching Hour Tricks or Treats"});
+
+  // 2 additional feats added in 2012 Halloween seasonal event
+  featCollection.push({name:"The Witching Hourglass",               category:"Seasonal",subcategory:"The Witching Hour",stars:1,points:10,faction:"Both",description:"Defeat the Witch in The Midnight Masquerade in 7 minutes or less"});
+  featCollection.push({name:"Going A-Souling",                      category:"Seasonal",subcategory:"The Witching Hour",stars:1,points:10,faction:"Both",description:"Complete the Witching Hour seasonal daily mission 13 times"});
 
   featCollection.push({name:"Maritimed",                            category:"Seasonal",subcategory:"Tides of War",stars:1,points:10,faction:"Both",description:"Complete the Atlantean Outpost seasonal event in 4 minutes or less"});
   featCollection.push({name:"Full Net",                             category:"Seasonal",subcategory:"Tides of War",stars:2,points:25,faction:"Both",description:"Defeat all Atlanteans/Mutineers in the Atlantean Outpost before defeating Aquaman"});
@@ -14305,6 +14353,7 @@ function calculatePVPMatches(character, startDateString, endDateString)
       newList2[newList[i].time] += "|" + newList[i].name;
     }
   }
+
   var matchesTotal = 0;
   var lossesTotal = 0;
   var winsTotal = 0;
@@ -14325,6 +14374,7 @@ function calculatePVPMatches(character, startDateString, endDateString)
   var legendsFortressLosses = 0;
 
   var sortedArray2 = arraySortByKeys(newList2);
+
   for (var index in sortedArray2) {
     var result = "";
     var type = "PVP Match";
@@ -14336,6 +14386,7 @@ function calculatePVPMatches(character, startDateString, endDateString)
         ((newList2[sortedArray2[index]].indexOf("|Marca de leyenda") >= 0) && (newList2[sortedArray2[index]].indexOf("|Marcas de táctica") >= 0)) ||
         ((newList2[sortedArray2[index]].indexOf("una Marca de leyenda") >= 0) && (newList2[sortedArray2[index]].indexOf("unas Marcas de táctica") >= 0)) ||
         ((newList2[sortedArray2[index]].indexOf("1 Mark of Legend") > 0) && (newList2[sortedArray2[index]].indexOf("1 Mark of Tactics") > 0)) ||
+        ((newList2[sortedArray2[index]].indexOf("1 Mark of Legend") > 0) && (newList2[sortedArray2[index]].indexOf("2 Marks of Tactics") > 0)) ||
         ((newList2[sortedArray2[index]].indexOf("1 Marcas de leyenda") > 0) && (newList2[sortedArray2[index]].indexOf("1 Marcas de conquista") > 0)) ||
         ((newList2[sortedArray2[index]].indexOf("1 x Mark of Legend") > 0) && (newList2[sortedArray2[index]].indexOf("1 x Mark of Conquest") > 0))) {
       result = "Loss";  
@@ -14347,6 +14398,7 @@ function calculatePVPMatches(character, startDateString, endDateString)
              ((newList2[sortedArray2[index]].indexOf("2 Marks of Legend") > 0) && (newList2[sortedArray2[index]].indexOf("2 Mark of Tactics") > 0)) ||
              ((newList2[sortedArray2[index]].indexOf("2 Marcas de leyenda") > 0) && (newList2[sortedArray2[index]].indexOf("2 Marcas de táctica") > 0)) ||
              ((newList2[sortedArray2[index]].indexOf("2 Marks of Legend") > 0) && (newList2[sortedArray2[index]].indexOf("2 Marks of Tactics") > 0)) ||
+             ((newList2[sortedArray2[index]].indexOf("2 Marks of Legend") > 0) && (newList2[sortedArray2[index]].indexOf("3 Marks of Tactics") > 0)) ||
              ((newList2[sortedArray2[index]].indexOf("2 Marcas de leyenda") > 0) && (newList2[sortedArray2[index]].indexOf("2 Marcas de conquista") > 0)) ||
              ((newList2[sortedArray2[index]].indexOf("2 x Mark of Legend") > 0) && (newList2[sortedArray2[index]].indexOf("2 x Mark of Conquest") > 0))) {
       result = "Win";
@@ -15563,7 +15615,7 @@ function calculateFeatsNeeded(character, startDateString, endDateString)
   }
 
   var categoriesSeasonal = [ "Valentine's Day", "Springtime", "St. Patrick's Day",
-                             "Spooktacular", "Winter Holidays", "Tides of War" ];
+                             "The Witching Hour", "Winter Holidays", "Tides of War" ];
   for (var j=0; j<categoriesSeasonal.length; j++) {
     for (var i=0; i<featCollection.length; i++) {
       if (featCollection[i].category == "Seasonal") {
@@ -15877,7 +15929,7 @@ function calculateFeatsSummary(character, startDateString, endDateString)
                       "Solo", "SoloGeneral", "SoloSurvival", "SoloHideouts", "SoloContacts", "SoloIconic", "Styles", "StylesGeneral", "StylesTheme",
                       "StylesIconic", "Exploration", "ExplorationGeneral", "ExplorationRaids", "ExplorationMetropolis", "ExplorationGotham",
                       "ExplorationAlerts", "Alerts", "AlertsGeneral", "AlertsNormal", "AlertsHard", "RandD", "RandDGeneral", "RandDAssembly",
-                      "RandDParts", "SeasonalStPatrick", "SeasonalValentine", "SeasonalWinter", "SeasonalSpringtime", "SeasonalSpooktacular",
+                      "RandDParts", "SeasonalStPatrick", "SeasonalValentine", "SeasonalWinter", "SeasonalSpringtime", "SeasonalThe Witching Hour",
                       "SeasonalTidesOfWar", "DLCLantern", "DLCFlash", "DLCEarth", "DLCLaugh", "DLCFate", "DuosGeneral", "DuosSpeedForce", "DuosHideouts", 
                       "GeneralGeneral", "GeneralTokens", "GeneralRaces", "GeneralCollectibles" ];
 
@@ -16055,7 +16107,7 @@ function calculateFeatsSummary(character, startDateString, endDateString)
               else if (featCollection[j].subcategory == "Valentine's Day") { maximumFeatCount["SeasonalValentine"][person] += 1; }
               else if (featCollection[j].subcategory == "Winter Holidays") { maximumFeatCount["SeasonalWinter"][person] += 1; }
               else if (featCollection[j].subcategory == "Springtime")      { maximumFeatCount["SeasonalSpringtime"][person] += 1; }
-              else if (featCollection[j].subcategory == "Spooktacular")    { maximumFeatCount["SeasonalSpooktacular"][person] += 1; }
+              else if (featCollection[j].subcategory == "The Witching Hour")    { maximumFeatCount["SeasonalThe Witching Hour"][person] += 1; }
               else if (featCollection[j].subcategory == "Tides of War")    { maximumFeatCount["SeasonalTidesOfWar"][person] += 1; }
             }
             else if (featCollection[j].category == "DLC") {
@@ -16160,7 +16212,7 @@ function calculateFeatsSummary(character, startDateString, endDateString)
                   else if (featCollection[j].subcategory == "Valentine's Day") { numberFeatCount["SeasonalValentine"][person] += 1; }
                   else if (featCollection[j].subcategory == "Winter Holidays") { numberFeatCount["SeasonalWinter"][person] += 1; }
                   else if (featCollection[j].subcategory == "Springtime")      { numberFeatCount["SeasonalSpringtime"][person] += 1; }
-                  else if (featCollection[j].subcategory == "Spooktacular")    { numberFeatCount["SeasonalSpooktacular"][person] += 1; }
+                  else if (featCollection[j].subcategory == "The Witching Hour")    { numberFeatCount["SeasonalThe Witching Hour"][person] += 1; }
                   else if (featCollection[j].subcategory == "Tides of War")    { numberFeatCount["SeasonalTidesOfWar"][person] += 1; }
                 }
                 else if (cat == "DLC") {
@@ -16227,7 +16279,7 @@ function calculateFeatsSummary(character, startDateString, endDateString)
       results += '        <li style="font-family:' + font + ';">Valentine\'s Day'   + printSpaces(11) + numberFeatCount["SeasonalValentine"][characterName]    + '/' + maximumFeatCount["SeasonalValentine"][characterName] + '</li>';
       results += '        <li style="font-family:' + font + ';">Winter Holidays'    + printSpaces(11) + numberFeatCount["SeasonalWinter"][characterName]       + '/' + maximumFeatCount["SeasonalWinter"][characterName] + '</li>';
       results += '        <li style="font-family:' + font + ';">Springtime'         + printSpaces(16) + numberFeatCount["SeasonalSpringtime"][characterName]   + '/' + maximumFeatCount["SeasonalSpringtime"][characterName] + '</li>';
-      results += '        <li style="font-family:' + font + ';">Spooktacular'       + printSpaces(14) + numberFeatCount["SeasonalSpooktacular"][characterName] + '/' + maximumFeatCount["SeasonalSpooktacular"][characterName] + '</li>';
+      results += '        <li style="font-family:' + font + ';">The Witching Hour'       + printSpaces(14) + numberFeatCount["SeasonalThe Witching Hour"][characterName] + '/' + maximumFeatCount["SeasonalThe Witching Hour"][characterName] + '</li>';
       results += '        <li style="font-family:' + font + ';">Tides of War'       + printSpaces(14) + numberFeatCount["SeasonalTidesOfWar"][characterName]   + '/' + maximumFeatCount["SeasonalTidesOfWar"][characterName] + '</li>';
       results += '      </ul>';
       results += '    </li>';
