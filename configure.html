@@ -193,9 +193,11 @@ For character:
       <input type="radio" name="powerset" id="powersetGadgets"     />Gadgets
       <input type="radio" name="powerset" id="powersetMental"      />Mental
       <input type="radio" name="powerset" id="powersetHardLight"   />Hard Light
+      <input type="radio" name="powerset" id="powersetQuantum"     />Quantum
       <input type="radio" name="powerset" id="powersetElectric"    />Electric
       <input type="radio" name="powerset" id="powersetNature"      />Nature
       <input type="radio" name="powerset" id="powersetSorcery"     />Sorcery
+      <input type="radio" name="powerset" id="powersetCelestial"   />Celestial
       <input type="radio" name="powerset" id="powersetEarth"       />Earth
       <input type="radio" name="powerset" id="powersetFire"        />Fire
       <input type="radio" name="powerset" id="powersetIce"         />Ice
@@ -360,7 +362,7 @@ function ExitProgram() {
   self.close();
 }
 
-var VERSION = "6.5";
+var VERSION = "6.7";
 
 function helpMessageWindow() {
   var helpMessage = "";
@@ -467,6 +469,9 @@ function updateConfig() {
   else if (document.getElementById('powersetHardLight').checked == true) {
     tempObj["Users"][id].powerset = "Hard Light";
   }
+  else if (document.getElementById('powersetQuantum').checked == true) {
+    tempObj["Users"][id].powerset = "Quantum";
+  }
   else if (document.getElementById('powersetElectric').checked == true) {
     tempObj["Users"][id].powerset = "Electric";
   }
@@ -475,6 +480,9 @@ function updateConfig() {
   }
   else if (document.getElementById('powersetSorcery').checked == true) {
     tempObj["Users"][id].powerset = "Sorcery";
+  }
+  else if (document.getElementById('powersetCelestial').checked == true) {
+    tempObj["Users"][id].powerset = "Celestial";
   }
   else if (document.getElementById('powersetEarth').checked == true) {
     tempObj["Users"][id].powerset = "Earth";
@@ -530,9 +538,11 @@ function fillData() {
   document.getElementById('powersetGadgets').checked = false;
   document.getElementById('powersetMental').checked = false;
   document.getElementById('powersetHardLight').checked = false;
+  document.getElementById('powersetQuantum').checked = false;
   document.getElementById('powersetElectric').checked = false;
   document.getElementById('powersetNature').checked = false;
   document.getElementById('powersetSorcery').checked = false;
+  document.getElementById('powersetCelestial').checked = false;
   document.getElementById('powersetEarth').checked = false;
   document.getElementById('powersetFire').checked = false;
   document.getElementById('powersetIce').checked = false;
@@ -575,6 +585,9 @@ function fillData() {
   else if (arrayObjs[id].powerset == "Hard Light") {
     document.getElementById('powersetHardLight').checked = true;
   } 
+  else if (arrayObjs[id].powerset == "Quantum") {
+    document.getElementById('powersetQuantum').checked = true;
+  } 
   else if (arrayObjs[id].powerset == "Electric") {
     document.getElementById('powersetElectric').checked = true;
   } 
@@ -583,6 +596,9 @@ function fillData() {
   } 
   else if (arrayObjs[id].powerset == "Sorcery") {
     document.getElementById('powersetSorcery').checked = true;
+  } 
+  else if (arrayObjs[id].powerset == "Celestial") {
+    document.getElementById('powersetCelestial').checked = true;
   } 
   else if (arrayObjs[id].powerset == "Earth") {
     document.getElementById('powersetEarth').checked = true;
