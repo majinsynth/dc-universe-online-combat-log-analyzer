@@ -330,10 +330,9 @@ table.sortable tr.sortbottom td {
         <option>Face Database</option>
         <option>R&D Component Database</option>
         <option>PVP Drops</option>
-        <option>PVP Season 1 Match History</option>
-        <option>PVP Former Match History</option>
-        <option>PVP Former Legends Stats</option>
-        <option>PVP Former Arena Stats</option>
+        <option>PVP Match History</option>
+        <option>PVP Legends Stats</option>
+        <option>PVP Arena Stats</option>
         <option>Lair Drops</option>
         <option>Lair Database</option>
         <option>Home Turf Gear Info</option>
@@ -638,7 +637,7 @@ function  isEmpty(obj) {
 //    mentor they have, movement mode, etc.
 
 function configure() {
-  var popup = window.open("configure.html","Configure","menubar=no,scrollbars=yes,width=1000,height=730");
+  var popup = window.open("configure.html","Configure","menubar=no,scrollbars=yes,width=1100,height=735");
 }
 
 
@@ -1555,7 +1554,7 @@ lairCollection.push({name:"Met U Pennant",                             color:"Gr
 lairCollection.push({name:"Met U Pennant String",                      color:"Blue",   theme:"College",        location:"Wall",    category:"Decorations",          subcategory:"Paintings & Banners", drops:"Little Vinny in Huntress Challenge"});
 lairCollection.push({name:"Metropolis University Banner",              color:"Blue",   theme:"College",        location:"Wall",    category:"Decorations",          subcategory:"Paintings & Banners", drops:"HIVE hard alert"});
 
-lairCollection.push({name:"Bundle of Pipes",                           color:"Purple", theme:"Laboratory",     location:"Floor",   category:"",                     subcategory:"",                  drops:""});
+lairCollection.push({name:"Bundle of Pipes",                           color:"Purple", theme:"Laboratory",     location:"Floor",   category:"",                     subcategory:"",                  drops:"Jor-El, Lex Luthor in Brothers in Arms T5 operation"});
 lairCollection.push({name:"Chemical Rack",                             color:"",       theme:"Laboratory",     location:"Floor",   category:"",                     subcategory:"",                  drops:""});
 lairCollection.push({name:"Chemical Stasis Chamber",                   color:"Purple", theme:"Laboratory",     location:"Floor",   category:"",                     subcategory:"",                  drops:"Bat Sentinels, Zetta-Drone, General Adnan in Kahndaq raid"});
 lairCollection.push({name:"Chemical Storage Vent",                     color:"Purple", theme:"Laboratory",     location:"Floor",   category:"",                     subcategory:"",                  drops:"General Adnan in Kahndaq raid"});
@@ -1673,7 +1672,7 @@ lairCollection.push({name:"Damaged Industrial Case",                   color:"Pu
 lairCollection.push({name:"Damaged Industrial Sandbag",                color:"Purple", theme:"Warehouse",      location:"Floor",   category:"",                     subcategory:"",                  drops:""});
 lairCollection.push({name:"Factory Wall Fan",                          color:"",       theme:"Warehouse",      location:"Wall",    category:"",                     subcategory:"",                  drops:""});
 lairCollection.push({name:"Hanging Cargo Net",                         color:"Green",  theme:"Warehouse",      location:"Ceiling", category:"Decorations",          subcategory:"Textiles",          drops:""});
-lairCollection.push({name:"Heavy Industrial Lift",                     color:"Purple", theme:"Warehouse",      location:"Floor",   category:"",                     subcategory:"",                  drops:""});
+lairCollection.push({name:"Heavy Industrial Lift",                     color:"Purple", theme:"Warehouse",      location:"Floor",   category:"",                     subcategory:"",                  drops:"Captain N'ee in T5 operation Brothers in Arms"});
 lairCollection.push({name:"Industrial Cylinders",                      color:"",       theme:"Warehouse",      location:"Floor",   category:"",                     subcategory:"",                  drops:""});
 lairCollection.push({name:"Industrial Propane Tank",                   color:"",       theme:"Warehouse",      location:"Floor",   category:"",                     subcategory:"",                  drops:""});
 lairCollection.push({name:"Left Facing Industrial Security Camera",    color:"Blue",   theme:"Warehouse",      location:"Wall",    category:"Tools and Appliances", subcategory:"Tools",             drops:"Reward for all investigations of Corrections Officer’s Report"});
@@ -1700,7 +1699,7 @@ lairCollection.push({name:"Scattered Dirt",                            color:"Bl
 lairCollection.push({name:"Scattered Rock Debris",                     color:"Green",  theme:"Flooring",       location:"Floor",   category:"Decorations",          subcategory:"Debris",            drops:""});
 lairCollection.push({name:"Shattered Rock Debris",                     color:"Green",  theme:"Flooring",       location:"Floor",   category:"Decorations",          subcategory:"Debris",            drops:"Bane in Old Gotham Subway challenge"});
 lairCollection.push({name:"Scattered Trash",                           color:"Green",  theme:"Flooring",       location:"Floor",   category:"Decorations",          subcategory:"Debris",            drops:"Queen Bee in the Hive Base Duo, OMAC near Knightsdome open world, Paradox Reaper in Flashback duo, Actuator in Gates raid"});
-lairCollection.push({name:"Smashed Cement Bags",                       color:"Purple", theme:"Flooring",       location:"Floor",   category:"Decorations",          subcategory:"Debris",            drops:""});
+lairCollection.push({name:"Smashed Cement Bags",                       color:"Purple", theme:"Flooring",       location:"Floor",   category:"Decorations",          subcategory:"Debris",            drops:"Jor-El in T5 operation Brothers in Arms"});
 lairCollection.push({name:"Splintered Bone Pile",                      color:"Green",  theme:"Flooring",       location:"Floor",   category:"",                     subcategory:"",                  drops:"Area 51 Hard alert"});
 lairCollection.push({name:"Steel Floor Grate",                         color:"Green",  theme:"Flooring",       location:"Floor",   category:"Decorations",          subcategory:"Flat Items",        drops:"Security Guard in Watchtower 4 person alert"});
 lairCollection.push({name:"Stone Brick Debris",                        color:"Green",  theme:"Flooring",       location:"Floor",   category:"Decorations",          subcategory:"Debris",            drops:"Micro-security bot in Oolong Island easy alert, Hemlock Acolyte in Stryker's open world"});
@@ -1857,8 +1856,9 @@ lairCollection.push({name:"Gray Cat Idol",                             color:"Pu
 lairCollection.push({name:"Isis Bone Pile",                            color:"Purple", theme:"Egyptian",       location:"Floor",   category:"Tools and Appliances", subcategory:"Ritual Items",      drops:"Reward box for FOS3 monthly"});
 lairCollection.push({name:"Mummified Corpse",                          color:"Purple", theme:"Egyptian",       location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"Ra's al Ghul in League of Assassins alert"});
 lairCollection.push({name:"Prowling Lion Statue",                      color:"Purple", theme:"Egyptian",       location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"Penguin in duo, Reward box for T3 challenge"});
-lairCollection.push({name:"Standing King's Sarcophagus",               color:"",       theme:"Egyptian",       location:"Floor",   category:"",                     subcategory:"",                  drops:"Reward box for challenge"});
+lairCollection.push({name:"Standing King's Sarcophagus",               color:"Purple", theme:"Egyptian",       location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"Reward box for challenge"});
 lairCollection.push({name:"Standing Stone Sarcophagus",                color:"Purple", theme:"Egyptian",       location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"Reward box for Stryker's Island daily"});
+lairCollection.push({name:"Standing Queen's Sarcophagus",              color:"Purple", theme:"Egyptian",       location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"Promethium Lockbox"});
 
 lairCollection.push({name:"Basic Entertainment Center",                color:"Green",  theme:"Miscellaneous",  location:"Floor",   category:"Furniture",            subcategory:"Entertainment",     drops:"Brainiac Accumulator in Area 51 hard alert, Neuromite in Watchtower alert"});
 lairCollection.push({name:"Boiler",                                    color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",                     subcategory:"",                  drops:""});
@@ -1897,9 +1897,47 @@ lairCollection.push({name:"Circuitry Array",                           color:"Pu
 lairCollection.push({name:"Coral Pillar",                              color:"Purple", theme:"Miscellaneous",  location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"Promethium Lockbox"});
 lairCollection.push({name:"Angel of Justice Statue",                   color:"Purple", theme:"Miscellaneous",  location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"Promethium Lockbox"});
 lairCollection.push({name:"Plesiosaur Display",                        color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
-lairCollection.push({name:"Peace Defender Statue",                     color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Peace Defender Statue",                     color:"Purple", theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:"Promethium Lockbox"});
 lairCollection.push({name:"Blue Crystal Sample",                       color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
 lairCollection.push({name:"Sabertooth Tiger Display",                  color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Amethyst Hookah",                           color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Antique Defender Carving",                  color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Antique Diving Suit",                       color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Antique Philosopher Carving",               color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Antique Rogue Carving",                     color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Antique Warrior Carving",                   color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Antique Wise Man Carving",                  color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Atlantean Armoire",                         color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Atlantean Throne",                          color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Brushed Hospital Landscape",                color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Brushed Spooky Mansion Landscape",          color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Brushed Stylish Landscape",                 color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Butcher Block",                             color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Darkstone Gargoyle Statue",                 color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Easter Island Statue",                      color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Egyptian Anubis Statue",                    color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Green Crystal Formation",                   color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Guillotine",                                color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Heart of Avarice Crystal",                  color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"King's Throne",                             color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Ornate River Landscape",                    color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Palatial Woman Portrait",                   color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Peasant Woman Statue",                      color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Pharaoh Statue",                            color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Restaurant Drying Rack",                    color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Rockin' Scooter",                           color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Stained Glass Chandelier",                  color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Standing Angelic Statue",                   color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Terracotta Warrior",                        color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Tranquil Sand Garden",                      color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Clay Pottery",                              color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:"Future Lex Luthor in Family Reunion operation"});
+lairCollection.push({name:"Construction Wood Barricade",               color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Damaged Industrial Gear Locker",            color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Diabolical Tools",                          color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Large Lab Pill Dispenser",                  color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Stack of Scrap Wood",                       color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:"Captain N'ee in T5 operation Brothers in Arms"});
+lairCollection.push({name:"Venom Equipment Side Box",                  color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:"Bane in Family Reunion operation"});
+lairCollection.push({name:"Crumbling Bone Pile",                       color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:"Cheetah in Tunnel of Love duo"});
 
 lairCollection.push({name:"Gnarled Armoire",                           color:"Blue",   theme:"Gnarled",        location:"Floor",   category:"Storage",              subcategory:"Cabinets",          drops:"Swamp Thing in Spring Seasonal event"});
 lairCollection.push({name:"Gnarled Divider",                           color:"Blue",   theme:"Gnarled",        location:"Floor",   category:"Decorations",          subcategory:"Feestanding",       drops:"Swamp Thing in Spring Seasonal event"});
@@ -2577,6 +2615,8 @@ npcCollection.push({name:"Brine Hulk",               location:"Condemned Shippin
 npcCollection.push({name:"Trident of Poseidon",      location:"Condemned Shipping Office",type:"Instance", level:26, species:"Aquatic"});
 npcCollection.push({name:"Mera",                     location:"Condemned Shipping Office",type:"Instance", level:26, species:"Aquatic"});
 npcCollection.push({name:"Zatanna's Mystical Power", location:"Metropolis"});
+npcCollection.push({name:"Cancer Mako",              location:"Metropolis"});
+npcCollection.push({name:"Tidepool Kitefin",         location:"Metropolis"});
 
 npcCollection.push({name:"Whisper A'daire",          location:"Intergang",type:"Instance"});
 npcCollection.push({name:"Kyle Abbot",               location:"Intergang",type:"Instance"});
@@ -3843,6 +3883,7 @@ npcCollection.push({name:"House of El Trooper",         location:"Brothers in Ar
 npcCollection.push({name:"Jor-El",                      location:"Brothers in Arms", type:"Operation"});
 
 // May 2013 DLC7 (Origin Crisis) new NPCs in 4 Player Tier 5 Operation Family Reunion
+npcCollection.push({name:"Altered Nexus Drone",        location:"Family Reunion", type:"Operation"});
 npcCollection.push({name:"Nexus Suppression Mech LX",  location:"Family Reunion", type:"Operation"});
 npcCollection.push({name:"Nexus Alpha Sentry LX",      location:"Family Reunion", type:"Operation"});
 npcCollection.push({name:"Nexus Drone LX",             location:"Family Reunion", type:"Operation"});
@@ -3859,6 +3900,8 @@ npcCollection.push({name:"Paradox Scrounger",          location:"Family Reunion"
 npcCollection.push({name:"Paradox Executioner",        location:"Family Reunion", type:"Operation"});
 npcCollection.push({name:"Paradox Eradicator",         location:"Family Reunion", type:"Operation"});
 npcCollection.push({name:"Paradox Wisp",               location:"Family Reunion", type:"Operation"});
+npcCollection.push({name:"Future Lex Luthor",          location:"Family Reunion", type:"Operation"});
+npcCollection.push({name:"Modified Nexus Overseer",    location:"Family Reunion", type:"Operation"});
 
 // May 2013 DLC7 (Origin Crisis) new NPCs in 8 Player Tier 5 Raid Paradox Wave
 npcCollection.push({name:"Paradox Oppressor",          location:"Paradox Wave", type:"Raid"});
@@ -3887,8 +3930,20 @@ npcCollection.push({name:"Salacious Cultist",          location:"Metropolis or G
 npcCollection.push({name:"Vexing Cultist",             location:"Metropolis or Gotham", type:"Open World"});
 npcCollection.push({name:"Wrath Cultist",              location:"Metropolis or Gotham", type:"Open World"});
 
-// August 2013 DLC8 (Sons of Trigon) new NPCs in Tier X
+// August 2013 DLC8 (Sons of Trigon) new NPCs Tier 5
+npcCollection.push({name:"Idol of Jacob",              location:"Tunnel of Lust", type:"Duo", players:2, tier:5, dlc:"Sons of Trigon", boss:0});
+npcCollection.push({name:"Fanatic of Lust",            location:"Tunnel of Lust", type:"Duo", players:2, tier:5, dlc:"Sons of Trigon", boss:0});
+npcCollection.push({name:"Lesser Lust Demon",          location:"Tunnel of Lust", type:"Duo", players:2, tier:5, dlc:"Sons of Trigon", boss:0});
+npcCollection.push({name:"Greater Lust Demon",         location:"Tunnel of Lust", type:"Duo", players:2, tier:5, dlc:"Sons of Trigon", boss:0});
+npcCollection.push({name:"Devoted Incubus",            location:"Tunnel of Lust", type:"Duo", players:2, tier:5, dlc:"Sons of Trigon", boss:0});
+npcCollection.push({name:"Devoted Succubus",           location:"Tunnel of Lust", type:"Duo", players:2, tier:5, dlc:"Sons of Trigon", boss:0});
+npcCollection.push({name:"Jacob",                      location:"Tunnel of Lust", type:"Duo", players:2, tier:5, dlc:"Sons of Trigon", boss:1});
 
+// August 2013 DLC8 (Sons of Trigon) new instances (same name for hero + villain)
+// 2 Player Tier 5 Duo Knightsdome Arena
+// 2 Player Tier 5 Duo Tunnel of Lust
+// 2 Player Tier 5 Duo Ruined Cathedral
+// 4 Player Tier 5 Alert Trigon's Prison
 
 
 function isNPC(characterName) {
@@ -4162,7 +4217,13 @@ powerCollection.push({name:"Life Drain",            type:"Celestial", role:"Heal
 powerCollection.push({name:"Wither",                type:"Celestial", role:"Healer"});    // Added with Sons of Trigon DLC
 powerCollection.push({name:"Consume Soul",          type:"Celestial", role:"Healer"});    // Added with Sons of Trigon DLC
 powerCollection.push({name:"Dark Pact",             type:"Celestial", role:"Healer"});    // Added with Sons of Trigon DLC
-
+// Celestial also has combos
+powerCollection.push({name:"Cleansed Blight",       type:"Celestial", role:"Healer"});    // Added with Sons of Trigon DLC
+powerCollection.push({name:"Cleansed Haunt",        type:"Celestial", role:"Healer"});    // Added with Sons of Trigon DLC
+powerCollection.push({name:"Cleansed Wither",       type:"Celestial", role:"Healer"});    // Added with Sons of Trigon DLC
+powerCollection.push({name:"Corrupted Renew",       type:"Celestial", role:"Healer"});    // Added with Sons of Trigon DLC
+powerCollection.push({name:"Corrupted Retribution", type:"Celestial", role:"Healer"});    // Added with Sons of Trigon DLC
+powerCollection.push({name:"Corrupted Smite",       type:"Celestial", role:"Healer"});    // Added with Sons of Trigon DLC
 
 // Spanish
 powerCollection.push({name:"empujón táser",         type:"Gadgets",role:"Controller"});
@@ -6566,6 +6627,12 @@ trashCollection.push({name:"Crumpled Intergang Mask"});
 trashCollection.push({name:"Scattered WayneTech Reports"});
 trashCollection.push({name:"Useless Exobyte Fragment"});
 
+// Trash from Tunnel of Lust duo
+trashCollection.push({name:"Demon's Fang"});
+trashCollection.push({name:"Wasted Sinful Energy"});
+trashCollection.push({name:"Vial of Tears"});
+trashCollection.push({name:"Pouch of Infernal Reagents"});
+trashCollection.push({name:"Curiously Radiant Stone"});
 
 function isTrash(item) {
 
@@ -9124,6 +9191,18 @@ function isLockboxAura(lineString)
   return false;
 }
 
+function isLockboxLair(lineString)
+{
+  for (var i=0; i<lairCollection.length; i++) {
+    if (lairCollection[i].drops == "Promethium Lockbox") {
+      if (lineString == lairCollection[i].name) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
 function isLockbox(lineString)
 {
   if (isLockboxConsumable(lineString)) { return true; }
@@ -9133,6 +9212,7 @@ function isLockbox(lineString)
   else if (isLockboxStyle(lineString)) { return true; }
   else if (isLockboxAura(lineString))  { return true; }
   else if (lineString.indexOf("Promethium Lockbox") >= 0) { return true; }
+  // don't need to check if lockbox lair here, this is only for saving to json, we already save lair items to "lair", not "lockbox"
   else { return false; }
 }
 
@@ -9201,14 +9281,14 @@ function isAccessory(lineString)
 
   var armorCollection = [];
 
-  // Added with update26 around May 2013; style only, adding to armorCollection just for Armor Needed functionality; all from promethium lockboxes
-
-  armorCollection.push({name:"Cowl of the Daring Vigilante",        type:"Head",      role:"DPS", style:"Daring Vigilante",  drops:"Promethium lockbox", faction:"Both"});
-  armorCollection.push({name:"Gloves of the Lethal Zealot",         type:"Hands",     role:"DPS", style:"Lethal Zealot",     drops:"Promethium lockbox", faction:"Both"});
-  armorCollection.push({name:"Tunic of the Lethal Zealot",          type:"Legs",      role:"DPS", style:"Lethal Zealot",     drops:"Promethium lockbox", faction:"Both"});
-  armorCollection.push({name:"Chestplate of the Master Mercenary",  type:"Chest",     role:"DPS", style:"Master Mercenary",  drops:"Promethium lockbox", faction:"Both"});
-  armorCollection.push({name:"Helm of the Master Mercenary",        type:"Head",      role:"DPS", style:"Master Mercenary",  drops:"Promethium lockbox", faction:"Both"});
-  armorCollection.push({name:"Chestguard of the Stalwart Defender", type:"Chest",     role:"DPS", style:"Stalwart Defender", drops:"Promethium lockbox", faction:"Both"});
+  // DCL8 Sons of Trigon (08/28/2013) added new gear
+  armorCollection.push({name:"Manipulative Carapace Guantlets",       type:"Hands",     role:"Controller", style:"Demonic",           drops:"Jacob in T5 Tunnel of Love duo",                                          faction:"Both", level:83});
+  armorCollection.push({name:"Manipulative Carapace Sabatons",        type:"Feet",      role:"Controller", style:"Demonic",           drops:"Fanatic of Lust in T5 Tunnel of Love duo",                                faction:"Both", level:83});
+  armorCollection.push({name:"Cunning Arthropod Wings",               type:"Back",      role:"Controller", style:"Insectoid",         drops:"Greater Lust Demon in T5 Tunnel of Love duo",                             faction:"Both", level:81});
+  armorCollection.push({name:"Zen Gi",                                type:"Chest",     role:"Controller", style:"Kung-Fu Gi",        drops:"Greater Lust Demon in T5 Tunnel of Love duo",                             faction:"Both", level:81});
+  armorCollection.push({name:"Divine Legplates of Retribution",       type:"Legs",      role:"DPS",        style:"Rapture",           drops:"Fanatic of Lust in T5 Tunnel of Love duo",                                faction:"Both", level:83});
+  armorCollection.push({name:"Divine Wings of Retribution",           type:"Back",      role:"DPS",        style:"Rapture",           drops:"Cheetah in T5 Tunnel of Love duo",                                        faction:"Both", level:83});
+  armorCollection.push({name:"Divine Gauntlets of Retribution",       type:"Hands",     role:"DPS",        style:"Rapture",           drops:"Cheetah in T5 Tunnel of Love duo",                                        faction:"Both", level:83});
 
   // DLC7 Origin Crisis (05/08/2013) added new gear for two new challenges with old styles, 2 new alerts, 2 new raids
 
@@ -9216,27 +9296,46 @@ function isAccessory(lineString)
   armorCollection.push({name:"Pants of the 25th Century",             type:"Legs",      role:"DPS",        style:"Time Traveler",     drops:"Jor El in Brothers in Arms operation",                                    faction:"Both", level:87});
   armorCollection.push({name:"Helmet of the 25th Century",            type:"Head",      role:"DPS",        style:"Time Traveler",     drops:"Santo Cassamento in Huntress challenge",                                  faction:"Both", health:290, power:96, precision:62, might:139, restoration:24, vitalization:16, defense:400, level:83});
   armorCollection.push({name:"Shoulderpads of the 25th Century",      type:"Shoulders", role:"DPS",        style:"Time Traveler",     drops:"LexCorp Heavy Mech in 1 Player Tier 5 Bizarro challenge Test Subject #1", faction:"Both", level:83});
-  armorCollection.push({name:"Gloves of the 25th Century",            type:"Hands",     role:"DPS",        style:"Time Traveler",     drops:"",                                                                        faction:"Both", level:88});
-  armorCollection.push({name:"Belt of the 25th Century",              type:"Waist",     role:"DPS",        style:"Time Traveler",     drops:"",                                                                        faction:"Both", level:87});
-  armorCollection.push({name:"Boots of the 25th Century",             type:"Feet",      role:"DPS",        style:"Time Traveler",     drops:"",                                                                        faction:"Both", level:87});
+  armorCollection.push({name:"Gloves of the 25th Century",            type:"Hands",     role:"DPS",        style:"Time Traveler",     drops:"T5 (Origin Crisis) content",                                              faction:"Both", level:88});
+  armorCollection.push({name:"Belt of the 25th Century",              type:"Waist",     role:"DPS",        style:"Time Traveler",     drops:"T5 (Origin Crisis) content",                                              faction:"Both", level:87});
+  armorCollection.push({name:"Boots of the 25th Century",             type:"Feet",      role:"DPS",        style:"Time Traveler",     drops:"T5 (Origin Crisis) content",                                              faction:"Both", level:87});
   armorCollection.push({name:"Backpack of the 25th Century",          type:"Back",      role:"DPS",        style:"Time Traveler",     drops:"Jor El in Brothers in Arms operation",                                    faction:"Both"});
 
-  armorCollection.push({name:"Electroplated Shirt of Striking",       type:"Chest",     role:"DPS",        style:"Traces in Time",    drops:"",                                                                        faction:"Both", level:87});
-  armorCollection.push({name:"Electroplated Tights of Striking",      type:"Legs",      role:"DPS",        style:"Traces in Time",    drops:"",                                                                        faction:"Both", level:87});
-  armorCollection.push({name:"Electroplated Shoulders of Striking",   type:"Shoulders", role:"DPS",        style:"Traces in Time",    drops:"",                                                                        faction:"Both", level:87});
-  armorCollection.push({name:"Electroplated Gloves of Striking",      type:"Hands",     role:"DPS",        style:"Traces in Time",    drops:"",                                                                        faction:"Both", level:87});
-  armorCollection.push({name:"Electroplated Belt of Striking",        type:"Waist",     role:"DPS",        style:"Traces in Time",    drops:"",                                                                        faction:"Both", level:88});
-  armorCollection.push({name:"Electroplated Boots of Striking",       type:"Feet",      role:"DPS",        style:"Traces in Time",    drops:"",                                                                        faction:"Both", level:87});
-  armorCollection.push({name:"Electroplated Cape of Striking",        type:"Back",      role:"DPS",        style:"Traces in Time",    drops:"",                                                                        faction:"Both", level:87});
+  armorCollection.push({name:"Electroplated Shirt of Striking",       type:"Chest",     role:"DPS",        style:"Traces in Time",    drops:"Nexus of Reality raid",                                                   faction:"Both", level:87});
+  armorCollection.push({name:"Electroplated Tights of Striking",      type:"Legs",      role:"DPS",        style:"Traces in Time",    drops:"Nexus of Reality raid",                                                   faction:"Both", level:87});
+  armorCollection.push({name:"Electroplated Cowl of Striking",        type:"Head",      role:"DPS",        style:"Traces in Time",    drops:"Nexus of Reality raid",                                                   faction:"Both", level:87});
+  armorCollection.push({name:"Electroplated Shoulders of Striking",   type:"Shoulders", role:"DPS",        style:"Traces in Time",    drops:"Nexus of Reality raid",                                                   faction:"Both", level:87});
+  armorCollection.push({name:"Electroplated Gloves of Striking",      type:"Hands",     role:"DPS",        style:"Traces in Time",    drops:"Paradox Wave raid",                                                       faction:"Both", level:88});
+  armorCollection.push({name:"Electroplated Belt of Striking",        type:"Waist",     role:"DPS",        style:"Traces in Time",    drops:"Paradox Wave raid",                                                       faction:"Both", level:88});
+  armorCollection.push({name:"Electroplated Boots of Striking",       type:"Feet",      role:"DPS",        style:"Traces in Time",    drops:"Paradox Wave raid",                                                       faction:"Both", level:88});
+  armorCollection.push({name:"Electroplated Cape of Striking",        type:"Back",      role:"DPS",        style:"Traces in Time",    drops:"Paradox Wave raid",                                                       faction:"Both", level:88});
 
-  armorCollection.push({name:"Electroplated Tights of Focus",         type:"Legs",      role:"DPS",        style:"Traces in Time",    drops:"",                                                                        faction:"Both", level:87});
-  armorCollection.push({name:"Electroplated Cape of Focus",           type:"Back",      role:"DPS",        style:"Traces in Time",    drops:"",                                                                        faction:"Both", level:87});
+  armorCollection.push({name:"Electroplated Shirt of Focus",          type:"Chest",     role:"DPS",        style:"Traces in Time",    drops:"Nexus of Reality raid",                                                   faction:"Both", level:87});
+  armorCollection.push({name:"Electroplated Tights of Focus",         type:"Legs",      role:"DPS",        style:"Traces in Time",    drops:"Nexus of Reality raid",                                                   faction:"Both", level:87});
+  armorCollection.push({name:"Electroplated Cowl of Focus",           type:"Head",      role:"DPS",        style:"Traces in Time",    drops:"Nexus of Reality raid",                                                   faction:"Both", level:87});
+  armorCollection.push({name:"Electroplated Shoulders of Focus",      type:"Shoulders", role:"DPS",        style:"Traces in Time",    drops:"Nexus of Reality raid",                                                   faction:"Both", level:87});
+  armorCollection.push({name:"Electroplated Gloves of Focus",         type:"Hands",     role:"DPS",        style:"Traces in Time",    drops:"Paradox Wave raid",                                                       faction:"Both", level:88});
+  armorCollection.push({name:"Electroplated Belt of Focus",           type:"Waist",     role:"DPS",        style:"Traces in Time",    drops:"Paradox Wave raid",                                                       faction:"Both", level:88});
+  armorCollection.push({name:"Electroplated Boots of Focus",          type:"Feet",      role:"DPS",        style:"Traces in Time",    drops:"Paradox Wave raid",                                                       faction:"Both", level:88});
+  armorCollection.push({name:"Electroplated Cape of Focus",           type:"Back",      role:"DPS",        style:"Traces in Time",    drops:"Paradox Wave raid",                                                       faction:"Both", level:88});
 
-  armorCollection.push({name:"Electroplated Tights of Restoration",   type:"Legs",      role:"Healer",     style:"Traces in Time",    drops:"",                                                                        faction:"Both", level:87});
+  armorCollection.push({name:"Electroplated Shirt of Restoration",    type:"Chest",     role:"Healer",     style:"Traces in Time",    drops:"Nexus of Reality raid",                                                   faction:"Both", level:87});
+  armorCollection.push({name:"Electroplated Tights of Restoration",   type:"Legs",      role:"Healer",     style:"Traces in Time",    drops:"Nexus of Reality raid",                                                   faction:"Both", level:87});
+  armorCollection.push({name:"Electroplated Cowl of Restoration",     type:"Head",      role:"Healer",     style:"Traces in Time",    drops:"Nexus of Reality raid",                                                   faction:"Both", level:87});
+  armorCollection.push({name:"Electroplated Shoulders of Restoration",type:"Shoulders", role:"Healer",     style:"Traces in Time",    drops:"Nexus of Reality raid",                                                   faction:"Both", level:87});
+  armorCollection.push({name:"Electroplated Gloves of Restoration",   type:"Hands",     role:"Healer",     style:"Traces in Time",    drops:"Paradox Wave raid",                                                       faction:"Both", level:88});
+  armorCollection.push({name:"Electroplated Belt of Restoration",     type:"Waist",     role:"Healer",     style:"Traces in Time",    drops:"Paradox Wave raid",                                                       faction:"Both", level:88});
+  armorCollection.push({name:"Electroplated Boots of Restoration",    type:"Feet",      role:"Healer",     style:"Traces in Time",    drops:"Paradox Wave raid",                                                       faction:"Both", level:88});
+  armorCollection.push({name:"Electroplated Cape of Restoration",     type:"Back",      role:"Healer",     style:"Traces in Time",    drops:"Paradox Wave raid",                                                       faction:"Both", level:88});
 
-  armorCollection.push({name:"Electroplated Tights of Manipulation",  type:"Legs",      role:"Controller", style:"Traces in Time",    drops:"",                                                                        faction:"Both", health:398, power:201, precision:30, might:67, restoration:73, vitalization:132, dominance:55, defense:586, level:87});
-  armorCollection.push({name:"Electroplated Boots of Manipulation",   type:"Feet",      role:"Controller", style:"Traces in Time",    drops:"Paradox Wave raid",                                                       faction:"Both", level:87});
-  armorCollection.push({name:"Electroplated Cape of Manipulation",    type:"Back",      role:"Controller", style:"Traces in Time",    drops:"",                                                                        faction:"Both", level:87});
+  armorCollection.push({name:"Electroplated Shirt of Manipulation",    type:"Chest",    role:"Controller", style:"Traces in Time",    drops:"Nexus of Reality raid",                                                   faction:"Both", level:87});
+  armorCollection.push({name:"Electroplated Tights of Manipulation",   type:"Legs",     role:"Controller", style:"Traces in Time",    drops:"Nexus of Reality raid",                                                   faction:"Both", level:87});
+  armorCollection.push({name:"Electroplated Cowl of Manipulation",     type:"Head",     role:"Controller", style:"Traces in Time",    drops:"Nexus of Reality raid",                                                   faction:"Both", level:87});
+  armorCollection.push({name:"Electroplated Shoulders of Manipulation",type:"Shoulders",role:"Controller", style:"Traces in Time",    drops:"Nexus of Reality raid",                                                   faction:"Both", level:87});
+  armorCollection.push({name:"Electroplated Gloves of Manipulation",   type:"Hands",    role:"Controller", style:"Traces in Time",    drops:"Paradox Wave raid",                                                       faction:"Both", level:88});
+  armorCollection.push({name:"Electroplated Belt of Manipulation",     type:"Waist",    role:"Controller", style:"Traces in Time",    drops:"Paradox Wave raid",                                                       faction:"Both", level:88});
+  armorCollection.push({name:"Electroplated Boots of Manipulation",    type:"Feet",     role:"Controller", style:"Traces in Time",    drops:"Paradox Wave raid",                                                       faction:"Both", level:88});
+  armorCollection.push({name:"Electroplated Cape of Manipulation",     type:"Back",     role:"Controller", style:"Traces in Time",    drops:"Paradox Wave raid",                                                       faction:"Both", level:88});
 
   armorCollection.push({name:"Regimented Shoes",                      type:"Feet",      role:"Controller", style:"Alien Tech",         drops:"",                                                                       faction:"Both", level:87});
 
@@ -9251,6 +9350,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Improvised Shoulderpads",               type:"Shoulders", role:"DPS",        style:"Biker",             drops:"LexCorp Sentinel in 1 Player Tier 5 Challenge Test Subject #1",           faction:"Both", level:81});
   armorCollection.push({name:"Rally Pads of Security",                type:"Shoulders", role:"Tank",       style:"Biker",             drops:"LexCorp Sentinel in 1 Player Tier 5 Challenge Test Subject #1",           faction:"Both", level:81});
   armorCollection.push({name:"Soothsayer's Rally Pads",               type:"Shoulders", role:"Healer",     style:"Biker",             drops:"LexCorp Sentinel in 1 Player Tier 5 Challenge Test Subject #1",           faction:"Both", level:81});
+  armorCollection.push({name:"Vagabond's Rally Pads",                 type:"Shoulders", role:"DPS",        style:"Biker",             drops:"LexCorp Sentinel in 1 Player Tier 5 Challenge Test Subject #1",           faction:"Both", level:81});
 
   armorCollection.push({name:"Armored Back Plates",                   type:"Back",      role:"Controller", style:"Biomech",           drops:"Bane in 1 Player Tier 5 Challenge The Hunt",                              faction:"Both", level:82});
   armorCollection.push({name:"Bio-Engineered Torso Enhancements",     type:"Back",      role:"Controller", style:"Biomech",           drops:"Paradox Prowler in T5 Operation Family Reunion",                          faction:"Both", level:82});
@@ -9289,6 +9389,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Cuirass of the Fallen Protector",       type:"Chest",     role:"Tank",       style:"Fourth World",      drops:"",                                                                        faction:"Both", level:86});
 
   armorCollection.push({name:"Shoes of Bombardment",                  type:"Feet",      role:"Tank",       style:"Heartshard",        drops:"",                                                                        faction:"Both", level:87});
+  armorCollection.push({name:"Girdle of Revitalization",              type:"Waist",     role:"Healer",     style:"Heartshard",        drops:"",                                                                        faction:"Both", level:85});
 
   armorCollection.push({name:"Sharp Stone Shoulderguards",            type:"Shoulders", role:"DPS",        style:"Hijacked Servitor", drops:"",                                                                        faction:"Both", level:85});
 
@@ -9296,10 +9397,11 @@ function isAccessory(lineString)
   armorCollection.push({name:"Cunning Arthropod Wings",               type:"Back",      role:"Controller", style:"Insectoid",         drops:"Johnny Blowtorch in 1 Player Tier 5 Challenge The Hunt",                  faction:"Both", level:81});
   armorCollection.push({name:"Exoskeleton Wings",                     type:"Back",      role:"DPS",        style:"Insectoid",         drops:"Johnny Blowtorch in 1 Player Tier 5 Challenge The Hunt",                  faction:"Both", level:81});
   armorCollection.push({name:"Healing Hexapoda Wings",                type:"Back",      role:"Healer",     style:"Insectoid",         drops:"Johnny Blowtorch in 1 Player Tier 5 Challenge The Hunt",                  faction:"Both", level:81});
-  armorCollection.push({name:"Odonata Waistguard",                    type:"Waist",     role:"DPS",        style:"Insectoid",         drops:"",                                                                        faction:"Both", level:81});
+  armorCollection.push({name:"Odonata Waistguard",                    type:"Waist",     role:"DPS",        style:"Insectoid",         drops:"Metallo, Parasite, Felix Faust in T5 4 person alert",                     faction:"Both", level:81});
   armorCollection.push({name:"Odonata Gloves",                        type:"Hands",     role:"DPS",        style:"Insectoid",         drops:"Paradox Eradicator in T5 operation",                                      faction:"Both"});
   armorCollection.push({name:"Odonata Legplates",                     type:"Legs",      role:"DPS",        style:"Insectoid",         drops:"Paradox Prowler in T5 operation",                                         faction:"Both"});
   armorCollection.push({name:"Odonata Wings",                         type:"Back",      role:"DPS",        style:"Insectoid",         drops:"T5 Challenge",                                                            faction:"Both", level:82});
+  armorCollection.push({name:"Odonata Shoulderplates",                type:"Shoulders", role:"DPS",        style:"Insectoid",         drops:"LexCorp Heavy Mech in 1 Player Tier 5 Bizarro challenge Test Subject #1", faction:"Both", level:82});
   armorCollection.push({name:"Stinging Hexapoda Wings",               type:"Back",      role:"DPS",        style:"Insectoid",         drops:"Johnny Blowtorch in 1 Player Tier 5 Challenge The Hunt",                  faction:"Both", level:81});
   armorCollection.push({name:"Stinging Bee's Legplates",              type:"Legs",      role:"DPS",        style:"Insectoid",         drops:"",                                                                        faction:"Both", level:82});
   armorCollection.push({name:"Stinging Bee's Wings",                  type:"Back",      role:"DPS",        style:"Insectoid",         drops:"Santo Cassamento, Killer Croc in 1 Player Tier 5 Challenge The Hunt",     faction:"Both", level:82});
@@ -9326,16 +9428,19 @@ function isAccessory(lineString)
   armorCollection.push({name:"Terasaka no Kogake",                    type:"Feet",      role:"Controller", style:"Kabuki",            drops:"LexCorp Heavy Mech in 1 Player Tier 5 Challenge Test Subject #1",         faction:"Both", level:83});
 
   armorCollection.push({name:"Gi of the Tiger Style",                 type:"Chest",     role:"DPS",        style:"Kung-Fu Gi",        drops:"",                                                                        faction:"Both", level:86});
-  armorCollection.push({name:"Scratched Assassin's Cuirass",          type:"Chest",     role:"DPS",        style:"Kung-Fu Gi",        drops:"",                                                                        faction:"Both", level:86});
+  armorCollection.push({name:"Scratched Assassin's Cuirass",          type:"Chest",     role:"DPS",        style:"Kung-Fu Gi",        drops:"T5 operation",                                                            faction:"Both", level:86});
 
   armorCollection.push({name:"Spec-Assault Shoes",                    type:"Feet",      role:"DPS",        style:"Mayan",             drops:"",                                                                        faction:"Both", level:87});
   armorCollection.push({name:"Auto-Stabilizing Combatant's Boots",    type:"Feet",      role:"DPS",        style:"Mayan",             drops:"",                                                                        faction:"Both", level:87});
   armorCollection.push({name:"Cuirass of Discipline",                 type:"Chest",     role:"Controller", style:"Mayan",             drops:"",                                                                        faction:"Both", level:86});
+  armorCollection.push({name:"Curative Leggings",                     type:"Legs",      role:"Healer",     style:"Mayan",             drops:"",                                                                        faction:"Both", level:85});
 
   armorCollection.push({name:"Heralded Protector's Cape",             type:"Back",      role:"Tank",       style:"Metalhead",         drops:"",                                                                        faction:"Both", level:85});
 
   armorCollection.push({name:"Breastplate of the Watch",              type:"Chest",     role:"DPS",        style:"Military Tech",     drops:"",                                                                        faction:"Both", level:85});
 
+  armorCollection.push({name:"Bone Armored Helmet",                   type:"Head",      role:"Tank",       style:"Necromancer",       drops:"BIA operation",                                                           faction:"Both", level:83});
+  armorCollection.push({name:"Bone-Reinforced Chestplate",            type:"Chest",     role:"Tank",       style:"Necromancer",       drops:"Santo Cassamento in 1 Player Tier 5 Challenge The Hunt",                  faction:"Both", level:83});
   armorCollection.push({name:"Bone Warden's Gloves",                  type:"Hands",     role:"Tank",       style:"Necromancer",       drops:"Batman in T5 Operation Family Reunion",                                   faction:"Both", level:83});
   armorCollection.push({name:"Mantle of the Slayer",                  type:"Shoulders", role:"DPS",        style:"Necromancer",       drops:"",                                                                        faction:"Both", level:87});
   armorCollection.push({name:"Skull Armored Boots",                   type:"Feet",      role:"Tank",       style:"Necromancer",       drops:"LexCorp Heavy Mech in 1 Player Tier 5 Challenge Test Subject #1",         faction:"Both", level:83});
@@ -9347,16 +9452,21 @@ function isAccessory(lineString)
   armorCollection.push({name:"Mastermind's Sadface Belt",             type:"Waist",     role:"Controller", style:"Psycho",            drops:"Paradox Eradicator in 4 person Operation Brothers in Arms",               faction:"Both", level:81});
   armorCollection.push({name:"Sash of the Channeler",                 type:"Waist",     role:"Healer",     style:"Psycho",            drops:"",                                                                        faction:"Both", level:86});
   armorCollection.push({name:"Watcher's Sash",                        type:"Waist",     role:"Controller", style:"Psycho",            drops:"",                                                                        faction:"Both", level:86});
+  armorCollection.push({name:"Foot Wraps of Flowing Sand",            type:"Feet",      role:"Controller", style:"Psycho",            drops:"",                                                                        faction:"Both", level:85});
 
   armorCollection.push({name:"Shielded Plate Gloves",                 type:"Hands",     role:"DPS",        style:"Robotic",           drops:"",                                                                        faction:"Both", level:85});
 
   armorCollection.push({name:"Rebuilder's Cuirass",                   type:"Chest",     role:"Healer",     style:"Sector Agent",      drops:"",                                                                        faction:"Both", level:86});
+
+  armorCollection.push({name:"Longspike Shoulders",                   type:"Shoulders", role:"DPS",        style:"Sector Incendiary", drops:"",                                                                        faction:"Both", level:84});
 
   armorCollection.push({name:"Mantle of the Mender",                  type:"Shoulders", role:"Healer",     style:"Seraph",            drops:"",                                                                        faction:"Both", level:87});
   armorCollection.push({name:"New Angel's Wings",                     type:"Back",      role:"DPS",        style:"Seraph",            drops:"",                                                                        faction:"Both", level:85});
 
   armorCollection.push({name:"Operative's Assault Girdle",            type:"Waist",     role:"DPS",        style:"Shielded Robot",    drops:"",                                                                        faction:"Both", level:85});
   armorCollection.push({name:"Recirculating Waistband",               type:"Waist",     role:"DPS",        style:"Shielded Robot",    drops:"",                                                                        faction:"Both", level:85});
+
+  armorCollection.push({name:"Guard Captain's Cape",                  type:"Back",      role:"DPS",        style:"Snake",             drops:"T5 operation",                                                            faction:"Both", level:85});
 
   armorCollection.push({name:"Gloves of the Puppeteer",               type:"Hands",     role:"Controller", style:"Steampunk",         drops:"",                                                                        faction:"Both", level:85});
 
@@ -9377,13 +9487,14 @@ function isAccessory(lineString)
   armorCollection.push({name:"Chestguard of the Nordsman",            type:"Chest",     role:"DPS",        style:"Viking",            drops:"",                                                                        faction:"Both", level:83});
   armorCollection.push({name:"Skaldic Leather Pants",                 type:"Legs",      role:"DPS",        style:"Viking",            drops:"",                                                                        faction:"Both", level:83});
   armorCollection.push({name:"Skaldic Helm",                          type:"Head",      role:"DPS",        style:"Viking",            drops:"1 Player Tier 5 Challenge Test Subject #1",                               faction:"Both", level:83});
-  armorCollection.push({name:"Hammered Shoulderplates",               type:"Shoulders", role:"DPS",        style:"Viking",            drops:"T5 Operation Brothers in Arms",                                           faction:"Both", level:83});
+  armorCollection.push({name:"Hammered Shoulderplates",               type:"Shoulders", role:"DPS",        style:"Viking",            drops:"Captain N'ee in T5 Operation Brothers in Arms",                                           faction:"Both", level:83});
   armorCollection.push({name:"Skaldic Gauntlets",                     type:"Hands",     role:"DPS",        style:"Viking",            drops:"",                                                                        faction:"Both", level:83});
-  armorCollection.push({name:"Clasp of the Pillager",                 type:"Waist",     role:"DPS",        style:"Viking",            drops:"",                                                                        faction:"Both", level:83});
+  armorCollection.push({name:"Clasp of the Pillager",                 type:"Waist",     role:"DPS",        style:"Viking",            drops:"Lex Luthor in Brothers in Arms Operation",                                faction:"Both", level:83});
   armorCollection.push({name:"Medieval Pouched Belt",                 type:"Waist",     role:"DPS",        style:"Viking",            drops:"Superman in T5 Operation",                                                faction:"Both", level:83});
   armorCollection.push({name:"Boots of the Pillager",                 type:"Feet",      role:"DPS",        style:"Viking",            drops:"LexCorp Heavy Mech in Bizarro challenge",                                 faction:"Both", level:83});
   armorCollection.push({name:"Skaldic Fur-Lined Boots",               type:"Feet",      role:"DPS",        style:"Viking",            drops:"LexCorp Heavy Mech in 1 Player Tier 5 Challenge Test Subject #1",         faction:"Both", level:83});
   armorCollection.push({name:"Rejuvenator's Sacred Cape",             type:"Back",      role:"Healer",     style:"Viking",            drops:"",                                                                        faction:"Both", level:85});
+  armorCollection.push({name:"Nordsman's Legwraps",                   type:"Legs",      role:"DPS",        style:"Viking",            drops:"Lex Luthor final boss in FR operation",                                   faction:"Both", level:83});
 
   armorCollection.push({name:"Refreshing Shoulderguards",             type:"Shoulders", role:"Healer",     style:"Wizardly",          drops:"",                                                                        faction:"Both", level:85});
 
@@ -9397,7 +9508,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Dirty-Fighting Ring",                   type:"Ring",      role:"DPS",        style:"",                  drops:"",                                                                        faction:"Both", health:144, power:48, precision:36, might:59, restoration:24, vitalization:16, dominance:0,  defense:0,   level:87});
   armorCollection.push({name:"Doctor's Jeweled Ring",                 type:"Ring",      role:"Healer",     style:"",                  drops:"",                                                                        faction:"Both", health:106, power:52, precision:7,  might:13, restoration:50, vitalization:4,  dominance:0,  defense:0,   level:82});
   armorCollection.push({name:"Family Heirloom Ring",                  type:"Ring",      role:"DPS",        style:"",                  drops:"Paradox Eradicator in Family Reunion T5 Operation",                       faction:"Both", health:98,  power:33, precision:21, might:47, restoration:6,  vitalization:4,  dominance:0,  defense:0,   level:82});
-  armorCollection.push({name:"Gem of Focused Might",                  type:"Ring",      role:"DPS",        style:"",                  drops:"",                                                                        faction:"Both", health:105, power:35, precision:22, might:51, restoration:9,  vitalization:6,  dominance:0,  defense:0,   level:83});
+  armorCollection.push({name:"Gem of Focused Might",                  type:"Ring",      role:"DPS",        style:"",                  drops:"Jor-El in Brothers in Arms T5 Operation",                                 faction:"Both", health:105, power:35, precision:22, might:51, restoration:9,  vitalization:6,  dominance:0,  defense:0,   level:83});
   armorCollection.push({name:"Gem of Foresight",                      type:"Ring",      role:"Controller", style:"",                  drops:"",                                                                        faction:"Both", health:97,  power:49, precision:7,  might:14, restoration:9,  vitalization:33, dominance:13, defense:0,   level:83});
   armorCollection.push({name:"Gem of Resistance",                     type:"Ring",      role:"Tank",       style:"",                  drops:"Jor-El in Brothers in Arms T5 Operation",                                 faction:"Both", health:164, power:21, precision:7,  might:14, restoration:9,  vitalization:6,  dominance:10, defense:78,  level:83});
   armorCollection.push({name:"Jewel of Clarity",                      type:"Ring",      role:"DPS",        style:"",                  drops:"",                                                                        faction:"Both", health:105, power:35, precision:26, might:41, restoration:9,  vitalization:6,  dominance:0,  defense:0,   level:83});
@@ -9415,9 +9526,10 @@ function isAccessory(lineString)
   armorCollection.push({name:"Amulet of Determination",               type:"Neck",      role:"DPS",        style:"",                  drops:"",                                                                        faction:"Both", health:133, power:44, precision:33, might:51, restoration:11, vitalization:7,  dominance:0,  defense:0,  level:83});
   armorCollection.push({name:"Choker of Control",                     type:"Neck",      role:"Controller", style:"",                  drops:"",                                                                        faction:"Both", health:122, power:61, precision:9,  might:18, restoration:11, vitalization:40, dominance:17, defense:0,  level:83});
   armorCollection.push({name:"Defender's Toothed Necklace",           type:"Neck",      role:"Tank",       style:"",                  drops:"Johnny Blowtorch in 1 Player Tier 5 Challenge The Hunt",                  faction:"Both", health:176, power:23, precision:8,  might:15, restoration:3,  vitalization:2,  dominance:11, defense:84, level:81});
+  armorCollection.push({name:"G.I.'s Keepsake",                       type:"Neck",      role:"DPS",        style:"",                  drops:"Paradox Prowler, Altered Nexus Drone",                                                                        faction:"Both", health:122, power:41, precision:26, might:59, restoration:7,  vitalization:5,  dominance:0,  defense:0,  level:82});
   armorCollection.push({name:"Mana-Infused Necklace of Aggression",   type:"Neck",      role:"DPS",        style:"",                  drops:"T5 Raid",                                                                 faction:"Both", health:180, power:60, precision:38, might:89, restoration:30, vitalization:20, dominance:0,  defense:0,  level:87});
   armorCollection.push({name:"Mana-Infused Necklace of Striking",     type:"Neck",      role:"DPS",        style:"",                  drops:"",                                                                        faction:"Both", health:180, power:60, precision:44, might:72, restoration:30, vitalization:20, dominance:0,  defense:0,  level:87});
-  armorCollection.push({name:"Manipulator's Pendant",                 type:"Neck",      role:"Controller", style:"",                  drops:"",                                                                        faction:"Both", health:113, power:57, precision:8,  might:17, restoration:7,  vitalization:37, dominance:16, defense:0,  level:82});
+  armorCollection.push({name:"Manipulator's Pendant",                 type:"Neck",      role:"Controller", style:"",                  drops:"Paradox Prowler in T5 Operation",                                         faction:"Both", health:113, power:57, precision:8,  might:17, restoration:7,  vitalization:37, dominance:16, defense:0,  level:82});
   armorCollection.push({name:"Pendant of Precision",                  type:"Neck",      role:"DPS",        style:"",                  drops:"Johnny Blowtorch in 1 Player Tier 5 Challenge The Hunt",                  faction:"Both", health:113, power:38, precision:28, might:44, restoration:3,  vitalization:2,  dominance:0,  defense:0,  level:81});
   armorCollection.push({name:"Pendant of Regrowth",                   type:"Neck",      role:"Healer",     style:"",                  drops:"",                                                                        faction:"Both", health:166, power:82, precision:11, might:24, restoration:90, vitalization:13, dominance:0,  defense:0,  level:85});
   armorCollection.push({name:"Pendant of Sorrow",                     type:"Neck",      role:"DPS",        style:"",                  drops:"",                                                                        faction:"Both", health:154, power:51, precision:38, might:63, restoration:20, vitalization:13, dominance:0,  defense:0,  level:85});
@@ -9428,28 +9540,41 @@ function isAccessory(lineString)
   armorCollection.push({name:"Toothed Necklace of Stamina",           type:"Neck",      role:"Controller", style:"",                  drops:"Johnny Blowtorch in 1 Player Tier 5 Challenge The Hunt",                  faction:"Both", health:104, power:53, precision:8,  might:15, restoration:3,  vitalization:34, dominance:14, defense:0,  level:81});
   armorCollection.push({name:"Warden's Amulet",                       type:"Neck",      role:"Tank",       style:"",                  drops:"",                                                                        faction:"Both", health:191, power:24, precision:8,  might:17, restoration:7,  vitalization:5,  dominance:12, defense:90, level:82});
 
+  armorCollection.push({name:"High-Tech Doctor's Facemask",           type:"Face",      role:"Healer",     style:"Gas Ventilator",     drops:"",                                        faction:"Both", health:85,  power:42, precision:5,  might:11, restoration:43, vitalization:4,  dominance:0,  defense:62,  toughness:0, level:83});
+
   armorCollection.push({name:"Duelist's Glasses",                     type:"Face",      role:"DPS",        style:"Riveted Ventilator", drops:"Paradox Eradicator in T5 Operation",      faction:"Both", health:0,   power:0,  precision:0,  might:0,  restoration:0,  vitalization:0,  dominance:0,  defense:0,   toughness:0, level:82});
   armorCollection.push({name:"Explorer's Mask of Aggression",         type:"Face",      role:"DPS",        style:"Classic",            drops:"",                                        faction:"Both", health:117, power:39, precision:25, might:58, restoration:22, vitalization:14, dominance:0,  defense:90,  toughness:0, level:88});
+  armorCollection.push({name:"Explorer's Mask of Protection",         type:"Face",      role:"Tank",       style:"Classic",            drops:"T5 (Origin Crisis) content",              faction:"Both", health:168, power:21, precision:7,  might:17, restoration:18, vitalization:12, dominance:10, defense:163, toughness:0, level:87});
+  armorCollection.push({name:"Explorer's Mask of Regeneration",       type:"Face",      role:"Healer",     style:"Classic",            drops:"T5 (Origin Crisis) content",              faction:"Both", health:116, power:57, precision:7,  might:17, restoration:67, vitalization:12, dominance:0,  defense:84,  toughness:0, level:87});
   armorCollection.push({name:"Explorer's Mask of Striking",           type:"Face",      role:"DPS",        style:"Classic",            drops:"",                                        faction:"Both", health:108, power:36, precision:26, might:44, restoration:18, vitalization:12, dominance:0,  defense:84,  toughness:0, level:87});
   armorCollection.push({name:"Faceguard of Regrowth",                 type:"Face",      role:"Healer",     style:"Druid",              drops:"",                                        faction:"Both", health:99,  power:49, precision:6,  might:15, restoration:54, vitalization:8,  dominance:0,  defense:72,  toughness:0, level:85});
   armorCollection.push({name:"Faceguard of the Mercenary",            type:"Face",      role:"DPS",        style:"Druid",              drops:"",                                        faction:"Both", health:92,  power:31, precision:19, might:47, restoration:12, vitalization:8,  dominance:0,  defense:72,  toughness:0, level:85});
+  armorCollection.push({name:"Front-Line Combatant's Mask",           type:"Face",      role:"DPS",        style:"Riveted Ventilator", drops:"T5 (Origin Crisis) content",              faction:"Both", health:74,  power:24, precision:16, might:36, restoration:4,  vitalization:3,  dominance:0,  defense:57,  toughness:0, level:82});
   armorCollection.push({name:"Lifetaker's Glasses",                   type:"Face",      role:"DPS",        style:"Business",           drops:"",                                        faction:"Both", health:92,  power:31, precision:22, might:38, restoration:12, vitalization:8,  dominance:0,  defense:0,   toughness:0, level:85});
-  armorCollection.push({name:"Mask of the Unheard",                   type:"Face",      role:"Controller", style:"Riveted Ventilator", drops:"",                                        faction:"Both", health:68,  power:34, precision:5,  might:10, restoration:4,  vitalization:22, dominance:9,  defense:57,  toughness:0, level:82});
+  armorCollection.push({name:"Mask of the Unheard",                   type:"Face",      role:"Controller", style:"Riveted Ventilator", drops:"Paradox Eradicator in T5 Operation",      faction:"Both", health:68,  power:34, precision:5,  might:10, restoration:4,  vitalization:22, dominance:9,  defense:57,  toughness:0, level:82});
   armorCollection.push({name:"Physician's Rebreather",                type:"Face",      role:"Healer",     style:"Riveted Ventilator", drops:"Brothers in Arms T5 Operation",           faction:"Both", health:79,  power:39, precision:5,  might:10, restoration:37, vitalization:3,  dominance:0,  defense:57,  toughness:0, level:81});
   armorCollection.push({name:"Reinforced Facemask",                   type:"Face",      role:"Tank",       style:"Gas Ventilator",     drops:"Jor-El in Brothers in Arms T5 Operation", faction:"Both", health:123, power:16, precision:5,  might:11, restoration:7,  vitalization:4,  dominance:8,  defense:120, toughness:0, level:83});
+  armorCollection.push({name:"Sand-Etched Faceguard",                 type:"Face",      role:"Controller", style:"Druid",              drops:"",                                        faction:"Both", health:85,  power:43, precision:6,  might:15, restoration:12, vitalization:29, dominance:12, defense:72,  toughness:0, level:85});
   armorCollection.push({name:"Security Mask",                         type:"Face",      role:"Tank",       style:"Riveted Ventilator", drops:"Paradox X in T5 Operation",               faction:"Both", health:115, power:15, precision:0,  might:10, restoration:4,  vitalization:3,  dominance:7,  defense:111, toughness:0, level:82});
   armorCollection.push({name:"Stoic Faceguard",                       type:"Face",      role:"Tank",       style:"Druid",              drops:"",                                        faction:"Both", health:0,   power:0,  precision:0,  might:0,  restoration:0,  vitalization:0,  dominance:0,  defense:0,   toughness:0, level:85});
   armorCollection.push({name:"Striker's Facemask",                    type:"Face",      role:"DPS",        style:"Gas Ventilator",     drops:"Jor-El in Brothers in Arms T5 Operation", faction:"Both", health:79,  power:26, precision:16, might:38, restoration:7,  vitalization:4,  dominance:0,  defense:62,  toughness:0, level:83});
   armorCollection.push({name:"Tactical Facemask",                     type:"Face",      role:"Controller", style:"Gas Ventilator",     drops:"",                                        faction:"Both", health:73,  power:37, precision:5,  might:11, restoration:7,  vitalization:25, dominance:10, defense:62,  toughness:0, level:83});
 
-  armorCollection.push({name:"Assassin's Auxiliary Pouch",            type:"Trinket",   role:"DPS",        style:"Utility Belt", slots:"TCWW", drops:"",                                                    faction:"Both", health:143, power:47, precision:35, might:55, restoration:15,  vitalization:10, dominance:0,  defense:0,   level:84});
-  armorCollection.push({name:"Battle Scarred Auxiliary Pouch",        type:"Trinket",   role:"Tank",       style:"Utility Belt", slots:"TTWT", drops:"T5 Operation",                                        faction:"Both", health:248, power:28, precision:10, might:19, restoration:15,  vitalization:10, dominance:14, defense:67,  level:84});
-  armorCollection.push({name:"Contender's Utility Gear",              type:"Trinket",   role:"DPS",        style:"Utility Belt", slots:"TCWW", drops:"",                                                    faction:"Both", health:154, power:51, precision:33, might:77, restoration:20,  vitalization:13, dominance:0,  defense:0,   level:85});
-  armorCollection.push({name:"Guardian's Utility Gear",               type:"Trinket",   role:"Tank",       style:"Utility Belt", slots:"TTWT", drops:"Paradox X",                                           faction:"Both", health:240, power:31, precision:11, might:24, restoration:20,  vitalization:13, dominance:15, defense:113, level:85});
-  armorCollection.push({name:"Harmonizer's Utility Strap",            type:"Trinket",   role:"Healer",     style:"Utility Belt", slots:"TTWT", drops:"",                                                    faction:"Both", health:194, power:96, precision:12, might:27, restoration:112, vitalization:20, dominance:0,  defense:0,   level:87});
-  armorCollection.push({name:"Mender's Auxiliary Pouch",              type:"Trinket",   role:"Healer",     style:"Utility Belt", slots:"CWWW", drops:"",                                                    faction:"Both", health:154, power:76, precision:10, might:19, restoration:80,  vitalization:10, dominance:0,  defense:0,   level:84});
-  armorCollection.push({name:"Utility Belt of Deterrence",            type:"Trinket",   role:"Tank",       style:"Utility Belt", slots:"TTWT", drops:"Paradox Destroyer in Family Reunion T5 Operation",    faction:"Both", health:260, power:33, precision:12, might:26, restoration:25,  vitalization:16, dominance:16, defense:123, level:86});
-  armorCollection.push({name:"Utility Belt of Invasion",              type:"Trinket",   role:"DPS",        style:"Utility Belt", slots:"TCWW", drops:"",                                                    faction:"Both", health:167, power:55, precision:42, might:68, restoration:25,  vitalization:16, dominance:0,  defense:0,   level:86});
+  armorCollection.push({name:"Assailant's Utility Strap",             type:"Trinket",   role:"Controller", style:"Utility Belt", slots:"TCWW", drops:"T5 (Origin Crisis) content",                        faction:"Both", health:166, power:84, precision:12, might:27, restoration:30,  vitalization:50, dominance:23, defense:0,   level:87});
+  armorCollection.push({name:"Assassin's Auxiliary Pouch",            type:"Trinket",   role:"DPS",        style:"Utility Belt", slots:"TCWW", drops:"Lex Luthor in Brothers in Arms Operation",          faction:"Both", health:143, power:47, precision:35, might:55, restoration:15,  vitalization:10, dominance:0,  defense:0,   level:84});
+  armorCollection.push({name:"Battle Scarred Auxiliary Pouch",        type:"Trinket",   role:"Tank",       style:"Utility Belt", slots:"TTWT", drops:"T5 Operation",                                      faction:"Both", health:248, power:28, precision:10, might:19, restoration:15,  vitalization:10, dominance:14, defense:67,  level:84});
+  armorCollection.push({name:"Chanter's Utility Gear",                type:"Trinket",   role:"Controller", style:"Utility Belt", slots:"TCCC", drops:"Future Lex Luthor in T5 raid",                      faction:"Both", health:142, power:72, precision:11, might:24, restoration:20,  vitalization:47, dominance:20, defense:0,   level:85});
+  armorCollection.push({name:"Contender's Utility Gear",              type:"Trinket",   role:"DPS",        style:"Utility Belt", slots:"TCWW", drops:"T5 (Origin Crisis) content",                        faction:"Both", health:154, power:51, precision:33, might:77, restoration:20,  vitalization:13, dominance:0,  defense:0,   level:85});
+  armorCollection.push({name:"Guard's Utility Strap",                 type:"Trinket",   role:"Healer",     style:"Utility Belt", slots:"TTWT", drops:"T5 (Origin Crisis) content",                        faction:"Both", health:194, power:96, precision:12, might:27, restoration:112, vitalization:20, dominance:0,  defense:0,   level:87});
+  armorCollection.push({name:"Guardian's Utility Gear",               type:"Trinket",   role:"Tank",       style:"Utility Belt", slots:"TTWT", drops:"Paradox X",                                         faction:"Both", health:240, power:31, precision:11, might:24, restoration:20,  vitalization:13, dominance:15, defense:113, level:85});
+  armorCollection.push({name:"Harmonizer's Utility Strap",            type:"Trinket",   role:"Healer",     style:"Utility Belt", slots:"TTWT", drops:"T5 (Origin Crisis) content",                        faction:"Both", health:194, power:96, precision:12, might:27, restoration:112, vitalization:20, dominance:0,  defense:0,   level:87});
+  armorCollection.push({name:"Mender's Auxiliary Pouch",              type:"Trinket",   role:"Healer",     style:"Utility Belt", slots:"CWWW", drops:"Arkillo in T5 Operation",                           faction:"Both", health:154, power:76, precision:10, might:19, restoration:80,  vitalization:10, dominance:0,  defense:0,   level:84});
+  armorCollection.push({name:"Shaman's Utility Gear",                 type:"Trinket",   role:"Healer",     style:"Utility Belt", slots:"CWWW", drops:"T5 (Origin Crisis) Operation",                      faction:"Both", health:166, power:82, precision:11, might:24, restoration:90,  vitalization:13, dominance:0,  defense:0,   level:85});
+  armorCollection.push({name:"Timeworn Auxiliary Pouch",              type:"Trinket",   role:"Controller", style:"Utility Belt", slots:"TCCC", drops:"Paradox Prowler, Paradox Eradicator",               faction:"Both", health:132, power:66, precision:10, might:19, restoration:15,  vitalization:44, dominance:18, defense:0,   level:84});
+  armorCollection.push({name:"Utility Belt of Deterrence",            type:"Trinket",   role:"Tank",       style:"Utility Belt", slots:"TTWT", drops:"Paradox Destroyer in Family Reunion T5 Operation",  faction:"Both", health:260, power:33, precision:12, might:26, restoration:25,  vitalization:16, dominance:16, defense:123, level:86});
+  armorCollection.push({name:"Utility Belt of Domination",            type:"Trinket",   role:"Controller", style:"Utility Belt", slots:"TCCC", drops:"Paradox Prowler in T5 raid, BIA operation",         faction:"Both", health:154, power:77, precision:12, might:26, restoration:25,  vitalization:51, dominance:21, defense:0,   level:86});
+  armorCollection.push({name:"Utility Belt of Invasion",              type:"Trinket",   role:"DPS",        style:"Utility Belt", slots:"TCWW", drops:"T5 (Origin Crisis) content",                        faction:"Both", health:167, power:55, precision:42, might:68, restoration:25,  vitalization:16, dominance:0,  defense:0,   level:86});
+  armorCollection.push({name:"Utility Belt of Medication",            type:"Trinket",   role:"Healer",     style:"Utility Belt", slots:"CWWW", drops:"Captain N'ee in T5 Operation",                      faction:"Both", health:0,   power:0,  precision:0,  might:0,  restoration:0,   vitalization:0,  dominance:0,  defense:0,   level:0});
 
   // DLC7 Origin Crisis (05/08/2013) T5 Hero PVE gear
   armorCollection.push({name:"Sea King's Aggressive Chestplate",         type:"Chest",     role:"DPS",        style:"Atlantean Monarch", drops:"Watchtower Vendor in Meta wing", faction:"Hero", level:85});
@@ -9544,11 +9669,41 @@ function isAccessory(lineString)
   armorCollection.push({name:"Deep Sea Protective Boots",                type:"Feet",      role:"Tank",       style:"Manta", drops:"Hall of Doom Vendor in Meta wing", faction:"Villain", level:85});
   armorCollection.push({name:"Deep Sea Protective Cloak",                type:"Back",      role:"Tank",       style:"Manta", drops:"Hall of Doom Vendor in Meta wing", faction:"Villain", level:85});
 
+  // Added with update26 around May 2013; style only, adding to armorCollection just for Armor Needed functionality; all from promethium lockboxes
+
+  armorCollection.push({name:"Chestguard of the Stalwart Defender", type:"Chest",     role:"DPS", style:"Stalwart Defender", drops:"Promethium lockbox", faction:"Both"});
+  armorCollection.push({name:"Belt of the Stalwart Defender",       type:"Waist",     role:"DPS", style:"Stalwart Defender", drops:"Promethium lockbox", faction:"Both"});
+  armorCollection.push({name:"Legguards of the Stalwart Defender",  type:"Legs",      role:"DPS", style:"Stalwart Defender", drops:"Promethium lockbox", faction:"Both"});
+  armorCollection.push({name:"Boots of the Stalwart Defender",      type:"Feet",      role:"DPS", style:"Stalwart Defender", drops:"Promethium lockbox", faction:"Both"});
+
+  armorCollection.push({name:"Cowl of the Daring Vigilante",        type:"Head",      role:"DPS", style:"Daring Vigilante",  drops:"Promethium lockbox", faction:"Both"});
+  armorCollection.push({name:"Chestguard of the Daring Vigilante",  type:"Chest",     role:"DPS", style:"Daring Vigilante",  drops:"Promethium lockbox", faction:"Both"});
+  armorCollection.push({name:"Batgirl's Cape",                      type:"Back",      role:"DPS", style:"Daring Vigilante",  drops:"Promethium lockbox", faction:"Both"});
+  armorCollection.push({name:"Gloves of the Daring Vigilante",      type:"Hands",     role:"DPS", style:"Daring Vigilante",  drops:"Promethium lockbox", faction:"Both"});
+  armorCollection.push({name:"Belt of the Daring Vigilante",        type:"Waist",     role:"DPS", style:"Daring Vigilante",  drops:"Promethium lockbox", faction:"Both"});
+  armorCollection.push({name:"Leggings of the Daring Vigilante",    type:"Legs",      role:"DPS", style:"Daring Vigilante",  drops:"Promethium lockbox", faction:"Both"});
+  armorCollection.push({name:"Boots of the Daring Vigilante",       type:"Feet",      role:"DPS", style:"Daring Vigilante",  drops:"Promethium lockbox", faction:"Both"});
+
+  armorCollection.push({name:"Tunic of the Lethal Zealot",          type:"Legs",      role:"DPS", style:"Lethal Zealot",     drops:"Promethium lockbox", faction:"Both"});
+  armorCollection.push({name:"Mask of the Lethal Zealot",           type:"Head",      role:"DPS", style:"Lethal Zealot",     drops:"Promethium lockbox", faction:"Both"});
+  armorCollection.push({name:"Gloves of the Lethal Zealot",         type:"Hands",     role:"DPS", style:"Lethal Zealot",     drops:"Promethium lockbox", faction:"Both"});
+  armorCollection.push({name:"Belt of the Lethal Zealot",           type:"Waist",     role:"DPS", style:"Lethal Zealot",     drops:"Promethium lockbox", faction:"Both"});
+  armorCollection.push({name:"Leggings of the Lethal Zealot",       type:"Legs",      role:"DPS", style:"Lethal Zealot",     drops:"Promethium lockbox", faction:"Both"});
+  armorCollection.push({name:"Boots of the Lethal Zealot",          type:"Feet",      role:"DPS", style:"Lethal Zealot",     drops:"Promethium lockbox", faction:"Both"});
+
+  armorCollection.push({name:"Helm of the Master Mercenary",        type:"Head",      role:"DPS", style:"Master Mercenary",  drops:"Promethium lockbox", faction:"Both"});
+  armorCollection.push({name:"Pauldrons of the Master Mercenary",   type:"Shoulders", role:"DPS", style:"Master Mercenary",  drops:"Promethium lockbox", faction:"Both"});
+  armorCollection.push({name:"Chestplate of the Master Mercenary",  type:"Chest",     role:"DPS", style:"Master Mercenary",  drops:"Promethium lockbox", faction:"Both"});
+  armorCollection.push({name:"Gloves of the Master Mercenary",      type:"Hands",     role:"DPS", style:"Master Mercenary",  drops:"Promethium lockbox", faction:"Both"});
+  armorCollection.push({name:"Belt of the Master Mercenary",        type:"Waist",     role:"DPS", style:"Master Mercenary",  drops:"Promethium lockbox", faction:"Both"});
+  armorCollection.push({name:"Leggings of the Master Mercenary",    type:"Legs",      role:"DPS", style:"Master Mercenary",  drops:"Promethium lockbox", faction:"Both"});
+  armorCollection.push({name:"Boots of the Master Mercenary",       type:"Feet",      role:"DPS", style:"Master Mercenary",  drops:"Promethium lockbox", faction:"Both"});
+
   // Update25 (04/23/2013) added new gear for Gates and Prime reward boxes
   armorCollection.push({name:"Rocker's Screamin' Helm",                   type:"Head",      role:"Controller", style:"Biker",     drops:"Monthly Reward Box for Gates raid", faction:"Both"});
   armorCollection.push({name:"Rocker's Fightin' Belt",                    type:"Waist",     role:"DPS",        style:"Metalhead", drops:"Monthly Reward Box for Prime raid", faction:"Both"});
 
-  // Update25 (04/23/2013) added new gear to vault for old PVP styles that were replaced
+  // Update25 (04/23/2013) added new gear (styles only) to vault for old PVP styles that were replaced
   armorCollection.push({name:"Informant's Sturdy Jacket",                 type:"Chest",     role:"DPS",        style:"Checkmate Informant", drops:"Present in Vault", faction:"Both"});
   armorCollection.push({name:"Informant's Dense Shoulderguards",          type:"Shoulders", role:"DPS",        style:"Checkmate Informant", drops:"Present in Vault", faction:"Both"});
   armorCollection.push({name:"Informant's Padded Gloves",                 type:"Hands",     role:"DPS",        style:"Checkmate Informant", drops:"Present in Vault", faction:"Both"});
@@ -11248,10 +11403,6 @@ function isAccessory(lineString)
   armorCollection.push({name:"Enforcer's Machined Boots",              type:"Feet",      role:"DPS",     style:"Mayan",             drops:"Cheetah Lord in 1 Player Tier 2 Challenge Gotham University",                 faction:"Both"});
   armorCollection.push({name:"Enforcer's Machined Backguard",          type:"Back",      role:"DPS",     style:"Mayan",             drops:"Lion Mane, Cheetah Claw in 1 Player Tier 2 Challenge Gotham University",      faction:"Both"});
 
-  // after DLC7 and before DLC8
-  armorCollection.push({name:"Curative Leggings",                      type:"Legs",      role:"Healer",     style:"Mayan",             drops:"", faction:"Both", level:85});
-  armorCollection.push({name:"Cuirass of Discipline",                  type:"Chest",     role:"Controller", style:"Mayan",             drops:"", faction:"Both", level:86});
-
   // Split Personality style from the original Penguin challenge
   armorCollection.push({name:"Superior Synthweave Jacket",             type:"Chest",     role:"DPS",     style:"Split Personality", drops:"Penguin in Caging Penguin Challenge", faction:"Both"});
   armorCollection.push({name:"Advanced Synthweave Pants",              type:"Legs",      role:"DPS",     style:"Split Personality", drops:"Penguin in Caging Penguin Challenge", faction:"Both"});
@@ -11413,9 +11564,6 @@ function isAccessory(lineString)
 
   armorCollection.push({name:"Cinturón irradiante",                    type:"Waist",     role:"DPS",        style:"Sector Incendiary", drops:"Kyle Rayner in Coast City Alert",     faction:"Both", language:1});
   armorCollection.push({name:"Perneras irradiantes",                   type:"Legs",      role:"DPS",        style:"Sector Incendiary", drops:"Evil Star in Oan Sciencells Alert",   faction:"Both", language:1});
-
-  // added around time of Origin DLC
-  armorCollection.push({name:"Longspike Shoulders",                    type:"Shoulders", role:"DPS",        style:"Sector Incendiary", drops:"",    faction:"Both", level:84});
 
   armorCollection.push({name:"Ryut Shoulderpads",                      type:"Shoulders", role:"DPS",        style:"Ryut",              drops:"Atrocitus - Coast City Alert",        faction:"Both"});
   armorCollection.push({name:"Energy Battery Backpack",                type:"Back",      role:"DPS",        style:"Energy Battery",    drops:"Krona in Oan Sciencells Alert",       faction:"Both"});
@@ -11682,15 +11830,9 @@ function isAccessory(lineString)
   armorCollection.push({name:"Healer's Segmented Backplate",           type:"Back",      role:"Healer",     style:"Heartshard",         drops:"Wonder Woman/Circe in 1 Player Tier 3 Challenge Circe's Stronghold",  faction:"Both"});
   armorCollection.push({name:"Healer's Plated Waistband",              type:"Waist",     role:"Healer",     style:"Heartshard",         drops:"Reward Box",                                                          faction:"Both"});
 
-  // after DLC7 and before DLC8
-  armorCollection.push({name:"Girdle of Revitalization",               type:"Waist",     role:"Healer",     style:"Heartshard",         drops:"",                                                         faction:"Both", level:85});
-
   // Spanish
   armorCollection.push({name:"Espaldar segmentado de sanador",         type:"Back",      role:"Healer",     style:"Heartshard",         drops:"Circe in 1 Player Tier 3 Challenge Circe's Stronghold",    faction:"Both", language:1});
   armorCollection.push({name:"Guanteletes segmentados de sanador",     type:"Hands",     role:"Healer",     style:"Heartshard",         drops:"Bane",                                                     faction:"Both", language:1});
-
-  // after DLC7 and before DLC8
-  armorCollection.push({name:"Rescuer's Foot Wraps",                   type:"Feet",      role:"Healer",     style:"Street",             drops:"",                                                         faction:"Both", level:85});
 
   armorCollection.push({name:"Armored Chestplate of Dominance",        type:"Chest",     role:"Controller", style:"Winged Fury",        drops:"Bat Family in last room of Batcave: Outer Caverns Raid",   faction:"Both"});
   armorCollection.push({name:"Laminated Inertron Chestplate",          type:"Chest",     role:"Controller", style:"Winged Fury",        drops:"Brother Eye in Batcave: Inner Sanctum Raid",               faction:"Both"});
@@ -11811,10 +11953,6 @@ function isAccessory(lineString)
   armorCollection.push({name:"Hallucinator's Guard",                   type:"Waist",     role:"DPS",        style:"Psycho",              drops:"Subprime Regulator Alpha in Area 51 alert",               faction:"Both"});
   armorCollection.push({name:"Spiked Boots of Lunacy",                 type:"Feet",      role:"DPS",        style:"Psycho",              drops:"Subprime Regulator Beta in Area 51 hard alert, System hacker in watchtower alert", faction:"Both"});
   armorCollection.push({name:"Aberrant's Pack",                        type:"Back",      role:"DPS",        style:"Psycho",              drops:"Prime Servitor in Area 51 alert",                         faction:"Both"});
-
-  // after DLC7 and before DLC8
-  armorCollection.push({name:"Watcher's Sash",                         type:"Waist",     role:"Controller", style:"Psycho",              drops:"",               faction:"Both", level:86});
-  armorCollection.push({name:"Foot Wraps of Flowing Sand",             type:"Feet",      role:"Controller", style:"Psycho",              drops:"",               faction:"Both", level:85});
 
   // Spec Ops Style from T3 Duo Shady Nightclub (Hero), Police Station (Villain) (Battle for Earth DLC)
   armorCollection.push({name:"Spec Ops Assault Tactical Vest",         type:"Chest",     role:"DPS",        style:"Spec Ops",            drops:"Shady Nightclub (Hero), Police Station (Villain) T3 Duo (The Last Laugh DLC)", faction:"Both"});
@@ -11959,10 +12097,6 @@ function isAccessory(lineString)
   armorCollection.push({name:"Guantes de comandante ingeniero",        type:"Hands",     role:"Controller", style:"Engineer",            drops:"Shady Nightclub (Hero), Police Station (Villain) T3 Duo (The Last Laugh DLC)", faction:"Both", language:1});
   armorCollection.push({name:"Botas de comandante ingeniero",          type:"Feet",      role:"Controller", style:"Engineer",            drops:"Shady Nightclub (Hero), Police Station (Villain) T3 Duo (The Last Laugh DLC)", faction:"Both", language:1});
   armorCollection.push({name:"Mochila de comandante ingeniero",        type:"Back",      role:"Controller", style:"Engineer",            drops:"Shady Nightclub (Hero), Police Station (Villain) T3 Duo (The Last Laugh DLC)", faction:"Both", language:1});
-
-  // after DLC7 and before DLC8
-  armorCollection.push({name:"Sash of the Last Standing",              type:"Waist",     role:"Tank",       style:"Engineer",            drops:"", faction:"Both", level:86});
-  armorCollection.push({name:"Mantle of the Lost",                     type:"Shoulders", role:"Controller", style:"Engineer",            drops:"", faction:"Both", level:87});
 
   // Reverse style (Villain) from vendors in Central City requiring Marks of Momentum (Flash Lightning Strikes DLC)
   armorCollection.push({name:"Slipstream Assault Chestplate",          type:"Chest",     role:"DPS",        style:"Reverse",             drops:"Vendor in Central City accepting Marks of Momentum",      faction:"Villain"});
@@ -12258,9 +12392,6 @@ function isAccessory(lineString)
   // Spanish
   armorCollection.push({name:"Capa sanadora de Eir",                   type:"Back",      role:"Healer",     style:"Viking",              drops:"Ripsaw - Stryker's Island Penitentiary",                             faction:"Both", language:1});
 
-  // after DLC7
-  armorCollection.push({name:"Rejuvenator's Sacred Cape",              type:"Back",      role:"Healer",     style:"Viking",              drops:"",                                                                   faction:"Both", level:85});
-
   // Seraph style originally for healers only 
   armorCollection.push({name:"Beatific Chestplate",                    type:"Chest",     role:"Healer",     style:"Seraph",              drops:"Villainy United in Arkham Asylum 4 person alert, Sludge Thing in Ace Chemicals 4 person alert",                                               faction:"Both"});
   armorCollection.push({name:"Threefold Legplates",                    type:"Legs",      role:"Healer",     style:"Seraph",              drops:"Poison Ivy - Arkham Asylum",                                    faction:"Both"});
@@ -12396,7 +12527,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Plated Assault Treads",                  type:"Feet",      role:"DPS",        style:"Retro Tech",          drops:"Reward for Level 13 Laugh Riot mission",                   faction:"Both"});
   armorCollection.push({name:"Sadist's Spine Stompers",                type:"Feet",      role:"DPS",        style:"Retro Tech",          drops:"Villain reward for Level 13 The Joker's Problem mission",  faction:"Both"});
   armorCollection.push({name:"Specialized Synthium Sabatons",          type:"Feet",      role:"Healer",     style:"Retro Tech",          drops:"HIVE alert, Gorilla Bruiser in Metropolis open world near STAR Labs", faction:"Both", health:40, power:10, precision:2, might:4, restoration:11, defense:73, level:14});
-  armorCollection.push({name:"Advanced-Tech Utility Pack",             type:"Back",      role:"DPS",        style:"Retro Tech",          drops:"Robin",                                                    faction:"Both"});
+  armorCollection.push({name:"Advanced-Tech Utility Pack",             type:"Back",      role:"DPS",        style:"Retro Tech",          drops:"Robin in villain instance The Joker's Funhouse",           faction:"Both"});
   armorCollection.push({name:"Advanced Nanoguided Rocketpack",         type:"Back",      role:"DPS",        style:"Retro Tech",          drops:"reward",                                                   faction:"Both"});
   armorCollection.push({name:"Deathgrin Combat Pack",                  type:"Back",      role:"DPS",        style:"Retro Tech",          drops:"The Joker",                                                faction:"Both"});
   armorCollection.push({name:"Depleted Promethium Pack",               type:"Back",      role:"DPS",        style:"Retro Tech",          drops:"Deathstroke",                                              faction:"Both"});
@@ -12725,9 +12856,6 @@ function isAccessory(lineString)
   armorCollection.push({name:"Cinturón de korllium remachado",           type:"Waist",     role:"DPS",        style:"Fourth World",        drops:"Treasure Chest",                                        faction:"Both", language:1});
   armorCollection.push({name:"Hombreras de korllium de defensor",        type:"Shoulders", role:"Tank",       style:"Fourth World",        drops:"Arkham Asylum alert",                                   faction:"Both", language:1});
   armorCollection.push({name:"Casco real de Shiruta",                    type:"Head",      role:"DPS",        style:"Fourth World",        drops:"Treasure chest in Smallville alert",                    faction:"Both", language:1});
-
-  // after DLC7 and before DLC8
-  armorCollection.push({name:"Cuirass of the Fallen Protector",          type:"Chest",     role:"Tank",       style:"Fourth World",        drops:"",      faction:"Both", level:86});
 
   // Iconics
   armorCollection.push({name:"Deathstroke's Menacing Bandolier",         type:"Chest",     role:"DPS",        style:"Deathstroke",         drops:"Deathstroke",                                           faction:"Both"});
@@ -13180,7 +13308,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Willborn Leggings",                          type:"Legs",      role:"DPS",        style:"Jah Kir",             drops:"Zoom in Gorilla Grodd's Lab Duo",                        faction:"Both"});
   armorCollection.push({name:"Amalgamated Nanochine Helmet",               type:"Head",      role:"DPS",        style:"Jah Kir",             drops:"Reward for level 29 mission Eye Spy",                    faction:"Both"});
   armorCollection.push({name:"Dread Coluan Helmet",                        type:"Head",      role:"DPS",        style:"Jah Kir",             drops:"Present in Vault",                                       faction:"Both"});
-  armorCollection.push({name:"Exterminator's Helmet",                      type:"Head",      role:"DPS",        style:"Jah Kir",             drops:"Reward",                                                 faction:"Both"});
+  armorCollection.push({name:"Exterminator's Helmet",                      type:"Head",      role:"DPS",        style:"Jah Kir",             drops:"Reward for level 8 mission Bee Aggressive",              faction:"Both"});
   armorCollection.push({name:"Zamaroni War Helmet",                        type:"Head",      role:"DPS",        style:"Jah Kir",             drops:"Treasure Chest - Gorilla Grodd's Lab Duo",               faction:"Both"});
 
   armorCollection.push({name:"Enforcer's Shoulderplates",                  type:"Shoulders", role:"DPS",        style:"Jah Kir",             drops:"T1 Duos",                                                faction:"Both"});
@@ -13306,7 +13434,7 @@ function isAccessory(lineString)
   //  armorCollection.push({name:"Nanite-Reinforced Cloak",                    type:"Back",      role:"DPS",        style:"Tattered",              drops:"Reward for Lighthouse Cleanup mission"});
   //  armorCollection.push({name:"Athletic Slimline Tights",                   type:"Legs",      role:"DPS",        style:"Athletic Slimline",     drops:""});
   //  armorCollection.push({name:"Hellborn Wings",                             type:"Back",      role:"DPS",        style:"Small Demonic Wings",   drops:"Reward for WANTED: Avatar of Sin mission", faction:"Both"});
-  //  armorCollection.push({name:"Pinions of Azazel",                          type:"Back",      role:"DPS",        style:"Small Demonic Wings",   drops:""});
+  //  armorCollection.push({name:"Pinions of Azazel",                          type:"Back",      role:"DPS",        style:"Small Demonic Wings",   drops:"Reward for raven mission"});
   //  armorCollection.push({name:"Wings of Liberty",                           type:"Back",      role:"DPS",        style:"Small Bird Wings",      drops:"Reward for BOUNTY: Hawkman and Hawkgirl mission"});
 
   // Face gear Facemasks
@@ -13373,8 +13501,6 @@ function isAccessory(lineString)
 
   armorCollection.push({name:"Healer's Eyepatch",                type:"Face", role:"Healer",     style:"Eyepatch",               drops:"Brother Eye in Inner Novice raid",                   faction:"Both",    health:29,  power:17, precision:2,  might:4,  dominance:0, toughness:0,  restoration:15, vitalization:0,  defense:0,  level:48});
 
-  armorCollection.push({name:"High-Tech Doctor's Facemask",      type:"Face", role:"Healer",     style:"Gas Ventilator",         drops:"",                                                   faction:"Both",    health:85,  power:42, precision:5,  might:11, dominance:0, toughness:0,  restoration:43, vitalization:4,  defense:62, level:83});
-
   armorCollection.push({name:"Hitman's Mask",                    type:"Face", role:"DPS",        style:"Classic",                drops:"",                                                   faction:"Both",    health:73,  power:0,  precision:15, might:15, dominance:0, toughness:0,  restoration:0,  vitalization:0,  defense:47, level:76});
 
   armorCollection.push({name:"Infiltrator's Mask",               type:"Face", role:"Controller", style:"Infiltrator",            drops:"The Metal Mines - Ace Chemicals",                    faction:"Both",    health:25,  power:4,  precision:2,  might:4,  dominance:5, toughness:0,  restoration:0,  vitalization:8,  defense:27, level:40});
@@ -13417,9 +13543,6 @@ function isAccessory(lineString)
   armorCollection.push({name:"Professional's Mask",              type:"Face", role:"Tank",       style:"Technician",             drops:"Bat Sentinels",                                      faction:"Both",    health:54,  power:0,  precision:2,  might:8,  dominance:3, toughness:0,  restoration:0,  vitalization:0,  defense:49, level:52});
 
   armorCollection.push({name:"Reinforced Goggles",               type:"Face", role:"Tank",       style:"Doctor Sivana Glasses",  drops:"Reward for Home Turf (DLC6) weekly mission",         faction:"Both",    health:70,  power:0,  precision:3,  might:11, dominance:5, toughness:0,  restoration:0,  vitalization:0,  defense:90, level:73});
-
-  armorCollection.push({name:"Sand-Etched Faceguard",            type:"Face", role:"Controller", style:"Druid",                  drops:"",                                                   faction:"Both",    health:85,  power:43, precision:6,  might:15, dominance:12, toughness:0,  restoration:12, vitalization:29, defense:72, level:85});
-  armorCollection.push({name:"Security Mask",                    type:"Face", role:"Tank",       style:"Riveted Ventilator",     drops:"Origin DLC",                                         faction:"Both",    health:115, power:15, precision:0,  might:10, dominance:7, toughness:0,  restoration:4,  vitalization:3,  defense:111,level:82});
 
   armorCollection.push({name:"Shades of Restoration",            type:"Face", role:"Healer",     style:"Doctor Sivana Glasses",  drops:"Reward for Home Turf (DLC6) weekly mission",         faction:"Both",    health:46,  power:27, precision:3,  might:7,  dominance:0, toughness:0,  restoration:23, vitalization:0,  defense:45, level:73});
 
@@ -13469,6 +13592,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Amaranthine Clutch",                    type:"Neck", role:"DPS",        style:"", drops:"Meta-Powered Inmate Strykers",  faction:"Both", health:24,  power:5,  precision:2,  might:31, vitalization:0,  dominance:0,  defense:0,  restoration:0,  level:34});
   armorCollection.push({name:"Amulet of Despair",                     type:"Neck", role:"DPS",        style:"", drops:"Zoom in Gorilla Grodd's duo",   faction:"Both", health:41,  power:5,  precision:9,  might:19, vitalization:0,  dominance:0,  defense:0,  restoration:0,  level:34});
   armorCollection.push({name:"Amulet of Focus",                       type:"Neck", role:"DPS",        style:"", drops:"Home Turf Solo instance",       faction:"Both", health:99,  power:13, precision:21, might:47, vitalization:0,  dominance:0,  defense:0,  restoration:0,  level:78});
+  armorCollection.push({name:"Amulet of Hyperion",                    type:"Neck", role:"DPS",        style:"", drops:"Circe in Aquaman Condemned Shipping Office instance", faction:"Both", health:46,  power:0,  precision:2, might:27,  vitalization:0,  dominance:0,  defense:0,  restoration:0,  level:28});
   armorCollection.push({name:"Amulet of Manipulation",                type:"Neck", role:"Controller", style:"", drops:"T.O. Morrow in Steelworks",     faction:"Both", health:91,  power:13, precision:11, might:13, vitalization:29, dominance:13, defense:0,  restoration:0,  level:78});
   armorCollection.push({name:"Amulet of the Goddess Reborn",          type:"Neck", role:"Controller", style:"", drops:"",                              faction:"Both", health:31,  power:0,  precision:3,  might:9,  vitalization:30, dominance:0,  defense:0,  restoration:0,  level:34});
   armorCollection.push({name:"Anodized Nanochine Choker",             type:"Neck", role:"DPS",        style:"", drops:"",                              faction:"Both", health:46,  power:0,  precision:2,  might:27, vitalization:0,  dominance:0,  defense:0,  restoration:0,  level:28});
@@ -13497,6 +13621,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Haly's Circus Souvenir",                type:"Neck", role:"DPS",        style:"", drops:"T1 Alerts",                     faction:"Both", health:28,  power:48, precision:2,  might:8,  vitalization:0,  dominance:0,  defense:0,  restoration:0,  level:30});
   armorCollection.push({name:"Headstrong Choker",                     type:"Neck", role:"Tank",       style:"", drops:"Brainiac in Batcave: Subconstruct raid", faction:"Both", health:81, precision:4, might:13, dominance:7, defense:27, level:52});
   armorCollection.push({name:"Healer's Warding Watch",                type:"Neck", role:"Healer",     style:"", drops:"T1 Alerts",                     faction:"Both", health:31,  power:6,  precision:3,  might:5,  vitalization:0,  dominance:0,  defense:0,  restoration:30, level:34});
+  armorCollection.push({name:"Heart of the Nova",                     type:"Neck", role:"DPS",        style:"", drops:"Subprime Regulator Beta in Area 51 alert", faction:"Both", health:16,  power:9,  precision:3,  might:10,  vitalization:0,  dominance:0,  defense:0,  restoration:0, level:14});
   armorCollection.push({name:"Inertron Medallion",                    type:"Neck", role:"Tank",       style:"", drops:"Bludhaven alert",               faction:"Both", health:47,  power:0,  precision:2,  might:7,  vitalization:0,  dominance:3,  defense:14, restoration:0,  level:23});
   armorCollection.push({name:"Jeweled Amulet of Oa",                  type:"Neck", role:"DPS",        style:"", drops:"Lion Lord in T3 challenge",     faction:"Both", health:34,  power:48, precision:2,  might:5,  vitalization:0,  dominance:0,  defense:0,  restoration:0,  level:30});
   armorCollection.push({name:"Jewel of Balance",                      type:"Neck", role:"DPS",        style:"", drops:"Reward box for Gotham University duo", faction:"Both", health:51, precision:3, might:29, level:32});
@@ -13506,7 +13631,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Lefty's Lucky Pocketwatch",             type:"Neck", role:"DPS",        style:"", drops:"Lefty in Joker Funhouse instance", faction:"Both", health:14, power:3, precision:0, might:19, vitalization:0, level:11});
   armorCollection.push({name:"Loa Lord's Trophy",                     type:"Neck", role:"Healer",     style:"", drops:"OMAC Sigma in OMAC Base duo",   faction:"Both", health:37,  power:21, precision:3,  might:5,  vitalization:0,  dominance:0,  defense:0,  restoration:18, level:34});
   armorCollection.push({name:"Locket of Tears",                       type:"Neck", role:"DPS",        style:"", drops:"",                              faction:"Both", health:49,  power:0,  precision:11, might:5,  vitalization:0,  dominance:0,  defense:0,  restoration:0,  level:30});
-  armorCollection.push({name:"Lucky Amaranthine Amulet",              type:"Neck", role:"DPS",        style:"", drops:"",                              faction:"Both", health:18,  power:0,  precision:5,  might:2,  vitalization:0,  dominance:0,  defense:0,  restoration:0,  level:7});
+  armorCollection.push({name:"Lucky Amaranthine Amulet",              type:"Neck", role:"DPS",        style:"", drops:"Soul Scream in Metropolis",     faction:"Both", health:18,  power:0,  precision:5,  might:2,  vitalization:0,  dominance:0,  defense:0,  restoration:0,  level:7});
   armorCollection.push({name:"LX-400 Power Choker",                   type:"Neck", role:"DPS",        style:"", drops:"reward for Superman investigations", faction:"Both", health:14, power:7, precision:2, might:10, vitalization:0, level:11});
   armorCollection.push({name:"Medallion of Authority",                type:"Neck", role:"Controller", style:"", drops:"",                              faction:"Both", health:31,  power:27, precision:3,  might:5,  vitalization:7,  dominance:4,  defense:0,  restoration:0,  level:30});
   armorCollection.push({name:"Mindful Locket",                        type:"Neck", role:"Healer",     style:"", drops:"",                              faction:"Both", health:44,  power:8,  precision:4,  might:8,  vitalization:0,  dominance:0,  defense:0,  restoration:43, level:52});
@@ -13541,6 +13666,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Royal Jewels of Korll",                 type:"Neck", role:"DPS",        style:"", drops:"Guard Captain Bombus",          faction:"Both", health:25,  power:10, precision:5,  might:11, vitalization:0,  dominance:0,  defense:0,  restoration:0,  level:15});
   armorCollection.push({name:"Sand-Etched Pendant",                   type:"Neck", role:"Controller", style:"", drops:"",                              faction:"Both", health:142, power:72, precision:11, might:24, restoration:20, vitalization:47, dominance:20, level:85});
   armorCollection.push({name:"Sharded Gorget",                        type:"Neck", role:"Healer",     style:"", drops:"Scorpionod MK-1 in Fortress of Solitude The Chasm Novice Raid", faction:"Both", health:58, power:33, precision:4, might:8, restoration:28, level:58});
+  armorCollection.push({name:"Smith Family Heirloom",                 type:"Neck", role:"DPS",        style:"", drops:"Officer Smith in villain instance of The Joker's Funhouse", faction:"Villain", health:14,  power:3,  precision:0,  might:19, vitalization:0,  dominance:0,  defense:0,  restoration:0,  level:11});
   armorCollection.push({name:"Snowbeast's Tooth",                     type:"Neck", role:"Healer",     style:"", drops:"",                              faction:"Both", health:35,  power:10, precision:2,  might:4,  vitalization:0,  dominance:0,  defense:0,  restoration:14, level:24});
   armorCollection.push({name:"Spirit Healer Necklace",                type:"Neck", role:"Healer",     style:"", drops:"Vice in Ferris duo",            faction:"Both", health:51,  power:0,  precision:5,  might:9,  vitalization:0,  dominance:0,  defense:0,  restoration:56, level:62});
   armorCollection.push({name:"Stalwart Iron Locket",                  type:"Neck", role:"Tank",       style:"", drops:"",                              faction:"Both", health:64,  power:0,  precision:3,  might:8,  vitalization:0,  dominance:4,  defense:19, restoration:0,  level:34});
@@ -13728,7 +13854,6 @@ function isAccessory(lineString)
   armorCollection.push({name:"Fighter's Fixed Canister",             type:"Trinket",   role:"DPS",        style:"Utility Belt", slots:"TTWT", drops:"Circe in Gates, Tala in Operation, Solomon Grundy in operation Wayward Souls",        faction:"Both", health:104, power:13, precision:27, might:12, vitalization:0,  dominance:0,  defense:0,  restoration:0,  level:75});
   armorCollection.push({name:"Guardian's Tech Pouch",                type:"Trinket",   role:"Tank",       style:"Utility Belt", slots:"TCW",  drops:"Prime Servitor in Area 51 alert",                                                     faction:"Both", health:70,  power:0,  precision:3,  might:11, vitalization:0,  dominance:3,  defense:48, restoration:0,  level:44});
   armorCollection.push({name:"Guardian's Utility Container",         type:"Trinket",   role:"Tank",       style:"Utility Belt", slots:"TCTT", drops:"T3 Shady Nighthouse duo, Corrupt Jor-El A.I. in FOS2 raid, Sunstone Herald in FOS1",  faction:"Both", health:101, power:0,  precision:5,  might:16, vitalization:0,  dominance:5,  defense:70, restoration:0,  level:68});
-  armorCollection.push({name:"Harmonizer's Utility Strap",           type:"Trinket",   role:"Healer",     style:"Utility Belt", slots:"TTWT", drops:"",                                                                                    faction:"Both", health:194, power:96, precision:12, might:27, vitalization:20, dominance:0,  defense:0,  restoration:112, level:87});
   armorCollection.push({name:"Healer's Augmented Pouch",             type:"Trinket",   role:"Healer",     style:"Utility Belt", slots:"CW",   drops:"",                                                                                    faction:"Both", health:46,  power:26, precision:3,  might:7,  vitalization:0,  dominance:0,  defense:0,  restoration:23, level:44});
   armorCollection.push({name:"Holster of the Accurate Assassin",     type:"Trinket",   role:"DPS",        style:"Utility Belt", slots:"TCTW", drops:"Sunstone Broodmother, the Lanterns in final room of Coast City alert, FOS1 Novice",   faction:"Both", health:84,  power:11, precision:22, might:10, vitalization:0,  dominance:0,  defense:0,  restoration:0,  level:68});
   armorCollection.push({name:"Judicious Enforcer's Case",            type:"Trinket",   role:"DPS",        style:"Utility Belt", slots:"CW",   drops:"Isis in Gotham University duo, Gorilla Grodd in Gorilla Grodd duo",                   faction:"Both", health:58,  power:7,  precision:15, might:7,  vitalization:0,  dominance:0,  defense:0,  restoration:0,  level:44});
@@ -13763,15 +13888,15 @@ function isAccessory(lineString)
   armorCollection.push({name:"Warrior's Utility Pouch",              type:"Trinket",   role:"DPS",        style:"Utility Belt", slots:"TCC",  drops:"Raven in challenge",                                                                  faction:"Both", health:47,  power:6,  precision:13, might:5,  vitalization:0,  dominance:0,  defense:0,  restoration:0,  level:34});
   armorCollection.push({name:"Bulwark's Utility Container",          type:"Trinket",   role:"Tank",       style:"Utility Belt", slots:"",     drops:"Doctor Psycho in challenge",                                                          faction:"Both", health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,  restoration:0,  level:0});
   armorCollection.push({name:"Deceiver's Hidden Cache",              type:"Trinket",   role:"Controller", style:"Utility Belt", slots:"TCCW", drops:"Brother Eye in Inner Sanctum alert",                                                  faction:"Both", health:99,  power:25, precision:6,  might:29, vitalization:36, dominance:0,  defense:0,  restoration:0,  level:76});
-  armorCollection.push({name:"Guard's Utility Strap",                type:"Trinket",   role:"Healer",     style:"Utility Belt", slots:"TTWT", drops:"",                                                  faction:"Both", health:194, power:96, precision:12, might:27, vitalization:20, dominance:0,  defense:0,  restoration:112, level:87});
-//  armorCollection.push({name:"Guard's Utility Strap",                type:"Trinket",   role:"Tank",     style:"Utility Belt", slots:"CWWW", drops:"",                                                  faction:"Both", health:280, power:36, precision:12, might:27, vitalization:20, dominance:17, defense:132,restoration:30,  level:87});
-  armorCollection.push({name:"Assailant's Utility Strap",            type:"Trinket",   role:"Controller", style:"Utility Belt", slots:"TCWW", drops:"",                                                  faction:"Both", health:166, power:84, precision:12, might:27, vitalization:50, dominance:23, defense:0,  restoration:30, level:87});
-  armorCollection.push({name:"Utility Belt of Medication",           type:"Trinket",   role:"Healer",     style:"Utility Belt", slots:"CWWW", drops:"Captain N'ee in T5 Operation",                                                        faction:"Both", health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,  restoration:0,  level:0});
+  armorCollection.push({name:"Defender's Equipment Stash",            type:"Trinket",   role:"Tank",       style:"Utility Belt", slots:"CTWW", drops:"Brother Eye in Inner Sanctum alert",                  faction:"Both", health:160, power:0,  precision:6,  might:13, restoration:0,   vitalization:0,  dominance:9,  defense:44,  level:76});
+  armorCollection.push({name:"Striker's Utility Equipment",           type:"Trinket",   role:"DPS",        style:"Utility Belt", slots:"CCWW", drops:"Brother Eye in Inner Sanctum alert",                  faction:"Both", health:122, power:0,  precision:24, might:25, restoration:0,   vitalization:0,  dominance:0,  defense:0,   level:76});
 
   // Rings
+  armorCollection.push({name:"Amaranthine Clutch",                   type:"Ring",      role:"DPS",        style:"", drops:"Manhunter Enforcer in Oan", faction:"Both", health:24, power:5, precision:2, might:31, dominance:0, level:34});
   armorCollection.push({name:"Amon's Jeweled Ring",                  type:"Ring",      role:"Tank",       style:"", drops:"", faction:"Both", health:46, precision:2, might:5, dominance:9, level:40});
   armorCollection.push({name:"Ancient Obsidian Band",                type:"Ring",      role:"DPS",        style:"", drops:"", health:18, power:32, precision:2, might:5, level:23});
   armorCollection.push({name:"Archaic Ring of Power",                type:"Ring",      role:"DPS",        style:"", drops:"Treasure Chest in FOS2 raid", faction:"Both", health:39, power:77, precision:3, might:7, level:60});
+  armorCollection.push({name:"Artifact of Argo",                     type:"Ring",      role:"DPS",        style:"", drops:"", faction:"Both", health:18, power:12, precision:3, might:2, dominance:0, level:16});
   armorCollection.push({name:"Assassin's Band",                      type:"Ring",      role:"Controller", style:"", drops:"Lightkeeper in Tier 3 villain challenge", faction:"Both", health:27, precision:2,  might:4, dominance:9, level:30});
   armorCollection.push({name:"Band of Assault",                      type:"Ring",      role:"DPS",        style:"", drops:"Hush in Gotham Lighthouse duo", faction:"Both", health:54, power:7, precision:12, might:25, level:62});
   armorCollection.push({name:"Band of Balance",                      type:"Ring",      role:"DPS",        style:"", drops:"Penguin in Old Gotham Subway T2 challenge", faction:"Both", health:30, power:4, precision:7, might:12, level:52});
@@ -13780,6 +13905,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Band of Will",                         type:"Ring",      role:"Controller", style:"", drops:"Brother Eye in Inner Sanctum novice raid", health:47, power:6, precision:3, might:6, vitalization:13, dominance:5, level:48});
   armorCollection.push({name:"Circlet of Might",                     type:"Ring",      role:"DPS",        style:"", drops:"Treasure Chest in FOS1", faction:"Both", health:39, power:0, precision:3, might:56, level:60});
   armorCollection.push({name:"Clown Clobber Band",                   type:"Ring",      role:"DPS",        style:"", drops:"reward for mission What's in The Box", faction:"Both", health:35, power:0, precision:1, might:2, level:11});
+  armorCollection.push({name:"Clutch of Mercy",                      type:"Ring",      role:"Healer",     style:"", drops:"Bat Family in last room of Outer Raid", faction:"Both", health:42, power:24, precision:3, might:6, restoration:21, level:52});
   armorCollection.push({name:"Clutch of Regrowth",                   type:"Ring",      role:"Healer",     style:"", drops:"Corrupt Jor-El A.I. in FOS2 raid", faction:"Both", health:94, power:0, precision:2, might:5, level:40});
   armorCollection.push({name:"Clutch of the Angels",                 type:"Ring",      role:"Healer",     style:"", drops:"T1 Reward box", faction:"Both", health:34, power:20, precision:2, might:5, restoration:17, level:40});
   armorCollection.push({name:"Controller's Clutch of Command",       type:"Ring",      role:"Controller", style:"", drops:"Reward for level 10 controller", faction:"Both", health:13, power:2, might:2, vitalization:5, dominance:2, level:10});
@@ -13795,13 +13921,12 @@ function isAccessory(lineString)
   armorCollection.push({name:"Farseer's Loop",                       type:"Ring",      role:"DPS",        style:"", drops:"Felix Faust in Mannheim challenge", faction:"Both", health:30, power:14, precision:8, might:4, level:32});
   armorCollection.push({name:"Gargoyle Clutch",                      type:"Ring",      role:"DPS",        style:"", drops:"NPC in HIVE duo", faction:"Both", health:39, precision:9, might:4, level:30});
   armorCollection.push({name:"Gearheart's Band",                     type:"Ring",      role:"DPS",        style:"", drops:"Enraged Metal Man in Oolong easy alert", health:20, power:9, precision:4, might:3, level:18});
-  armorCollection.push({name:"Gem of Resistance",                    type:"Ring",      role:"Tank",       style:"", drops:"", defense:78, health:164, power:21, precision:7, might:14, restoration:9, vitalization:6, dominance:10, level:83});
-  armorCollection.push({name:"Inhibitor Immunity Loop",              type:"Ring",      role:"DPS",        style:"", drops:"reward for mission Losing Inhibitions", faction:"Both", health:20, power:0, precision:0, might:11, level:11});
-  armorCollection.push({name:"Insignia of the Enforcer",             type:"Ring",      role:"DPS",        style:"", drops:"Krypto in FOS1 raid", faction:"Both", health:54, power:7, precision:12, might:25, level:62});
-  armorCollection.push({name:"Jax-Ur's Jeweled Loop",                type:"Ring",      role:"DPS",        style:"", drops:"", health:26, precision:2, might:19, level:21});
-  armorCollection.push({name:"Jewel of Clarity",                     type:"Ring",      role:"DPS",        style:"", drops:"", health:105, power:35, precision:26, might:41, restoration:9, vitalization:6, level:83});
-  armorCollection.push({name:"Lavaborn Ring",                        type:"Ring",      role:"DPS",        style:"", drops:"",                                                                    faction:"Both", health:34, power:0,  precision:10, might:4, dominance:0, level:30});
-  armorCollection.push({name:"Loop of Determination",                type:"Ring",      role:"DPS",        style:"", drops:"Reward for Explore Metropolis Science Police HQ",                     faction:"Both", health:12, power:18, precision:0,  might:2, level:9});
+  armorCollection.push({name:"Healer's Band of Energy",              type:"Ring",      role:"Healer",     style:"", drops:"reward for becoming level 10 healer",                                 faction:"Both", health:13, power:8,  precision:0,  might:2,  restoration:6, level:10});
+  armorCollection.push({name:"Inhibitor Immunity Loop",              type:"Ring",      role:"DPS",        style:"", drops:"reward for mission Losing Inhibitions",                               faction:"Both", health:20, power:0,  precision:0,  might:11, restoration:0, level:11});
+  armorCollection.push({name:"Insignia of the Enforcer",             type:"Ring",      role:"DPS",        style:"", drops:"Krypto in FOS1 raid",                                                 faction:"Both", health:54, power:7,  precision:12, might:25, restoration:0, level:62});
+  armorCollection.push({name:"Jax-Ur's Jeweled Loop",                type:"Ring",      role:"DPS",        style:"", drops:"",                                                                    faction:"Both", health:26, power:0,  precision:2,  might:19, restoration:0, level:21});
+  armorCollection.push({name:"Lavaborn Ring",                        type:"Ring",      role:"DPS",        style:"", drops:"",                                                                    faction:"Both", health:34, power:0,  precision:10, might:4,  restoration:0, dominance:0, level:30});
+  armorCollection.push({name:"Loop of Determination",                type:"Ring",      role:"DPS",        style:"", drops:"Reward for Explore Metropolis Science Police HQ",                     faction:"Both", health:12, power:18, precision:0,  might:2,  restoration:0, level:9});
   armorCollection.push({name:"Loop of Flowers",                      type:"Ring",      role:"DPS",        style:"", drops:"",                                                                    faction:"Both", health:34, power:4,  precision:9,  might:4, level:30});
   armorCollection.push({name:"Loop of Higher Learning",              type:"Ring",      role:"DPS",        style:"", drops:"Reward for Visit Metropolis University",                              faction:"Both", health:12, power:0,  precision:0,  might:8, level:4});
   armorCollection.push({name:"Loop of Legend",                       type:"Ring",      role:"DPS",        style:"", drops:"Negator in Subconstruct raid, treasure chest in STAR Labs challenge", faction:"Both", health:68, power:0,  precision:2,  might:4,  defense:8, level:30});
@@ -13813,11 +13938,11 @@ function isAccessory(lineString)
   armorCollection.push({name:"Machined Nanochine Loop",              type:"Ring",      role:"DPS",        style:"", drops:"", health:29, power:14, precision:7, might:7, level:30});
   armorCollection.push({name:"Maniac's Loop",                        type:"Ring",      role:"DPS",        style:"", drops:"Chemo in Ace Chemicals 4 person alert",     faction:"Both",    health:37, power:5,   precision:7,  might:17, vitalization:0,  dominance:0, restoration:0,  toughness:0,  defense:0,  level:40});
   armorCollection.push({name:"Medic's Band",                         type:"Ring",      role:"Healer",     style:"", drops:"Clayface in Subway duo",                    faction:"Both",    health:58, power:21,  precision:4,  might:7,  vitalization:0,  dominance:0, restoration:24, toughness:0,  defense:0,  level:62});
+  armorCollection.push({name:"Necrolite's Clutch",                   type:"Ring",      role:"DPS",        style:"", drops:"Brother Blood in instance",                 faction:"Both",    health:44, power:3,   precision:0,  might:2,  vitalization:0,  dominance:0, restoration:0,  toughness:0,  defense:0,  level:16});
   armorCollection.push({name:"Nora's Delicate Ring",                 type:"Ring",      role:"DPS",        style:"", drops:"",                                          faction:"Both",    health:22, power:29,  precision:2,  might:4,  vitalization:0,  dominance:0, restoration:0,  toughness:0,  defense:8,  level:30});
   armorCollection.push({name:"Paradigm Replenishing Band",           type:"Ring",      role:"Controller", style:"", drops:"Vendor in Central City",                    faction:"Both",    health:50, power:7,   precision:4,  might:7,  vitalization:16, dominance:9, restoration:0,  toughness:0,  defense:0,  level:62});
   armorCollection.push({name:"Polished Synthium Band",               type:"Ring",      role:"Controller", style:"", drops:"Clown at Funhouse area",                    faction:"Both",    health:18, power:2,   precision:0,  might:2,  vitalization:5,  dominance:2, restoration:0,  toughness:0,  defense:0,  level:12});
   armorCollection.push({name:"Precise Synthium Loop",                type:"Ring",      role:"DPS",        style:"", drops:"Treasure Chest in FOS1 raid",               faction:"Both",    health:39, power:0,   precision:22, might:7,  vitalization:0,  dominance:0, restoration:0,  toughness:0,  defense:0,  level:60});
-  armorCollection.push({name:"Ring of Accuracy",                     type:"Ring",      role:"DPS",        style:"", drops:"",                                          faction:"Both",    health:98, power:33,  precision:24, might:38, vitalization:4,  dominance:0, restoration:6,  toughness:0,  defense:0,  level:82});
   armorCollection.push({name:"Ring of Better Days",                  type:"Ring",      role:"DPS",        style:"", drops:"Reward",                                    faction:"Both",    health:28, power:0,   precision:0,  might:0,  vitalization:0,  dominance:0, restoration:0,  toughness:0,  defense:0,  level:4});
   armorCollection.push({name:"Ring of Ebonar",                       type:"Ring",      role:"DPS",        style:"", drops:"",                                          faction:"Both",    health:19, power:4,   precision:10, might:3,  vitalization:0,  dominance:0, restoration:0,  toughness:0,  defense:0,  level:25});
   armorCollection.push({name:"Ring of Edict",                        type:"Ring",      role:"Controller", style:"", drops:"Vice in Coast City alert",                  faction:"Both",    health:50, power:7,   precision:4,  might:7,  vitalization:20, dominance:7, restoration:0,  toughness:0,  defense:0,  level:62});
@@ -13825,6 +13950,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Ring of the Great Ten",                type:"Ring",      role:"DPS",        style:"", drops:"",                                          faction:"Both",    health:18, power:16,  precision:2,  might:15, vitalization:0,  dominance:0, restoration:0,  toughness:0,  defense:0,  level:19});
   armorCollection.push({name:"Rock of Aegis",                        type:"Ring",      role:"DPS",        style:"", drops:"Bestiamorph Berserker from Giganta Metro Station Building", faction:"Both", health:12, power:18, precision:0,  might:2,  defense:0, level:9});
   armorCollection.push({name:"Royal Signet of Korll",                type:"Ring",      role:"Tank",       style:"", drops:"Queen Bee in HIVE easy alert",              faction:"Both",    health:33,  power:0,  precision:0,  might:3,  vitalization:0,  dominance:2, restoration:0,  toughness:0,  defense:15, level:19});
+  armorCollection.push({name:"Seafury Loop",                         type:"Ring",      role:"DPS",        style:"", drops:"Reward for Aquaman mission", faction:"Both", health:29, power:0, precision:2, might:21, dominance:0, level:24});
   armorCollection.push({name:"Seal of the Council",                  type:"Ring",      role:"Controller", style:"", drops:"Avatar of Meta in FOS2",                    faction:"Both",    health:50,  power:7,  precision:4,  might:7,  vitalization:16, dominance:9, restoration:0,  toughness:0,  defense:0,  level:62});
   armorCollection.push({name:"Shiny Brass Ring",                     type:"Ring",      role:"DPS",        style:"", drops:"Reward for Explore Centennial Park",        faction:"Both",    health:15,  power:6,  precision:2,  might:6,  vitalization:0,  dominance:0, restoration:0,  toughness:0,  defense:0,  level:12});
   armorCollection.push({name:"Stalker's Ornate Loop",                type:"Ring",      role:"DPS",        style:"", drops:"Ra's al Ghul in League of Assassins alert", faction:"Both",    health:54,  power:7,  precision:12, might:25, vitalization:0,  dominance:0, restoration:0,  toughness:0,  defense:0,  level:62});
@@ -13866,16 +13992,16 @@ function isAccessory(lineString)
   armorCollection.push({name:"Snake-Wrapped Loop",                   type:"Ring",      role:"DPS",        style:"", drops:""});
   armorCollection.push({name:"Revitalizing Nanite Band",             type:"Ring",      role:"DPS",        style:"", drops:""});
   armorCollection.push({name:"Royal Jewel Ring",                     type:"Ring",      role:"DPS",        style:"", drops:"", faction:"Both", health:22, power:4, precision:2, might:29, level:30});
-  armorCollection.push({name:"Nanotech Enhancer Ring",               type:"Ring",      role:"DPS",        style:"", drops:""});
+  armorCollection.push({name:"Nanotech Enhancer Ring",               type:"Ring",      role:"DPS",        style:"", drops:"Treasure Chest in Supergirl/Dr. Psycho instance", faction:"Both", health:13, power:7, precision:2, might:7, level:11});
   armorCollection.push({name:"Lovers' Loop",                         type:"Ring",      role:"DPS",        style:"", drops:""});
   armorCollection.push({name:"Ring of Fate",                         type:"Ring",      role:"DPS",        style:"", drops:""});
   armorCollection.push({name:"Desert Willworker's Loop",             type:"Ring",      role:"DPS",        style:"", drops:""});
   armorCollection.push({name:"Winter Family Signet",                 type:"Ring",      role:"DPS",        style:"", drops:""});
   armorCollection.push({name:"Kalava-Feather Ring",                  type:"Ring",      role:"DPS",        style:"", drops:""});
   armorCollection.push({name:"Coluan Weaponmaster's Ring",           type:"Ring",      role:"DPS",        style:"", drops:""});
-  armorCollection.push({name:"Loop of Alien Kings",                  type:"Ring",      role:"DPS",        style:"", drops:""});
-  armorCollection.push({name:"Ring of Ire",                          type:"Ring",      role:"DPS",        style:"", drops:"", faction:"Both"});
-  armorCollection.push({name:"Band of the Red Sun",                  type:"Ring",      role:"DPS",        style:"", drops:"", faction:"Both"});
+  armorCollection.push({name:"Loop of Alien Kings",                  type:"Ring",      role:"DPS",        style:"", drops:"Willful Ringslinger in Coast City alert"});
+  armorCollection.push({name:"Ring of Ire",                          type:"Ring",      role:"DPS",        style:"", drops:"Reward", faction:"Both"});
+  armorCollection.push({name:"Band of the Red Sun",                  type:"Ring",      role:"DPS",        style:"", drops:"Avatar of Meta in FOS2 raid", faction:"Both"});
   armorCollection.push({name:"Ring of Authority",                    type:"Ring",      role:"DPS",        style:"", drops:"", faction:"Both"});
   armorCollection.push({name:"Band of Defense",                      type:"Ring",      role:"DPS",        style:"", drops:"", faction:"Both"});
   armorCollection.push({name:"Band of the Nova",                     type:"Ring",      role:"DPS",        style:"", drops:"", faction:"Both"});
@@ -13937,7 +14063,8 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Valiant Chieftain's Tomahawks",               type:"Dual Wield",     role:"DPS",        dps:146.7, drops:"Security Commander in 1 Player Tier 5 Challenge Test Subject #1",       style:"Thanagarian Tomahawk",  level:81});
   weaponCollection.push({name:"Unattuned Katanas",                           type:"Dual Wield",     role:"DPS",        dps:151.9, drops:"Paradox Destroyer in Family Reunion T5 Operation",                      style:"",                      level:82});
   weaponCollection.push({name:"Blades of the Champion Daimyo",               type:"Dual Wield",     role:"DPS",        dps:151.9, drops:"Paradox Destroyer in Family Reunion T5 Operation",                      style:"",                      health:269, power:90,  precision:58, might:130, vitalization:10,  restoration:16,  dominance:0,  defense:0,   toughness:0, level:82});
-  weaponCollection.push({name:"Unattuned Eye Axes",                          type:"Dual Wield",     role:"DPS",        dps:157.1, drops:"T5 Challenge",                                                          style:"",                      level:83});
+  weaponCollection.push({name:"Unattuned Eye Axes",                          type:"Dual Wield",     role:"DPS",        dps:157.1, drops:"T5 Challenge",                                                          style:"Eye Axe",               level:83});
+  weaponCollection.push({name:"Guardian's Longblade Axes",                   type:"Dual Wield",     role:"Tank",       dps:157.1, drops:"Brothers in Arms T5 Operation",                                         style:"Eye Axe",               health:452, power:58,  precision:20, might:39,  vitalization:16,  restoration:24,  dominance:28, defense:213, toughness:0, level:83});
   weaponCollection.push({name:"Shifted Energy Blades of Bastion",            type:"Dual Wield",     role:"Tank",       dps:167.5, drops:"",                                                                      style:"Thanagarian Tomahawk",  health:528, power:68,  precision:23, might:53,  vitalization:29,  restoration:44,  dominance:32, defense:249, toughness:0, level:85});
   weaponCollection.push({name:"Shifted Energy Blades of Mending",            type:"Dual Wield",     role:"Healer",     dps:167.5, drops:"",                                                                      style:"Thanagarian Tomahawk",  health:366, power:180, precision:23, might:53,  vitalization:29,  restoration:198, dominance:0,  defense:0,   toughness:0, level:85});
 
@@ -17114,7 +17241,7 @@ function calculateDamagePowers(character, startDateString, endDateString)
 }
 
 
-function drawLockboxContentsPieChart(consumable, ring, neck, gear, aura, style) {
+function drawLockboxContentsPieChart(consumable, ring, neck, gear, aura, lair, style) {
 
   var box2_data = new google.visualization.DataTable();
   box2_data.addColumn('string', 'Lockboxes');
@@ -17125,6 +17252,7 @@ function drawLockboxContentsPieChart(consumable, ring, neck, gear, aura, style) 
   box2_data.addRow(["Necks", neck]);
   box2_data.addRow(["Gear", gear]);
   box2_data.addRow(["Auras", aura]);
+  box2_data.addRow(["Base Items", lair]);
   box2_data.addRow(["Styles", style]);
 
   var options = {
@@ -17297,6 +17425,7 @@ function calculateLockboxes(character, startDateString, endDateString)
   var totalLockboxNecks = 0;
   var totalLockboxGear = 0;
   var totalLockboxAura = 0;
+  var totalLockboxLair = 0;
   var totalLockboxStyle = 0;
   var timestamp = 0;
   var listMessage = "";
@@ -17391,6 +17520,28 @@ function calculateLockboxes(character, startDateString, endDateString)
           }
         }
       }
+      if (allLogLinesJSON[person].hasOwnProperty("Lair")) {
+        var itemArray = allLogLinesJSON[person]["Lair"];
+
+        for (var i=0; i<itemArray.length; i++) {
+          timestamp = parseFloat(itemArray[i].time);
+
+          if ((timestamp >= startTS) && (timestamp < endTS)) {
+            if (isLockboxLair(itemArray[i].item)) { 
+              totalLockboxes += 1;
+              totalLockboxLair += 1;
+              lockboxList.push({item:itemArray[i].item, time:timestamp, character:person});
+              var currentDay = convertTimestampToDateString(timestamp);
+              if (typeof(itemTotalPerDay[currentDay]) == "undefined") {
+                itemTotalPerDay[currentDay] = 1;
+              }
+              else {
+                itemTotalPerDay[currentDay] += 1;
+              }
+            }
+          }
+        }
+      }
     }
   });
 
@@ -17428,7 +17579,7 @@ function calculateLockboxes(character, startDateString, endDateString)
     document.getElementById("TableDisplay").innerHTML = results;
     sortables_init();
   }
-  drawLockboxContentsPieChart(totalLockboxConsumables, totalLockboxRings, totalLockboxNecks, totalLockboxGear, totalLockboxAura, totalLockboxStyle);
+  drawLockboxContentsPieChart(totalLockboxConsumables, totalLockboxRings, totalLockboxNecks, totalLockboxGear, totalLockboxAura, totalLockboxLair, totalLockboxStyle);
   drawItemChart(itemTotalPerDay, itype);
 }
 
@@ -17455,6 +17606,7 @@ function calculateLockboxTotals(character, startDateString, endDateString)
   var totalLockboxAuraPurple = 0;
   var totalLockboxAuraWhite = 0;
   var totalLockboxAuraRed = 0;
+  var totalLockboxLair = 0;
   var totalLockboxStyle = 0;
   var totalLockboxStyleCyborg = 0;
   var totalLockboxStyleWonderWoman = 0;
@@ -17519,6 +17671,7 @@ function calculateLockboxTotals(character, startDateString, endDateString)
     itemTotalPerDay[currentDay].necks = 0;
     itemTotalPerDay[currentDay].style = 0;
     itemTotalPerDay[currentDay].aura = 0;
+    itemTotalPerDay[currentDay].lair = 0;
     itemTotalPerDay[currentDay].gear = 0;
   }
 
@@ -17550,6 +17703,7 @@ function calculateLockboxTotals(character, startDateString, endDateString)
                 itemTotalPerDay[currentDay].necks = 0;
                 itemTotalPerDay[currentDay].style = 0;
                 itemTotalPerDay[currentDay].aura = 0;
+                itemTotalPerDay[currentDay].lair = 0;
                 itemTotalPerDay[currentDay].gear = 0;
               }
 
@@ -17626,6 +17780,35 @@ function calculateLockboxTotals(character, startDateString, endDateString)
           }
         }
       }
+      // Lair items from lockboxes are stored under itype="Lair"
+      if (allLogLinesJSON[person].hasOwnProperty("Lair")) {
+        var itemArray = allLogLinesJSON[person]["Lair"];
+
+        for (var i=0; i<itemArray.length; i++) {
+          timestamp = parseFloat(itemArray[i].time);
+
+          if ((timestamp >= startTS) && (timestamp < endTS)) {
+            if (isLockboxLair(itemArray[i].item)) { 
+              totalLockboxes += 1;
+              totalLockboxLair += 1;
+              lockboxList.push({item:itemArray[i].item, time:timestamp, character:person});
+              var currentDay = convertTimestampToDateString(timestamp);
+              if (typeof(itemTotalPerDay[currentDay]) == "undefined") {
+                itemTotalPerDay[currentDay] = {};
+                itemTotalPerDay[currentDay].consumablesSupport = 0;
+                itemTotalPerDay[currentDay].consumablesDPS = 0;
+                itemTotalPerDay[currentDay].rings = 0;
+                itemTotalPerDay[currentDay].necks = 0;
+                itemTotalPerDay[currentDay].style = 0;
+                itemTotalPerDay[currentDay].aura = 0;
+                itemTotalPerDay[currentDay].lair = 0;
+                itemTotalPerDay[currentDay].gear = 0;
+              }
+              itemTotalPerDay[currentDay].lair += 1;
+            }
+          }
+        }
+      }
     }
   });
 
@@ -17669,6 +17852,7 @@ function calculateLockboxTotals(character, startDateString, endDateString)
     results += '<tr><th>--Red</th><th>'  + totalLockboxAuraRed + '</th><th>' + Math.round((totalLockboxAuraRed*100)/totalLockboxes) + '</th></tr>';
     results += '<tr><th>--White</th><th>'  + totalLockboxAuraWhite + '</th><th>' + Math.round((totalLockboxAuraWhite*100)/totalLockboxes) + '</th></tr>';
     results += '<tr><th>Gear</th><th>'  + totalLockboxGear + '</th><th>' + Math.round((totalLockboxGear*100)/totalLockboxes) + '</th></tr>';
+    results += '<tr><th>Base Items</th><th>'  + totalLockboxLair + '</th><th>' + Math.round((totalLockboxLair*100)/totalLockboxes) + '</th></tr>';
     results += '</table>';
     results += '</div>';
 
@@ -17677,7 +17861,7 @@ function calculateLockboxTotals(character, startDateString, endDateString)
     document.getElementById("TableDisplay").innerHTML = results;
     sortables_init();
   }
-  drawLockboxContentsPieChart(totalLockboxConsumables, totalLockboxRings, totalLockboxNecks, totalLockboxGear, totalLockboxAura, totalLockboxStyle);
+  drawLockboxContentsPieChart(totalLockboxConsumables, totalLockboxRings, totalLockboxNecks, totalLockboxGear, totalLockboxAura, totalLockboxLair, totalLockboxStyle);
   drawLockboxContentsLineChart(itemTotalPerDay, "Lockbox Contents Over Time");
 }
 
@@ -18194,8 +18378,6 @@ function calculatePlans(character, startDateString, endDateString)
   planCollection.push({name:"Nutri-Soder MK IV",               type:"Consumable", level:"IV",    effect:"Healing",  ingredient:"1 Support Exobyte, 6 Soder Cola Extreme, 1 Soder Cola Enhancer Type IV",    description:"Restores Health, Power and increases your Restoration for 30 minutes",    stats:"Health (1638-2107), Power (950-1222), Restoration (201 +1800s)"});
   planCollection.push({name:"Vitamin Soder Mk IV",             type:"Consumable", level:"IV",    effect:"Healing",  ingredient:"1 Support Exobyte, 6 Soder Cola Extreme, 1 Soder Cola Enhancer Type IV",    description:"Restores Health, Power and increases your Vitalization for 30 minutes",   stats:"Health (1638-2107), Power (950-1222), Vitalization (112 +1800s)"});
 
-  planCollection.push({name:"Soder Cola Remix",                type:"Consumable", level:"IV",    effect:"Healing",  ingredient:"6 Soder Cola Extreme, 1 Soder Cola Enhancer Type IV",                       description:"Restores Health and Power",                                               stats:"Health (1638-2107), Power (950-1222)"});
-  planCollection.push({name:"Soder Cola Zero",                 type:"Consumable", level:"",      effect:"Healing",  ingredient:"X Soder Cola Extreme, 1 Soder Cola Enhancer Type IV",                       description:"Restores Health and Power",                                               stats:"Health (1638-2107), Power (950-1222)"});
 
   planCollection.push({name:"Napalm Atomizer IV",              type:"Consumable", level:"IV",    effect:"Damage",   ingredient:"1 Complex Material, 1 Catalyst Type IV, 1 Metagene Fusing Solution",        description:"Damages and catches nearby enemies on fire",                              stats:"Inflicts Burning on enemies to cause damage over time"});
   planCollection.push({name:"Formula of Crushing IV",          type:"Consumable", level:"IV",    effect:"Knockdown",ingredient:"1 Complex Material, 1 Catalyst Type IV, 1 Metagene Fusing Solution",        description:"Sends heavy shards flying, damaging and knocking down nearby enemies",    stats:"Knockdown - Area (+9s) Crushes enemies, making them vulnerable to crushing effects"});
@@ -18210,17 +18392,45 @@ function calculatePlans(character, startDateString, endDateString)
   planCollection.push({name:"Electrostatic Pulse Device IV",   type:"Consumable", level:"IV",    effect:"Stun",     ingredient:"1 Complex Material, 1 Catalyst Type IV, 1 Cybernetic Actuator",             description:"Creates a local shock burst, damaging and stunning nearby enemies",       stats:"Stun Area (2s) Electrifies enemies, making them vulnerable to Electrified Power interactions"});
   planCollection.push({name:"Static Grenade IV",               type:"Consumable", level:"IV",    effect:"Stun",     ingredient:"1 Complex Material, 1 Catalyst Type IV, 1 Cybernetic Actuator",             description:"Stuns nearby enemies",                                                    stats:"Stun area (8s) Health area (423-538)"});
 
-  planCollection.push({name:"Mass Shadow Concoction",          type:"Consumable", level:"IV",    effect:"Detaunt",  ingredient:"1 Complex Material, 1 Catalyst Type IV, 1 Overcharged Matter",              description:"Detaunt your enemy, causing the target to focus their attacks elsewhere", stats:"Detaunt Ray 12s"});
-  planCollection.push({name:"Mass Provocation Agent",          type:"Consumable", level:"IV",    effect:"Taunt",    ingredient:"1 Complex Material, 1 Catalyst Type IV, 1 Battery Fragments",               description:"Taunt your enemy, causing the target to focus their attacks on you",      stats:"Taunt Ray 12s"});
+  planCollection.push({name:"All-Natural Soder Mk V",          type:"Consumable", level:"V",     effect:"Healing",  ingredient:"1 Fortified Exobyte, 6 Soder Cola Extreme, 1 Soder Cola Enhancer Type IV",  description:"Restores Health, Power and increases your maximum Health for 30 minutes", stats:"Health (1638-2107), Power (950-1222), Health Max (416 +1800s)"});
+  planCollection.push({name:"Bulldozer Soder Mk V",            type:"Consumable", level:"V",     effect:"Healing",  ingredient:"1 Fortified Exobyte, 6 Soder Cola Extreme, 1 Soder Cola Enhancer Type IV",  description:"Restores Health, Power and increases your Dominance for 30 minutes",      stats:"Health (1638-2107), Power (950-1222), Dominance (90 +1800s)"});
+  planCollection.push({name:"Nitro Soder Cola Mk V",           type:"Consumable", level:"V",     effect:"Healing",  ingredient:"1 Aggressive Exobyte, 6 Soder Cola Extreme, 1 Soder Cola Enhancer Type IV", description:"Restores Health, Power and increases your Might for 30 minutes",          stats:"Health (1638-2107), Power (950-1222), Might (161 +1800s)"});
+  planCollection.push({name:"Energy Soder Mk V",               type:"Consumable", level:"V",     effect:"Healing",  ingredient:"1 Support Exobyte, 6 Soder Cola Extreme, 1 Soder Cola Enhancer Type IV",    description:"Restores Health, Power and increases your maximum Power for 30 minutes",  stats:"Health (1638-2107), Power (950-1222), Power Max (483 +1800s)"});
+  planCollection.push({name:"Flex Soder Mk V",                 type:"Consumable", level:"V",     effect:"Healing",  ingredient:"1 Aggressive Exobyte, 6 Soder Cola Extreme, 1 Soder Cola Enhancer Type IV", description:"Restores Health, Power and increases your Precision for 30 minutes",      stats:"Health (1638-2107), Power (950-1222), Precision (169 +1800s)"});
+  planCollection.push({name:"Nutri-Soder MK V",                type:"Consumable", level:"V",     effect:"Healing",  ingredient:"1 Support Exobyte, 6 Soder Cola Extreme, 1 Soder Cola Enhancer Type IV",    description:"Restores Health, Power and increases your Restoration for 30 minutes",    stats:"Health (1638-2107), Power (950-1222), Restoration (201 +1800s)"});
+  planCollection.push({name:"Vitamin Soder Mk V",              type:"Consumable", level:"V",     effect:"Healing",  ingredient:"1 Support Exobyte, 6 Soder Cola Extreme, 1 Soder Cola Enhancer Type IV",    description:"Restores Health, Power and increases your Vitalization for 30 minutes",   stats:"Health (1638-2107), Power (950-1222), Vitalization (112 +1800s)"});
+ 
+  planCollection.push({name:"Napalm Atomizer V",               type:"Consumable", level:"V",     effect:"Damage",   ingredient:"1 Complex Material, 1 Catalyst Type IV, 1 Metagene Fusing Solution",        description:"Damages and catches nearby enemies on fire",                              stats:"Inflicts Burning on enemies to cause damage over time"});
+  planCollection.push({name:"Formula of Crushing V",           type:"Consumable", level:"V",     effect:"Knockdown",ingredient:"1 Complex Material, 1 Catalyst Type IV, 1 Metagene Fusing Solution",        description:"Sends heavy shards flying, damaging and knocking down nearby enemies",    stats:"Knockdown - Area (+9s) Crushes enemies, making them vulnerable to crushing effects"});
+  planCollection.push({name:"Dazing Device V",                 type:"Consumable", level:"V",     effect:"Stun",     ingredient:"1 Complex Material, 1 Catalyst Type IV, 1 Silicon Wafer",                   description:"Creates an explosion of shards, stunning and damaging nearby enemies",    stats:"Stun - Area (+2s) Dazes enemies, making them vulnerable to dazing effects"});
+  planCollection.push({name:"Ampoule of Terror V",             type:"Consumable", level:"V",     effect:"Stun",     ingredient:"1 Complex Material, 1 Catalyst Type IV, 1 Enchanted Beast Horn",            description:"Stuns, terrifies, and damages nearby enemies, causing them to flee",      stats:"Stun - Area (+0.75s) Panic - Area (+0.75s) Inflicts Terror to make enemies vulnerable to Terrified Power interactions"});
+  planCollection.push({name:"Cryogenic Solution V",            type:"Consumable", level:"V",     effect:"Damage",   ingredient:"1 Complex Material, 1 Catalyst Type IV, 1 Battery Fragments",               description:"Damages and cools nearby enemies, slowing their movements",               stats:"Inflicts Frostbite to make enemies vulnerable to freezing effects"});
+  planCollection.push({name:"Karmic Hex V",                    type:"Consumable", level:"V",     effect:"Heal",     ingredient:"1 Complex Material, 1 Catalyst Type IV, 1 Ancient Vellum",                  description:"Invokes a local spell that damages nearby enemies",                       stats:"Heal Area (8-12) Health Area (423-538) Places Bad Karma on enemies, making them vulnerable to Sorcery effects that utilize Bad Karma"});
+  planCollection.push({name:"Personal Dampening Field V",      type:"Consumable", level:"V",     effect:"Absorb",   ingredient:"1 Complex Material, 1 Catalyst Type IV, 1 Silicon Wafer",                   description:"Provides substantial protection from enemy attacks for a short time",     stats:"Absorb Damage 100% - Self (+6s)"});
+  planCollection.push({name:"Explosive Detonator V",           type:"Consumable", level:"V",     effect:"Heal",     ingredient:"1 Complex Material, 1 Catalyst Type IV, 1 Brainiac Diode",                  description:"Triggers a local detonation to damage and knock down nearby enemies",     stats:"Health Area (423-538)  Knockdown Area (+9s)"});
+  planCollection.push({name:"Shock Inducer V",                 type:"Consumable", level:"V",     effect:"Heal",     ingredient:"1 Complex Material, 1 Catalyst Type IV, 1 Metagene Fusing Solution",        description:"Launches a damaging grenade at your target",                              stats:"Health Ray (423-538)"});
+  planCollection.push({name:"Polarization Mechanism V",        type:"Consumable", level:"V",     effect:"Damage",   ingredient:"1 Complex Material, 1 Catalyst Type IV, 1 Brainiac Diode",                  description:"Fires a pulse, magnetizing and damaging nearby enemies",                  stats:"Polarizes enemies causing objects to be attracted to them"});
+  planCollection.push({name:"Electrostatic Pulse Device V",    type:"Consumable", level:"V",     effect:"Stun",     ingredient:"1 Complex Material, 1 Catalyst Type IV, 1 Cybernetic Actuator",             description:"Creates a local shock burst, damaging and stunning nearby enemies",       stats:"Stun Area (2s) Electrifies enemies, making them vulnerable to Electrified Power interactions"});
+  planCollection.push({name:"Static Grenade V",                type:"Consumable", level:"V",     effect:"Stun",     ingredient:"1 Complex Material, 1 Catalyst Type IV, 1 Cybernetic Actuator",             description:"Stuns nearby enemies",                                                    stats:"Stun area (8s) Health area (423-538)"});
 
-  planCollection.push({name:"Graviton Accelerator I",          type:"Consumable", level:"I",     effect:"",         ingredient:"",             description:"",                                                    stats:""});
-  planCollection.push({name:"Graviton Accelerator III",        type:"Consumable", level:"III",   effect:"",         ingredient:"",             description:"",                                                    stats:""});
-  planCollection.push({name:"Graviton Accelerator V Expert",   type:"Consumable", level:"V",     effect:"",         ingredient:"",             description:"",                                                    stats:""});
+  planCollection.push({name:"All-Natural Soder Mk V Expert",   type:"Consumable", level:"V Expert",     effect:"Healing",  ingredient:"1 Fortified Exobyte, 6 Soder Cola Extreme, 1 Soder Cola Enhancer Type IV",  description:"Restores Health, Power and increases your maximum Health for 30 minutes", stats:""});
+  planCollection.push({name:"Bulldozer Soder Mk V Expert",     type:"Consumable", level:"V Expert",     effect:"Healing",  ingredient:"1 Fortified Exobyte, 6 Soder Cola Extreme, 1 Soder Cola Enhancer Type IV",  description:"Restores Health, Power and increases your Dominance for 30 minutes",      stats:""});
+
+  planCollection.push({name:"Graviton Accelerator I",          type:"Consumable", level:"I",        effect:"",         ingredient:"",             description:"",                                                    stats:""});
+  planCollection.push({name:"Graviton Accelerator II",         type:"Consumable", level:"II",       effect:"",         ingredient:"",             description:"",                                                    stats:""});
+  planCollection.push({name:"Graviton Accelerator III",        type:"Consumable", level:"III",      effect:"",         ingredient:"",             description:"",                                                    stats:""});
+  planCollection.push({name:"Graviton Accelerator IV",         type:"Consumable", level:"IV",       effect:"",         ingredient:"",             description:"",                                                    stats:""});
+  planCollection.push({name:"Graviton Accelerator V",          type:"Consumable", level:"V",        effect:"",         ingredient:"",             description:"",                                                    stats:""});
+  planCollection.push({name:"Graviton Accelerator V Expert",   type:"Consumable", level:"V Expert", effect:"",         ingredient:"",             description:"",                                                    stats:""});
 
   planCollection.push({name:"Chronometric Emitter V Expert",   type:"Consumable", level:"V",     effect:"",         ingredient:"",             description:"",                                                    stats:""});
 
-  planCollection.push({name:"All-Natural Soder Mk V Expert",   type:"Consumable", level:"V",     effect:"Healing",  ingredient:"1 Fortified Exobyte, 6 Soder Cola Extreme, 1 Soder Cola Enhancer Type IV",  description:"Restores Health, Power and increases your maximum Health for 30 minutes", stats:""});
-  planCollection.push({name:"Bulldozer Soder Mk V Expert",     type:"Consumable", level:"V",     effect:"Healing",  ingredient:"1 Fortified Exobyte, 6 Soder Cola Extreme, 1 Soder Cola Enhancer Type IV",  description:"Restores Health, Power and increases your Dominance for 30 minutes",      stats:""});
+  planCollection.push({name:"Soder Cola Remix",                type:"Consumable", level:"IV",    effect:"Healing",  ingredient:"6 Soder Cola Extreme, 1 Soder Cola Enhancer Type IV",                       description:"Restores Health and Power",                                               stats:"Health (1638-2107), Power (950-1222)"});
+  planCollection.push({name:"Soder Cola Zero",                 type:"Consumable", level:"V",     effect:"Healing",  ingredient:"X Soder Cola Extreme, 1 Soder Cola Enhancer Type IV",                       description:"Restores Health and Power",                                               stats:"Health (1638-2107), Power (950-1222)"});
+  planCollection.push({name:"Soder Cola Next",                 type:"Consumable", level:"V",     effect:"Healing",  ingredient:"X Soder Cola Extreme, 1 Soder Cola Enhancer Type IV",                       description:"Restores Health and Power",                                               stats:"Health (1638-2107), Power (950-1222)"});
+
+  planCollection.push({name:"Mass Shadow Concoction",          type:"Consumable", level:"IV",    effect:"Detaunt",  ingredient:"1 Complex Material, 1 Catalyst Type IV, 1 Overcharged Matter",              description:"Detaunt your enemy, causing the target to focus their attacks elsewhere", stats:"Detaunt Ray 12s"});
+  planCollection.push({name:"Mass Provocation Agent",          type:"Consumable", level:"IV",    effect:"Taunt",    ingredient:"1 Complex Material, 1 Catalyst Type IV, 1 Battery Fragments",               description:"Taunt your enemy, causing the target to focus their attacks on you",      stats:"Taunt Ray 12s"});
 
   planCollection.push({name:"Dominance Alpha",                 type:"Mod",        level:"Alpha", effect:"Blue",     ingredient:"1 Fortified Exobyte, 1 Equipment Interface Alpha",                          description:"Grants a socket affinity bonus when placed in a blue socket",             stats:" 2 Dominance"});
   planCollection.push({name:"Dominance & Health Alpha",        type:"Mod",        level:"Alpha", effect:"Blue",     ingredient:"1 Fortified Exobyte, 1 Equipment Interface Alpha",                          description:"Grants a socket affinity bonus when placed in a blue socket",             stats:" 1 Dominance   6 Health"});
@@ -20944,12 +21154,61 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"No Return",                    category:"DLC",    subcategory:"Origin Crisis", stars:1, points:10, faction:"Both",    description:"Complete the Crime Alley fight during the Family Reunion Operation without allowing Future Lex Luthor to return to the fight more than once"});
   featCollection.push({name:"Street Sweeper",               category:"DLC",    subcategory:"Origin Crisis", stars:1, points:10, faction:"Both",    description:"Defeat all of the iconic heroes/villains running free on the streets of Alternate Gotham City in the Family Reunion Operation"});
   featCollection.push({name:"Missiles Missed",              category:"DLC",    subcategory:"Origin Crisis", stars:1, points:10, faction:"Both",    description:"Complete the iconic boss fight inside Wayne Tower without anyone being hit by the missile barrage"});
-  featCollection.push({name:"Don't Dally in the Alley",     category:"DLC",    subcategory:"Origin Crisis", stars:1, points:10, faction:"Both",    description:"Defeat Future Lex Luthor in Crime Alley in 10 minutes or less"});
+  featCollection.push({name:"Don't Dally In the Alley",     category:"DLC",    subcategory:"Origin Crisis", stars:1, points:10, faction:"Both",    description:"Defeat Future Lex Luthor in Crime Alley in 10 minutes or less"});
 
   // update26 added new style feats to go with styles from dropbox May 2013
   featCollection.push({name:"Hit List",                     category:"Styles", subcategory:"Theme",  stars:2, points:25, faction:"Both",    description:"Collect all styles in the Master Mercenary set"});
   featCollection.push({name:"In the Court",                 category:"Styles", subcategory:"Theme",  stars:2, points:25, faction:"Both",    description:"Collect all styles in the Lethal Zealot set"});
   featCollection.push({name:"Criminal Justice",             category:"Styles", subcategory:"Theme",  stars:2, points:25, faction:"Both",    description:"Collect all styles in the Daring Vigilante set"});
+  featCollection.push({name:"Defender of Justice",          category:"Styles", subcategory:"Theme",  stars:2, points:25, faction:"Both",    description:"Collect all styles in the Stalwart Defender set"});
+
+  // August 2013 DLC8 Sons of Trigon feats added
+
+  featCollection.push({name:"Chaste Chase",                 category:"DLC",    subcategory:"Sons of Trigon", stars:1, points:10, faction:"Both",    description:"Defeat 500 Lust Demons in the Gotham Wastelands or inside the Tunnel of Lust duo"});
+  featCollection.push({id:15, name:"Hobnobbing",            category:"DLC",    subcategory:"Sons of Trigon", stars:1, points:10, faction:"Both",    description:"Defeat each of the Prominent Families in the Trigon's Prison alert"});
+  // featDetailCollection is a way of breaking down what's needed for the feats
+  featDetailCollection.push({featID:15, partID:1,  description:"Robinson Family"});
+  featDetailCollection.push({featID:15, partID:2,  description:"Falcone Family"});
+  featDetailCollection.push({featID:15, partID:3,  description:"Wayne Family"});
+  featCollection.push({name:"Highway to Hell",              category:"DLC",    subcategory:"Sons of Trigon", stars:1, points:10, faction:"Both",    description:"Complete the Trigon's Prison alert in 10 minutes or less"});
+  featCollection.push({id:16, name:"Interrogations",        category:"DLC",    subcategory:"Sons of Trigon", stars:1, points:10, faction:"Both",    description:"Interrogate the frightened Blood Cultists that are stranded within the Trigon's Prison alert"});
+  featDetailCollection.push({featID:16, partID:1,  description:"Distressed Blood Cultist Arcanum"});
+  featDetailCollection.push({featID:16, partID:2,  description:"Panicked Blood Cultist Kline"});
+  featDetailCollection.push({featID:16, partID:3,  description:"Terrified Blood Cultist Rondyle"});
+  featDetailCollection.push({featID:16, partID:4,  description:"Hysterical Blood Cultist Crukas"});
+  featCollection.push({name:"Heart and Soul",               category:"DLC",    subcategory:"Sons of Trigon", stars:1, points:10, faction:"Both",    description:"Complete each of the Lust missions in the Gotham Wastelands"});
+  featCollection.push({name:"Unlucky In Lust",              category:"DLC",    subcategory:"Sons of Trigon", stars:1, points:10, faction:"Both",    description:"Defeat all of the Greater Lust Demons within the Tunnel of Lust duo"});
+  featCollection.push({name:"Fan Club",                     category:"DLC",    subcategory:"Sons of Trigon", stars:1, points:10, faction:"Both",    description:"Defeat the Fanatic of Lust without destroying any of the Idols of Jacob within the Tunnel of Lust duo"});
+  featCollection.push({name:"Black Thumb",                  category:"DLC",    subcategory:"Sons of Trigon", stars:1, points:10, faction:"Both",    description:"Cause 333 Wrathful plants to explode in the Gotham Wastelands"});
+  featCollection.push({name:"You Talking to Me?",           category:"DLC",    subcategory:"Sons of Trigon", stars:1, points:10, faction:"Both",    description:"Defeat 66 Wrath Cultists in the Gotham Wastelands or inside the Ruined Cathedral duo"});
+  featCollection.push({name:"Day of Reckoning",             category:"DLC",    subcategory:"Sons of Trigon", stars:1, points:10, faction:"Both",    description:"Complete each of the wrath missions in the Gotham Wastelands"});
+  featCollection.push({name:"Hard To Get",                  category:"DLC",    subcategory:"Sons of Trigon", stars:1, points:10, faction:"Both",    description:"Defeat Jacob before he uses Devotion on you or your partner 4 times within the Tunnel of Lust duo"});
+  featCollection.push({name:"Gotham Wastelands Explorer",   category:"DLC",    subcategory:"Sons of Trigon", stars:1, points:10, faction:"Both",    description:"Find and activate all of the Reconnaissance Terminals placed by Cyborg and Beast Boy in the Gotham Wastelands"});
+  featCollection.push({name:"Evermore",                     category:"DLC",    subcategory:"Sons of Trigon", stars:2, points:25, faction:"Both",    description:"Complete the Take Pride mission 14 times"});
+  featCollection.push({name:"Multitude of Sins",            category:"DLC",    subcategory:"Sons of Trigon", stars:2, points:25, faction:"Both",    description:"Defeat Jack, James, or Julius 17 times in the Sons of Trigon Duos"});
+  featCollection.push({name:"Not What I Ordered",           category:"DLC",    subcategory:"Sons of Trigon", stars:2, points:25, faction:"Both",    description:"Defeat 19 Primeval Demons summoned from a botched Envy ritual in the Knightsdome area of the Gotham Wastelands"});
+  featCollection.push({name:"Who Said Imps Can't Fly ",     category:"DLC",    subcategory:"Sons of Trigon", stars:1, points:10, faction:"Both",    description:"In the Knightsdome area of the Gotham Wastelands, defeat and punt 84 Envy Imps that aren't carrying envy energy"});
+  featCollection.push({id:17, name:"ALL the Envy!",         category:"DLC",    subcategory:"Sons of Trigon", stars:1, points:10, faction:"Both",    description:"Complete each of the envy missions in the Gotham Wastelands"});
+  featDetailCollection.push({featID:17, partID:1,  description:"Envy, Envy, Everywhere"});
+  featDetailCollection.push({featID:17, partID:2,  description:"Envy to Share"});
+  featDetailCollection.push({featID:17, partID:3,  description:"Envy To Die For"});
+  featDetailCollection.push({featID:17, partID:4,  description:"My Envy Is Your Envy"});
+  featCollection.push({name:"No Penalty Box",               category:"DLC",    subcategory:"Sons of Trigon", stars:1, points:10, faction:"Both",    description:"Complete the Knightsdome Arena Duo without getting knocked out"});
+  featCollection.push({name:"No Waiting",                   category:"DLC",    subcategory:"Sons of Trigon", stars:1, points:10, faction:"Both",    description:"Defeat the second group of enthralled citizens within 1 minute of defeating the first group during the Knightsdome Arena duo"});
+  featCollection.push({id:18, name:"Full Depth Chart",      category:"DLC",    subcategory:"Sons of Trigon", stars:1, points:10, faction:"Both",    description:"Defeat all of the iconic enemies during the Knightsdome Arena duo"});
+  featDetailCollection.push({featID:18, partID:1,  description:"James"});
+  featDetailCollection.push({featID:18, partID:2,  description:"Jesse"});
+  featDetailCollection.push({featID:18, partID:3,  description:"Doctor Light"});
+  featDetailCollection.push({featID:18, partID:4,  description:"Giganta"});
+  featDetailCollection.push({featID:18, partID:5,  description:"Gizmo"});
+  featCollection.push({name:"Full House",                   category:"DLC",    subcategory:"Sons of Trigon", stars:1, points:10, faction:"Both",    description:"Defeat each of the bosses in the Ruined Cathedral duo"});
+  featCollection.push({name:"Light My Fire",                category:"DLC",    subcategory:"Sons of Trigon", stars:1, points:10, faction:"Both",    description:"Defeat Jared before he uses all 4 braziers in the Ruined Cathedral duo"});
+  featCollection.push({name:"Fallen Idols",                 category:"DLC",    subcategory:"Sons of Trigon", stars:2, points:25, faction:"Both",    description:"Destroy 3 Jacob Idols in the Amusement Mile area of Gotham Wastelands without defeating any of the civilian worshipers"});
+  featCollection.push({name:"It's a Trap",                  category:"DLC",    subcategory:"Sons of Trigon", stars:1, points:10, faction:"Both",    description:"Use the Fire Trap in the Ruined Cathedral duo to defeat all 12 cultists"});
+  featCollection.push({name:"Power Corrupts",               category:"DLC",    subcategory:"Sons of Trigon", stars:2, points:25, faction:"Both",    description:"Collect all styles in the Corrupted set"});
+  featCollection.push({name:"High Hopes",                   category:"DLC",    subcategory:"Sons of Trigon", stars:2, points:25, faction:"Both",    description:"Collect all styles in the Exalted set"});
+  featCollection.push({name:"Pride and Joy",                category:"DLC",    subcategory:"Sons of Trigon", stars:3, points:50, faction:"Both",    description:"Collect all styles in the Prideful set"});
+
 
 
 function calculateArmor(character, startDateString, endDateString)
@@ -24545,11 +24804,13 @@ function calculateArmorNeeded(character, startDateString, endDateString)
           case "Gadgets":
           case "Mental":
           case "Hard Light":
+          case "Quantum":
                 role = "Controller";
                 break;
           case "Nature":
           case "Sorcery":
           case "Electric":
+          case "Celestial":
                 role = "Healer";
                 break;
           case "DPS":
@@ -25150,6 +25411,7 @@ function calculateFeatsNeeded(character, startDateString, endDateString)
 
       if ((thisCharsPowerset == "Gadgets") ||
           (thisCharsPowerset == "Mental")  ||
+          (thisCharsPowerset == "Quantum")  ||
           (thisCharsPowerset == "Hard Light")) {
         // Can't get tank specific feats
         featList["Tanks Very Much"] = 1;
@@ -25162,6 +25424,7 @@ function calculateFeatsNeeded(character, startDateString, endDateString)
       }
       else if ((thisCharsPowerset == "Electric") || 
                (thisCharsPowerset == "Nature")   ||
+               (thisCharsPowerset == "Celestial")   ||
                (thisCharsPowerset == "Sorcery")) {
         featList["Tanks Very Much"] = 1;
         featList["Shards of the Heart"] = 1;
@@ -25713,8 +25976,8 @@ function calculateFeatsSummary(character, startDateString, endDateString)
                       "StylesIconic", "Exploration", "ExplorationGeneral", "ExplorationRaids", "ExplorationMetropolis", "ExplorationGotham",
                       "ExplorationAlerts", "Alerts", "AlertsGeneral", "AlertsNormal", "AlertsHard", "RandD", "RandDGeneral", "RandDAssembly",
                       "RandDParts", "SeasonalStPatrick", "SeasonalValentine", "SeasonalWinter", "SeasonalSpringtime", "SeasonalThe Witching Hour",
-                      "SeasonalTidesOfWar", "DLCLantern", "DLCFlash", "DLCEarth", "DLCLaugh", "DLCFate", "DLCTurf", "DuosGeneral", "DuosSpeedForce", "DuosHideouts", 
-                      "GeneralGeneral", "GeneralTokens", "GeneralRaces", "GeneralCollectibles", "Bases" ];
+                      "SeasonalTidesOfWar", "DLCLantern", "DLCFlash", "DLCEarth", "DLCLaugh", "DLCFate", "DLCTurf", "DLCTrigon", 
+                      "DuosGeneral", "DuosSpeedForce", "DuosHideouts", "GeneralGeneral", "GeneralTokens", "GeneralRaces", "GeneralCollectibles", "Bases" ];
 
   var maximumFeatCount = {};
   var numberFeatCount = {};
@@ -25908,6 +26171,7 @@ function calculateFeatsSummary(character, startDateString, endDateString)
               else if (featCollection[j].subcategory == "The Last Laugh")    { maximumFeatCount["DLCLaugh"][person] += 1; }
               else if (featCollection[j].subcategory == "Hand of Fate")      { maximumFeatCount["DLCFate"][person] += 1; }
               else if (featCollection[j].subcategory == "Home Turf")         { maximumFeatCount["DLCTurf"][person] += 1; }
+              else if (featCollection[j].subcategory == "Sons of Trigon")    { maximumFeatCount["DLCTrigon"][person] += 1; }
             }
           }
         }
@@ -26019,6 +26283,7 @@ function calculateFeatsSummary(character, startDateString, endDateString)
                   else if (featCollection[j].subcategory == "The Last Laugh")    { numberFeatCount["DLCLaugh"][person] += 1; }
                   else if (featCollection[j].subcategory == "Hand of Fate")      { numberFeatCount["DLCFate"][person] += 1; }
                   else if (featCollection[j].subcategory == "Home Turf")         { numberFeatCount["DLCTurf"][person] += 1; }
+                  else if (featCollection[j].subcategory == "Sons of Trigon")    { numberFeatCount["DLCTrigon"][person] += 1; }
                 } 
                 break;
               }
@@ -26101,6 +26366,7 @@ function calculateFeatsSummary(character, startDateString, endDateString)
       results += '        <li style="font-family:' + font + ';">The Last Laugh' + printSpaces(12) + numberFeatCount["DLCLaugh"][characterName] + '/' + maximumFeatCount["DLCLaugh"][characterName] + '</li>';
       results += '        <li style="font-family:' + font + ';">Hand of Fate' + printSpaces(14) + numberFeatCount["DLCFate"][characterName] + '/' + maximumFeatCount["DLCFate"][characterName] + '</li>'
       results += '        <li style="font-family:' + font + ';">Home Turf' + printSpaces(17) + numberFeatCount["DLCTurf"][characterName] + '/' + maximumFeatCount["DLCTurf"][characterName] + '</li>';
+      results += '        <li style="font-family:' + font + ';">Sons of Trigon' + printSpaces(17) + numberFeatCount["DLCTrigon"][characterName] + '/' + maximumFeatCount["DLCTrigon"][characterName] + '</li>';
       results += '      </ul>';
       results += '    </li>';
       results += '    <li style="font-family:' + font + ';">Styles' + printSpaces(20) + numberFeatCount["Styles"][characterName] + '/' + maximumFeatCount["Styles"][characterName];
@@ -27843,13 +28109,13 @@ function dataOptionExecute()
     case "PVP Season 1 Match History":
       calculatePVPS1Matches(person, startDateString, endDateString);
       break;
-    case "PVP Former Match History":
+    case "PVP Match History":
       calculatePVPMatches(person, startDateString, endDateString);
       break;
-    case "PVP Former Legends Stats":
+    case "PVP Legends Stats":
       calculatePVPLMatchStats(person, startDateString, endDateString);
       break;
-    case "PVP Former Arena Stats":
+    case "PVP Arena Stats":
       calculatePVPAMatchStats(person, startDateString, endDateString);
       break;
     case "Lair Drops":
