@@ -392,7 +392,7 @@ table.sortable tr.sortbottom td {
 <script>
 
 
-var VERSION = "6.7";
+var VERSION = "6.8";
 
 // Check for the various File API support.
 
@@ -1471,9 +1471,11 @@ lairCollection.push({name:"Mystical Floor Pillow",                     color:"Gr
 lairCollection.push({name:"Mystical Couch",                            color:"Blue",   theme:"Mystical",       location:"Floor",   category:"Furniture",            subcategory:"Chairs & Sofas",   drops:""});
 lairCollection.push({name:"Mystical Armoire",                          color:"Green",  theme:"Mystical",       location:"Floor",   category:"Storage",              subcategory:"Cabinets",         drops:"Arkham Asylum alert"});
 lairCollection.push({name:"Black Mystical Bed",                        color:"Blue",   theme:"Mystical",       location:"Floor",   category:"Furniture",            subcategory:"Beds",             drops:"Oolong Hard alert, Chemoid in Bludhaven alert, NPC in HIVE hard alert"});
+lairCollection.push({name:"Green Mystical Bed",                        color:"Blue",   theme:"Mystical",       location:"Floor",   category:"Furniture",            subcategory:"Beds",             drops:"T5 Knightsdome duo"});
 lairCollection.push({name:"White Mystical Bed",                        color:"Blue",   theme:"Mystical",       location:"Floor",   category:"Furniture",            subcategory:"Beds",             drops:"Jackal Soldier in Kahndaq raid, Ultra-Humanite in Gorilla Island alert"});
 lairCollection.push({name:"Round Mystical Rug",                        color:"Green",  theme:"Mystical",       location:"Floor",   category:"Decorations",          subcategory:"Textiles",         drops:"Metropolis City Hall duo, Micro-security bot in Oolong Island easy alert"});
 lairCollection.push({name:"Blue Mystical Ceiling Scroll",              color:"Green",  theme:"Mystical",       location:"Ceiling", category:"Decorations",          subcategory:"Paintings & Banners", drops:"Reward box for Kahndaq novice raid monthly"});
+lairCollection.push({name:"Mystical Tree Stump Chair",                 color:"Blue",   theme:"Mystical",       location:"Floor",   category:"Furniture",            subcategory:"Chairs & Sofas",   drops:"Sentinels of Magic Disciple in Gotham Wastelands"});
 
 lairCollection.push({name:"Destroyed Medical Cot",                     color:"",       theme:"Hospital",       location:"Floor",   category:"",                     subcategory:"",                 drops:"Cape Carmine Duo"});
 lairCollection.push({name:"Destroyed Operating Cart",                  color:"Green",  theme:"Hospital",       location:"Floor",   category:"Tools and Appliances", subcategory:"Laboratory",       drops:"OMAC Incinerator in OMAC duo"});
@@ -1531,6 +1533,7 @@ lairCollection.push({name:"Eastern Birdcage",                          color:"",
 lairCollection.push({name:"Round Eastern Rug",                         color:"",       theme:"Eastern",        location:"Floor",   category:"",                     subcategory:"",                 drops:"Starport Worker in HIVE alert"});
 lairCollection.push({name:"Hanging Eastern Tapestry",                  color:"Green",  theme:"Eastern",        location:"Ceiling", category:"Decorations",          subcategory:"Paintings & Banners", drops:"Reward box for HIVE duo"});
 lairCollection.push({name:"Large Eastern Woven Tapestry",              color:"",       theme:"Eastern",        location:"Wall",    category:"",                     subcategory:"",                 drops:""});
+lairCollection.push({name:"Eastern Battle Standard",                   color:"Blue",   theme:"Eastern",        location:"Wall",    category:"",                     subcategory:"",                 drops:""});
 
 lairCollection.push({name:"Dive Armoire",                              color:"",       theme:"Dive",           location:"Floor",   category:"",                     subcategory:"",                 drops:"T1 Oolong Tornado Tyrant"});
 lairCollection.push({name:"Dive Piano",                                color:"",       theme:"Dive",           location:"Floor",   category:"",                     subcategory:"",                 drops:"T1 Oolong Island alert"});
@@ -1577,7 +1580,7 @@ lairCollection.push({name:"Large Lab Pill Dispenser",                  color:"",
 lairCollection.push({name:"Large Lab Vat",                             color:"Purple", theme:"Laboratory",     location:"Floor",   category:"Storage",              subcategory:"Hazardous Materials", drops:""});
 lairCollection.push({name:"Large Lab Vat Top",                         color:"Green",  theme:"Laboratory",     location:"Floor",   category:"Storage",              subcategory:"Hazardous Materials", drops:"Enraged Metal Man in Oolong Island easy alert"});
 lairCollection.push({name:"Medium Lab Vat",                            color:"Purple", theme:"Laboratory",     location:"Floor",   category:"Storage",              subcategory:"Hazardous Materials", drops:"Armored Robotic Custodian in Inner Sanctum alert, Reward box for Arkham daily mission"});
-lairCollection.push({name:"Mutagen Container",                         color:"",       theme:"Laboratory",     location:"Floor",   category:"",                     subcategory:"",                  drops:""});
+lairCollection.push({name:"Mutagen Container",                         color:"Purple", theme:"Laboratory",     location:"Floor",   category:"Storage",              subcategory:"Hazardous Materials", drops:"FOS3 Raid"});
 lairCollection.push({name:"Radioactive Substance Container",           color:"Purple", theme:"Laboratory",     location:"Floor",   category:"Storage",              subcategory:"Hazardous Materials", drops:"Vice in Ferris duo, Shady Nightclub duo, Hush in Subway duo"});
 lairCollection.push({name:"Small Lab Pill Dispenser",                  color:"Purple", theme:"Laboratory",     location:"Floor",   category:"Storage",              subcategory:"Cabinets",          drops:""});
 lairCollection.push({name:"Small Reactor Incinerator",                 color:"Blue",   theme:"Laboratory",     location:"Floor",   category:"",                     subcategory:"",                  drops:"First general, pharoah in Kahndaq raid, Bat Sentinels in Outer Caverns alert, Soulless Fiend"});
@@ -1603,13 +1606,15 @@ lairCollection.push({name:"Large Clay Urn",                            color:"",
 lairCollection.push({name:"Large Damaged Obelisk",                     color:"Purple", theme:"Museum",         location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"Vengeance Bee, Avenging Spirit Guidicus in Vengeance operation, Hellish Atlantean Overlord in Black Dawn operation, Circe in Gates raid"});
 lairCollection.push({name:"Large Primordial Cistern",                  color:"Purple", theme:"Museum",         location:"Floor",   category:"Tools and Appliances", subcategory:"Ritual Items",      drops:"PVP Reward box"});
 lairCollection.push({name:"Modern Wooden Display Case",                color:"Green",  theme:"Museum",         location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"Metropolis City Hall duo, Micro bot in Oolong Hard alert, Enraged Metal Man in Oolong Island easy alert, NPC in LOA"});
-lairCollection.push({name:"Plesiosaur Display",                        color:"",       theme:"Museum",         location:"Floor",   category:"",          subcategory:"",      drops:""});
-lairCollection.push({name:"Sabertooth Tiger Display",                  color:"",       theme:"Museum",         location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Mammoth Display",                           color:"",       theme:"Museum",         location:"Floor",   category:"",          subcategory:"",      drops:"Promethium Lockbox"});
+lairCollection.push({name:"Plesiosaur Display",                        color:"",       theme:"Museum",         location:"Floor",   category:"",          subcategory:"",      drops:"Promethium Lockbox"});
+lairCollection.push({name:"Pterosaur Display",                         color:"",       theme:"Museum",         location:"Floor",   category:"",          subcategory:"",      drops:"Promethium Lockbox"});
+lairCollection.push({name:"Sabertooth Tiger Display",                  color:"",       theme:"Museum",         location:"Floor",   category:"",          subcategory:"",      drops:"Promethium Lockbox"});
 
 lairCollection.push({name:"Angel of Justice Statue",                   color:"Purple", theme:"Statues",        location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"Promethium Lockbox"});
 lairCollection.push({name:"Blind Justice Statue",                      color:"Purple", theme:"Statues",        location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"Promethium Lockbox"});
 lairCollection.push({name:"Cloth Covered Statue",                      color:"Purple", theme:"Statues",        location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"Reward box for Arkham daily, ARC in Inner Sanctum alert"});
-lairCollection.push({name:"Darkstone Gargoyle Statue",                 color:"",       theme:"Statues",        location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:""});
+lairCollection.push({name:"Darkstone Gargoyle Statue",                 color:"Purple", theme:"Statues",        location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:""});
 lairCollection.push({name:"Easter Island Statue",                      color:"Purple", theme:"Statues",        location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"Promethium Lockbox"});
 lairCollection.push({name:"Friendship and Generosity Statue",          color:"Purple", theme:"Statues",        location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"Sunstone Herald in novice raid Fortress of Solitude: The Chasm, General Zod in FOS3 Novice raid"});
 lairCollection.push({name:"Jade Dragon Head Statue",                   color:"Purple", theme:"Statues",        location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"T2 duo Reward box"});
@@ -1619,6 +1624,7 @@ lairCollection.push({name:"Peasant Woman Statue",                      color:"",
 lairCollection.push({name:"Standing Angelic Statue",                   color:"Purple", theme:"Statues",        location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"Promethium Lockbox"});
 lairCollection.push({name:"Terracotta Warrior",                        color:"Purple", theme:"Statues",        location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"Promethium Lockbox"});
 
+lairCollection.push({name:"Adorned Hooded Skeleton Portrait",          color:"",       theme:"Paintings",      location:"Wall",    category:"Decorations",          subcategory:"Paintings & Banners", drops:""});
 lairCollection.push({name:"Brushed City Landscape",                    color:"Purple", theme:"Paintings",      location:"Wall",    category:"Decorations",          subcategory:"Paintings & Banners", drops:"Promethium Lockbox"});
 lairCollection.push({name:"Brushed Darkened Vase Portrait",            color:"Green",  theme:"Paintings",      location:"Wall",    category:"Decorations",          subcategory:"Paintings & Banners", drops:"STAR Labs alert, Oan alert, Doctor Pyrate, Tornado Tyrant in Oolong Island hard alert"});
 lairCollection.push({name:"Brushed Drip Portrait",                     color:"",       theme:"Paintings",      location:"Wall",    category:"Decorations",          subcategory:"Paintings & Banners", drops:"Smallville alert"});
@@ -1633,7 +1639,7 @@ lairCollection.push({name:"Discovered Landscape Painting",             color:"Gr
 lairCollection.push({name:"Elegant Landscape Boat Picture",            color:"Blue",   theme:"Paintings",      location:"Wall",    category:"Decorations",          subcategory:"Paintings & Banners", drops:"LexCorp Heavy Mech in Bizarro T5 challenge"});
 lairCollection.push({name:"Folded Famous Painting",                    color:"",       theme:"Paintings",      location:"Wall",    category:"Decorations",          subcategory:"Paintings & Banners", drops:""});
 lairCollection.push({name:"Fresh Portrait Painting",                   color:"",       theme:"Paintings",      location:"Wall",    category:"Decorations",          subcategory:"Paintings & Banners", drops:""});
-lairCollection.push({name:"Ornate River Landscape",                    color:"",       theme:"Paintings",      location:"Wall",    category:"Decorations",          subcategory:"Paintings & Banners", drops:""});
+lairCollection.push({name:"Ornate River Landscape",                    color:"Purple", theme:"Paintings",      location:"Wall",    category:"Decorations",          subcategory:"Paintings & Banners", drops:"Promethium Lockbox"});
 lairCollection.push({name:"Paneled Honeycomb Art",                     color:"Purple", theme:"Paintings",      location:"Wall",    category:"Decorations",          subcategory:"Paintings & Banners", drops:"Minor Envy Cultist"});
 lairCollection.push({name:"Stormy Painting",                           color:"",       theme:"Paintings",      location:"Wall",    category:"Decorations",          subcategory:"Paintings & Banners", drops:""});
 
@@ -1646,6 +1652,7 @@ lairCollection.push({name:"Vintage Fridge",                            color:"Gr
 
 lairCollection.push({name:"Black Luxurious Bed",                       color:"Blue",   theme:"Mansion",        location:"Floor",   category:"Furniture",            subcategory:"",                  drops:"The Gatekeeper in Kahndaq novice raid"});
 lairCollection.push({name:"Black Luxurious Chair",                     color:"Blue",   theme:"Mansion",        location:"Floor",   category:"Furniture",            subcategory:"Chairs & Sofas",    drops:"Riot Control Prototype in Outer Caverns alert, Oolong Enforcer, Dr Pyrate in Oolong hard alert, Scion of Will in STAR Labs alert"});
+lairCollection.push({name:"Black Luxurious Leather Chair",             color:"Green",  theme:"Mansion",        location:"Floor",   category:"Furniture",            subcategory:"Chairs & Sofas",    drops:"Demonic Drudgemaster in Gotham Wastelands"});
 lairCollection.push({name:"Blue Luxury Rug",                           color:"",       theme:"Mansion",        location:"Floor",   category:"Decorations",          subcategory:"Textiles",          drops:"Doomcrazed Guard in Smallville alert"});
 lairCollection.push({name:"Blue Luxurious Rug",                        color:"Green",  theme:"Mansion",        location:"Floor",   category:"Decorations",          subcategory:"Textiles",          drops:"Doomcrazed Citizen in Smallville alert, OMACs near Knightsdome, Jokandroid in Joker's Funhouse challenge, Bestiamorph Ravener in Circe challenge"});
 lairCollection.push({name:"Brown Luxurious Leather Chair",             color:"Green",  theme:"Mansion",        location:"Floor",   category:"Furniture",            subcategory:"Chairs & Sofas",    drops:"Ace Chemicals solo instance, NPC in HIVE Hard alert"});
@@ -1668,6 +1675,7 @@ lairCollection.push({name:"Red Luxurious Chair",                       color:"Bl
 lairCollection.push({name:"Red Luxurious Leather Chair",               color:"Green",  theme:"Mansion",        location:"Floor",   category:"",                     subcategory:"",                  drops:"General Adnan in kahndaq raid"});
 lairCollection.push({name:"Red Luxury Hammock",                        color:"",       theme:"Mansion",        location:"Floor",   category:"",                     subcategory:"",                  drops:"OMAC Duo"});
 lairCollection.push({name:"White Luxurious Leather Chair",             color:"Green",  theme:"Mansion",        location:"Floor",   category:"Furniture",            subcategory:"Chairs & Sofas",    drops:"Defective OMAC, OMAC Incinerator in OMAC base duo, Zoom in Gorilla Grodd duo, Booster in HIVE Base duo"});
+lairCollection.push({name:"Luxury Dining Chair",                       color:"Blue",   theme:"Mansion",        location:"Floor",   category:"Furniture",            subcategory:"Chairs & Sofas",    drops:""});
 
 lairCollection.push({name:"Green Palace Chair",                        color:"",       theme:"Palace",         location:"Floor",   category:"Furniture",            subcategory:"",                  drops:"Doomcrazed Giant in Smallville alert"});
 lairCollection.push({name:"King's Throne",                             color:"Purple", theme:"Palace",         location:"Floor",   category:"Furniture",            subcategory:"Chairs & Sofas",    drops:"Promethium Lockbox"});
@@ -1677,7 +1685,8 @@ lairCollection.push({name:"Palace Night Stand",                        color:"",
 lairCollection.push({name:"Palatial Cannon",                           color:"Purple", theme:"Palace",         location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"Reward box"});
 lairCollection.push({name:"Palatial Nightstand",                       color:"Green",  theme:"Palace",         location:"Floor",   category:"Furniture",            subcategory:"Tables",            drops:"Reward box"});
 lairCollection.push({name:"Palatial Room Divider",                     color:"Green",  theme:"Palace",         location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"Cryo Chemoid in Bludhaven, NPC in Kahndaq novice raid"});
-lairCollection.push({name:"Palatial Woman Portrait",                   color:"",       theme:"Palace",         location:"Wall",    category:"Decorations",          subcategory:"",                  drops:""});
+lairCollection.push({name:"Palatial Woman Portrait",                   color:"",       theme:"Palace",         location:"Wall",    category:"Decorations",          subcategory:"Paintings & Banners", drops:""});
+lairCollection.push({name:"Palatial Accent Table",                     color:"Green",  theme:"Palace",         location:"Floor",   category:"Furniture",            subcategory:"Tables",            drops:"Demon Overseer in Gotham Wastelands"});
 
 lairCollection.push({name:"Cell Block Number 1",                       color:"Green",  theme:"Prison",         location:"Wall",    category:"Decorations",          subcategory:"Flat Items",        drops:"Final boss in T1 alerts, Chemo in Ace Chemicals alert, Eradicator in Watchtower alert, Doomsday in Smallville alert"});
 lairCollection.push({name:"Cell Block Number 3",                       color:"Green",  theme:"Prison",         location:"Wall",    category:"Decorations",          subcategory:"Flat Items",        drops:"Strongman in Gotham Lighthouse Bane duo"});
@@ -1842,6 +1851,7 @@ lairCollection.push({name:"Large Hanging Tarp",                        color:"",
 lairCollection.push({name:"Orange Mystical Ceiling Banner",            color:"",       theme:"Ceiling",        location:"Ceiling", category:"",                     subcategory:"",                  drops:""});
 lairCollection.push({name:"Stained Glass Chandelier",                  color:"",       theme:"Ceiling",        location:"Ceiling", category:"",                     subcategory:"",                  drops:""});
 lairCollection.push({name:"Wooden Trellis",                            color:"",       theme:"Ceiling",        location:"Ceiling", category:"",                     subcategory:"",                  drops:"Keeper of the Dead in T5 Ruined Cathedral duo"});
+lairCollection.push({name:"Ceiling Spider Web",                        color:"",       theme:"Ceiling",        location:"Ceiling", category:"", subcategory:"",             drops:""});
 
 lairCollection.push({name:"Iron Mine Cart",                            color:"Purple", theme:"Cave",           location:"Floor",   category:"Tools and Appliances", subcategory:"Tools",             drops:""});
 lairCollection.push({name:"Mine Cart Crate",                           color:"Purple", theme:"Cave",           location:"Floor",   category:"",                     subcategory:"",                  drops:"Tala in Black Dawn operation"});
@@ -1875,7 +1885,7 @@ lairCollection.push({name:"Hydroponic Garden",                         color:"Pu
 
 lairCollection.push({name:"Amazonian Barricade",                       color:"Purple", theme:"Amazonian",      location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"PVP Legends Gear Box"});
 lairCollection.push({name:"Grecian Fire Urn",                          color:"",       theme:"Amazonian",      location:"Floor",   category:"",                     subcategory:"",                  drops:""});
-lairCollection.push({name:"Stone Amazonian Altar",                     color:"Purple", theme:"Amazonian",      location:"Floor",   category:"",                     subcategory:"",                  drops:"General Zod in Fortress of Solitude Sunstone Matrix raid, Avatar of Meta in FOS2 raid"});
+lairCollection.push({name:"Stone Amazonian Altar",                     color:"Purple", theme:"Amazonian",      location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"General Zod in Fortress of Solitude Sunstone Matrix raid, Avatar of Meta in FOS2 raid"});
 lairCollection.push({name:"Stone Spartan Statue",                      color:"",       theme:"Amazonian",      location:"Floor",   category:"",                     subcategory:"",                  drops:""});
 
 lairCollection.push({name:"Ancient Neptune Bust",                      color:"",       theme:"Marine",         location:"Floor",   category:"",                     subcategory:"",                  drops:""});
@@ -1976,6 +1986,8 @@ lairCollection.push({name:"Tranquil Sand Garden",                      color:"Pu
 lairCollection.push({name:"Clay Pottery",                              color:"Purple", theme:"Miscellaneous",  location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"Future Lex Luthor in Family Reunion operation, Jor-El in Brothers in Arms"});
 lairCollection.push({name:"Dark Armoire",                              color:"Blue",   theme:"Miscellaneous",  location:"Floor",   category:"Storage",          subcategory:"Cabinets",      drops:"Raging Cultist"});
 lairCollection.push({name:"Large Ballroom Vase",                       color:"Purple", theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Cocoon",                                    color:"", theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
+lairCollection.push({name:"Cocooned Body",                             color:"", theme:"Miscellaneous",  location:"Floor",   category:"",          subcategory:"",      drops:""});
 
 
 
@@ -4204,6 +4216,7 @@ powerCollection.push({name:"Final Ruin",            type:"Sorcery",role:"Healer"
 powerCollection.push({name:"Circle of Destiny",     type:"Sorcery",role:"Healer"});
 powerCollection.push({name:"Life Element",          type:"Sorcery",role:"Healer"});
 powerCollection.push({name:"Weapon of Destiny",     type:"Sorcery",role:"Healer"});
+powerCollection.push({name:"Conjure Shard of Life", type:"Sorcery",role:"Healer"});  // Change with update32 in Dec 2013
 powerCollection.push({name:"Savage Growth",         type:"Nature",role:"Healer"});
 powerCollection.push({name:"Roar",                  type:"Nature",role:"Healer"});
 powerCollection.push({name:"Rampage",               type:"Nature",role:"Healer"});
@@ -4223,6 +4236,7 @@ powerCollection.push({name:"Wolf Melee Combo",      type:"Nature",role:"Healer"}
 powerCollection.push({name:"Wolf Primary Attack",   type:"Nature",role:"Healer"});
 powerCollection.push({name:"Gorilla Rage",          type:"Nature",role:"Healer"});
 powerCollection.push({name:"Gorilla Primary Attack",type:"Nature",role:"Healer"});
+powerCollection.push({name:"Serpent Call",          type:"Nature",role:"Healer"});  // Change with update32 in Dec 2013
 powerCollection.push({name:"Cold Snap",             type:"Ice",role:"Tank"});
 powerCollection.push({name:"Snow Ball",             type:"Ice",role:"Tank"});
 powerCollection.push({name:"Frost Snipe",           type:"Ice",role:"Tank"});
@@ -5941,6 +5955,7 @@ styleCollection.push({name:"Hood of Envy",                           style:"Blin
 styleCollection.push({name:"Visage of the Devoted",                  style:"Devotee",                 drops:"Reward for Gotham Wastelands Accoutrements of Good collections"});
 styleCollection.push({name:"Alumni's Jacket",                        style:"Gadgeteer",               drops:"Reward for Metropolis collection Alma Alumni"});
 styleCollection.push({name:"Relic Shoulderguards",                   style:"Divine",                  drops:"Reward for Metropolis University collections"});
+styleCollection.push({name:"Trophy of the Envy Cultist",             style:"Coveted",                 drops:"Reward for Gotham Wastelands collections"});
 styleCollection.push({name:"STAR Labs Emblem"});
 styleCollection.push({name:"Lightbringer's Emblem"});
 styleCollection.push({name:"Romantic's Emblem"});
@@ -9934,6 +9949,8 @@ function isAccessory(lineString)
   armorCollection.push({name:"Edo no Himo",                           type:"Waist",     role:"Controller", style:"Kabuki",            drops:"",                                                                        faction:"Both", level:83});
   armorCollection.push({name:"Houfuku no Sashimono",                  type:"Back",      role:"Controller", style:"Kabuki",            drops:"",                                                                        faction:"Both", level:83});
   armorCollection.push({name:"Terasaka no Kogake",                    type:"Feet",      role:"Controller", style:"Kabuki",            drops:"LexCorp Heavy Mech in 1 Player Tier 5 Challenge Test Subject #1",         faction:"Both", level:83});
+  armorCollection.push({name:"Onodera no Kote",                       type:"Hands",     role:"Controller", style:"Kabuki",            drops:"Catwoman in Family Reunion alert",                                        faction:"Both", level:83});
+  armorCollection.push({name:"Legguards of Preserve",                 type:"Legs",      role:"Tank",       style:"Kabuki",            drops:"Trigon's Prison alert",                                                   faction:"Both", level:84});
 
   armorCollection.push({name:"Gi of the Tiger Style",                 type:"Chest",     role:"DPS",        style:"Kung-Fu Gi",        drops:"",                                                                        faction:"Both", level:86});
   armorCollection.push({name:"Scratched Assassin's Cuirass",          type:"Chest",     role:"DPS",        style:"Kung-Fu Gi",        drops:"T5 operation",                                                            faction:"Both", level:86});
@@ -9952,8 +9969,9 @@ function isAccessory(lineString)
   armorCollection.push({name:"Bone Armored Helmet",                   type:"Head",      role:"Tank",       style:"Necromancer",       drops:"BIA operation",                                                           faction:"Both", level:83});
   armorCollection.push({name:"Bone-Reinforced Chestplate",            type:"Chest",     role:"Tank",       style:"Necromancer",       drops:"Santo Cassamento in 1 Player Tier 5 Challenge The Hunt",                  faction:"Both", level:83});
   armorCollection.push({name:"Bone Warden's Gloves",                  type:"Hands",     role:"Tank",       style:"Necromancer",       drops:"Batman in T5 Operation Family Reunion",                                   faction:"Both", level:83});
-  armorCollection.push({name:"Mantle of the Slayer",                  type:"Shoulders", role:"DPS",        style:"Necromancer",       drops:"",                                                                        faction:"Both", level:87});
+  armorCollection.push({name:"Waistband of the Bone Warden",          type:"Waist",     role:"Tank",       style:"Necromancer",       drops:"Brothers in Arms alert",                                                  faction:"Both", level:83});
   armorCollection.push({name:"Skull Armored Boots",                   type:"Feet",      role:"Tank",       style:"Necromancer",       drops:"LexCorp Heavy Mech in 1 Player Tier 5 Challenge Test Subject #1",         faction:"Both", level:83});
+  armorCollection.push({name:"Mantle of the Slayer",                  type:"Shoulders", role:"DPS",        style:"Necromancer",       drops:"",                                                                        faction:"Both", level:87});
   armorCollection.push({name:"Spiked Gladiator's Pauldrons",          type:"Shoulders", role:"DPS",        style:"Necromancer",       drops:"",                                                                        faction:"Both", level:87});
 
   armorCollection.push({name:"Forgotten Epaulets",                    type:"Shoulders", role:"Controller", style:"Oolong",            drops:"",                                                                        faction:"Both", level:84});
@@ -9965,6 +9983,8 @@ function isAccessory(lineString)
   armorCollection.push({name:"Watcher's Sash",                        type:"Waist",     role:"Controller", style:"Psycho",            drops:"",                                                                        faction:"Both", level:86});
   armorCollection.push({name:"Foot Wraps of Flowing Sand",            type:"Feet",      role:"Controller", style:"Psycho",            drops:"",                                                                        faction:"Both", level:85});
 
+  armorCollection.push({name:"Champion's Cowl",                       type:"Head",      role:"Tank",       style:"Qwardian",          drops:"Trigon's Prison alert",                                                   faction:"Both", level:84});
+
   armorCollection.push({name:"Shielded Plate Gloves",                 type:"Hands",     role:"DPS",        style:"Robotic",           drops:"",                                                                        faction:"Both", level:85});
 
   armorCollection.push({name:"Rebuilder's Cuirass",                   type:"Chest",     role:"Healer",     style:"Sector Agent",      drops:"",                                                                        faction:"Both", level:86});
@@ -9974,6 +9994,8 @@ function isAccessory(lineString)
   armorCollection.push({name:"Mantle of the Mender",                  type:"Shoulders", role:"Healer",     style:"Seraph",            drops:"",                                                                        faction:"Both", level:87});
   armorCollection.push({name:"New Angel's Wings",                     type:"Back",      role:"DPS",        style:"Seraph",            drops:"",                                                                        faction:"Both", level:85});
   armorCollection.push({name:"Foot Wraps of Malevolence",             type:"Feet",      role:"DPS",        style:"Seraph",            drops:"",                                                                        faction:"Both", level:85});
+
+  armorCollection.push({name:"Cowl of Onslaught",                     type:"Head",      role:"DPS",        style:"Shaman",            drops:"Trigon's Prison alert",                                                   faction:"Both", level:84});
 
   armorCollection.push({name:"Operative's Assault Girdle",            type:"Waist",     role:"DPS",        style:"Shielded Robot",    drops:"",                                                                        faction:"Both", level:85});
   armorCollection.push({name:"Recirculating Waistband",               type:"Waist",     role:"DPS",        style:"Shielded Robot",    drops:"",                                                                        faction:"Both", level:85});
@@ -10008,7 +10030,9 @@ function isAccessory(lineString)
   armorCollection.push({name:"Medieval Pouched Belt",                 type:"Waist",     role:"DPS",        style:"Viking",            drops:"Superman in T5 Operation",                                                faction:"Both", level:83});
   armorCollection.push({name:"Boots of the Pillager",                 type:"Feet",      role:"DPS",        style:"Viking",            drops:"LexCorp Heavy Mech in Bizarro challenge",                                 faction:"Both", level:83});
   armorCollection.push({name:"Skaldic Fur-Lined Boots",               type:"Feet",      role:"DPS",        style:"Viking",            drops:"LexCorp Heavy Mech in 1 Player Tier 5 Challenge Test Subject #1",         faction:"Both", level:83});
+  armorCollection.push({name:"Wolf-Pelt of the Skald",                type:"Back",      role:"DPS",        style:"Viking",            drops:"Final boss Family Reunion alert",                                         faction:"Both", level:83});
   armorCollection.push({name:"Rejuvenator's Sacred Cape",             type:"Back",      role:"Healer",     style:"Viking",            drops:"",                                                                        faction:"Both", level:85});
+  armorCollection.push({name:"Legguards of Reanimation",              type:"Legs",      role:"Healer",     style:"Viking",            drops:"Avatar of Sin in Trigon's Prison alert",                                  faction:"Both", level:84});
 
   armorCollection.push({name:"Refreshing Shoulderguards",             type:"Shoulders", role:"Healer",     style:"Wizardly",          drops:"",                                                                        faction:"Both", level:85});
 
@@ -10069,15 +10093,20 @@ function isAccessory(lineString)
   armorCollection.push({name:"Lifetaker's Glasses",                   type:"Face",      role:"DPS",        style:"Business",           drops:"",                                        faction:"Both", health:92,  power:31, precision:22, might:38, restoration:12, vitalization:8,  dominance:0,  defense:0,   toughness:0, level:85});
   armorCollection.push({name:"Mask of the Unheard",                   type:"Face",      role:"Controller", style:"Riveted Ventilator", drops:"Paradox Eradicator in T5 Operation",      faction:"Both", health:68,  power:34, precision:5,  might:10, restoration:4,  vitalization:22, dominance:9,  defense:57,  toughness:0, level:82});
   armorCollection.push({name:"Onslaught Visor",                       type:"Face",      role:"DPS",        style:"Eyepatch",           drops:"",                                        faction:"Both", health:85,  power:28, precision:18, might:42, restoration:9,  vitalization:6,  dominance:0,  defense:67,  toughness:0, level:84});
+  armorCollection.push({name:"Outlaw Goggles",                        type:"Face",      role:"DPS",        style:"",                   drops:"Gotham Wastelands",                       faction:"Both", health:68,  power:23, precision:15, might:32, restoration:2,  vitalization:0,  dominance:0,  defense:53,  toughness:0, level:81});
   armorCollection.push({name:"Physician's Rebreather",                type:"Face",      role:"Healer",     style:"Riveted Ventilator", drops:"Brothers in Arms T5 Operation",           faction:"Both", health:79,  power:39, precision:5,  might:10, restoration:37, vitalization:3,  dominance:0,  defense:57,  toughness:0, level:81});
   armorCollection.push({name:"Reinforced Facemask",                   type:"Face",      role:"Tank",       style:"Gas Ventilator",     drops:"Jor-El in Brothers in Arms T5 Operation", faction:"Both", health:123, power:16, precision:5,  might:11, restoration:7,  vitalization:4,  dominance:8,  defense:120, toughness:0, level:83});
   armorCollection.push({name:"Sand-Etched Faceguard",                 type:"Face",      role:"Controller", style:"Druid",              drops:"",                                        faction:"Both", health:85,  power:43, precision:6,  might:15, restoration:12, vitalization:29, dominance:12, defense:72,  toughness:0, level:85});
-  armorCollection.push({name:"Security Mask",                         type:"Face",      role:"Tank",       style:"Riveted Ventilator", drops:"Paradox in T5 Operation",               faction:"Both", health:115, power:15, precision:0,  might:10, restoration:4,  vitalization:3,  dominance:7,  defense:111, toughness:0, level:82});
+  armorCollection.push({name:"Security Mask",                         type:"Face",      role:"Tank",       style:"Riveted Ventilator", drops:"Paradox in T5 Operation",                 faction:"Both", health:115, power:15, precision:0,  might:10, restoration:4,  vitalization:3,  dominance:7,  defense:111, toughness:0, level:82});
   armorCollection.push({name:"Stoic Faceguard",                       type:"Face",      role:"Tank",       style:"Druid",              drops:"",                                        faction:"Both", health:0,   power:0,  precision:0,  might:0,  restoration:0,  vitalization:0,  dominance:0,  defense:0,   toughness:0, level:85});
   armorCollection.push({name:"Striker's Facemask",                    type:"Face",      role:"DPS",        style:"Gas Ventilator",     drops:"Jor-El in Brothers in Arms T5 Operation", faction:"Both", health:79,  power:26, precision:16, might:38, restoration:7,  vitalization:4,  dominance:0,  defense:62,  toughness:0, level:83});
   armorCollection.push({name:"Tactical Facemask",                     type:"Face",      role:"Controller", style:"Gas Ventilator",     drops:"",                                        faction:"Both", health:73,  power:37, precision:5,  might:11, restoration:7,  vitalization:25, dominance:10, defense:62,  toughness:0, level:83});
   armorCollection.push({name:"Visor of Energy",                       type:"Face",      role:"Controller", style:"Eyepatch",           drops:"Shade of Wayne in Trigon's Prison alert", faction:"Both", health:79,  power:40, precision:6,  might:12, restoration:9,  vitalization:26, dominance:11, defense:67,  toughness:0, level:84});
   armorCollection.push({name:"Visor of the Warden",                   type:"Face",      role:"Tank",       style:"Eyepatch",           drops:"Trigon's Prison alert",                   faction:"Both", health:133, power:17, precision:6,  might:12, restoration:9,  vitalization:6,  dominance:8,  defense:129, toughness:0, level:84});
+  armorCollection.push({name:"Yakuza Shades",                         type:"Face",      role:"DPS",        style:"Business",           drops:"",                                        faction:"Both", health:100, power:33, precision:25, might:41, restoration:15, vitalization:10, dominance:0,  defense:78,  toughness:0, level:86});
+  armorCollection.push({name:"Aggressor's Mask",                      type:"Face",      role:"DPS",        style:"Gas Mask",           drops:"",                                        faction:"Both", health:100, power:33, precision:21, might:50, restoration:15, vitalization:10, dominance:0,  defense:78,  toughness:0, level:86});
+  armorCollection.push({name:"Animator's Mask",                       type:"Face",      role:"Healer",     style:"Gas Mask",           drops:"",                                        faction:"Both", health:108, power:53, precision:7,  might:16, restoration:60, vitalization:10, dominance:0,  defense:78,  toughness:0, level:86});
+  armorCollection.push({name:"Mask of Steel Resolve",                 type:"Face",      role:"Tank",       style:"Gas Mask",           drops:"",                                        faction:"Both", health:156, power:20, precision:7,  might:16, restoration:15, vitalization:10, dominance:10, defense:151, toughness:0, level:86});
 
   armorCollection.push({name:"Assailant's Utility Strap",             type:"Trinket",   role:"Controller", style:"Utility Belt", slots:"TCWW", drops:"T5 (Origin Crisis) content",                        faction:"Both", health:166, power:84, precision:12, might:27, restoration:30,  vitalization:50, dominance:23, defense:0,   level:87});
   armorCollection.push({name:"Assassin's Auxiliary Pouch",            type:"Trinket",   role:"DPS",        style:"Utility Belt", slots:"TCWW", drops:"Lex Luthor in Brothers in Arms Operation",          faction:"Both", health:143, power:47, precision:35, might:55, restoration:15,  vitalization:10, dominance:0,  defense:0,   level:84});
@@ -12211,6 +12240,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Sharded Carapace",                       type:"Chest",     role:"Tank",       style:"Kryptonian",          drops:"Sunstone Herald in Fortress of Solitude The Chasm Novice Raid",            faction:"Both"});
   armorCollection.push({name:"Sharded Shoulderguards",                 type:"Shoulders", role:"Tank",       style:"Kryptonian",          drops:"Scorpionod MK-1 in Fortress of Solitude The Chasm Novice Raid",            faction:"Both"});
   armorCollection.push({name:"Sharded Greaves",                        type:"Legs",      role:"Tank",       style:"Kryptonian",          drops:"Scorpionod MK-1 in Fortress of Solitude The Chasm Novice Raid",            faction:"Both"});
+  armorCollection.push({name:"Sharded Girdle of the Defender",         type:"Waist",     role:"Tank",       style:"Kryptonian",          drops:"Fortress of Solitude 2 The Power Core Novice Raid",                        faction:"Both", level:58});
   armorCollection.push({name:"Sharded Treads",                         type:"Feet",      role:"Tank",       style:"Kryptonian",          drops:"Sunstone Broodmother in Fortress of Solitude The Chasm Novice Raid",       faction:"Both"});
   armorCollection.push({name:"Sharded Back Protector",                 type:"Back",      role:"Tank",       style:"Kryptonian",          drops:"Novice Fortress of Solitude Raid",                                         faction:"Both"});
   armorCollection.push({name:"Tarnished Back Protector",               type:"Back",      role:"Tank",       style:"Kryptonian",          drops:"Prime Assassin in Novice Fortress of Solitude 2 Power Core Raid",          faction:"Both"});
@@ -12225,7 +12255,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Polycrystalline Headgear",               type:"Head",      role:"Tank",       style:"Kryptonian",          drops:"General Zod in FOS3 Novice Raid",                                          faction:"Both"});
 
   armorCollection.push({name:"Neophyte Band of Panacea",               type:"Ring",      role:"Healer",     style:"",                    drops:"General Zod in FOS3 Novice Raid",                                          faction:"Both", health:46, power:27, precision:3, might:7, dominance:0, toughness:0, restoration:23, level:58});
-//  armorCollection.push({name:"Broodling's Braincase",                  type:"Head",      role:"DPS",        style:"",                    drops:"Sunstone Broodmother in Fortress of Solitude The Chasm Novice Raid",       faction:"Both"});
+  armorCollection.push({name:"Broodling's Braincase",                  type:"Head",      role:"DPS",        style:"Brainiac Sunstone",   drops:"Sunstone Broodmother in Fortress of Solitude The Chasm Novice Raid",       faction:"Both"});
   armorCollection.push({name:"Kandorian Enforcer's Collar",            type:"Neck",      role:"DPS",        style:"",                    drops:"Corrupt Jor-El A.I. in Fortress of Solitude The Chasm Raid",               faction:"Both"});
   armorCollection.push({name:"Broach of the Councillors",              type:"Neck",      role:"DPS",        style:"",                    drops:"Scorpionod MK-1 in Fortress of Solitude The Chasm Novice Raid",            faction:"Both"});
   armorCollection.push({name:"Jagged Enforcer's Collar",               type:"Neck",      role:"DPS",        style:"",                    drops:"Sunstone Dominator in Fortress of Solitude The Chasm Novice Raid",         faction:"Both"});
@@ -14605,6 +14635,9 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Unattuned Infernal Guard",                    type:"Shield",         role:"DPS",        dps:167.5, drops:"Circe in Trigon's Prison alert",                                        style:"Diabolic Guard",        health:0,   power:0,   precision:0,  might:0,   vitalization:0,   restoration:0,   dominance:0,  defense:0,   toughness:0, level:84});
   weaponCollection.push({name:"Aggressor's Infernal Guard",                  type:"Shield",         role:"DPS",        dps:167.5, drops:"Circe in Trigon's Prison alert",                                        style:"Diabolic Guard",        health:339, power:113, precision:84, might:139, vitalization:29,  restoration:44,  dominance:0,  defense:0,   toughness:0, level:85});
 
+  weaponCollection.push({name:"Unattuned Infernal Bo",                       type:"Staff",          role:"DPS",        dps:167.5, drops:"Circe in Trigon's Prison alert",                                        style:"Diabolic Bo",           health:0,   power:0,   precision:0,  might:0,   vitalization:0,   restoration:0,   dominance:0,  defense:0,   toughness:0, level:85});
+  weaponCollection.push({name:"Aggressor's Infernal Bo",                     type:"Staff",          role:"DPS",        dps:167.5, drops:"Circe in Trigon's Prison alert",                                        style:"Diabolic Bo",           health:339, power:113, precision:84, might:139, vitalization:29,  restoration:44,  dominance:0,  defense:0,   toughness:0, level:85});
+
   // Weapons added with DCL7 Origin Crisis challenges, alerts, raids (05/08/2013)
 
   weaponCollection.push({name:"Unattuned Bow",                               type:"Bow",            role:"DPS",        dps:146.7, drops:"Johnny Blowtorch in challenge The Hunt",                                style:"Short Bow",             level:81});
@@ -14624,6 +14657,8 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Pirate's Flintlocks",                         type:"Dual Pistol",    role:"DPS",        dps:151.9, drops:"",                                                                      style:"Flintlock Pistol",      health:269, power:90,  precision:58, might:130, vitalization:10,  restoration:16,  dominance:0,  defense:0,   toughness:0, level:82});
   weaponCollection.push({name:"Hitman's Long Barrels",                       type:"Dual Pistol",    role:"DPS",        dps:157.1, drops:"",                                                                      style:"Machine Pistol",        health:290, power:96,  precision:62, might:139, vitalization:16,  restoration:24,  dominance:0,  defense:0,   toughness:0, level:83});
   weaponCollection.push({name:"Silenced Semi-Autos of the Assassin",         type:"Dual Pistol",    role:"Controller", dps:157.1, drops:"",                                                                      style:"Machine Pistol",        health:267, power:135, precision:20, might:39,  vitalization:89,  restoration:24,  dominance:37, defense:0,   toughness:0, level:83});
+  weaponCollection.push({name:"Unattuned Machine Guns",                      type:"Dual Pistol",    role:"DPS",        dps:146.7, drops:"Gotham Wastelands",                                                     style:"Particle Beam SMG",     level:81});
+  weaponCollection.push({name:"Guns of the Righteous",                       type:"Dual Pistol",    role:"DPS",        dps:146.7, drops:"Gotham Wastelands",                                                     style:"Particle Beam SMG",     health:250, power:83,  precision:53, might:120, vitalization:5,   restoration:7,   dominance:0,  defense:0,   toughness:0, level:81});
 
   weaponCollection.push({name:"Unattuned Tomahawks",                         type:"Dual Wield",     role:"DPS",        dps:146.7, drops:"Security Commander in 1 Player Tier 5 Challenge Test Subject #1",       style:"Thanagarian Tomahawk",  level:81});
   weaponCollection.push({name:"Valiant Chieftain's Tomahawks",               type:"Dual Wield",     role:"DPS",        dps:146.7, drops:"Security Commander in 1 Player Tier 5 Challenge Test Subject #1",       style:"Thanagarian Tomahawk",  level:81});
@@ -14688,9 +14723,13 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Improvised Bulwark",                          type:"Shield",         role:"Tank",       dps:146.7, drops:"LexCorp Sentinel in 1 Player Tier 5 Challenge Test Subject #1",         style:"Trashcan Lid",          health:389, power:50,  precision:17, might:34,  vitalization:5,   restoration:7,   dominance:24, defense:183, toughness:0, level:81});
   weaponCollection.push({name:"Shield of the Noble Healer",                  type:"Shield",         role:"Healer",     dps:146.7, drops:"LexCorp Sentinel in 1 Player Tier 5 Challenge Test Subject #1",         style:"Trashcan Lid",          health:270, power:133, precision:17, might:34,  vitalization:5,   restoration:121, dominance:0,  defense:0,   toughness:0, level:81});
   weaponCollection.push({name:"Trash Can Lid of the Fighter",                type:"Shield",         role:"DPS",        dps:146.7, drops:"",                                                                      style:"Trashcan Lid",          health:250, power:83,  precision:53, might:120, vitalization:5,   restoration:7,   dominance:0,  defense:0,   toughness:0, level:81});
+  weaponCollection.push({name:"Improvised Strategist's Shield",              type:"Shield",         role:"Controller", dps:146.7, drops:"",                                                                      style:"Trashcan Lid",          health:230, power:116, precision:17, might:34,  vitalization:77,  restoration:7,   dominance:32, defense:0,   toughness:0, level:81});
+
   weaponCollection.push({name:"Unattuned Gemmed Shield",                     type:"Shield",         role:"DPS",        dps:151.9, drops:"Santo Cassamento in 1 Player Tier 5 Challenge The Hunt",                style:"Gemmed Shield",         health:0,   power:0,   precision:0,  might:0,   vitalization:0,   restoration:0,   dominance:0,  defense:0,   toughness:0, level:82});
   weaponCollection.push({name:"Starburst Shield of the Aggressor",           type:"Shield",         role:"DPS",        dps:151.9, drops:"Santo Cassamento in 1 Player Tier 5 Challenge The Hunt",                style:"Gemmed Shield",         health:269, power:90,  precision:58, might:130, vitalization:10,  restoration:16,  dominance:0,  defense:0,   toughness:0, level:82});
   weaponCollection.push({name:"Starburst Shield of the Healer",              type:"Shield",         role:"Healer",     dps:151.9, drops:"Santo Cassamento in 1 Player Tier 5 Challenge The Hunt",                style:"Gemmed Shield",         health:291, power:143, precision:19, might:37,  vitalization:10,  restoration:138, dominance:0,  defense:0,   toughness:0, level:82});
+  weaponCollection.push({name:"Manipulator's Starburst Shield",              type:"Shield",         role:"Controller", dps:151.9, drops:"",                                                                      style:"Gemmed Shield",         health:248, power:125, precision:19, might:37,  vitalization:82,  restoration:16,  dominance:34, defense:0,   toughness:0, level:82});
+  weaponCollection.push({name:"Defiant Starburst Shield",                    type:"Shield",         role:"Tank",       dps:151.9, drops:"",                                                                      style:"Gemmed Shield",         health:420, power:54,  precision:19, might:37,  vitalization:10,  restoration:16,  dominance:26, defense:198, toughness:0, level:82});
   weaponCollection.push({name:"Mender's Circuit Shield",                     type:"Shield",         role:"Healer",     dps:157.1, drops:"",                                                                      style:"Mechanized",            health:314, power:154, precision:20, might:39,  vitalization:16,  restoration:156, dominance:0,  defense:0,   toughness:0, level:83});
   weaponCollection.push({name:"Shifted Energy Bulwark of Bastion",           type:"Shield",         role:"Tank",       dps:167.5, drops:"",                                                                      style:"Trashcan Lid",          health:528, power:68,  precision:23, might:53,  vitalization:29,  restoration:44,  dominance:32, defense:249, toughness:0, level:85});
 
@@ -14963,6 +15002,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Augmented Guard",                    type:"Shield", role:"Tank",       dps:97.1,  drops:"Riot Control Prototype in Batcave: Outer Caverns Raid",       style:"Turtle Shell",        health:198, power:0,  precision:8,  might:28, vitalization:0,  dominance:12, defense:60,  restoration:0,  toughness:0,  level:52});
   weaponCollection.push({name:"Blazoned Buckler",                   type:"Shield", role:"Healer",     dps:77.9,  drops:"Prime Servitor last boss Area 51 hard alert",                 style:"Plated Scarab",       health:93,  power:69, precision:7,  might:13, vitalization:0,  dominance:0,  defense:0,   restoration:38, toughness:0,  level:40});
   weaponCollection.push({name:"Bonecrusher Bulwark",                type:"Shield", role:"DPS",        dps:97.1,  drops:"Bat Family in Outer Caverns alert",                           style:"Shined Brass",        health:126, power:36, precision:26, might:49, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:52});
+  weaponCollection.push({name:"Combat Medic's Plate",               type:"Shield", role:"Healer",     dps:87.5,  drops:"ARC in Inner Sanctum novice raid",                            style:"Future Tech Shield",  health:131, power:55, precision:8,  might:15, vitalization:0,  dominance:0,  defense:0,   restoration:42, toughness:0,  level:46});
   weaponCollection.push({name:"Darkened Defender",                  type:"Shield", role:"DPS",        dps:57.1,  drops:"",                                                            style:"Hypno Shield",        health:74,  power:21, precision:16, might:29, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:27});
   weaponCollection.push({name:"Deathly Targe",                      type:"Shield", role:"DPS",        dps:97.1,  drops:"Black Adam in Kahndaq raid",                                  style:"Sun Dial",            health:148, power:17, precision:26, might:49, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:52});
   weaponCollection.push({name:"Defender's Plate",                   type:"Shield", role:"DPS",        dps:58.7,  drops:"Vendor in Gotham safehouse",                                  style:"Turtle Shell",        health:194, power:10, precision:10, might:23, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:28});
@@ -16182,6 +16222,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Staff of the Enraged Oni",         type:"Staff",role:"DPS",dps:103.5, drops:"Penguin in Old Gotham Subway duo", style:"Skull Staff", health:134, power:18, precision:28, might:65, level:56});
   weaponCollection.push({name:"Staff of the High Towers",         type:"Staff",role:"DPS",dps:68.3,drops:"",style:"Twin Dragon Staff", health:330, power:12, precision:12, might:27, toughness:34, level:30});
   weaponCollection.push({name:"Staff of the Ice King",            type:"Staff",role:"DPS",dps:33.1,drops:"",style:"Glacier Staff"});
+  weaponCollection.push({name:"Staff of the Lightning Prince",    type:"Staff",role:"Tank",dps:87.5,  drops:"Inner Sanctum Novice raid", style:"Steampunk Staff", health:159, precision:8, might:36, dominance:11, defense:54, level:46});
   weaponCollection.push({name:"Staff of the Shielded Oni",        type:"Staff",role:"Tank",dps:103.5, drops:"Killer Croc in duo", style:"Skull Staff", health:187, precision:9, might:29, dominance:9, defense:130, level:56});
   weaponCollection.push({name:"Staff of the Temple Guard",        type:"Staff",role:"Tank",dps:103.5, drops:"Vice in Ferris duo", style:"Skull Staff", health:209, precision:14, might:18, dominance:13, defense:63, level:56});
   weaponCollection.push({name:"Stagg Industries Proto-Line Staff",type:"Staff",role:"DPS",dps:25.5,drops:"Stinger"});
@@ -21539,6 +21580,9 @@ function calculateTime(character, startDateString, endDateString)
   featCollection.push({name:"Top of the World",                     category:"Seasonal",subcategory:"Winter Holidays",stars:1,points:10,faction:"Both",description:"Collect all styles in the North Pole set"});
   featCollection.push({name:"Ever Present",                         category:"Seasonal",subcategory:"Winter Holidays",stars:1,points:10,faction:"Both",description:"Collect the Joyous Present Hat, Jolly Present Hat, and Merry Present Hat styles"});
 
+  // Additional feat added for 2013 Winter seasonal Seasons Greedings Larfleeze event
+  featCollection.push({name:"Decked Halls",                         category:"Seasonal",subcategory:"Winter Holidays",stars:1,points:10,faction:"Both",description:"Collect all 13 Base Items from the Season's Greedings event"});
+
   featCollection.push({name:"The Renewal of Spring",                category:"Seasonal",subcategory:"Springtime",stars:2,points:25,faction:"Both",description:"Complete all of the Spring seasonal feats"});
   featCollection.push({name:"Fruit Flavored",                       category:"Seasonal",subcategory:"Springtime",stars:1,points:10,faction:"Both",description:"Eat all varieties of Boost! Snacks"});
   featCollection.push({name:"That's No Ordinary Rabbit",            category:"Seasonal",subcategory:"Springtime",stars:1,points:10,faction:"Both",description:"Collect all styles in the Warrior of Spring set"});
@@ -21562,6 +21606,10 @@ function calculateTime(character, startDateString, endDateString)
   // 2 additional feats added in 2012 Halloween seasonal event
   featCollection.push({name:"The Witching Hourglass",               category:"Seasonal",subcategory:"The Witching Hour",stars:1,points:10,faction:"Both",description:"Defeat the Witch in The Midnight Masquerade in 7 minutes or less"});
   featCollection.push({name:"Going A-Souling",                      category:"Seasonal",subcategory:"The Witching Hour",stars:1,points:10,faction:"Both",description:"Complete the Witching Hour seasonal daily mission 13 times"});
+
+  // Additional feats added for 2013 Fall seasonal Halloween event
+  featCollection.push({name:"Haunted House",                        category:"Seasonal",subcategory:"The Witching Hour",stars:1,points:10,faction:"Both",description:"Collect 10 Base Items from the Witching Hour event"});
+  featCollection.push({name:"Macabre Misfit",                       category:"Seasonal",subcategory:"The Witching Hour",stars:1,points:10,faction:"Both",description:"Collect all styles in the Skeleton set"});
 
   featCollection.push({name:"Maritimed",                            category:"Seasonal",subcategory:"Tides of War",stars:1,points:10,faction:"Both",description:"Complete the Atlantean Outpost seasonal event in 4 minutes or less"});
   featCollection.push({name:"Full Net",                             category:"Seasonal",subcategory:"Tides of War",stars:2,points:25,faction:"Both",description:"Defeat all Atlanteans/Mutineers in the Atlantean Outpost before defeating Aquaman"});
@@ -21805,6 +21853,13 @@ function calculateTime(character, startDateString, endDateString)
   featDetailCollection.push({featID:14, partID:7,  description:"Shabby Diner Table"});
   featDetailCollection.push({featID:14, partID:8,  description:"Shabby Granite Coffee Table"});
   featDetailCollection.push({featID:14, partID:9,  description:"Shabby Coffee Table"});
+
+  // update (fall 2013) added new feat to go with new lair items
+  featCollection.push({id:19, name:"Absolutely Stuffed",    category:"Bases",  subcategory:"General", stars:2, points:25, faction:"Both",    description:"Collect all of the Base Items in the Prehistoric Display set"});
+  featDetailCollection.push({featID:19, partID:1,  description:"Mammoth Display"});
+  featDetailCollection.push({featID:19, partID:2,  description:"Pterosaur Display"});
+  featDetailCollection.push({featID:19, partID:3,  description:"Sabertooth Tiger Display"});
+  featDetailCollection.push({featID:19, partID:4,  description:"Plesiosaur Display"});
 
   // May 2013 DLC7 Origin Crisis feats added
 
