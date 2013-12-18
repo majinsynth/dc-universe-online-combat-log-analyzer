@@ -1945,6 +1945,20 @@ lairCollection.push({name:"Gnarled Nightstand",                        color:"Bl
 lairCollection.push({name:"Gnarled Dining Table and Chairs",           color:"Blue",   theme:"Gnarled",        location:"Floor",   category:"Furniture",            subcategory:"Tables",            drops:"Spring Seasonal event vendor"});
 lairCollection.push({name:"Hanging Ivy",                               color:"Blue",   theme:"Gnarled",        location:"Ceiling", category:"Decorations",          subcategory:"Debris",            drops:"Swamp Thing in Spring Seasonal event"});
 
+lairCollection.push({name:"Small Freestanding Fireplace",              color:"Blue",   theme:"Christmas",      location:"Floor",   category:"",          subcategory:"",            drops:"Winter Seasonal event vendor"});
+lairCollection.push({name:"Festive Fireplace",                         color:"Blue",   theme:"Christmas",      location:"Floor",   category:"",          subcategory:"",            drops:"Winter Seasonal event vendor"});
+lairCollection.push({name:"Garland",                                   color:"Blue",   theme:"Christmas",      location:"Floor",   category:"",          subcategory:"",            drops:"Winter Seasonal event vendor"});
+lairCollection.push({name:"Hanging Garland",                           color:"Blue",   theme:"Christmas",      location:"Floor",   category:"",          subcategory:"",            drops:"Winter Seasonal event vendor"});
+lairCollection.push({name:"Mistletoe",                                 color:"Blue",   theme:"Christmas",      location:"Floor",   category:"",          subcategory:"",            drops:"Winter Seasonal event vendor"});
+lairCollection.push({name:"Scattered Presents",                        color:"Blue",   theme:"Christmas",      location:"Floor",   category:"",          subcategory:"",            drops:"Winter Seasonal event vendor"});
+lairCollection.push({name:"Assorted Presents",                         color:"Blue",   theme:"Christmas",      location:"Floor",   category:"",          subcategory:"",            drops:"Winter Seasonal event vendor"});
+lairCollection.push({name:"Winter Sleigh",                             color:"Blue",   theme:"Christmas",      location:"Floor",   category:"",          subcategory:"",            drops:"Winter Seasonal event vendor"});
+lairCollection.push({name:"Festive Holiday Tree",                      color:"Blue",   theme:"Christmas",      location:"Floor",   category:"",          subcategory:"",            drops:"Winter Seasonal event vendor"});
+lairCollection.push({name:"Simple Holiday Tree",                       color:"Blue",   theme:"Christmas",      location:"Floor",   category:"",          subcategory:"",            drops:"Winter Seasonal event vendor"});
+lairCollection.push({name:"Festive Wreath",                            color:"Blue",   theme:"Christmas",      location:"Floor",   category:"",          subcategory:"",            drops:"Winter Seasonal event vendor"});
+lairCollection.push({name:"Yule Log",                                  color:"Blue",   theme:"Christmas",      location:"Floor",   category:"",          subcategory:"",            drops:"Winter Seasonal event vendor"});
+lairCollection.push({name:"Yule Log Flatscreen TV",                    color:"Blue",   theme:"Christmas",      location:"Wall",    category:"",          subcategory:"",            drops:"Winter Seasonal event vendor"});
+
 lairCollection.push({name:"Basic Entertainment Center",                color:"Green",  theme:"Miscellaneous",  location:"Floor",   category:"Furniture",            subcategory:"Entertainment",     drops:"Brainiac Accumulator in Area 51 hard alert, Neuromite in Watchtower alert"});
 lairCollection.push({name:"Boiler",                                    color:"Purple", theme:"Miscellaneous",  location:"Floor",   category:"Tools and Appliances", subcategory:"Tools",             drops:""});
 lairCollection.push({name:"Boiler Valve",                              color:"",       theme:"Miscellaneous",  location:"Floor",   category:"",                     subcategory:"",                  drops:""});
@@ -5956,6 +5970,7 @@ styleCollection.push({name:"Visage of the Devoted",                  style:"Devo
 styleCollection.push({name:"Alumni's Jacket",                        style:"Gadgeteer",               drops:"Reward for Metropolis collection Alma Alumni"});
 styleCollection.push({name:"Relic Shoulderguards",                   style:"Divine",                  drops:"Reward for Metropolis University collections"});
 styleCollection.push({name:"Trophy of the Envy Cultist",             style:"Coveted",                 drops:"Reward for Gotham Wastelands collections"});
+styleCollection.push({name:"Polar Bear Hat",                         style:"Polar Bear Hat",          drops:"Reward for 2013 winter seasonal collections"});
 styleCollection.push({name:"STAR Labs Emblem"});
 styleCollection.push({name:"Lightbringer's Emblem"});
 styleCollection.push({name:"Romantic's Emblem"});
@@ -9230,6 +9245,16 @@ function isCollectionGotham(collectionString)
   collectionCollection.push({name:"Spooky Sound FX Cassette",                       category:"Halloween Grab Bag!",city:"Event",zone:"Gotham"});
   collectionCollection.push({name:"Wax Lips",                                       category:"Halloween Grab Bag!",city:"Event",zone:"Gotham"});
 
+  // Collections from 2013 Winter seasonal event; 8 of them
+  collectionCollection.push({name:"Argyle Socks",                                   category:"What's Yours Is Mine", city:"Event", zone:"Winter Seasonal"});
+  collectionCollection.push({name:"Gift Bag of Baklava",                            category:"What's Yours Is Mine", city:"Event", zone:"Winter Seasonal"});
+  collectionCollection.push({name:"Jitters Coffee Gift Card",                       category:"What's Yours Is Mine", city:"Event", zone:"Winter Seasonal"});
+  collectionCollection.push({name:"Letter to Santa",                                category:"What's Yours Is Mine", city:"Event", zone:"Winter Seasonal"});
+  collectionCollection.push({name:"Seasonal Candle",                                category:"What's Yours Is Mine", city:"Event", zone:"Winter Seasonal"});
+  collectionCollection.push({name:"Shiny New Batarang",                             category:"What's Yours Is Mine", city:"Event", zone:"Winter Seasonal"});
+  collectionCollection.push({name:"Soder Cola Holiday Glasses",                     category:"What's Yours Is Mine", city:"Event", zone:"Winter Seasonal"});
+  collectionCollection.push({name:"Superman Action Figure",                         category:"What's Yours Is Mine", city:"Event", zone:"Winter Seasonal"});
+
   // Added with DLC8 Sons of Trigon August 2013 in new Gotham Wastelands map
   collectionCollection.push({name:"Blank Spellbook",                  category:"Accoutrements of Good", city:"Gotham Wastelands", zone:"Gotham Wastelands"});
   collectionCollection.push({name:"Molybdenum-Steel Filament",        category:"Accoutrements of Good", city:"Gotham Wastelands", zone:"Gotham Wastelands"});
@@ -9924,7 +9949,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Odonata Boots",                         type:"Feet",      role:"DPS",        style:"Insectoid",         drops:"T5 Content",                                                              faction:"Both", level:82});
   armorCollection.push({name:"Odonata Shoulderplates",                type:"Shoulders", role:"DPS",        style:"Insectoid",         drops:"LexCorp Heavy Mech in 1 Player Tier 5 Bizarro challenge Test Subject #1", faction:"Both", level:82});
   armorCollection.push({name:"Stinging Hexapoda Wings",               type:"Back",      role:"DPS",        style:"Insectoid",         drops:"Johnny Blowtorch in 1 Player Tier 5 Challenge The Hunt",                  faction:"Both", level:81});
-  armorCollection.push({name:"Stinging Bee's Helm",                   type:"Head",      role:"DPS",        style:"Insectoid",         drops:"",                                                                        faction:"Both", level:82});
+  armorCollection.push({name:"Stinging Bee's Helm",                   type:"Head",      role:"DPS",        style:"Insectoid",         drops:"Bizarro in Brothers in Arms alert",                                       faction:"Both", level:82});
   armorCollection.push({name:"Stinging Bee's Legplates",              type:"Legs",      role:"DPS",        style:"Insectoid",         drops:"",                                                                        faction:"Both", level:82});
   armorCollection.push({name:"Stinging Bee's Wings",                  type:"Back",      role:"DPS",        style:"Insectoid",         drops:"Santo Cassamento, Killer Croc in 1 Player Tier 5 Challenge The Hunt",     faction:"Both", level:82});
   armorCollection.push({name:"Stinging Bee's Shoulderguards",         type:"Shoulders", role:"DPS",        style:"Insectoid",         drops:"LexCorp Heavy Mech in 1 Player Tier 5 Bizarro challenge Test Subject #1", faction:"Both", level:82});
@@ -9945,7 +9970,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Shoes of Patience",                     type:"Feet",      role:"Controller", style:"Kabuki",            drops:"Little Vinny in 1 Player Tier 5 Challenge The Hunt",                      faction:"Both", level:81});
   armorCollection.push({name:"Duelist's Sandals",                     type:"Feet",      role:"DPS",        style:"Kabuki",            drops:"Little Vinny in 1 Player Tier 5 Challenge The Hunt",                      faction:"Both", level:81});
   armorCollection.push({name:"Tokugawa no Haidate",                   type:"Legs",      role:"Controller", style:"Kabuki",            drops:"",                                                                        faction:"Both", level:83});
-  armorCollection.push({name:"Asano no Kabuto",                       type:"Head",      role:"Controller", style:"Kabuki",            drops:"",                                                                        faction:"Both", level:83});
+  armorCollection.push({name:"Asano no Kabuto",                       type:"Head",      role:"Controller", style:"Kabuki",            drops:"Superman in Brothers in Arms alert",                                      faction:"Both", level:83});
   armorCollection.push({name:"Edo no Himo",                           type:"Waist",     role:"Controller", style:"Kabuki",            drops:"",                                                                        faction:"Both", level:83});
   armorCollection.push({name:"Houfuku no Sashimono",                  type:"Back",      role:"Controller", style:"Kabuki",            drops:"",                                                                        faction:"Both", level:83});
   armorCollection.push({name:"Terasaka no Kogake",                    type:"Feet",      role:"Controller", style:"Kabuki",            drops:"LexCorp Heavy Mech in 1 Player Tier 5 Challenge Test Subject #1",         faction:"Both", level:83});
@@ -9967,6 +9992,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Breastplate of the Watch",              type:"Chest",     role:"DPS",        style:"Military Tech",     drops:"",                                                                        faction:"Both", level:85});
 
   armorCollection.push({name:"Bone Armored Helmet",                   type:"Head",      role:"Tank",       style:"Necromancer",       drops:"BIA operation",                                                           faction:"Both", level:83});
+  armorCollection.push({name:"Bone Armored Shoulderguards",           type:"Shoulders", role:"Tank",       style:"Necromancer",       drops:"Captain Nee in Brother in Arms alert",                                    faction:"Both", level:83});
   armorCollection.push({name:"Bone-Reinforced Chestplate",            type:"Chest",     role:"Tank",       style:"Necromancer",       drops:"Santo Cassamento in 1 Player Tier 5 Challenge The Hunt",                  faction:"Both", level:83});
   armorCollection.push({name:"Bone Warden's Gloves",                  type:"Hands",     role:"Tank",       style:"Necromancer",       drops:"Batman in T5 Operation Family Reunion",                                   faction:"Both", level:83});
   armorCollection.push({name:"Waistband of the Bone Warden",          type:"Waist",     role:"Tank",       style:"Necromancer",       drops:"Brothers in Arms alert",                                                  faction:"Both", level:83});
@@ -14631,6 +14657,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Unattuned Infernal Claymore",                 type:"Two-Handed",     role:"DPS",        dps:167.5, drops:"Circe in Trigon's Prison alert",                                        style:"Diabolic Claymore",     level:84});
   weaponCollection.push({name:"Aggressor's Infernal Claymore",               type:"Two-Handed",     role:"DPS",        dps:167.5, drops:"Circe in Trigon's Prison alert",                                        style:"Diabolic Claymore",     health:339, power:113, precision:84, might:139, vitalization:29,  restoration:44,  dominance:0,  defense:0,   toughness:0, level:85});
   weaponCollection.push({name:"Guardian's Infernal Claymore",                type:"Two-Handed",     role:"Tank",       dps:167.5, drops:"Circe in Trigon's Prison alert",                                        style:"Diabolic Claymore",     health:474, power:68,  precision:23, might:82,  vitalization:29,  restoration:44,  dominance:22, defense:329, toughness:0, level:85});
+  weaponCollection.push({name:"Mender's Infernal Claymore",                  type:"Two-Handed",     role:"Healer",     dps:167.5, drops:"Circe in Trigon's Prison alert",                                        style:"Diabolic Claymore",     health:366, power:180, precision:23, might:53,  vitalization:29,  restoration:198, dominance:0,  defense:0,   toughness:0, level:85});
 
   weaponCollection.push({name:"Unattuned Infernal Guard",                    type:"Shield",         role:"DPS",        dps:167.5, drops:"Circe in Trigon's Prison alert",                                        style:"Diabolic Guard",        health:0,   power:0,   precision:0,  might:0,   vitalization:0,   restoration:0,   dominance:0,  defense:0,   toughness:0, level:84});
   weaponCollection.push({name:"Aggressor's Infernal Guard",                  type:"Shield",         role:"DPS",        dps:167.5, drops:"Circe in Trigon's Prison alert",                                        style:"Diabolic Guard",        health:339, power:113, precision:84, might:139, vitalization:29,  restoration:44,  dominance:0,  defense:0,   toughness:0, level:85});
@@ -14656,6 +14683,7 @@ function isAccessory(lineString)
 
   weaponCollection.push({name:"Pirate's Flintlocks",                         type:"Dual Pistol",    role:"DPS",        dps:151.9, drops:"",                                                                      style:"Flintlock Pistol",      health:269, power:90,  precision:58, might:130, vitalization:10,  restoration:16,  dominance:0,  defense:0,   toughness:0, level:82});
   weaponCollection.push({name:"Hitman's Long Barrels",                       type:"Dual Pistol",    role:"DPS",        dps:157.1, drops:"",                                                                      style:"Machine Pistol",        health:290, power:96,  precision:62, might:139, vitalization:16,  restoration:24,  dominance:0,  defense:0,   toughness:0, level:83});
+  weaponCollection.push({name:"Sawbone's Long Barrels",                      type:"Dual Pistol",    role:"Healer",     dps:157.1, drops:"Jor-El in Brothers in Arms alert",                                      style:"Machine Pistol",        health:314, power:154, precision:20, might:39,  vitalization:16,  restoration:156, dominance:0,  defense:0,   toughness:0, level:83});
   weaponCollection.push({name:"Silenced Semi-Autos of the Assassin",         type:"Dual Pistol",    role:"Controller", dps:157.1, drops:"",                                                                      style:"Machine Pistol",        health:267, power:135, precision:20, might:39,  vitalization:89,  restoration:24,  dominance:37, defense:0,   toughness:0, level:83});
   weaponCollection.push({name:"Unattuned Machine Guns",                      type:"Dual Pistol",    role:"DPS",        dps:146.7, drops:"Gotham Wastelands",                                                     style:"Particle Beam SMG",     level:81});
   weaponCollection.push({name:"Guns of the Righteous",                       type:"Dual Pistol",    role:"DPS",        dps:146.7, drops:"Gotham Wastelands",                                                     style:"Particle Beam SMG",     health:250, power:83,  precision:53, might:120, vitalization:5,   restoration:7,   dominance:0,  defense:0,   toughness:0, level:81});
@@ -16876,7 +16904,7 @@ function calculateCollectionsNeeded(character, startDateString, endDateString)
   var categoriesSeasonal = [ "Spiritual Wedding Vow", "Emotional Wedding Vow", "Renewal Wedding Vow",
                              "Classic Wedding Vow", "Four-Leaf Clover", "Seeds of Spring",
                              "Holiday Naughty List", "Holiday Nice List", "Marine Life Fossils", "Atlantean Artifacts", 
-                             "All Hallow's Peeves", "Halloween Grab Bag!" ];
+                             "All Hallow's Peeves", "Halloween Grab Bag!", "What's Yours Is Mine" ];
 
   for (var j=0; j<categoriesSeasonal.length; j++) {
     for (var i=0; i<collectionCollection.length; i++) {
