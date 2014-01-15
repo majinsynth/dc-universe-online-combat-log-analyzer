@@ -258,7 +258,25 @@ table.sortable tr.sortbottom td {
 	background-color: #E41B17;
 	font-weight: bold;
 }
-		
+
+table.iconicTableStyle {
+        border-spacing: 0 5px;
+        border: 1px solid #999999;
+        font-family:'arial';
+        width:80%;
+}
+
+span.dropt {border-bottom: thin dotted; background: #ffeedd;}
+span.dropt:hover {text-decoration: none; background: #ffffff; z-index: 6; }
+span.dropt span {position: absolute; left: -9999px;
+  margin: 20px 0 0 0px; padding: 3px 3px 3px 3px;
+  border-style:solid; border-color:black; border-width:1px; z-index: 6;}
+span.dropt:hover span {left: 2%; background: #ffffff;} 
+span.dropt span {position: absolute; left: -9999px;
+  margin: 4px 0 0 0px; padding: 3px 3px 3px 3px; 
+  border-style:solid; border-color:black; border-width:1px;}
+span.dropt:hover span {margin: 20px 0 0 170px; background: #ffffff; z-index:6;} 
+
 </style>
 
 <table id="table0" width="100%">
@@ -330,10 +348,10 @@ table.sortable tr.sortbottom td {
         <option>Face Database</option>
         <option>Neck Database</option>
         <option>R&D Component Database</option>
-        <option>PVP Drops</option>
-        <option>PVP Match History</option>
-        <option>PVP Legends Stats</option>
-        <option>PVP Arena Stats</option>
+        <option>PvP Drops</option>
+        <option>PvP Match History</option>
+        <option>PvP Legends Stats</option>
+        <option>PvP Arena Stats</option>
         <option>Base Item Drops</option>
         <option>Base Item Database</option>
         <option>Home Turf Gear Info</option>
@@ -351,6 +369,8 @@ table.sortable tr.sortbottom td {
         <option>Iconic Anomaly Solo T5 Challenges</option>
         <option>Synthetic Mod Info</option>
         <option>Armory Info</option>
+        <option>PvP Legends Character Info</option>
+        <option>PvP Legends Character Powers Info</option>
       </select>
       <br>
       <br>Select Character to filter on.
@@ -1614,7 +1634,7 @@ lairCollection.push({name:"Clay Handled Vase",                         color:"Pu
 lairCollection.push({name:"Elegant Sculpture",                         color:"Purple", theme:"Museum",         location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"Babyface, Clownsanity, Sludge Thing, Punchline in Ace Chemicals alert, Subprime Regulator Zeta in Area 51 alert"});
 lairCollection.push({name:"Glass Art Display Case",                    color:"Purple", theme:"Museum",         location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"Tier 5 Sons of Trigon duos"});
 lairCollection.push({name:"Glass Encased Artifact Case",               color:"",       theme:"Museum",         location:"Floor",   category:"",                     subcategory:"",                  drops:""});
-lairCollection.push({name:"Large Clay Urn",                            color:"",       theme:"Museum",         location:"Floor",   category:"",                     subcategory:"",                  drops:""});
+lairCollection.push({name:"Large Clay Urn",                            color:"",       theme:"Museum",         location:"Floor",   category:"",                     subcategory:"",                  drops:"Queen Bee in 4 Player Tier 2 alert HIVE Moon Base"});
 lairCollection.push({name:"Large Damaged Obelisk",                     color:"Purple", theme:"Museum",         location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"Vengeance Bee, Avenging Spirit Guidicus in Vengeance operation, Hellish Atlantean Overlord in Black Dawn operation, Circe in Gates raid"});
 lairCollection.push({name:"Large Primordial Cistern",                  color:"Purple", theme:"Museum",         location:"Floor",   category:"Tools and Appliances", subcategory:"Ritual Items",      drops:"PVP Reward box"});
 lairCollection.push({name:"Modern Wooden Display Case",                color:"Green",  theme:"Museum",         location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"Metropolis City Hall duo, Micro bot in Oolong Hard alert, Enraged Metal Man in Oolong Island easy alert, NPC in LOA"});
@@ -4917,8 +4937,36 @@ function determineFormBasedOnAttack(actionStr) {
       (actionStr.indexOf("Feral Lunge") >= 0) ||
       (actionStr.indexOf("Tendon Cut") >= 0) ||
       (actionStr.indexOf("Poisoned Slash") >= 0) ||
-      (actionStr.indexOf("Rake") >= 0)) {
+      (actionStr.indexOf("Rake") >= 0) ||
+      (actionStr.indexOf("Blood Sacrifice") >= 0)) {
      formStr = "Legends Cheetah";
+  } else if ((actionStr.indexOf("Amazonian Aegis") >= 0) ||
+      (actionStr.indexOf("Lasso Thrash") >= 0) ||
+      (actionStr.indexOf("Monolith") >= 0) ||
+      (actionStr.indexOf("Truth Lasso") >= 0) ||
+      (actionStr.indexOf("Coupe de Grace") >= 0) ||
+      (actionStr.indexOf("Bracer Deflection") >= 0)) {
+     formStr = "Legends Wonder Woman";
+  } else if ((actionStr.indexOf("Wrath of Circe") >= 0) ||
+      (actionStr.indexOf("Wrath of Ages") >= 0) ||
+      (actionStr.indexOf("Mirror Image") >= 0) ||
+      (actionStr.indexOf("Bestiamorph") >= 0) ||
+      (actionStr.indexOf("Aegis of Immortality") >= 0)) {
+     formStr = "Legends Circe";
+  } else if ((actionStr.indexOf("Rage Flail") >= 0) ||
+      (actionStr.indexOf("Ire Stomp") >= 0) ||
+      (actionStr.indexOf("Rage Expulsion") >= 0) ||
+      (actionStr.indexOf("Plasma Pool") >= 0) ||
+      (actionStr.indexOf("Furious Lunge") >= 0) ||
+      (actionStr.indexOf("Rage of the Butcher") >= 0)) {
+     formStr = "Legends Atrocitus";
+  } else if ((actionStr.indexOf("Salvo of Adara") >= 0) ||
+      (actionStr.indexOf("Azure Shockwave") >= 0) ||
+      (actionStr.indexOf("Purposeful Strikes") >= 0) ||
+      (actionStr.indexOf("Temperance") >= 0) ||
+      (actionStr.indexOf("Sustaining Spirit") >= 0) ||
+      (actionStr.indexOf("Hope") >= 0)) {
+     formStr = "Legends Saint Walker";
   } else if ((actionStr.indexOf("AOE Damage") >= 0) ||
       (actionStr.indexOf("Head Ranged Combo") >= 0)) {
      formStr = "Smallville Doomsday";
@@ -6723,34 +6771,34 @@ trashCollection.push({name:"Nanobot-Infected Equipment",            location:"Ha
 trashCollection.push({name:"Shattered Neurobot Shell",              location:"Hall of Doom Armory", type:"Alert"});
 trashCollection.push({name:"Depleted Brainiac Cloaking Device",     location:"Hall of Doom Armory", type:"Alert"});
 trashCollection.push({name:"Worker's Respirator",                   location:"Steelworks", type:"Open World"});
-trashCollection.push({name:"Dusty Ankh",       location:"(Faust)", type:"Challenge"});
-trashCollection.push({name:"Inert Curio",       location:"(Faust)", type:"Challenge"});
-trashCollection.push({name:"Depleted Reagents",       location:"(Faust)", type:"Challenge"});
-trashCollection.push({name:"Corrupted Prisoner File",       location:"Oan Sciencells", type:"Alert"});
-trashCollection.push({name:"Lustrous Claw",       location:"Gotham University (Catwoman)", type:"Challenge"});
-trashCollection.push({name:"Sticky Globule",       location:"Bludhaven", type:"Alert"});
-trashCollection.push({name:"Gently Pulsing Mass",       location:"Bludhaven", type:"Alert"});
-trashCollection.push({name:"Severed Tentacle",       location:"Bludhaven", type:"Alert"});
-trashCollection.push({name:"Curious Capacitor",       location:"Gorilla Island", type:"Alert"});
-trashCollection.push({name:"Broken Tooth",       location:"Gorilla Island", type:"Alert"});
-trashCollection.push({name:"Devolver Parts",       location:"Gorilla Island", type:"Alert"});
-trashCollection.push({name:"Peculiar Component",       location:"Gorilla Island", type:"Alert"});
-trashCollection.push({name:"Unimaginably Advanced Gorilla Device",       location:"Gorilla Island", type:"Alert"});
-trashCollection.push({name:"Empty Venom Capsule",       location:"Shady Nightclub", type:"Duo"});
-trashCollection.push({name:"Crushed GCPD Badge",       location:"Shady Nightclub", type:"Duo"});
-trashCollection.push({name:"Broken Fuse",       location:"T.O. Morrow's Hideout", type:"Instance"});
-trashCollection.push({name:"Giant Gemstone",       location:"T.O. Morrow's Hideout", type:"Instance"});
-trashCollection.push({name:"Ancient Artifact of Themyscira",       location:"T.O. Morrow's Hideout", type:"Instance"});
-trashCollection.push({name:"Twisted Thorn",       location:"Greenhouse", type:"Challenge"});
-trashCollection.push({name:"Giant Spore",       location:"Greenhouse", type:"Challenge"});
-trashCollection.push({name:"Bestiamorph  Sigil",       location:"Circe's Stronghold", type:"Challenge"});
-trashCollection.push({name:"Beast Scale",       location:"Circe's Stronghold", type:"Challenge"});
-trashCollection.push({name:"Encrusted Wig",       location:"Monarch (Riddler)", type:"Challenge"});
-trashCollection.push({name:"Rubber Chicken",       location:"Monarch (Riddler)", type:"Challenge"});
-trashCollection.push({name:"Joker Toxin Filter",       location:"Monarch (Riddler)", type:"Challenge"});
-trashCollection.push({name:"Meta Scanner",       location:"STAR Labs (Luthor)", type:"Challenge"});
-trashCollection.push({name:"LexCorp Employee Handbook",       location:"STAR Labs (Luthor)", type:"Challenge"});
-trashCollection.push({name:"Broken Security Headset",       location:"STAR Labs (Luthor)", type:"Challenge"});
+trashCollection.push({name:"Dusty Ankh",                            location:"(Faust)", type:"Challenge"});
+trashCollection.push({name:"Inert Curio",                           location:"(Faust)", type:"Challenge"});
+trashCollection.push({name:"Depleted Reagents",                     location:"(Faust)", type:"Challenge"});
+trashCollection.push({name:"Corrupted Prisoner File",               location:"Oan Sciencells", type:"Alert"});
+trashCollection.push({name:"Lustrous Claw",                         location:"Gotham University (Catwoman)", type:"Challenge"});
+trashCollection.push({name:"Sticky Globule",                        location:"Bludhaven", type:"Alert"});
+trashCollection.push({name:"Gently Pulsing Mass",                   location:"Bludhaven", type:"Alert"});
+trashCollection.push({name:"Severed Tentacle",                      location:"Bludhaven", type:"Alert"});
+trashCollection.push({name:"Curious Capacitor",                     location:"Gorilla Island", type:"Alert"});
+trashCollection.push({name:"Broken Tooth",                          location:"Gorilla Island", type:"Alert"});
+trashCollection.push({name:"Devolver Parts",                        location:"Gorilla Island", type:"Alert"});
+trashCollection.push({name:"Peculiar Component",                    location:"Gorilla Island", type:"Alert"});
+trashCollection.push({name:"Unimaginably Advanced Gorilla Device",  location:"Gorilla Island", type:"Alert"});
+trashCollection.push({name:"Empty Venom Capsule",                   location:"Shady Nightclub", type:"Duo"});
+trashCollection.push({name:"Crushed GCPD Badge",                    location:"Shady Nightclub", type:"Duo"});
+trashCollection.push({name:"Broken Fuse",                           location:"T.O. Morrow's Hideout", type:"Instance"});
+trashCollection.push({name:"Giant Gemstone",                        location:"T.O. Morrow's Hideout", type:"Instance"});
+trashCollection.push({name:"Ancient Artifact of Themyscira",        location:"T.O. Morrow's Hideout", type:"Instance"});
+trashCollection.push({name:"Twisted Thorn",                         location:"Greenhouse", type:"Challenge"});
+trashCollection.push({name:"Giant Spore",                           location:"Greenhouse", type:"Challenge"});
+trashCollection.push({name:"Bestiamorph  Sigil",                    location:"Circe's Stronghold", type:"Challenge"});
+trashCollection.push({name:"Beast Scale",                           location:"Circe's Stronghold", type:"Challenge"});
+trashCollection.push({name:"Encrusted Wig",                         location:"Monarch (Riddler)", type:"Challenge"});
+trashCollection.push({name:"Rubber Chicken",                        location:"Monarch (Riddler)", type:"Challenge"});
+trashCollection.push({name:"Joker Toxin Filter",                    location:"Monarch (Riddler)", type:"Challenge"});
+trashCollection.push({name:"Meta Scanner",                          location:"STAR Labs (Luthor)", type:"Challenge"});
+trashCollection.push({name:"LexCorp Employee Handbook",             location:"STAR Labs (Luthor)", type:"Challenge"});
+trashCollection.push({name:"Broken Security Headset",               location:"STAR Labs (Luthor)", type:"Challenge"});
 trashCollection.push({name:"Discarded Torch",                       location:"Gates", type:"Raid"});
 trashCollection.push({name:"Damaged Hydra Scale",                   location:"Gates", type:"Raid"});
 trashCollection.push({name:"Broken Nectarine-Seed Necklace",        location:"Gates", type:"Raid"});
@@ -6762,9 +6810,9 @@ trashCollection.push({name:"Inert Sun Crystal",                     location:"Fo
 trashCollection.push({name:"Recovered Robot Parts",                 location:"Fortress of Solitude The Chasm", type:"Raid"});
 trashCollection.push({name:"Cold-Damaged Circuitry",                location:"Fortress of Solitude The Chasm", type:"Raid"});
 trashCollection.push({name:"Frozen Fuel",                           location:"Fortress of Solitude The Chasm", type:"Raid"});
-trashCollection.push({name:"Violent Shiv",                          location:"Stryker's Island",               type:"Alert"});
-trashCollection.push({name:"Vicious Orderly's Baton",               location:"Stryker's Island",               type:"Alert"});
-trashCollection.push({name:"Crushed Restraints",                    location:"Stryker's Island",               type:"Alert"});
+trashCollection.push({name:"Violent Shiv",                          location:"Stryker's Island",           type:"Alert"});
+trashCollection.push({name:"Vicious Orderly's Baton",               location:"Stryker's Island",           type:"Alert"});
+trashCollection.push({name:"Crushed Restraints",                    location:"Stryker's Island",           type:"Alert"});
 trashCollection.push({name:"Cracked Bot Chassis",                   location:"Batcave raid",               type:"Raid"});
 trashCollection.push({name:"Shattered OMAC Shell",                  location:"Batcave raid",               type:"Raid"});
 trashCollection.push({name:"Tiny Fragmented Gear",                  location:"Batcave raid",               type:"Raid"});
@@ -6772,61 +6820,61 @@ trashCollection.push({name:"Peculiar Servo Motor",                  location:"Ba
 trashCollection.push({name:"Severed Satellite Receiver",            location:"Batcave raid",               type:"Raid"});
 trashCollection.push({name:"Smashed OMAC Carapace",                 location:"Batcave raid",               type:"Raid"});
 trashCollection.push({name:"Destroyed Bot Chassis",                 location:"Batcave raid",               type:"Raid"});
-trashCollection.push({name:"Plasma Sample",                         location:"Coast City",               type:"Alert"});
-trashCollection.push({name:"Surplus Capacitor Fuse",                location:"Coast City",               type:"Alert"});
-trashCollection.push({name:"The Beginner's Handbook For Assassins", location:"League of Assassins",               type:"Alert"});
-trashCollection.push({name:"Dulled Wakizashi",                      location:"League of Assassins",               type:"Alert"});
-trashCollection.push({name:"Unknown Chemical Composition",          location:"League of Assassins",               type:"Alert"});
-trashCollection.push({name:"Worn Tome",                             location:"Wayward Souls",               type:"Alert"});
-trashCollection.push({name:"Scrap of Magical Cloth",                location:"Wayward Souls",               type:"Alert"});
-trashCollection.push({name:"Spiritual Residue",                location:"Wayward Souls",               type:"Alert"});
-trashCollection.push({name:"Shredded Cuffs",                        location:"Arkham Asylum",               type:"Alert"});
-trashCollection.push({name:"Tattered Dossier",                      location:"Arkham Asylum",               type:"Alert"});
-trashCollection.push({name:"Demolished Restraints",                 location:"Arkham Asylum",               type:"Alert"});
-trashCollection.push({name:"Amaranthine Shard",                     location:"(Isis)",                          type:"Duo"});
-trashCollection.push({name:"Chemical Container Handle",                     location:"Ace Chemicals Open World",   type:"Open World"});
-trashCollection.push({name:"Supplemental Intelligence Component",                     location:"Area 51",                          type:"Alert"});
-trashCollection.push({name:"Shattered Spark Casing",                     location:"Area 51",                          type:"Alert"});
-trashCollection.push({name:"Pocketed Kryptonite",                     location:"Area 51",                          type:"Alert"});
-trashCollection.push({name:"Corrosive Goo",                     location:"Ace Chemicals Open World",               type:"Open World"});
-trashCollection.push({name:"Counterfeit Badge",                     location:"Stryker's Island Open World",               type:"Open World"});
-trashCollection.push({name:"Smuggled Matchbook",                     location:"Stryker's Island Open World",               type:"Open World"});
-trashCollection.push({name:"Turret Parts",                     location:"HIVE",               type:"Duo"});
-trashCollection.push({name:"HIVE Mind Matrix",                     location:"HIVE",               type:"Duo"});
-trashCollection.push({name:"HIVE Turret Spares",                     location:"HIVE",               type:"Duo"});
-trashCollection.push({name:"Advanced HIVE Mind Matrix",                     location:"HIVE",               type:"Duo"});
-trashCollection.push({name:"Broken Tusk",                     location:"Bestiamorph",               type:"Open World"});
-trashCollection.push({name:"Ceremonial Trident",                     location:"Bestiamorph",               type:"Open World"});
-trashCollection.push({name:"Aeaean Gems",                     location:"Bestiamorph",               type:"Open World"});
-trashCollection.push({name:"Broken Servo Motor",                  location:"Batcave raid",               type:"Raid"});
+trashCollection.push({name:"Plasma Sample",                         location:"Coast City",                 type:"Alert"});
+trashCollection.push({name:"Surplus Capacitor Fuse",                location:"Coast City",                 type:"Alert"});
+trashCollection.push({name:"The Beginner's Handbook For Assassins", location:"League of Assassins",        type:"Alert"});
+trashCollection.push({name:"Dulled Wakizashi",                      location:"League of Assassins",        type:"Alert"});
+trashCollection.push({name:"Unknown Chemical Composition",          location:"League of Assassins",        type:"Alert"});
+trashCollection.push({name:"Worn Tome",                             location:"Wayward Souls",              type:"Alert"});
+trashCollection.push({name:"Scrap of Magical Cloth",                location:"Wayward Souls",              type:"Alert"});
+trashCollection.push({name:"Spiritual Residue",                     location:"Wayward Souls",              type:"Alert"});
+trashCollection.push({name:"Shredded Cuffs",                        location:"Arkham Asylum",              type:"Alert"});
+trashCollection.push({name:"Tattered Dossier",                      location:"Arkham Asylum",              type:"Alert"});
+trashCollection.push({name:"Demolished Restraints",                 location:"Arkham Asylum",              type:"Alert"});
+trashCollection.push({name:"Amaranthine Shard",                     location:"(Isis)",                     type:"Duo"});
+trashCollection.push({name:"Chemical Container Handle",             location:"Ace Chemicals Open World",   type:"Open World"});
+trashCollection.push({name:"Supplemental Intelligence Component",   location:"Area 51",                    type:"Alert"});
+trashCollection.push({name:"Shattered Spark Casing",                location:"Area 51",                    type:"Alert"});
+trashCollection.push({name:"Pocketed Kryptonite",                   location:"Area 51",                    type:"Alert"});
+trashCollection.push({name:"Corrosive Goo",                         location:"Ace Chemicals Open World",   type:"Open World"});
+trashCollection.push({name:"Counterfeit Badge",                     location:"Stryker's Island Open World",type:"Open World"});
+trashCollection.push({name:"Smuggled Matchbook",                    location:"Stryker's Island Open World",type:"Open World"});
+trashCollection.push({name:"Turret Parts",                          location:"HIVE",                       type:"Duo"});
+trashCollection.push({name:"HIVE Mind Matrix",                      location:"HIVE",                       type:"Duo"});
+trashCollection.push({name:"HIVE Turret Spares",                    location:"HIVE",                       type:"Duo"});
+trashCollection.push({name:"Advanced HIVE Mind Matrix",             location:"HIVE",                       type:"Duo"});
+trashCollection.push({name:"Broken Tusk",                           location:"Bestiamorph",                type:"Open World"});
+trashCollection.push({name:"Ceremonial Trident",                    location:"Bestiamorph",                type:"Open World"});
+trashCollection.push({name:"Aeaean Gems",                           location:"Bestiamorph",                type:"Open World"});
+trashCollection.push({name:"Broken Servo Motor",                    location:"Batcave raid",               type:"Raid"});
+trashCollection.push({name:"Volcanic Cinders",                      location:"Brother Blood",              type:"Instance"});
+trashCollection.push({name:"Charred Wood",                          location:"Brother Blood",              type:"Instance"});
+trashCollection.push({name:"Abyssal Shard",                         location:"Brother Blood",              type:"Instance"});
+trashCollection.push({name:"Advanced HIVE Turret Parts",            location:"HIVE",                       type:"Alert"});
+trashCollection.push({name:"Manual Surveillance Unit",              location:"Oolong Island",              type:"Alert"});
+trashCollection.push({name:"Shiny Veridium Scale",                  location:"Oolong Island",              type:"Alert"});
+trashCollection.push({name:"Veridium Scale",                        location:"Oolong Island",              type:"Alert"});
+trashCollection.push({name:"Automated Surveillance Unit",           location:"Oolong Island",              type:"Alert"});
+trashCollection.push({name:"Broken Accelerometer",                  location:"Oolong Island",              type:"Alert"});
+trashCollection.push({name:"Dented Panel",                          location:"Oonlong Island",             type:"Alert"});
+trashCollection.push({name:"Accelerated Particles",                 location:"Central City",               type:"Open World"});
+trashCollection.push({name:"Manifested Energy Mass",                location:"Central City",               type:"Open World"});
+trashCollection.push({name:"Torn Fabric",                           location:"Central City",               type:"Open World"});
+trashCollection.push({name:"Sunstone Shards",                       location:"Fortresss of Solitude Power Core",type:"Raid"});
+trashCollection.push({name:"Cracked Sunstone Weapon",               location:"Fortresss of Solitude Power Core",type:"Raid"});
+trashCollection.push({name:"Chipped Sunstone Armor",                location:"Fortresss of Solitude Power Core",type:"Raid"});
+trashCollection.push({name:"Dormant Sunstone",                      location:"Fortresss of Solitude Power Core",type:"Raid"});
+trashCollection.push({name:"Depleted Power Battery",                location:"(Sinestro)",                 type:"Duo"});
+trashCollection.push({name:"Excerpt from the Book of Parallax",     location:"(Sinestro)",                 type:"Duo"});
+trashCollection.push({name:"Prototype HIVE Mind Matrix",            location:"HIVE",                       type:"Alert"});
+trashCollection.push({name:"Spore Packet",                          location:"HIVE",                       type:"Alert"});
+trashCollection.push({name:"Honeycomb Material Core",               location:"HIVE",                       type:"Duo"});
 trashCollection.push({name:"Mysterious Scarab"});
 trashCollection.push({name:"Apokoliptian Weapon Parts"});
 trashCollection.push({name:"Fractured Police Taser"});
 trashCollection.push({name:"Broken Chain"});
 trashCollection.push({name:"Damp Matchbook"});
 trashCollection.push({name:"Locksmith Supplies"});
-trashCollection.push({name:"Volcanic Cinders",                  location:"Brother Blood",               type:"Instance"});
-trashCollection.push({name:"Charred Wood",                  location:"Brother Blood",               type:"Instance"});
-trashCollection.push({name:"Abyssal Shard",                  location:"Brother Blood",               type:"Instance"});
-trashCollection.push({name:"Advanced HIVE Turret Parts",                  location:"HIVE",               type:"Alert"});
-trashCollection.push({name:"Manual Surveillance Unit",                  location:"Oolong Island",               type:"Alert"});
-trashCollection.push({name:"Shiny Veridium Scale",                  location:"Oolong Island",               type:"Alert"});
-trashCollection.push({name:"Veridium Scale",                  location:"Oolong Island",               type:"Alert"});
-trashCollection.push({name:"Automated Surveillance Unit",                  location:"Oolong Island",               type:"Alert"});
-trashCollection.push({name:"Broken Accelerometer",                  location:"Oolong Island",               type:"Alert"});
-trashCollection.push({name:"Dented Panel",                  location:"Oonlong Island",               type:"Alert"});
-trashCollection.push({name:"Accelerated Particles",                  location:"Central City",               type:"Open World"});
-trashCollection.push({name:"Manifested Energy Mass",                  location:"Central City",               type:"Open World"});
-trashCollection.push({name:"Torn Fabric",                  location:"Central City",               type:"Open World"});
-trashCollection.push({name:"Sunstone Shards",                  location:"Fortresss of Solitude Power Core",               type:"Raid"});
-trashCollection.push({name:"Cracked Sunstone Weapon",                  location:"Fortresss of Solitude Power Core",               type:"Raid"});
-trashCollection.push({name:"Chipped Sunstone Armor",                  location:"Fortresss of Solitude Power Core",               type:"Raid"});
-trashCollection.push({name:"Dormant Sunstone",                  location:"Fortresss of Solitude Power Core",               type:"Raid"});
-trashCollection.push({name:"Depleted Power Battery",                  location:"(Sinestro)",               type:"Duo"});
-trashCollection.push({name:"Excerpt from the Book of Parallax",                  location:"(Sinestro)",               type:"Duo"});
-trashCollection.push({name:"Prototype HIVE Mind Matrix",                  location:"HIVE",               type:"Alert"});
-trashCollection.push({name:"Spore Packet",                  location:"HIVE",               type:"Alert"});
-trashCollection.push({name:"Honeycomb Material Core",                  location:"HIVE",               type:"Duo"});
 trashCollection.push({name:"Nanobot Dispersal Unit"});
 trashCollection.push({name:"Servitor Assembler Mechanism"});
 trashCollection.push({name:"Ashes of Apokolips"});
@@ -13577,14 +13625,14 @@ function isAccessory(lineString)
   armorCollection.push({name:"Twelfth-Level Thinking Helmet",          type:"Head",      role:"Controller", style:"Retro Tech",          drops:"Subprime Regulator Alpha",                              faction:"Both"});
   armorCollection.push({name:"Enhanced ServitorTech Shoulderguards",   type:"Shoulders", role:"DPS",        style:"Retro Tech",          drops:"Brainiac Joker-bot",                                    faction:"Both"});
   armorCollection.push({name:"Plated Synthium Shoulderguards",         type:"Shoulders", role:"DPS",        style:"Retro Tech",          drops:"Hallucination in Scarecrow instance",                   faction:"Both"});
-  armorCollection.push({name:"Sleuth's Shoulderguards",                type:"Shoulders", role:"DPS",        style:"Retro Tech",          drops:"Reward for hero mission The First Clue",                     faction:"Both"});
-  armorCollection.push({name:"Chemical Handling Grips",                type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"reward for level 21 mission Playing with a full deck", faction:"Both"});
-  armorCollection.push({name:"Lunar Exterminator's Gloves",            type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"Reward for completing Level 15 mission The Bee in the Moon", faction:"Both"});
-  armorCollection.push({name:"Nanobladed Grips",                       type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"Reward for level 13 mission Beware of Jokers Bearing Gifts", faction:"Both"});
-  armorCollection.push({name:"Precision Nanoguided Gloves",            type:"Hands",     role:"Healer",     style:"Retro Tech",          drops:"Subprime Regulator Beta in Area 51 alert",                faction:"Both"});
+  armorCollection.push({name:"Sleuth's Shoulderguards",                type:"Shoulders", role:"DPS",        style:"Retro Tech",          drops:"Reward for hero mission The First Clue",                            faction:"Both"});
+  armorCollection.push({name:"Chemical Handling Grips",                type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"reward for level 21 mission Playing with a full deck",              faction:"Both"});
+  armorCollection.push({name:"Lunar Exterminator's Gloves",            type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"Reward for completing Level 15 mission The Bee in the Moon",        faction:"Both"});
+  armorCollection.push({name:"Nanobladed Grips",                       type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"Reward for level 13 mission Beware of Jokers Bearing Gifts",        faction:"Both"});
+  armorCollection.push({name:"Precision Nanoguided Gloves",            type:"Hands",     role:"Healer",     style:"Retro Tech",          drops:"Subprime Regulator Beta in Area 51 alert",                          faction:"Both"});
   armorCollection.push({name:"Prototype Fieldscanner Grips",           type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"Micro Security Bot, Enraged Metal Man in Oolong Island easy alert", faction:"Both"});
-  armorCollection.push({name:"Spiked Kamikaze Gauntlets",              type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"Villain reward for Level 13 Playing Joker's Game mission", faction:"Both"});
-  armorCollection.push({name:"Synthium-Hardended Grips",               type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"Harley Quinn",                                          faction:"Both"});
+  armorCollection.push({name:"Spiked Kamikaze Gauntlets",              type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"Villain reward for Level 13 Playing Joker's Game mission",          faction:"Both"});
+  armorCollection.push({name:"Synthium-Hardended Grips",               type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"Harley Quinn, Dr Psycho in Tier 1 challenge Meta Research Wing",    faction:"Both", level:32});
   armorCollection.push({name:"WayneTech Equilibrity Gauntlets",        type:"Hands",     role:"DPS",        style:"Retro Tech",          drops:"Batman in TO Morrow instance",                          faction:"Both"});
   armorCollection.push({name:"Belt of the Genetrix",                   type:"Waist",     role:"DPS",        style:"Retro Tech",          drops:"Queen Bee",                                             faction:"Both"});
   armorCollection.push({name:"Hysteric's Cinch",                       type:"Waist",     role:"DPS",        style:"Retro Tech",          drops:"Harley Quinn",                                          faction:"Both"});
@@ -15253,14 +15301,15 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Seafury Scimitar of Regeneration",            type:"One-Handed",     role:"Healer",     dps:177.9, drops:"8 Player Tier 5 Nexus of Reality raid",                                 style:"Bone Club",             health:427, power:210, precision:27, might:61,  vitalization:44,  restoration:247, dominance:0,  defense:0,   toughness:0, level:87});
 
   // Other
-  weaponCollection.push({name:"Unattuned Bow",                               type:"Bow",            role:"DPS",        dps:146.7, drops:"Johnny Blowtorch in challenge The Hunt",                                style:"Short Bow",             level:81});
+  weaponCollection.push({name:"Unattuned Bow",                               type:"Bow",            role:"DPS",        dps:146.7, drops:"Johnny Blowtorch in challenge The Hunt",                                style:"Short Bow",             health:0,   power:0,   precision:0,  might:0,   vitalization:0,   restoration:0,   dominance:0,  defense:0,   toughness:0, level:81});
   weaponCollection.push({name:"Eagle Eye Bow",                               type:"Bow",            role:"DPS",        dps:146.7, drops:"T5 challenge",                                                          style:"Short Bow",             health:250, power:83,  precision:53, might:120, vitalization:5,   restoration:7,   dominance:0,  defense:0,   toughness:0, level:81});
   weaponCollection.push({name:"Shaman's Bow",                                type:"Bow",            role:"Healer",     dps:146.7, drops:"Johnny Blowtorch in challenge The Hunt",                                style:"Short Bow",             health:270, power:133, precision:17, might:34,  vitalization:5,   restoration:121, dominance:0,  defense:0,   toughness:0, level:81});
   weaponCollection.push({name:"Unattuned Amazon Bow",                        type:"Bow",            role:"DPS",        dps:0,     drops:"Poision Ivy in T5 Operation Family Reunion",                            style:""});
 
-  weaponCollection.push({name:"Unattuned Brawlers",                          type:"Brawling",       role:"DPS",        dps:146.7, drops:"Little Vinny in 1 Player Tier 5 Challenge The Hunt",                    style:"Power Clamps",          level:81});
+  weaponCollection.push({name:"Unattuned Brawlers",                          type:"Brawling",       role:"DPS",        dps:146.7, drops:"Little Vinny in 1 Player Tier 5 Challenge The Hunt",                    style:"Power Clamps",          health:0,   power:0,   precision:0,  might:0,   vitalization:0,   restoration:0,   dominance:0,  defense:0,   toughness:0, level:81});
   weaponCollection.push({name:"Clasher's Stun-Gloves",                       type:"Brawling",       role:"DPS",        dps:146.7, drops:"Tunnel of Lust duo",                                                    style:"Power Clamps",          health:250, power:83,  precision:53, might:120, vitalization:5,   restoration:7,   dominance:0,  defense:0,   toughness:0, level:81});
   weaponCollection.push({name:"Doctor's Shock Clamps",                       type:"Brawling",       role:"Healer",     dps:146.7, drops:"Little Vinny in 1 Player Tier 5 Challenge The Hunt",                    style:"Power Clamps",          health:270, power:133, precision:17, might:34,  vitalization:5,   restoration:121, dominance:0,  defense:0,   toughness:0, level:81});
+  weaponCollection.push({name:"Punch Stunner",                               type:"Brawling",       role:"Controller", dps:146.7, drops:"1 Player Tier 5 Challenge The Hunt",                                    style:"Power Clamps",          health:230, power:116, precision:17, might:34,  vitalization:77,  restoration:7,   dominance:32, defense:0,   toughness:0, level:81});
   weaponCollection.push({name:"Unattuned Magical Claws",                     type:"Brawling",       role:"DPS",        dps:157.1, drops:"Santo Cassamento in 1 Player Tier 5 Challenge The Hunt",                style:"Magical Claws",         health:0,   power:0,   precision:0,  might:0,   vitalization:0,   restoration:0,   dominance:0,  defense:0,   toughness:0, level:83});
   weaponCollection.push({name:"Vigilante's Spiked Brawlers",                 type:"Brawling",       role:"DPS",        dps:157.1, drops:"Santo Cassamento in 1 Player Tier 5 Challenge The Hunt",                style:"Magical Claws",         health:290, power:96,  precision:62, might:139, vitalization:16,  restoration:24,  dominance:0,  defense:0,   toughness:0, level:83});
   weaponCollection.push({name:"Unattuned Time-Etched Cestus",                type:"Brawling",       role:"DPS",        dps:162.3, drops:"Jor-El in Brothers in Arms T5 Operation",                               style:"Power Clamps",          level:84});
@@ -15278,14 +15327,15 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Sawbone's Long Barrels",                      type:"Dual Pistol",    role:"Healer",     dps:157.1, drops:"Jor-El in Brothers in Arms alert",                                      style:"Machine Pistol",        health:314, power:154, precision:20, might:39,  vitalization:16,  restoration:156, dominance:0,  defense:0,   toughness:0, level:83});
   weaponCollection.push({name:"Silenced Semi-Autos of the Assassin",         type:"Dual Pistol",    role:"Controller", dps:157.1, drops:"",                                                                      style:"Machine Pistol",        health:267, power:135, precision:20, might:39,  vitalization:89,  restoration:24,  dominance:37, defense:0,   toughness:0, level:83});
 
-  weaponCollection.push({name:"Unattuned Tomahawks",                         type:"Dual Wield",     role:"DPS",        dps:146.7, drops:"Security Commander in 1 Player Tier 5 Challenge Test Subject #1",       style:"Thanagarian Tomahawk",  level:81});
+  weaponCollection.push({name:"Unattuned Tomahawks",                         type:"Dual Wield",     role:"DPS",        dps:146.7, drops:"Security Commander in 1 Player Tier 5 Challenge Test Subject #1",       style:"Thanagarian Tomahawk",  health:0,   power:0,   precision:0,  might:0,   vitalization:0,   restoration:0,   dominance:0,  defense:0,   toughness:0, level:81});
   weaponCollection.push({name:"Valiant Chieftan's Tomahawks",                type:"Dual Wield",     role:"DPS",        dps:146.7, drops:"Security Commander in 1 Player Tier 5 Challenge Test Subject #1",       style:"Thanagarian Tomahawk",  level:81});
   weaponCollection.push({name:"Shaman Tomahawks",                            type:"Dual Wield",     role:"Healer",     dps:146.7, drops:"Security Commander in 1 Player Tier 5 Challenge Test Subject #1",       style:"Thanagarian Tomahawk",  health:270, power:133, precision:17, might:34,  restoration:121,  vitalization:5,  dominance:0,  defense:0,   toughness:0, level:81});
   weaponCollection.push({name:"Tomahawks of the Unmoving",                   type:"Dual Wield",     role:"Tank",       dps:146.7, drops:"Fervent Cultist",                                                       style:"Thanagarian Tomahawk",  health:389, power:50,  precision:17, might:34,  restoration:7,    vitalization:5,  dominance:24, defense:183, toughness:0, level:81});
-  weaponCollection.push({name:"Unattuned Katanas",                           type:"Dual Wield",     role:"DPS",        dps:151.9, drops:"Paradox Destroyer in Family Reunion T5 Operation",                      style:"",                      level:82});
+  weaponCollection.push({name:"Unattuned Katanas",                           type:"Dual Wield",     role:"DPS",        dps:151.9, drops:"Paradox Destroyer in Family Reunion T5 Operation",                      style:"",                      health:0,   power:0,   precision:0,  might:0,   vitalization:0,   restoration:0,   dominance:0,  defense:0,   toughness:0, level:82});
   weaponCollection.push({name:"Blades of the Champion Daimyo",               type:"Dual Wield",     role:"DPS",        dps:151.9, drops:"Paradox Destroyer in Family Reunion T5 Operation",                      style:"",                      health:269, power:90,  precision:58, might:130, vitalization:10,  restoration:16,  dominance:0,  defense:0,   toughness:0, level:82});
-  weaponCollection.push({name:"Unattuned Eye Axes",                          type:"Dual Wield",     role:"DPS",        dps:157.1, drops:"T5 Challenge",                                                          style:"Eye Axe",               level:83});
+  weaponCollection.push({name:"Unattuned Eye Axes",                          type:"Dual Wield",     role:"DPS",        dps:157.1, drops:"T5 Challenge",                                                          style:"Eye Axe",               health:0,   power:0,   precision:0,  might:0,   vitalization:0,   restoration:0,   dominance:0,  defense:0,   toughness:0, level:83});
   weaponCollection.push({name:"Guardian's Longblade Axes",                   type:"Dual Wield",     role:"Tank",       dps:157.1, drops:"Brothers in Arms T5 Operation",                                         style:"Eye Axe",               health:452, power:58,  precision:20, might:39,  vitalization:16,  restoration:24,  dominance:28, defense:213, toughness:0, level:83});
+  weaponCollection.push({name:"Power-Gemmed Axes",                           type:"Dual Wield",     role:"Controller", dps:157.1, drops:"4 Player Tier 5 operation Brothers in Arms",                            style:"Eye Axe",               health:267, power:135, precision:20, might:39,  vitalization:89,  restoration:24,  dominance:37, defense:0,   toughness:0, level:83});
   weaponCollection.push({name:"Shifted Energy Blades of Bastion",            type:"Dual Wield",     role:"Tank",       dps:167.5, drops:"",                                                                      style:"Thanagarian Tomahawk",  health:528, power:68,  precision:23, might:53,  vitalization:29,  restoration:44,  dominance:32, defense:249, toughness:0, level:85});
   weaponCollection.push({name:"Shifted Energy Blades of Mending",            type:"Dual Wield",     role:"Healer",     dps:167.5, drops:"",                                                                      style:"Thanagarian Tomahawk",  health:366, power:180, precision:23, might:53,  vitalization:29,  restoration:198, dominance:0,  defense:0,   toughness:0, level:85});
   weaponCollection.push({name:"Shifted Energy Blades of Deep Thought",       type:"Dual Wield",     role:"Controller", dps:167.5, drops:"",                                                                      style:"Thanagarian Tomahawk",  health:312, power:158, precision:23, might:53,  vitalization:104, restoration:44,  dominance:43, defense:0,   toughness:0, level:85});
@@ -15315,11 +15365,12 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Shifted Energy Katar of Onslaught",           type:"Martial Arts",   role:"DPS",        dps:167.5, drops:"",                                                                      style:"Twinblade Katar",       health:339, power:113, precision:72, might:171, vitalization:29,  restoration:44,  dominance:0,  defense:0,   toughness:0, level:85});
 
   weaponCollection.push({name:"Unattuned Club",                              type:"One-Handed",     role:"DPS",        dps:146.7, drops:"Security Commander in Bizarro challenge",                               style:"Bone Club",             health:0,   power:0,   precision:0,  might:0,   vitalization:0,   restoration:0,   dominance:0,  defense:0,   toughness:0, level:81});
+  weaponCollection.push({name:"Club of Vitality",                            type:"One-Handed",     role:"Controller", dps:146.7, drops:"",                            style:"Bone Club",             health:230, power:116, precision:17, might:34,  vitalization:77,  restoration:7,   dominance:32, defense:0,   toughness:0, level:81});
   weaponCollection.push({name:"Shaman's Healing Stick",                      type:"One-Handed",     role:"Healer",     dps:146.7, drops:"Security Commander in Bizarro challenge",                               style:"Bone Club",             health:270, power:133, precision:17, might:34,  vitalization:5,   restoration:121, dominance:0,  defense:0,   toughness:0, level:81});
   weaponCollection.push({name:"Trophy of the Vicious Savage",                type:"One-Handed",     role:"DPS",        dps:146.7, drops:"Security Commander in Bizarro challenge",                               style:"Bone Club",             health:250, power:83,  precision:53, might:120, vitalization:5,   restoration:7,   dominance:0,  defense:0,   toughness:0, level:81});
   weaponCollection.push({name:"Unattuned Gemmed Scepter",                    type:"One-Handed",     role:"DPS",        dps:151.9, drops:"Paradox in Brothers in Arms",                                           style:"Gemmed Scepter",        health:0,   power:0,   precision:0,  might:0,   vitalization:0,   restoration:0,   dominance:0,  defense:0,   toughness:0, level:82});
   weaponCollection.push({name:"Scepter of Might",                            type:"One-Handed",     role:"DPS",        dps:151.9, drops:"Paradox in Brothers in Arms",                                           style:"Gemmed Scepter",        health:269, power:90,  precision:58, might:130, vitalization:10,  restoration:16,  dominance:0,  defense:0,   toughness:0, level:82});
-  weaponCollection.push({name:"Unattuned Millennia Hammer",                  type:"One-Handed",     role:"DPS",        dps:157.1, drops:"4 Player Tier 5 Operation Brothers in Arms",                            style:"Millennia Hammer",      health:0,   power:0,   precision:0,  might:0,   vitalization:0,   restoration:0,   dominance:0,  defense:0,   toughness:0, level:83});
+  weaponCollection.push({name:"Unattuned Millennia Hammer",                  type:"One-Handed",     role:"DPS",        dps:157.1, drops:"4 Player Tier 5 operation Brothers in Arms",                            style:"Millennia Hammer",      health:0,   power:0,   precision:0,  might:0,   vitalization:0,   restoration:0,   dominance:0,  defense:0,   toughness:0, level:83});
   weaponCollection.push({name:"Fighter's Plasma Hammer",                     type:"One-Handed",     role:"DPS",        dps:157.1, drops:"",                                                                      style:"Millennia Hammer",      health:290, power:96,  precision:62, might:139, vitalization:16,  restoration:24,  dominance:0,  defense:0,   toughness:0, level:83});
   weaponCollection.push({name:"Healer's Plasma Hammer",                      type:"One-Handed",     role:"Healer",     dps:157.1, drops:"4 Player Tier 5 Operation Brothers in Arms",                            style:"Millennia Hammer",      health:314, power:154, precision:20, might:39,  vitalization:16,  restoration:156, dominance:0,  defense:0,   toughness:0, level:83});
   weaponCollection.push({name:"Time-Etched Sword of Retribution",            type:"One-Handed",     role:"DPS",        dps:162.3, drops:"",                                                                      style:"Scimitar",              health:314, power:104, precision:67, might:151, vitalization:22,  restoration:34,  dominance:0,  defense:0,   toughness:0, level:84});
@@ -15727,6 +15778,7 @@ function isAccessory(lineString)
 
   // Unattuned Weapons from DLC4 Prime Battleground T4 Raid
   weaponCollection.push({name:"Unattuned: Prime Bow",                  type:"Bow",          role:"DPS",        dps:125.9, drops:"Brainiac in 8 Player Tier 4 The Prime Battleground raid", style:"Prime Brainiac Bow",           health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:70});
+  weaponCollection.push({name:"Prime Dominator's Bow",                 type:"Bow",          role:"Controller", dps:125.9, drops:"Brainiac in 8 Player Tier 4 The Prime Battleground raid", style:"Prime Brainiac Bow",           health:150, power:22, precision:17, might:22, vitalization:49, dominance:21, defense:0,   restoration:0,  toughness:0,  level:70});
   weaponCollection.push({name:"Prime Enforcer's Bow",                  type:"Bow",          role:"DPS",        dps:125.9, drops:"Brainiac in 8 Player Tier 4 The Prime Battleground raid", style:"Prime Brainiac Bow",           health:163, power:22, precision:40, might:63, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:70});
 
   weaponCollection.push({name:"Unattuned: Prime Brawling Gloves",      type:"Brawling",     role:"DPS",        dps:125.9, drops:"Brainiac in 8 Player Tier 4 The Prime Battleground raid", style:"", health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:70});
@@ -15738,6 +15790,7 @@ function isAccessory(lineString)
 
   weaponCollection.push({name:"Unattuned: Prime Hand Blasters",        type:"Hand Blaster", role:"DPS",        dps:125.9, drops:"Brainiac in 8 Player Tier 4 The Prime Battleground raid", style:"Prime Brainiac Hand Blasters", health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:70});
   weaponCollection.push({name:"Prime Dominator's Hand Blasters",       type:"Hand Blaster", role:"Controller", dps:125.9, drops:"Brainiac in 8 Player Tier 4 The Prime Battleground raid", style:"Prime Brainiac Hand Blasters", health:150, power:22, precision:17, might:22, vitalization:49, dominance:21, defense:0,   restoration:0,  toughness:0,  level:70});
+  weaponCollection.push({name:"Prime Enforcer's Hand Blasters",        type:"Hand Blaster", role:"DPS",        dps:125.9, drops:"Brainiac in 8 Player Tier 4 The Prime Battleground raid", style:"Prime Brainiac Hand Blasters", health:163, power:22, precision:40, might:63, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:70});
 
   weaponCollection.push({name:"Unattuned: Prime Katara",               type:"Martial Arts", role:"DPS",        dps:125.9, drops:"Brainiac in 8 Player Tier 4 The Prime Battleground raid", style:"", health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:70});
 
@@ -15747,6 +15800,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Unattuned: Prime Rifle",                type:"Rifle",        role:"DPS",        dps:125.9, drops:"Brainiac in 8 Player Tier 4 The Prime Battleground raid", style:"", health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:70});
 
   weaponCollection.push({name:"Unattuned: Prime Shield",               type:"Shield",       role:"DPS",        dps:125.9, drops:"Brainiac in 8 Player Tier 4 The Prime Battleground raid", style:"Giant Gear",           health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:70});
+  weaponCollection.push({name:"Prime Dominator's Guard",               type:"Shield",       role:"Controller", dps:125.9, drops:"Brainiac in 8 Player Tier 4 The Prime Battleground raid", style:"Giant Gear",           health:150, power:22, precision:17, might:22, vitalization:49, dominance:21, defense:0,   restoration:0,  toughness:0,  level:70});
   weaponCollection.push({name:"Prime Enforcer's Guard",                type:"Shield",       role:"DPS",        dps:125.9, drops:"Brainiac in 8 Player Tier 4 The Prime Battleground raid", style:"Giant Gear",           health:163, power:22, precision:40, might:63, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:70});
 
   weaponCollection.push({name:"Unattuned: Prime Spear",                type:"Staff",        role:"DPS",        dps:125.9, drops:"Brainiac in 8 Player Tier 4 The Prime Battleground raid", style:"Prime Brainiac Spear", health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:70});
@@ -16258,7 +16312,7 @@ function isAccessory(lineString)
 
   weaponCollection.push({name:"Retribution of the Planets",                type:"Dual Pistol", role:"Controller", dps:77.9,  drops:"Watchman Duncan & Watchdog Rinty - Ace Chemicals", style:"Extended Barrel Pistol", health:117, power:15, precision:7, might:13, vitalization:30, dominance:11, level:40});
 
-  weaponCollection.push({name:"Requisitioned ServitorTech Pistols",        type:"Dual Pistol", role:"DPS",        dps:61.9,  drops:""});
+  weaponCollection.push({name:"Requisitioned ServitorTech Pistols",        type:"Dual Pistol", role:"DPS",        dps:61.9,  drops:"Duos and alerts"});
   weaponCollection.push({name:"Riverrock Revolvers",                       type:"Dual Pistol", role:"DPS",        dps:50.7,  drops:"Archmagent in Gotham", style:"Tech Revolver", health:155, precision:7, might:9, level:23});
   weaponCollection.push({name:"Roaring Red's Revolvers",                   type:"Dual Pistol", role:"DPS",        dps:0,     drops:""});
   weaponCollection.push({name:"Silver-Plated Pistols",                     type:"Dual Pistol", role:"DPS",        dps:27.7,  drops:"", style:"Plasma Pistol"});
@@ -16336,7 +16390,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Honed Neutronium Blades",type:"Dual Wield",role:"DPS",dps:97.1,drops:"Armored Robotic Custodian - Batcave: Inner Sanctum"});
 
   weaponCollection.push({name:"Honed Shinobi Blades",type:"Dual Wield",role:"Tank",dps:97.1,drops:"Bat Sentinels, Inner Raid T2 reward box", style:"Katana", health:156, precision:8, might:17, dominance:28, level:52});
-  weaponCollection.push({name:"Honed Somelari War Axes",type:"Dual Wield",role:"DPS",dps:68.3,drops:""});
+  weaponCollection.push({name:"Honed Somelari War Axes",type:"Dual Wield",role:"DPS",dps:68.3,drops:"Oan Sciencells alert, Ace Chemicals alert, Arkham Asylum alert"});
   weaponCollection.push({name:"Honed Synthium Katanas",         type:"Dual Wield",    role:"DPS",        dps:37.9,  drops:"Star-SL in Metropolis Centennial Park", style:"Bone Hilt Katana", health:47, precision:19, might:7, level:15});
   weaponCollection.push({name:"Inanimate Carbon Rods",type:"Dual Wield",role:"Controller",dps:90.7,drops:"Burning Claw - League of Assassins Stronghold, HIVE Moon Base Tier 2 alert", style:"Inlaid Baton", health:136, precision:8, might:27, vitalization:35, dominance:13, defense:0, level:48});
 
@@ -16674,7 +16728,7 @@ function isAccessory(lineString)
 
   weaponCollection.push({name:"Scarecrow's Sinister Cleaver",type:"One-Handed",role:"DPS",dps:87.5,drops:"Scarecrow", style:"Scarecrow's Twisted Cleaver"});
   weaponCollection.push({name:"Scout's Nth-Metal Hammer",type:"One-Handed",role:"DPS",dps:0,drops:"PVP vendor"});
-  weaponCollection.push({name:"Sharp Korllium Khopesh",type:"One-Handed",role:"DPS",dps:68.3,drops:""});
+  weaponCollection.push({name:"Sharp Korllium Khopesh",type:"One-Handed",role:"DPS",dps:68.3,drops:"4 Player Tier 2 alerts"});
   weaponCollection.push({name:"Sharpened Synthium Katana",type:"One-Handed",role:"DPS",dps:26.6,drops:"Stinger", style:"Chokuto", health:32, power:46, precision:2, might:5, level:7});
   weaponCollection.push({name:"Silver Blade of Azar",type:"One-Handed",role:"DPS",dps:65.1,drops:"Possessed Raven Spirit, Spirit of Raven - Science Police HQ (Challenge)", style:"Demonic Sword", health:64, precision:9, might:82, level:32});
   weaponCollection.push({name:"Skartaris Shortsword",type:"One-Handed",role:"Controller",dps:58.7,drops:"Vengeful Spirit"});
@@ -20565,7 +20619,13 @@ function calculateWeapons(character, startDateString, endDateString)
     results += '</tr>';
     for (var i=0; i<weaponArray.length; i++) {
       results += '<tr>';
-      results += '<th>' + weaponArray[i].type + '</th><th>'  + weaponArray[i].name + '</th><th>' + weaponArray[i].dps + '</th><th>' + convertTimestampToDateString(weaponArray[i].time) + '</th><th>' + weaponArray[i].user + '</th><th><input id="dropbutton" value="Dropped By" onclick="javascript:dropPopUp(' + weaponArray[i].id + ');" type="button"></th>';
+      results += '<th>' + weaponArray[i].type + '</th><th>'  + weaponArray[i].name + '</th><th>' + weaponArray[i].dps + '</th><th>' + convertTimestampToDateString(weaponArray[i].time) + '</th><th>' + weaponArray[i].user + '</th>';
+      if (weaponCollection[weaponArray[i].id].drops == "") {
+        results += '<th></th>';
+      }
+      else {
+        results += '<th><input id="dropbutton" value="Dropped By" onclick="javascript:dropPopUp(' + weaponArray[i].id + ');" type="button"></th>';
+      }
       results += '</tr>';
     }
     results += '</table>';
@@ -29802,22 +29862,58 @@ function calculateIAStats(character, startDateString, endDateString)
   });
 
   if (bountyListing.length > 0) {
+    var TotalTimeHuntress = 0;
+    var TotalTimeBizarro = 0;
+    var TotalCompletedHuntress = 0;
+    var TotalCompletedBizarro = 0;
+    var bestTimeHuntress = 999;
+    var bestTimeBizarro = 999;
+
     var results = '';
     results += '<div>';
-    results += '<table ALIGN="left" cellpadding="2" cellspacing="2">';
-    results += '<th ALIGN="left">Iconic Anomaly</th><th>Total times ran</th><th> </th>';
-    results += '<tr><th ALIGN="left">Test Subject #1 (Bizarro)</th><th>' + totalBizarro + '</th></tr>';
-    results += '<tr><th ALIGN="left">The Hunt (Huntress)</th><th>' + totalHuntress + '</th></tr>';
+    results += '<table class="iconicTableStyle">';
+
+    for (var i=0; i<bountyListing.length; i++) {
+      if (bountyListing[i].bounty == "The Hunt (Huntress)") {
+        if (bountyListing[i].totaltime > 0) {
+          TotalCompletedHuntress += 1;
+          TotalTimeHuntress += bountyListing[i].totaltime;
+          if (bountyListing[i].totaltime < bestTimeHuntress) {
+            bestTimeHuntress = bountyListing[i].totaltime;
+          }
+        }
+      }
+      else if (bountyListing[i].bounty == "Test Subject #1 (Bizarro)") {
+        if (bountyListing[i].totaltime > 0) {
+          TotalCompletedBizarro += 1;
+          TotalTimeBizarro += bountyListing[i].totaltime;
+          if (bountyListing[i].totaltime < bestTimeBizarro) {
+            bestTimeBizarro = bountyListing[i].totaltime;
+          }
+        }
+      }
+    }
+
+    results += '<th ALIGN="left">Iconic Anomaly</th><th>Total times ran</th><th>Average Time to Complete (mins)</th><th>Fastest time (mins)</th>';
+    results += '<tr><th ALIGN="left">Test Subject #1 (Bizarro)</th><th>' + totalBizarro + '</th><th>' + Math.round((TotalTimeBizarro * 10) / TotalCompletedBizarro)/10 + '</th><th>' + Math.round(bestTimeBizarro * 10)/10 + '</th></tr>';
+    results += '<tr><th ALIGN="left">The Hunt (Huntress)</th><th>' + totalHuntress + '</th><th>' + Math.round((TotalTimeHuntress * 10) / TotalCompletedHuntress)/10 + '</th><th>' + Math.round(bestTimeHuntress * 10)/10 + '</th></tr>';
     results += '</table>';
     results += '</div>';
-    results += '<br><br><br>';
+    results += '<br>';
     results += '<div style="width:860px; max-height:450px; overflow:scroll;">';
     results += '<table class="sortable" ALIGN="left" id="anyid" cellpadding="0" cellspacing="0">';
     results += '<tr>';
     results += '<th class="top">Character</th><th class="top">Date</th><th class="top">Iconic Anomaly</th><th class="top">Total Time (mins)</th><th class="top">Final Boss</th>';
     results += '</tr>';
     for (var i=0; i<bountyListing.length; i++) {
-      results += '<tr><th>' + bountyListing[i].character + '</th><th>' + bountyListing[i].date + '</th><th>' + bountyListing[i].bounty + '</th><th>' + Math.round(bountyListing[i].totaltime * 10)/10 + '</th><th>' + bountyListing[i].boss + '</th></tr>';
+      results += '<tr><th>' + bountyListing[i].character + '</th><th>' + bountyListing[i].date + '</th><th>' + bountyListing[i].bounty + '</th>';
+      if (bountyListing[i].totaltime == 0) {
+        results += '<th>Not complete</th>'; 
+      }
+      else {
+        results += '<th>' + Math.round(bountyListing[i].totaltime * 10)/10 + '</th>';
+      }
+      results += '<th>' + bountyListing[i].boss + '</th></tr>';
     }
     results += '</table>';
     results += '</div>';
@@ -29858,7 +29954,11 @@ function calculateSynthetic(character, startDateString, endDateString)
   results += '<br>';
   results += 'Synthetic Mods only have a single stat.  So only Precision Synthetic Mod, no Precision & Might Synthetic Mod';
   results += '<br>';
-  results += 'Your character must be at least level 30 to purchase Synthetic Mods.';
+  results += 'Synthetic Mods cannot be emailed or put in Shared Bank since they are designated Cannot Trade';
+  results += '<br>';
+  results += 'You can put a Red Synthetic Mod in a blue socket but you will not get the Socket Affinity bonus, just the Synthetic Mod bonus';
+  results += '<br>';
+  results += 'Your character must be at least level 30 to purchase Synthetic Mods.  You can put a Synthetic Mod in any gear that is above level 30';
   results += '<br>';
   results += 'Synthetic Mods can be purchased with PvE marks or PvP marks.  Synthetic Mods bought with PvP marks will work in PvE gear and vice versa';
   results += '<br>';
@@ -29953,6 +30053,99 @@ function calculateArmory(character, startDateString, endDateString)
   results += 'Armories can be activated in PvE combat with a cooldown.';
   results += '<br>';
   results += 'Armories cannot be activated in PvP combat.';
+  results += '</div>';
+
+  document.getElementById('StatsDisplay').style.display="none";
+  document.getElementById('TableDisplay').style.display="block";
+  document.getElementById("TableDisplay").innerHTML = results;
+  sortables_init();
+
+  // Blank out any existing line or pie charts since I don't have any for this section of data to display
+  document.getElementById('LeftChartDiv').innerHTML = "";
+  document.getElementById('RightChartDiv').innerHTML = "";
+}
+
+
+function calculateLegendsInfo(character, startDateString, endDateString)
+{
+  var results = '';
+  results += '<div>';
+  // results += '<div style="width:900px">';
+  results += '<b>PvP Legends Character information</b><br>';
+  results += '<table class="sortable" ALIGN="center" id="anyid" cellpadding="0" cellspacing="0">';
+  results += '<tr><th class="top">Character</th><th class="top">Requirement</th><th class="top">Cost</th><th class="top">Weapon Style</th><th class="top">Movement Mode</th></tr>';
+  results += '<tr><th>Robin</th><th>Level 5</th><th>10 Marks of Legend</th> <th>Staff</th><th>Acrobatics</th></tr>';
+  results += '<tr><th>Harley Quinn</th><th>Level 5</th><th>10 Marks of Legend</th> <th>Two-Handed</th><th>Acrobatics</th></tr>';
+  results += '<tr><th>Future Harley Quinn</th><th>Marketplace only</th><th>500 Station Cash</th><th>Two-Handed</th><th>Acrobatics</th></tr>';
+  results += '<tr><th>Huntress</th><th>None</th><th>10 Marks of Legend</th> <th>Martial Arts/Dual Pistols</th><th>Acrobatics</th></tr>';
+  results += '<tr><th>Nightwing</th><th>None</th><th>35 Marks of Legend</th> <th>Dual Wield</th><th>Acrobatics</th></tr>';
+  results += '<tr><th>Bane</th><th>None</th><th>55 Marks of Legend</th> <th>Brawling</th><th>Acrobatics</th></tr>';
+  results += '<tr><th>Joker</th><th>None</th><th>70 Marks of Legend</th> <th>One-Handed/Dual Pistols</th><th>Acrobatics/Flight</th></tr>';
+  results += '<tr><th>Arkham Asylum Joker</th><th>Marketplace only</th><th>1000 Station Cash</th><th>One-Handed/Dual Pistols</th><th>Acrobatics</th></tr>';
+  results += '<tr><th>Catwoman</th><th>None</th><th>70 Marks of Legend</th><th>Whip</th><th>Acrobatics</th></tr>';
+  results += '<tr><th>Two-Face</th><th>None</th><th>70 Marks of Legend</th><th>Rifle</th><th>Acrobatics</th></tr>';
+  results += '<tr><th>Batman</th><th>Preorder only</th><th>N/A</th><th>Martial Arts</th><th>Acrobatics</th></tr>';
+  results += '<tr><th>Future Batman</th><th>Marketplace only</th><th>500 Station Cash</th><th>Martial Arts</th><th>Acrobatics</th></tr>';
+  results += '<tr><th>Arkillo</th><th>The Last Laugh DLC</th><th>85 Marks of Legend</th><th>Brawling</th><th>Flight</th></tr>';
+  results += '<tr><th>Bizarro</th><th>The Last Laugh DLC</th><th>85 Marks of Legend</th><th>Brawling</th><th>Flight</th></tr>';
+  results += '<tr><th>Kilowog</th><th>The Last Laugh DLC</th><th>85 Marks of Legend</th><th>Brawling</th><th>Flight</th></tr>';
+  results += '<tr><th>Amon Sur</th><th>The Last Laugh DLC</th><th>85 Marks of Legend</th><th>Martial Arts</th><th>Flight</th></tr>';
+  results += '<tr><th>Ursa</th><th>The Last Laugh DLC</th><th>85 Marks of Legend</th><th>Brawling</th><th>Flight</th></tr>';
+  results += '<tr><th>Power Girl</th><th>The Last Laugh DLC</th><th>85 Marks of Legend</th><th>Brawling</th><th>Flight</th></tr>';
+  results += '<tr><th>John Stewart</th><th>The Last Laugh DLC</th><th>85 Marks of Legend</th><th>Rifle</th><th>Flight</th></tr>';
+  results += '<tr><th>Superman</th><th>Marketplace only</th><th>1000 Station Cash</th><th>Brawling</th><th>Flight</th></tr>';
+  results += '<tr><th>General Zod</th><th>Marketplace only</th><th>1000 Station Cash</th><th>Brawling</th><th>Flight</th></tr>';
+  results += '<tr><th>Doctor Fate</th><th>Hand of Fate DLC</th><th>85 Marks of Legend</th><th>Hand Blaster</th><th>Flight</th></tr>';
+  results += '<tr><th>Felix Faust</th><th>Hand of Fate DLC</th><th>85 Marks of Legend</th><th>Hand Blaster</th><th>Flight</th></tr>';
+  results += '<tr><th>Lex Luthor</th><th>Marketplace only</th><th>1000 Station Cash</th><th>Hand Blaster</th><th>Flight</th></tr>';
+  results += '<tr><th>Steel</th><th>Marketplace only</th><th>1000 Station Cash</th><th>Two-Handed</th><th>Flight</th></tr>';
+  results += '<tr><th>Hal Jordan</th><th>Marketplace only</th><th>1000 Station Cash</th><th>Brawling</th><th>Flight</th></tr>';
+  results += '<tr><th>Sinestro</th><th>Marketplace only</th><th>1000 Station Cash</th><th>Martial Arts</th><th>Flight</th></tr>';
+  results += '<tr><th>Donna Troy</th><th>Sons of Trigon DLC</th><th>10 Marks of Legend</th><th>Brawling</th><th>Flight</th></tr>';
+  results += '<tr><th>Cheetah</th><th>Sons of Trigon DLC</th><th>10 Marks of Legend</th><th>Martial Arts</th><th>Superspeed</th></tr>';
+  results += '<tr><th>Wonder Woman</th><th>Marketplace only</th><th>10 Marks of Legend</th><th>Shield</th><th>Flight</th></tr>';
+  results += '<tr><th>Circe</th><th>Marketplace only</th><th>10 Marks of Legend</th><th>Hand Blaster</th><th>Flight</th></tr>';
+  results += '<tr><th>Atrocitus</th><th>War of the Light Part 1 DLC</th><th>85 Marks of Legend</th><th>Brawling</th><th>Flight</th></tr>';
+  results += '<tr><th>Saint Walker</th><th>War of the Light Part 1 DLC</th><th>85 Marks of Legend</th><th>Martial Arts</th><th>Flight</th></tr>';
+  results += '</table>';
+  results += '</div>';
+
+  document.getElementById('StatsDisplay').style.display="none";
+  document.getElementById('TableDisplay').style.display="block";
+  document.getElementById("TableDisplay").innerHTML = results;
+  sortables_init();
+
+  // Blank out any existing line or pie charts since I don't have any for this section of data to display
+  document.getElementById('LeftChartDiv').innerHTML = "";
+  document.getElementById('RightChartDiv').innerHTML = "";
+}
+
+
+function calculateLegendsLoadoutInfo(character, startDateString, endDateString)
+{
+  var results = '';
+  results += '<div>';
+  // results += '<div style="width:900px">';
+  results += '<b>PvP Legends Character Powers information</b><br>';
+  results += '<table class="sortable" ALIGN="center" id="anyid" cellpadding="0" cellspacing="0">';
+  results += '<tr><th class="top">Character</th><th class="top">Power 1</th><th class="top">Power 2</th><th class="top">Power 3</th><th class="top">Power 4</th><th class="top">Power 5</th><th class="top">Power 6</th></tr>';
+  results += '<tr><th>Robin</th>';
+  results += '<th><span class="dropt">Batarang Fan<span style="width:500px;">Jump in the air and throw electrified Batarangs to stun enemies around you and then explode<br>Ranged Push<br>Ranged, Cone, 4 second duration, 12 second cooldown<br>Usable While Controlled</span></span></th>';
+  results += '<th><span class="dropt">Staff Flurry<span style="width:500px;">Spin your staff with great speed creating an air current to knock back and damage enemies<br>Area Stun, Area Knock Down<br>Must be in Melee Range, 5 second cooldown<br>Vulnerable To Interrupt</span></span></th>';
+  results += '<th><span class="dropt">Flipline<span style="width:500px;">Flip into the air and shoot an electrified Grapple Line to stun your target<br>Ranged Stun<br>Ranged, Single Target, 2 second cooldown<br>Vulnerable To Interrupt</span></span></th>';
+  results += '<th><span class="dropt">Stealth<span style="width:500px;">Go into stealth mode and become harder to detect<br>Changes to Stealth toolbar loadout, Slows<br>78 second cooldown<br></span></span></th>';
+  results += '<th><span class="dropt">Forward Flip<span style="width:500px;">Lunge at your target with a fast and powerful kick<br>Knock Down, Dodge<br>Lunge, Single Target, 1.5 second Buff, 4 second cooldown<br></span></span></th>';
+  results += '<th><span class="dropt">Backflip Escape<span style="width:500px;">Launch yourself backward damaging your target with a kick as you attempt to escape combat<br>Knock Down, Dodge<br>Melee, Small Cone, 2 second Buff, 4 second cooldown<br></span></span></th>';
+  results += '</tr>';
+  results += '<tr><th>Saint Walker</th>';
+  results += '<th><span class="dropt">Salvo of Adara<span style="width:500px;">Sends out blue orbs that knock back the enemy while damaging them<br>Cone AOE<br>Low cooldown<br></span></span></th>';
+  results += '<th><span class="dropt">Azure Shockwave<span style="width:500px;">Punches ground with ring and sends out shockwave to enemies damaging them<br>360 degree AOE<br><br></span></span></th>';
+  results += '<th><span class="dropt">Purposeful Strikes<span style="width:500px;">Succession of movements that knocks back and damages enemy<br>Single target ray, Channeled power so vulnerable to lunges<br>35% finisher<br>If finisher knocks out enemy, you get Power back</span></span></th>';
+  results += '<th><span class="dropt">Temperance<span style="width:500px;">Summon lantern to field giving aura which pushes and damages energies<br>Reduces damage you take<br>360 degree AOE<br></span></span></th>';
+  results += '<th><span class="dropt">Sustaining Spirit<span style="width:500px;">Shield absorbing incoming damage and with every hit it restores power<br><br><br></span></span></th>';
+  results += '<th><span class="dropt">Hope<span style="width:500px;"><br>Supercharge restoring full health and power<br><br></span></span></th>';
+  results += '</tr>';
+  results += '</table>';
   results += '</div>';
 
   document.getElementById('StatsDisplay').style.display="none";
@@ -30120,19 +30313,19 @@ function dataOptionExecute()
     case "R&D Component Database":
       calculateMaterials(person, startDateString, endDateString);
       break;
-    case "PVP Drops":
+    case "PvP Drops":
       calculatePVPDrops(person, startDateString, endDateString);
       break;
-    case "PVP Season 1 Match History":
+    case "PvP Season 1 Match History":
       calculatePVPS1Matches(person, startDateString, endDateString);
       break;
-    case "PVP Match History":
+    case "PvP Match History":
       calculatePVPS1Matches(person, startDateString, endDateString);
       break;
-    case "PVP Legends Stats":
+    case "PvP Legends Stats":
       calculatePVPLMatchStats(person, startDateString, endDateString);
       break;
-    case "PVP Arena Stats":
+    case "PvP Arena Stats":
       calculatePVPAMatchStats(person, startDateString, endDateString);
       break;
     case "Base Item Drops":
@@ -30185,6 +30378,12 @@ function dataOptionExecute()
       break;
     case "Armory Info":
       calculateArmory(person, startDateString, endDateString);
+      break;
+    case "PvP Legends Character Info":
+      calculateLegendsInfo(person, startDateString, endDateString);
+      break;
+    case "PvP Legends Character Powers Info":
+      calculateLegendsLoadoutInfo(person, startDateString, endDateString);
       break;
     default:
       alert("Undefined selection type: " + y[x].text);
