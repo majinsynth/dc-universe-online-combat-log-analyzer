@@ -201,6 +201,7 @@ For character:
       <input type="radio" name="powerset" id="powersetEarth"       />Earth
       <input type="radio" name="powerset" id="powersetFire"        />Fire
       <input type="radio" name="powerset" id="powersetIce"         />Ice
+      <input type="radio" name="powerset" id="powersetRage"        />Rage
     </td>
   </tr>
 </table>
@@ -362,7 +363,7 @@ function ExitProgram() {
   self.close();
 }
 
-var VERSION = "6.7";
+var VERSION = "7.0";
 
 function helpMessageWindow() {
   var helpMessage = "";
@@ -493,6 +494,9 @@ function updateConfig() {
   else if (document.getElementById('powersetIce').checked == true) {
     tempObj["Users"][id].powerset = "Ice";
   }
+  else if (document.getElementById('powersetRage').checked == true) {
+    tempObj["Users"][id].powerset = "Rage";
+  }
 
   window.opener.writeConfigUsers(tempObj);
   window.opener.aliasMergeCharacters();
@@ -546,6 +550,7 @@ function fillData() {
   document.getElementById('powersetEarth').checked = false;
   document.getElementById('powersetFire').checked = false;
   document.getElementById('powersetIce').checked = false;
+  document.getElementById('powersetRage').checked = false;
 
   if (arrayObjs[id].mentor == "Batman") {
     document.getElementById('mentorBatman').checked = true;
@@ -608,6 +613,9 @@ function fillData() {
   } 
   else if (arrayObjs[id].powerset == "Ice") {
     document.getElementById('powersetIce').checked = true;
+  }
+  else if (arrayObjs[id].powerset == "Rage") {
+    document.getElementById('powersetRage').checked = true;
   }
 }
 
