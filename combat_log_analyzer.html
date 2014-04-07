@@ -1938,7 +1938,7 @@ lairCollection.push({name:"Full-Sized Craps Table",                    color:"Bl
 lairCollection.push({name:"Hanging Nightclub Lamp",                    color:"Green",  theme:"Nightclub",      location:"Ceiling", category:"",                     subcategory:"",                  drops:"Worker in HIVE hard alert, NPC in Bludhaven alert"});
 lairCollection.push({name:"Poker Table",                               color:"Blue",   theme:"Nightclub",      location:"Floor",   category:"Furniture",            subcategory:"Entertainment",     drops:"LexCorp Heavy Mech in bizarro challenge"});
 lairCollection.push({name:"Roulette Table",                            color:"Blue",   theme:"Nightclub",      location:"Floor",   category:"Furniture",            subcategory:"Entertainment",     drops:"Queen Bee in the Hive Duo, Isis in Gotham University duo, Final boss in OMAC Base duo, Gorilla Grodd in Gorilla Grodd duo"});
-lairCollection.push({name:"Worn Piano",                                color:"Blue",   theme:"Nightclub",      location:"Floor",   category:"Furniture",            subcategory:"Entertainment",     drops:""});
+lairCollection.push({name:"Worn Piano",                                color:"Blue",   theme:"Nightclub",      location:"Floor",   category:"Furniture",            subcategory:"Entertainment",     drops:"NPC in 8 Player Novice raid Inner Sanctum"});
 
 lairCollection.push({name:"Rocking Horse",                             color:"Blue",   theme:"Park",           location:"Floor",   category:"Furniture",            subcategory:"Entertainment",     drops:"Gorilla Grodd in T1 Gorilla Grodd's Lab duo, OMAC Delta in OMAC Base duo"});
 lairCollection.push({name:"Damaged Playground Rocking Horse",          color:"Green",  theme:"Park",           location:"Floor",   category:"Decorations",          subcategory:"Freestanding",      drops:"Enraged Metal Man, Micro Security Bot in Oolong Island easy alert"});
@@ -6343,6 +6343,7 @@ styleCollection.push({name:"Fine-manipulation Visor",                style:"Tech
 styleCollection.push({name:"Exobyte Detection Goggles",              style:"Enhanced Goggles",        drops:"Reward for Batcave Subconstruct briefings"});
 styleCollection.push({name:"Vacationer's Shirt",                     style:"Hawaiian",                drops:"Reward for collections"});
 styleCollection.push({name:"Argonian Boots",                         style:"Patriotic",               drops:"Reward for Superman mentor Hall of Doom briefings"});
+styleCollection.push({name:"Belt of the Heavens",                    style:"Divine",                  drops:"Reward for Gotham Briefings"});
 styleCollection.push({name:"STAR Labs Emblem"});
 styleCollection.push({name:"Lightbringer's Emblem"});
 styleCollection.push({name:"Romantic's Emblem"});
@@ -13339,7 +13340,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Irradiant Pressurized Helmet",           type:"Head",      role:"DPS",        style:"Sector Incendiary", drops:"Crazed Amon Sur in Coast City alert, Evil Star in Oan alert", faction:"Both"});
   armorCollection.push({name:"Irradiant Plated Shoulderguards",        type:"Shoulders", role:"DPS",        style:"Sector Incendiary", drops:"Krona in Oan Sciencells alert",    faction:"Both"});
   armorCollection.push({name:"Irradiant Enhanced Grips",               type:"Hands",     role:"DPS",        style:"Sector Incendiary", drops:"Krona in Oan Sciencells alert",       faction:"Both"});
-  armorCollection.push({name:"Irradiant Waistguard",                   type:"Waist",     role:"DPS",        style:"Sector Incendiary", drops:"Kyle Rayner in Coast City alert",     faction:"Both"});
+  armorCollection.push({name:"Irradiant Waistguard",                   type:"Waist",     role:"DPS",        style:"Sector Incendiary", drops:"Scion of Will in 4 Player alert STAR Labs",  faction:"Both"});
   armorCollection.push({name:"Irradiant Reinforced Stompers",          type:"Feet",      role:"DPS",        style:"Sector Incendiary", drops:"Scion of Will, Parallax in STAR Labs alert", faction:"Both"});
   armorCollection.push({name:"Irradiant Aeroplates",                   type:"Back",      role:"DPS",        style:"Sector Incendiary", drops:"Scion of Will in STAR Labs alert",    faction:"Both"});
 
@@ -13454,6 +13455,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Sharded Carapace",                       type:"Chest",     role:"Tank",       style:"Kryptonian",          drops:"Sunstone Herald in Fortress of Solitude The Chasm Novice Raid",            faction:"Both"});
   armorCollection.push({name:"Sharded Shoulderguards",                 type:"Shoulders", role:"Tank",       style:"Kryptonian",          drops:"Scorpionod MK-1 in Fortress of Solitude The Chasm Novice Raid",            faction:"Both"});
   armorCollection.push({name:"Sharded Greaves",                        type:"Legs",      role:"Tank",       style:"Kryptonian",          drops:"Scorpionod MK-1 in Fortress of Solitude The Chasm Novice Raid",            faction:"Both"});
+  armorCollection.push({name:"Sharded Gauntlets",                      type:"Hands",     role:"Tank",       style:"Kryptonian",          drops:"Corrupt Jor-El A.I in Fortress of Solitude 2 The Power Core Novice Raid",  faction:"Both", level:58});
   armorCollection.push({name:"Sharded Girdle of the Defender",         type:"Waist",     role:"Tank",       style:"Kryptonian",          drops:"Fortress of Solitude 2 The Power Core Novice Raid",                        faction:"Both", level:58});
   armorCollection.push({name:"Sharded Treads",                         type:"Feet",      role:"Tank",       style:"Kryptonian",          drops:"Sunstone Broodmother in Fortress of Solitude The Chasm Novice Raid",       faction:"Both"});
   armorCollection.push({name:"Sharded Back Protector",                 type:"Back",      role:"Tank",       style:"Kryptonian",          drops:"Novice Fortress of Solitude Raid",                                         faction:"Both"});
@@ -13475,7 +13477,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Broodling's Braincase",                  type:"Head",      role:"DPS",        style:"Brainiac Sunstone",   drops:"Sunstone Broodmother in Fortress of Solitude The Chasm Novice Raid",       faction:"Both"});
   armorCollection.push({name:"Kandorian Enforcer's Collar",            type:"Neck",      role:"DPS",        style:"",                    drops:"Corrupt Jor-El A.I. in Fortress of Solitude The Chasm Raid",               faction:"Both"});
   armorCollection.push({name:"Broach of the Councillors",              type:"Neck",      role:"DPS",        style:"",                    drops:"Scorpionod MK-1 in Fortress of Solitude The Chasm Novice Raid",            faction:"Both"});
-  armorCollection.push({name:"Jagged Enforcer's Collar",               type:"Neck",      role:"DPS",        style:"",                    drops:"Sunstone Dominator in Fortress of Solitude The Chasm Novice Raid",         faction:"Both"});
+  armorCollection.push({name:"Jagged Enforcer's Collar",               type:"Neck",      role:"Controller", style:"",                    drops:"Sunstone Dominator in Fortress of Solitude The Chasm Novice Raid",         faction:"Both", health:69, power:8,  precision:4, might:8, vitalization:19, dominance:8, level:58});
 
   // Oolong gear from FOS raids 
   armorCollection.push({name:"Swiftweave Enforcer's Chestguard",       type:"Chest",     role:"DPS",        style:"Oolong",              drops:"Avatar of Meta - Fortress of Solitude: Power Core",                        faction:"Both"});
@@ -13594,23 +13596,24 @@ function isAccessory(lineString)
 
   armorCollection.push({name:"Promethium Helmet of the Elders",        type:"Head",      role:"Tank",       style:"Heartshard",         drops:"Bat Family in last room of Batcave: Outer Caverns Raid",    faction:"Both"});
   armorCollection.push({name:"Mighty Promethium Shoulderplates",       type:"Shoulders", role:"Tank",       style:"Heartshard",         drops:"Brother Eye in Inner Batcave Raid",                         faction:"Both"});
-  armorCollection.push({name:"Neodym Pauldrons",                       type:"Shoulders", role:"Tank",       style:"Heartshard",         drops:"Zetta Drone in Inner Sanctum novice raid",                  faction:"Both"});
-  armorCollection.push({name:"Neodym Shoulderguards",                  type:"Shoulders", role:"Tank",       style:"Heartshard",         drops:"The Gatekeeper in Kahndaq novice raid",                     faction:"Both"});
   armorCollection.push({name:"Paramount Promethium Shoulderguards",    type:"Shoulders", role:"Tank",       style:"Heartshard",         drops:"The Gatekeeper in Kahndaq raid",                            faction:"Both"});
   armorCollection.push({name:"OmniScry Battle Grips",                  type:"Hands",     role:"Tank",       style:"Heartshard",         drops:"OMAC Batman in Batcave: Brainiac Sub-Construct Raid",       faction:"Both"});
   armorCollection.push({name:"Promethium Grips of Power",              type:"Hands",     role:"Tank",       style:"Heartshard",         drops:"The Gatekeeper in Kahndaq raid",                            faction:"Both"});
   armorCollection.push({name:"Lightweight Neodym Belt",                type:"Waist",     role:"Tank",       style:"Heartshard",         drops:"ARC in Inner Sanctum novice raid",                          faction:"Both"});
-  armorCollection.push({name:"Neodym Waistguard",                      type:"Waist",     role:"Tank",       style:"Heartshard",         drops:"Pharoah Vezina in Kahndaq novice raid",                     faction:"Both"});
   armorCollection.push({name:"Promethium Waistguard of the Victors",   type:"Waist",     role:"Tank",       style:"Heartshard",         drops:"Pharaoh Vezina in Kahndaq raid",                            faction:"Both"});
   armorCollection.push({name:"Stalwart Promethium Belt",               type:"Waist",     role:"Tank",       style:"Heartshard",         drops:"Zetta-Drone in Inner Batcave Raid",                         faction:"Both"});
   armorCollection.push({name:"Hardened Vanadium Boots",                type:"Feet",      role:"Tank",       style:"Heartshard",         drops:"OMAC Batman in Batcave: Brainiac Sub-Construct Raid",       faction:"Both"});
   armorCollection.push({name:"Lightweight Vanadium Boots",             type:"Feet",      role:"Tank",       style:"Heartshard",         drops:"OMAC Batman - Batcave: Brainiac Sub-Construct",             faction:"Both"});
 
-  armorCollection.push({name:"Neodym Boots",                           type:"Feet",      role:"Tank",       style:"Heartshard",         drops:"ARC in Inner Novice Raid",                                  faction:"Both"});
   armorCollection.push({name:"Robust Promethium Boots",                type:"Feet",      role:"Tank",       style:"Heartshard",         drops:"Zetta-Drone in Inner Batcave Raid",                         faction:"Both"});
   armorCollection.push({name:"Shining Promethium Boots",               type:"Feet",      role:"Tank",       style:"Heartshard",         drops:"The Gatekeeper in Kahndaq raid",                            faction:"Both"});
   armorCollection.push({name:"Heavy Promethium Backguard",             type:"Back",      role:"Tank",       style:"Heartshard",         drops:"Riot Control Prototype in Batcave: Outer Caverns Raid",     faction:"Both"});
   armorCollection.push({name:"Neodym Grips",                           type:"Hands",     role:"Tank",       style:"Heartshard",         drops:"The Gatekeeper in Kahndaq novice raid",                     faction:"Both"});
+  armorCollection.push({name:"Neodym Greaves",                         type:"Feet",      role:"Tank",       style:"Heartshard",         drops:"The Gatekeeper in 8 Player Kahndaq novice raid",                     faction:"Both", level:48});
+  armorCollection.push({name:"Neodym Pauldrons",                       type:"Shoulders", role:"Tank",       style:"Heartshard",         drops:"Zetta Drone in Inner Sanctum novice raid",                  faction:"Both"});
+  armorCollection.push({name:"Neodym Shoulderguards",                  type:"Shoulders", role:"Tank",       style:"Heartshard",         drops:"The Gatekeeper in Kahndaq novice raid",                     faction:"Both"});
+  armorCollection.push({name:"Neodym Boots",                           type:"Feet",      role:"Tank",       style:"Heartshard",         drops:"ARC in Inner Novice Raid",                                  faction:"Both"});
+  armorCollection.push({name:"Neodym Waistguard",                      type:"Waist",     role:"Tank",       style:"Heartshard",         drops:"Pharoah Vezina in Kahndaq novice raid",                     faction:"Both"});
 
   // Heartshard style for healers from T3 Challenges introduced in update18
   armorCollection.push({name:"Healer's Segmented Chestguard",          type:"Chest",     role:"Healer",     style:"Heartshard",         drops:"Superman/Lex Luthor in 1 Player Tier 3 Challenge STAR Labs Facility", faction:"Both"});
@@ -13659,7 +13662,7 @@ function isAccessory(lineString)
 
   armorCollection.push({name:"Mohawk Helm",                            type:"Head",      role:"Controller", style:"Winged Fury",        drops:"Zetta Drone in 4 Person Tier 4 Inner Sanctum alert",       faction:"Both", level:73});
   armorCollection.push({name:"Buckled Breastplate",                    type:"Chest",     role:"Controller", style:"Winged Fury",        drops:"Brother Eye in 4 Person Tier 4 Inner Sanctum alert",       faction:"Both", level:73});
-  armorCollection.push({name:"Buckled Legplates",                      type:"Legs",      role:"Controller", style:"Winged Fury",        drops:"Zetta-Drone in 4 Person Tier 4 Inner Sanctum alert",       faction:"Both", level:73});
+  armorCollection.push({name:"Buckled Legplates",                      type:"Legs",      role:"Controller", style:"Winged Fury",        drops:"ARC, Zetta-Drone in 4 Person Tier 4 Inner Sanctum alert",  faction:"Both", level:73});
   armorCollection.push({name:"Apprentice's Sash of Potency",           type:"Waist",     role:"Controller", style:"Winged Fury",        drops:"Pharaoh Vezina in Kahndaq novice raid",                    faction:"Both", level:48});
 
   armorCollection.push({name:"Feathered Neutronium Breastplate",       type:"Chest",     role:"DPS",        style:"Raptor Tech",        drops:"Brother Eye in Batcave: Inner Sanctum Raid",               faction:"Both"});
@@ -13697,10 +13700,12 @@ function isAccessory(lineString)
   armorCollection.push({name:"Enameled Striker's Legplates",           type:"Legs",      role:"DPS",        style:"Raptor Tech",        drops:"Zetta-Drone in 4 Person Tier 4 Inner Sanctum alert",       faction:"Both", level:73});
   armorCollection.push({name:"Enameled Striker's Breastplate",         type:"Chest",     role:"DPS",        style:"Raptor Tech",        drops:"ARC in 4 Person Tier 4 Inner Sanctum alert",               faction:"Both", level:73});
   armorCollection.push({name:"Light Nth-Metal Shoulders",              type:"Shoulders", role:"DPS",        style:"Raptor Tech",        drops:"Black Adam in Kahndaq novice",                             faction:"Both", level:48});
+  armorCollection.push({name:"Lightweight Protonium Belt",             type:"Waist",     role:"DPS",        style:"Raptor Tech",        drops:"Brother Eye in 8 Player Novice raid Inner Sanctum",        faction:"Both", level:48});
 
   armorCollection.push({name:"Blessed Breastplate of Judgment",        type:"Chest",     role:"Healer",     style:"Rapture",            drops:"Black Adam in Kahndaq raid",                               faction:"Both"});
   armorCollection.push({name:"Chestplate of Judgment",                 type:"Chest",     role:"Healer",     style:"Rapture",            drops:"Armored Robotic Custodian in Batcave: Inner Sanctum Raid", faction:"Both"});
   armorCollection.push({name:"Enameled Equilibrity Breastplate",       type:"Chest",     role:"Healer",     style:"Rapture",            drops:"Brainiac in Batcave: Brainiac Sub-Construct Raid",         faction:"Both"});
+  armorCollection.push({name:"Enameled Plate of Panacea",              type:"Chest",     role:"Healer",     style:"Rapture",            drops:"Brainiac in 8 player Novice raid Brainiac Sub-Construct",  faction:"Both", level:48});
   armorCollection.push({name:"Sacred Chestplates",                     type:"Chest",     role:"Healer",     style:"Rapture",            drops:"Armored Robotic Custodian (A.R.C.) in 4 Player Tier 4 alert Inner Sanctum", faction:"Both", level:73});
   armorCollection.push({name:"Divine Legplates of Power",              type:"Legs",      role:"Healer",     style:"Rapture",            drops:"Bat Family in last room of Batcave: Outer Caverns Raid",   faction:"Both"});
   armorCollection.push({name:"Scaled Manaflow Leggings",               type:"Legs",      role:"Healer",     style:"Rapture",            drops:"Brainiac in Batcave: Brainiac Sub-Construct Raid",         faction:"Both"});
@@ -13708,6 +13713,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Splendid Helmet of Might",               type:"Head",      role:"Healer",     style:"Rapture",            drops:"Pharaoh Vezina in Kahndaq raid",                           faction:"Both"});
   armorCollection.push({name:"Hallowed Shoulderguards of Prophecy",    type:"Shoulders", role:"Healer",     style:"Rapture",            drops:"General Adnan in Kahndaq raid",                            faction:"Both"});
   armorCollection.push({name:"Merciless Valorium Shoulderguards",      type:"Shoulders", role:"Healer",     style:"Rapture",            drops:"Brother Eye in Batcave: Inner Sanctum Raid",               faction:"Both", level:48});
+  armorCollection.push({name:"Sanctified Shoulderguards",              type:"Shoulders", role:"Healer",     style:"Rapture",            drops:"General Adnan in 8 Player Novice raid Kahndaq",                            faction:"Both", level:48});
   armorCollection.push({name:"Valorium Pauldrons",                     type:"Shoulders", role:"Healer",     style:"Rapture",            drops:"Zetta-Drone in 8 Player Tier 2 Novice raid Batcave: Inner Sanctum", faction:"Both"});
   armorCollection.push({name:"Grips of the Righteous",                 type:"Hands",     role:"Healer",     style:"Rapture",            drops:"General Adnan in Kahndaq raid",                            faction:"Both"});
   armorCollection.push({name:"Supreme Waistguard of Virtue",           type:"Waist",     role:"Healer",     style:"Rapture",            drops:"Bat Sentinels in Batcave: Outer Caverns Raid",             faction:"Both"});
@@ -13715,6 +13721,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Healer's Boots",                         type:"Feet",      role:"Healer",     style:"Rapture",            drops:"OMAC Batman in Brainac Subconstruct novice raid",          faction:"Both"});
   armorCollection.push({name:"Miracle-Worker's Boots",                 type:"Feet",      role:"Healer",     style:"Rapture",            drops:"OMAC Batman in Batcave: Brainiac Sub-Construct Raid",      faction:"Both"});
   armorCollection.push({name:"Rapturous Wings of the Divine",          type:"Back",      role:"Healer",     style:"Rapture",            drops:"The Gatekeeper in Kahndaq raid",                           faction:"Both"});
+  armorCollection.push({name:"Wings of the Healer",                    type:"Back",      role:"Healer",     style:"Rapture",            drops:"ARC in 8 Player Novice raid Batcave: Inner Sanctum",               faction:"Both", level:48});
   armorCollection.push({name:"Wings of the Lifegiver",                 type:"Back",      role:"Healer",     style:"Rapture",            drops:"Zetta-Drone in Batcave: Inner Sanctum Raid",               faction:"Both"});
   armorCollection.push({name:"Wings of the Sainted",                   type:"Back",      role:"Healer",     style:"Rapture",            drops:"General Adnan in Kahndaq novice Raid",                     faction:"Both", level:48});
 
@@ -15285,6 +15292,8 @@ function isAccessory(lineString)
 
   armorCollection.push({name:"Benevolent Seneschal's Visor",     type:"Face", role:"DPS",        style:"Classic",                drops:"PVP Vendor Requisitions-T3V",                        faction:"Hero",    health:132, power:6,  precision:6,  might:14, dominance:0, toughness:29, restoration:0,  vitalization:0,  defense:0,  level:30});
 
+  armorCollection.push({name:"Blemished Enforcer's Mask",        type:"Face", role:"DPS",        style:"Simplified Ventilator",  drops:"Prime Assassin in FOS2 novice",                      faction:"Both",    health:38,  power:11, precision:8,  might:15, dominance:0, toughness:0,  restoration:0,  vitalization:0,  defense:37, level:58});
+
   armorCollection.push({name:"Captain Cold's Slitted Shades",    type:"Face", role:"DPS",        style:"Captain Cold's Glasses", drops:"Captain Cold",                                       faction:"Both",    health:31,  power:61, precision:3,  might:5,  dominance:0, toughness:0,  restoration:0,  vitalization:0,  defense:40, level:64});
   armorCollection.push({name:"Catwoman's Goggles",               type:"Face", role:"DPS",        style:"Catwoman",               drops:"Catwoman",                                           faction:"Both",    health:45,  power:0,  precision:8,  might:9,  dominance:0, toughness:0,  restoration:0,  vitalization:0,  defense:33, level:52});
   armorCollection.push({name:"Checkmate Armored Facemask",       type:"Face", role:"Tank",       style:"Classic",                drops:"PVP Vendor Requisitions-T4V",                        faction:"Both",    health:151, power:8,  precision:6,  might:13, dominance:4, toughness:59, restoration:0,  vitalization:0,  defense:0,  level:30});
@@ -15507,6 +15516,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Precise Synthium Pendant",              type:"Neck", role:"DPS",        style:"", drops:"Treasure chest in FOS1 novice raid",           faction:"Both",    health:49,  power:0,  precision:27, might:9,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0, level:32});
   armorCollection.push({name:"Precognate's Necklace",                 type:"Neck", role:"DPS",        style:"", drops:"Ace Security Guard in Ace Chemicals alert",    faction:"Both",    health:43,  power:5,  precision:7,  might:14, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0, level:30});
   armorCollection.push({name:"Primal Pendant",                        type:"Neck", role:"DPS",        style:"", drops:"Cheetah in Superman mentor Hall of Doom",      faction:"Both",    health:34,  power:22, precision:4,  might:17, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0, level:30});
+  armorCollection.push({name:"Princess's Chain",                      type:"Neck", role:"DPS",        style:"", drops:"Pharoah Vezina in Kahndaq novice",             faction:"Both",    health:54,  power:15, precision:12, might:20, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0, level:48});
   armorCollection.push({name:"Promising Pocketwatch",                 type:"Neck", role:"DPS",        style:"", drops:"",                                             faction:"Both",    health:42,  power:28, precision:5,  might:21, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0, level:40});
   armorCollection.push({name:"Rejuvenating Pendant",                  type:"Neck", role:"Controller", style:"", drops:"Bane in Old Gotham Subway duo",                faction:"Both",    health:62,  power:9,  precision:5,  might:9,  vitalization:20, dominance:11, defense:0,   restoration:0,  toughness:0, level:62});
   armorCollection.push({name:"Remnant of Urgrund",                    type:"Neck", role:"DPS",        style:"", drops:"Oolong easy alert",                            faction:"Both",    health:23,  power:0,  precision:2,  might:32, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0, level:23});
@@ -15788,7 +15798,7 @@ function isAccessory(lineString)
   armorCollection.push({name:"Loop of the HIVE",                     type:"Ring",      role:"Controller", style:"", drops:"Captain Bombus in HIVE easy alert",         faction:"Both",    health:23, power:3,   precision:0,  might:3,  vitalization:6,  dominance:3, restoration:0,  toughness:0,  defense:0,  level:19});
   armorCollection.push({name:"Loop of the Waning Moon",              type:"Ring",      role:"DPS",        style:"", drops:"Treasure Chest in Chinese Magic Shop instance", faction:"Both", health:10, power:4, precision:1, might:3, level:3});
   armorCollection.push({name:"Loa Lord's Band",                      type:"Ring",      role:"Tank",       style:"", drops:"Booster Gold in HIVE duo", faction:"Both", health:51, precision:2, might:7, dominance:3, defense:15, level:34});
-  armorCollection.push({name:"Machined Nanochine Loop",              type:"Ring",      role:"DPS",        style:"", drops:"", health:29, power:14, precision:7, might:7, level:30});
+  armorCollection.push({name:"Machined Nanochine Loop",              type:"Ring",      role:"DPS",        style:"", drops:"Ace Lieutenant in open world Gotham near Ace Chemicals", faction:"Both",    health:29, power:14, precision:7, might:7, level:30});
   armorCollection.push({name:"Maniac's Loop",                        type:"Ring",      role:"DPS",        style:"", drops:"Chemo in Ace Chemicals 4 person alert",     faction:"Both",    health:37, power:5,   precision:7,  might:17, vitalization:0,  dominance:0, restoration:0,  toughness:0,  defense:0,  level:40});
   armorCollection.push({name:"Medic's Band",                         type:"Ring",      role:"Healer",     style:"", drops:"Clayface in Subway duo",                    faction:"Both",    health:58, power:21,  precision:4,  might:7,  vitalization:0,  dominance:0, restoration:24, toughness:0,  defense:0,  level:62});
   armorCollection.push({name:"Nanochined Capacitor Loop",            type:"Ring",      role:"DPS",        style:"", drops:"Treasure Chest in Shadowlands instance",    faction:"Both",    health:30, power:0,   precision:2,  might:23, vitalization:0,  dominance:0, restoration:0,  toughness:0,  defense:0,  level:26});
@@ -16795,7 +16805,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Plate of Mercy",                     type:"Shield", role:"Tank",       dps:0,     drops:"Killer Croc/Deathstroke in Bane Lighthouse duo",              style:"Crusader",            health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:0});
   weaponCollection.push({name:"Plate of the Grove",                 type:"Shield", role:"DPS",        dps:0,     drops:"Parallax in STAR Labs alert",                                 style:"",                    health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:0});
   weaponCollection.push({name:"Plate of the Reanimator",            type:"Shield", role:"Healer",     dps:97.1,  drops:"RCP in Outer raid",                                           style:"Reinforced Crest",    health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:0});
-  weaponCollection.push({name:"Plate of the Sun",                   type:"Shield", role:"Tank",       dps:97.1,  drops:"OMAC Batman - Batcave: Brainiac Sub-Construct",               style:"Summoner's Shield",   health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:0});
+  weaponCollection.push({name:"Plate of the Sun",                   type:"Shield", role:"Tank",       dps:97.1,  drops:"OMAC Batman - Batcave: Brainiac Sub-Construct",               style:"Summoner's Shield",   health:176, power:19, precision:8,  might:28, vitalization:0,  dominance:12, defense:60,  restoration:0,  toughness:0,  level:52});
   weaponCollection.push({name:"Polar Plate",                        type:"Shield", role:"DPS",        dps:45.9,  drops:"",                                                            style:"Lion's Roar",         health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:0});
   weaponCollection.push({name:"Priest's Runic Shield",              type:"Shield", role:"Healer",     dps:131.1, drops:"Final boss of 8 person Operation",                            style:"Runed Shield",        health:157, power:91, precision:12, might:23, vitalization:0,  dominance:0,  defense:0,   restoration:77, toughness:0,  level:71});
   weaponCollection.push({name:"Promethium Plate",                   type:"Shield", role:"Controller", dps:68.3,  drops:"OMAC duo final boss",                                         style:"Plated Scarab",       health:67,  power:37, precision:6,  might:12, vitalization:26, dominance:11, defense:0,   restoration:0,  toughness:0,  level:34});
@@ -16818,10 +16828,6 @@ function isAccessory(lineString)
   weaponCollection.push({name:"SPARC Shielded Plate",               type:"Shield", role:"Tank",       dps:103.5, drops:"Vendor in Central City",                                      style:"Tech Spiral",         health:187, power:0,  precision:9,  might:29, vitalization:0,  dominance:9,  defense:130, restoration:0,  toughness:0,  level:56});
   weaponCollection.push({name:"SPARC Shielded Plate Mk II",         type:"Shield", role:"Tank",       dps:113.1, drops:"Vendor in Central City",                                      style:"Tech Cross",          health:206, power:0,  precision:10, might:32, vitalization:0,  dominance:9,  defense:142, restoration:0,  toughness:0,  level:62});
   weaponCollection.push({name:"Splendid Plate",                     type:"Shield", role:"Healer",     dps:90.7,  drops:"Last boss Coast City Alert",                                  style:"Draconic Plate",      health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:0});
-  weaponCollection.push({name:"STAR Bulwark",                       type:"Shield", role:"DPS",        dps:90.7,  drops:"Krona in Oan Sciencells alert",                               style:"Hypno Shield",        health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:48});
-  weaponCollection.push({name:"STAR Bulwark MK II",                 type:"Shield", role:"DPS",        dps:97.1,  drops:"Hal Jordan in STAR Labs alert",                               style:"Hypno Shield",        health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:52});
-  weaponCollection.push({name:"STAR Proto-Power Bulwark",           type:"Shield", role:"Controller", dps:90.7,  drops:"Krona in Oan Sciencells alert",                               style:"Hypno Shield",        health:108, power:16, precision:8,  might:16, vitalization:45, dominance:15, defense:0,   restoration:0,  toughness:0,  level:48});
-  weaponCollection.push({name:"STAR Recovery Bulwark",              type:"Shield", role:"Healer",     dps:90.7,  drops:"Krona in Oan Sciencells alert",                               style:"Hypno Shield",        health:108, power:62, precision:8,  might:16, vitalization:0,  dominance:0,  defense:0,   restoration:54, toughness:0,  level:48});
   weaponCollection.push({name:"Steadfast Guard",                    type:"Shield", role:"DPS",        dps:44.3,  drops:"Captain Bombus in HIVE easy alert",                           style:"Trashcan Lid",        health:58,  power:16, precision:12, might:22, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:19});
   weaponCollection.push({name:"Thanagarian Guard",                  type:"Shield", role:"Controller", dps:103.5, drops:"Power Girl in FOS2 Raid",                                     style:"Fleur de Lis",        health:155, power:20, precision:9,  might:18, vitalization:40, dominance:15, defense:0,   restoration:0,  toughness:0,  level:56});
   weaponCollection.push({name:"Timeworn Guard",                     type:"Shield", role:"DPS",        dps:61.9,  drops:"Doomcrazed Giant in Smallville alert",                        style:"Summoner's Shield",   health:94,  power:11, precision:16, might:31, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:30});
@@ -17043,28 +17049,179 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Despot's Imperious Axe",                    type:"Two-Handed",   role:"Controller", dps:113.1, drops:"General Zod in 8 Player Tier 3 raid Fortress of Solitude: Sunstone Matrix", style:"Kryptonian Military Axe",          health:170, power:0,  precision:10, might:20, vitalization:44, dominance:21, restoration:0,  defense:0,   toughness:0, level:62});
   weaponCollection.push({name:"Despot's Shielded Axe",                     type:"Two-Handed",   role:"Tank",       dps:113.1, drops:"General Zod in 8 Player Tier 3 raid Fortress of Solitude: Sunstone Matrix", style:"Kryptonian Military Axe",          health:206, power:0,  precision:10, might:32, vitalization:0,  dominance:9,  restoration:0,  defense:142, toughness:0, level:62});
 
-  // Unattuned weapons from DLC2 Green Lantern alerts
-  weaponCollection.push({name:"Unattuned Bow",                         type:"Bow",          role:"DPS",        dps:90.7,  drops:"Scion of Will in STAR Labs alert"});
-  weaponCollection.push({name:"STAR Battlebow",                        type:"Bow",          role:"DPS",        dps:90.7,  drops:"Scion of Will in STAR Labs alert"});
+  // Unattuned STAR weapons from DLC2 Green Lantern alerts
+  weaponCollection.push({name:"STAR Battlebow",                        type:"Bow",          role:"DPS",        dps:90.7,  drops:"Scion of Will in 4 Player alert STAR Labs",          style:"Tech Battlebow",     health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:48});
 
-  weaponCollection.push({name:"STAR Gloves",                           type:"Hand Blaster", role:"DPS",        dps:90.7,  drops:"Vice in Oan Sciencells alert", style:"Exhaust Blasters", level:48});
-  weaponCollection.push({name:"STAR Gloves MK II",                     type:"Hand Blaster", role:"DPS",        dps:97.1,  drops:"Evil Star in Oan Sciencells alert", style:"Exhaust Blasters"});
-  weaponCollection.push({name:"STAR Hammer",                           type:"One-Handed",   role:"DPS",        dps:90.7,  drops:"Krona in Oan Sciencells alert"});
-  weaponCollection.push({name:"STAR Knives",                           type:"Dual Wield",   role:"DPS",        dps:90.7,  drops:"Lyssa Drak in Oan Sciencells alert"});
-  weaponCollection.push({name:"STAR Knuckles",                         type:"Brawling",     role:"DPS",        dps:90.7,  drops:"Scion of Fear in STAR Labs alert"});
-  weaponCollection.push({name:"STAR Claws",                            type:"Martial Arts", role:"DPS",        dps:90.7,  drops:"Evil Star in Oan Sciencells alert", style:"Tech Claw", level:48});
-  weaponCollection.push({name:"STAR Claws MK II",                      type:"Martial Arts", role:"DPS",        dps:97.1,  drops:"Lyssa Drak in Oan Sciencells alert", style:"Tech Claw", level:52});
-  weaponCollection.push({name:"STAR Sword",                            type:"Two-Handed",   role:"DPS",        dps:90.7,  drops:"Lyssa Drak in Oan Sciencells alert", style:"Powered Broadsword", level:48});
-  weaponCollection.push({name:"STAR Staff MK II",                      type:"Staff",        role:"DPS",        dps:97.1,  drops:"Krona in Oan Sciencells alert", style:"Lightning Rod", level:52});
+  weaponCollection.push({name:"STAR Knuckles",                         type:"Brawling",     role:"DPS",        dps:90.7,  drops:"Scion of Fear in 4 Player alert STAR Labs",          style:"",                   health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Pistols",                          type:"Dual Pistol",  role:"DPS",        dps:90.7,  drops:"Hal Jordan in 4 Player alert STAR Labs",             style:"Bolt Pistol",        health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Knives",                           type:"Dual Wield",   role:"DPS",        dps:90.7,  drops:"Lyssa Drak in 4 Player Tier 2 alert Oan Sciencells", style:"Flat Blade",         health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Gloves",                           type:"Hand Blaster", role:"DPS",        dps:90.7,  drops:"Vice in 4 Player Tier 2 alert Oan Sciencells",       style:"Exhaust Blasters",   health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Claws",                            type:"Martial Arts", role:"DPS",        dps:90.7,  drops:"Evil Star in 4 Player Tier 2 alert Oan Sciencells",  style:"Tech Claw",          health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Hammer",                           type:"One-Handed",   role:"DPS",        dps:90.7,  drops:"Krona in 4 Player Tier 2 alert Oan Sciencells",      style:"",                   health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Rifle",                            type:"Rifle",        role:"DPS",        dps:90.7,  drops:"Hal Jordan in 4 Player Tier 2 alert STAR Labs",      style:"Bolt Rifle",         health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Bulwark",                          type:"Shield",       role:"DPS",        dps:90.7,  drops:"Krona in 4 Player Tier 2 alert Oan Sciencells",      style:"Hypno Shield",       health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Staff",                            type:"Staff",        role:"DPS",        dps:90.7,  drops:"Scion of Fear in 4 Player Tier 2 alert STAR Labs",   style:"Lightning Rod",      health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Sword",                            type:"Two-Handed",   role:"DPS",        dps:90.7,  drops:"Lyssa Drak in 4 Player Tier 2 alert Oan Sciencells", style:"Powered Broadsword", health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:48});
 
-  weaponCollection.push({name:"STAR Rifle",                            type:"Rifle",        role:"DPS",        dps:90.7,  drops:"Hal Jordan in STAR Labs Alert", style:"Bolt Rifle", level:48});
-  weaponCollection.push({name:"STAR Rifle MK II",                      type:"Rifle",        role:"DPS",        dps:97.1,  drops:"Hal Jordan in STAR Labs Alert", style:"Bolt Rifle", level:52});
+  weaponCollection.push({name:"STAR Battlebow MK II",                  type:"Bow",          role:"DPS",        dps:97.1,  drops:"",                                                   style:"Tech Battlebow",     health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:52});
+
+  weaponCollection.push({name:"STAR Knuckles MK II",                   type:"Brawling",     role:"DPS",        dps:97.1,  drops:"",                                                   style:"",                   health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:52});
+  weaponCollection.push({name:"STAR Pistols MK II",                    type:"Dual Pistol",  role:"DPS",        dps:97.1,  drops:"Krona in 4 Player Tier 2 alert Oan Sciencells",      style:"Bolt Pistol",        health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:52});
+  weaponCollection.push({name:"STAR Knives MK II",                     type:"Dual Wield",   role:"DPS",        dps:97.1,  drops:"Hal Jordan in 4 Player alert STAR Labs",             style:"Flat Blade",         health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:52});
+  weaponCollection.push({name:"STAR Gloves MK II",                     type:"Hand Blaster", role:"DPS",        dps:97.1,  drops:"Evil Star in 4 Player Tier 2 alert Oan Sciencells",  style:"Exhaust Blasters",   health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:52});
+  weaponCollection.push({name:"STAR Claws MK II",                      type:"Martial Arts", role:"DPS",        dps:97.1,  drops:"Lyssa Drak in 4 Player Tier 2 alert Oan Sciencells", style:"Tech Claw",          health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:52});
+  weaponCollection.push({name:"STAR Hammer MK II",                     type:"One-Handed",   role:"DPS",        dps:97.1,  drops:"Scion of Fear in 4 Player alert STAR Labs",          style:"",                   health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:52});
+  weaponCollection.push({name:"STAR Rifle MK II",                      type:"Rifle",        role:"DPS",        dps:97.1,  drops:"Scion of Will in 4 Player alert STAR Labs",          style:"Bolt Rifle",         health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:52});
+  weaponCollection.push({name:"STAR Bulwark MK II",                    type:"Shield",       role:"DPS",        dps:97.1,  drops:"Hal Jordan in 4 Player alert STAR Labs",             style:"Hypno Shield",       health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:52});
+  weaponCollection.push({name:"STAR Staff MK II",                      type:"Staff",        role:"DPS",        dps:97.1,  drops:"Vice in 4 Player Tier 2 alert Oan Sciencells",       style:"Lightning Rod",      health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:52});
+  weaponCollection.push({name:"STAR Sword MK II",                      type:"Two-Handed",   role:"DPS",        dps:97.1,  drops:"Krona in 4 Player Tier 2 alert Oan Sciencells",      style:"Powered Broadsword", health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:52});
+
+  weaponCollection.push({name:"STAR Assault Battlebow",                type:"Bow",          role:"DPS",        dps:90.7,  drops:"Scion of Will in 4 Player alert STAR Labs",          style:"Tech Battlebow",     health:138, power:16, precision:25, might:46, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:48});
+
+  weaponCollection.push({name:"STAR Proto-Power Battlebow",            type:"Bow",          role:"Controller", dps:90.7,  drops:"Scion of Will in 4 Player alert STAR Labs",          style:"Tech Battlebow",     health:108, power:16, precision:8,  might:16, vitalization:45, dominance:15, defense:0,   restoration:0,  toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Recovery Battlebow",               type:"Bow",          role:"Healer",     dps:90.7,  drops:"Scion of Will in 4 Player alert STAR Labs",          style:"Tech Battlebow",     health:108, power:62, precision:8,  might:16, vitalization:0,  dominance:0,  defense:0,   restoration:54, toughness:0,  level:48});
+
+  weaponCollection.push({name:"STAR Shielding Battlebow",              type:"Bow",          role:"Tank",       dps:90.7,  drops:"Scion of Will in 4 Player alert STAR Labs",          style:"Tech Battlebow",     health:185, power:0,  precision:8,  might:26, vitalization:0,  dominance:11, defense:55,  restoration:0,  toughness:0,  level:48});
+
+  weaponCollection.push({name:"STAR Assault Battlebow Mk II",          type:"Bow",          role:"DPS",        dps:97.1,  drops:"",                                                   style:"Tech Battlebow",     health:148, power:17, precision:26, might:49, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:52});
+
+  weaponCollection.push({name:"STAR Proto-Power Battlebow Mk II",      type:"Bow",          role:"Controller", dps:97.1,  drops:"",                                                   style:"Tech Battlebow",     health:116, power:17, precision:8,  might:17, vitalization:48, dominance:16, defense:0,   restoration:0,  toughness:0,  level:52});
+  weaponCollection.push({name:"STAR Recovery Battlebow Mk II",         type:"Bow",          role:"Healer",     dps:97.1,  drops:"",                                                   style:"Tech Battlebow"});
+
+  weaponCollection.push({name:"STAR Shielding Battlebow Mk II",        type:"Bow",          role:"Tank",       dps:97.1,  drops:"",                                                   style:"Tech Battlebow"});
+
+  weaponCollection.push({name:"STAR Assault Knuckles",                 type:"Brawling",     role:"DPS",        dps:90.7,  drops:"Scion of Fear in 4 Player alert STAR Labs",          style:"",                   health:138, power:16, precision:25, might:46, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:48});
+
+  weaponCollection.push({name:"STAR Proto-Power Knuckles",             type:"Brawling",     role:"Controller", dps:90.7,  drops:"Scion of Fear in 4 Player alert STAR Labs",          style:"",                   health:108, power:16, precision:8,  might:16, vitalization:45, dominance:15, defense:0,   restoration:0,  toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Recovery Knuckles",                type:"Brawling",     role:"Healer",     dps:90.7,  drops:"Scion of Fear in 4 Player alert STAR Labs",          style:"",                   health:108, power:62, precision:8,  might:16, vitalization:0,  dominance:0,  defense:0,   restoration:54, toughness:0,  level:48});
+
+  weaponCollection.push({name:"STAR Shielding Knuckles",               type:"Brawling",     role:"Tank",       dps:90.7,  drops:"Scion of Fear in 4 Player alert STAR Labs",          style:"",                   health:185, power:0,  precision:8,  might:26, vitalization:0,  dominance:11, defense:55,  restoration:0,  toughness:0,  level:48});
+
+
+  weaponCollection.push({name:"STAR Assault Knuckles Mk II",           type:"Brawling",     role:"DPS",        dps:97.1,  drops:"",                                                   style:"",                   health:148, power:17, precision:26, might:49, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:52});
+
+  weaponCollection.push({name:"STAR Proto-Power Knuckles Mk II",       type:"Brawling",     role:"Controller", dps:97.1,  drops:"",                                                   style:"",                   health:116, power:17, precision:8,  might:17, vitalization:48, dominance:16, defense:0,   restoration:0,  toughness:0,  level:52});
+
+  weaponCollection.push({name:"STAR Recovery Knuckles Mk II",          type:"Brawling",     role:"Healer",     dps:97.1,  drops:"",                                                   style:""});
+
+  weaponCollection.push({name:"STAR Shielding Knuckles Mk II",         type:"Brawling",     role:"Tank",       dps:97.1,  drops:"",                                                   style:""});
+
+
+  weaponCollection.push({name:"STAR Assault Pistols",                  type:"Dual Pistol",  role:"DPS",        dps:90.7,  drops:"Hal Jordan in 4 Player alert STAR Labs",             style:"Bolt Pistol",        health:138, power:16, precision:25, might:46, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Proto-Power Pistols",              type:"Dual Pistol",  role:"Controller", dps:90.7,  drops:"Hal Jordan in 4 Player alert STAR Labs",             style:"Bolt Pistol",        health:108, power:16, precision:8,  might:16, vitalization:45, dominance:15, defense:0,   restoration:0,  toughness:0,  level:48});
+
+  weaponCollection.push({name:"STAR Recovery Pistols",                 type:"Dual Pistol",  role:"Healer",     dps:90.7,  drops:"Hal Jordan in 4 Player alert STAR Labs",             style:"Bolt Pistol",        health:108, power:62, precision:8,  might:16, vitalization:0,  dominance:0,  defense:0,   restoration:54, toughness:0,  level:48});
+
+  weaponCollection.push({name:"STAR Shielding Pistols",                type:"Dual Pistol",  role:"Tank",       dps:90.7,  drops:"Hal Jordan in 4 Player alert STAR Labs",             style:"Bolt Pistol",        health:185, power:0,  precision:8,  might:26, vitalization:0,  dominance:11, defense:55,  restoration:0,  toughness:0,  level:48});
+
+
+  weaponCollection.push({name:"STAR Assault Pistols Mk II",            type:"Dual Pistol",  role:"DPS",        dps:97.1,  drops:"Krona in 4 Player Tier 2 alert Oan Sciencells",      style:"Bolt Pistol",        health:148, power:17, precision:26, might:49, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:52});
+
+  weaponCollection.push({name:"STAR Proto-Power Pistols Mk II",        type:"Dual Pistol",  role:"Controller", dps:97.1,  drops:"Krona in 4 Player Tier 2 alert Oan Sciencells",      style:"Bolt Pistol",        health:116, power:17, precision:8,  might:17, vitalization:48, dominance:16, defense:0,   restoration:0,  toughness:0,  level:52});
+
+  weaponCollection.push({name:"STAR Recovery Pistols Mk II",           type:"Dual Pistol",  role:"Healer",     dps:97.1,  drops:"Krona in 4 Player Tier 2 alert Oan Sciencells",      style:"Bolt Pistol"});
+
+  weaponCollection.push({name:"STAR Shielding Pistols Mk II",          type:"Dual Pistol",  role:"Tank",       dps:97.1,  drops:"Krona in 4 Player Tier 2 alert Oan Sciencells",      style:"Bolt Pistol"});
+
+
+  weaponCollection.push({name:"STAR Assault Knives",                   type:"Dual Wield",   role:"DPS",        dps:90.7,  drops:"Lyssa Drak in 4 Player alert Oan Sciencells",        style:"Flat Blade",         health:138, power:16, precision:25, might:46, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:48});
+
+  weaponCollection.push({name:"STAR Proto-Power Knives",               type:"Dual Wield",   role:"Controller", dps:90.7,  drops:"Lyssa Drak in 4 Player alert Oan Sciencells",        style:"Flat Blade",         health:108, power:16, precision:8,  might:16, vitalization:45, dominance:15, defense:0,   restoration:0,  toughness:0,  level:48});
+
+  weaponCollection.push({name:"STAR Recovery Knives",                  type:"Dual Wield",   role:"Healer",     dps:90.7,  drops:"Lyssa Drak in 4 Player alert Oan Sciencells",        style:"Flat Blade",         health:108, power:62, precision:8,  might:16, vitalization:0,  dominance:0,  defense:0,   restoration:54, toughness:0,  level:48});
+
+  weaponCollection.push({name:"STAR Shielding Knives",                 type:"Dual Wield",   role:"Tank",       dps:90.7,  drops:"Lyssa Drak in 4 Player alert Oan Sciencells",        style:"Flat Blade",         health:185, power:0,  precision:8,  might:26, vitalization:0,  dominance:11, defense:55,  restoration:0,  toughness:0,  level:48});
+
+
+  weaponCollection.push({name:"STAR Assault Knives Mk II",             type:"Dual Wield",   role:"DPS",        dps:97.1,  drops:"Hal Jordan in 4 Player alert STAR Labs",             style:"Flat Blade",         health:148, power:17, precision:26, might:49, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:52});
+
+  weaponCollection.push({name:"STAR Proto-Power Knives Mk II",         type:"Dual Wield",   role:"Controller", dps:97.1,  drops:"Hal Jordan in 4 Player alert STAR Labs",             style:"Flat Blade",         health:116, power:17, precision:8,  might:17, vitalization:48, dominance:16, defense:0,   restoration:0,  toughness:0,  level:52});
+  weaponCollection.push({name:"STAR Recovery Knives Mk II",            type:"Dual Wield",   role:"Healer",     dps:97.1,  drops:"Hal Jordan in 4 Player alert STAR Labs",             style:"Flat Blade"});
+
+  weaponCollection.push({name:"STAR Shielding Knives Mk II",           type:"Dual Wield",   role:"Tank",       dps:97.1,  drops:"Hal Jordan in 4 Player alert STAR Labs",             style:"Flat Blade"});
+
+
+  weaponCollection.push({name:"STAR Assault Gloves",                   type:"Hand Blaster", role:"DPS",        dps:90.7, drops:"Vice in 4 Player Tier 2 alert Oan Sciencells",        style:"Exhaust Blasters",   health:138, power:16, precision:25, might:46, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Proto-Power Pulse Gloves",         type:"Hand Blaster", role:"Controller", dps:90.7, drops:"Vice in 4 Player Tier 2 alert Oan Sciencells",        style:"Exhaust Blasters",   health:108, power:16, precision:8,  might:16, vitalization:45, dominance:15, defense:0,   restoration:0,  toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Recovery Pulse Gloves",            type:"Hand Blaster", role:"Healer",     dps:90.7, drops:"Vice in 4 Player Tier 2 alert Oan Sciencells",        style:"Exhaust Blasters",   health:108, power:62, precision:8,  might:16, vitalization:0,  dominance:0,  defense:0,   restoration:54, toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Shielding Gloves",                 type:"Hand Blaster", role:"Tank",       dps:90.7, drops:"Vice in 4 Player Tier 2 alert Oan Sciencells",        style:"Exhaust Blasters",   health:185, power:0,  precision:8,  might:26, vitalization:0,  dominance:11, defense:55,  restoration:0,  toughness:0,  level:48});
+
+  weaponCollection.push({name:"STAR Assault Gloves Mk II",             type:"Hand Blaster", role:"DPS",        dps:97.1, drops:"Evil Star in 4 Player Tier 2 alert Oan Sciencells",   style:"Exhaust Blasters",   health:148, power:17, precision:26, might:49, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:52});
+  weaponCollection.push({name:"STAR Proto-Power Gloves Mk II",         type:"Hand Blaster", role:"Controller", dps:97.1, drops:"Evil Star in 4 Player Tier 2 alert Oan Sciencells",   style:"Exhaust Blasters",   health:116, power:17, precision:8,  might:17, vitalization:48, dominance:16, defense:0,   restoration:0,  toughness:0,  level:52});
+  weaponCollection.push({name:"STAR Recovery Pulse Gloves Mk II",      type:"Hand Blaster", role:"Healer",     dps:97.1, drops:"Evil Star in 4 Player Tier 2 alert Oan Sciencells",   style:"Exhaust Blasters"});
+  weaponCollection.push({name:"STAR Shielding Gloves Mk II",           type:"Hand Blaster", role:"Tank",       dps:97.1, drops:"Evil Star in 4 Player Tier 2 alert Oan Sciencells",   style:"Exhaust Blasters"});
+
+  weaponCollection.push({name:"STAR Assault Claws",                    type:"Martial Arts", role:"DPS",        dps:90.7, drops:"Evil Star in 4 Player Tier 2 alert Oan Sciencells",   style:"Tech Claw",          health:138, power:16, precision:25, might:46, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Proto-Power Claws",                type:"Martial Arts", role:"Controller", dps:90.7, drops:"Evil Star in 4 Player Tier 2 alert Oan Sciencells",   style:"Tech Claw",          health:108, power:16, precision:8,  might:16, vitalization:45, dominance:15, defense:0,   restoration:0,  toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Recovery Claws",                   type:"Martial Arts", role:"Healer",     dps:90.7, drops:"Evil Star in 4 Player Tier 2 alert Oan Sciencells",   style:"Tech claw",          health:108, power:62, precision:8,  might:16, vitalization:0,  dominance:0,  defense:0,   restoration:54, toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Shielding Claws",                  type:"Martial Arts", role:"Tank",       dps:90.7, drops:"Evil Star in 4 Player Tier 2 alert Oan Sciencells",   style:"Tech Claw",          health:185, power:0,  precision:8,  might:26, vitalization:0,  dominance:11, defense:55,  restoration:0,  toughness:0,  level:48});
+
+  weaponCollection.push({name:"STAR Assault Claws Mk II",              type:"Martial Arts", role:"DPS",        dps:97.1, drops:"Lyssa Drak in 4 Player Tier 2 alert Oan Sciencells",  style:"Tech claw",          health:148, power:17, precision:26, might:49, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:52});
+  weaponCollection.push({name:"STAR Proto-Power Claws Mk II",          type:"Martial Arts", role:"Controller", dps:97.1, drops:"Lyssa Drak in 4 Player Tier 2 alert Oan Sciencells",  style:"Tech claw",          health:116, power:17, precision:8,  might:17, vitalization:48, dominance:16, defense:0,   restoration:0,  toughness:0,  level:52});
+  weaponCollection.push({name:"STAR Recovery Claws Mk II",             type:"Martial Arts", role:"Healer",     dps:97.1, drops:"Lyssa Drak in 4 Player Tier 2 alert Oan Sciencells",  style:"Tech claw"});
+  weaponCollection.push({name:"STAR Shielding Claws Mk II",            type:"Martial Arts", role:"Tank",       dps:97.1, drops:"Lyssa Drak in 4 Player Tier 2 alert Oan Sciencells",  style:"Tech claw"});
+
+  weaponCollection.push({name:"STAR Assault Hammer",                   type:"One-Handed",   role:"DPS",        dps:90.7, drops:"Krona in 4 Player Tier 2 alert Oan Sciencells",       style:"",                   health:138, power:16, precision:25, might:46, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:48});
+
+  weaponCollection.push({name:"STAR Proto-Power Hammer",               type:"One-Handed",   role:"Controller", dps:90.7, drops:"Krona in 4 Player Tier 2 alert Oan Sciencells",       style:"",                   health:108, power:16, precision:8,  might:16, vitalization:45, dominance:15, defense:0,   restoration:0,  toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Recovery Hammer",                  type:"One-Handed",   role:"Healer",     dps:90.7, drops:"Krona in 4 Player Tier 2 alert Oan Sciencells",       style:"",                   health:108, power:62, precision:8,  might:16, vitalization:0,  dominance:0,  defense:0,   restoration:54, toughness:0,  level:48});
+
+  weaponCollection.push({name:"STAR Shielding Hammer",                 type:"One-Handed",   role:"Tank",       dps:90.7, drops:"Krona in 4 Player Tier 2 alert Oan Sciencells",       style:"",                   health:185, power:0,  precision:8,  might:26, vitalization:0,  dominance:11, defense:55,  restoration:0,  toughness:0,  level:48});
+
+  weaponCollection.push({name:"STAR Assault Hammer Mk II",             type:"One-Handed",   role:"DPS",        dps:97.1, drops:"Scion of Fear in 4 Player alert STAR Labs",           style:"",                   health:148, power:17, precision:26, might:49, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:52});
+
+  weaponCollection.push({name:"STAR Proto-Power Hammer Mk II",         type:"One-Handed",   role:"Controller", dps:97.1, drops:"Scion of Fear in 4 Player alert STAR Labs",           style:"",                   health:116, power:17, precision:8,  might:17, vitalization:48, dominance:16, defense:0,   restoration:0,  toughness:0,  level:52});
+  weaponCollection.push({name:"STAR Recovery Hammer Mk II",            type:"One-Handed",   role:"Healer",     dps:97.1, drops:"Scion of Fear in 4 Player alert STAR Labs",           style:""});
+
+  weaponCollection.push({name:"STAR Shielding Hammer Mk II",           type:"One-Handed",   role:"Tank",       dps:97.1, drops:"Scion of Fear in 4 Player alert STAR Labs",           style:""});
+
+  weaponCollection.push({name:"STAR Assault Rifle",                    type:"Rifle",        role:"DPS",        dps:90.7, drops:"Hal Jordan in 4 Player alert STAR Labs",              style:"Bolt Rifle",         health:138, power:16, precision:25, might:46, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Proto-Power Bolt Rifle",           type:"Rifle",        role:"Controller", dps:90.7, drops:"Hal Jordan in 4 Player alert STAR Labs",              style:"Bolt Rifle",         health:108, power:16, precision:8,  might:16, vitalization:45, dominance:15, defense:0,   restoration:0,  toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Recovery Bolt Rifle",              type:"Rifle",        role:"Healer",     dps:90.7, drops:"Hal Jordan in 4 Player alert STAR Labs",              style:"Bolt Rifle",         health:108, power:62, precision:8,  might:16, vitalization:0,  dominance:0,  defense:0,   restoration:54, toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Shielding Bolt Rifle",             type:"Rifle",        role:"Tank",       dps:90.7, drops:"Hal Jordan in 4 Player alert STAR Labs",              style:"Bolt Rifle",         health:185, power:0,  precision:8,  might:26, vitalization:0,  dominance:11, defense:55,  restoration:0,  toughness:0,  level:48});
+
+  weaponCollection.push({name:"STAR Assault Rifle Mk II",              type:"Rifle",        role:"DPS",        dps:97.1, drops:"Scion of Will in 4 Player Tier 2 alert STAR labs",    style:"Bolt Rifle",         health:148, power:17, precision:26, might:49, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:52});
+  weaponCollection.push({name:"STAR Proto-Power Bolt Rifle Mk II",     type:"Rifle",        role:"Controller", dps:97.1, drops:"Scion of Will in 4 Player Tier 2 alert STAR labs",    style:"Bolt Rifle",         health:116, power:17, precision:8,  might:17, vitalization:48, dominance:16, defense:0,   restoration:0,  toughness:0,  level:52});
+  weaponCollection.push({name:"STAR Recovery Bolt Rifle Mk II",        type:"Rifle",        role:"Healer",     dps:97.1, drops:"Scion of Will in 4 Player Tier 2 alert STAR labs",    style:"Bolt Rifle"});
+  weaponCollection.push({name:"STAR Shielding Bolt Rifle Mk II",       type:"Rifle",        role:"Tank",       dps:97.1, drops:"Scion of Will in 4 Player Tier 2 alert STAR labs",    style:"Bolt Rifle"});
+
+  weaponCollection.push({name:"STAR Assault Bulwark",                  type:"Shield",       role:"DPS",        dps:90.7, drops:"Krona in 4 Player Tier 2 alert Oan Sciencells",       style:"Hypno Shield",       health:138, power:16, precision:25, might:46, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Proto-Power Bulwark",              type:"Shield",       role:"Controller", dps:90.7, drops:"Krona in 4 Player Tier 2 alert Oan Sciencells",       style:"Hypno Shield",       health:108, power:16, precision:8,  might:16, vitalization:45, dominance:15, defense:0,   restoration:0,  toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Recovery Bulwark",                 type:"Shield",       role:"Healer",     dps:90.7, drops:"Krona in 4 Player Tier 2 alert Oan Sciencells",       style:"Hypno Shield",       health:108, power:62, precision:8,  might:16, vitalization:0,  dominance:0,  defense:0,   restoration:54, toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Shielding Bulwark",                type:"Shield",       role:"Tank",       dps:90.7, drops:"Krona in 4 Player Tier 2 alert Oan Sciencells",       style:"Hypno Shield",       health:185, power:0,  precision:8,  might:26, vitalization:0,  dominance:11, defense:55,  restoration:0,  toughness:0,  level:48});
+
+  weaponCollection.push({name:"STAR Assault Bulwark Mk II",            type:"Shield",       role:"DPS",        dps:97.1, drops:"Hal Jordan in 4 Player alert STAR Labs",              style:"Hypno Shield"});
+  weaponCollection.push({name:"STAR Proto-Power Bulwark Mk II",        type:"Shield",       role:"Controller", dps:97.1, drops:"Hal Jordan in 4 Player alert STAR Labs",              style:"Hypno Shield"});
+  weaponCollection.push({name:"STAR Recovery Bulwark Mk II",           type:"Shield",       role:"Healer",     dps:97.1, drops:"Hal Jordan in 4 Player alert STAR Labs",              style:"Hypno Shield"});
+  weaponCollection.push({name:"STAR Shielding Bulwark Mk II",          type:"Shield",       role:"Tank",       dps:97.1, drops:"Hal Jordan in 4 Player alert STAR Labs",              style:"Hypno Shield"});
+
+  weaponCollection.push({name:"STAR Assault Staff",                    type:"Staff",        role:"DPS",        dps:90.7, drops:"Scion of Fear in 4 Player Tier 2 alert STAR Labs",    style:"Lightning Rod",      health:138, power:16, precision:25, might:46, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Proto-Power Staff",                type:"Staff",        role:"Controller", dps:90.7, drops:"Scion of Fear in 4 Player Tier 2 alert STAR Labs",    style:"Lightning Rod",      health:108, power:16, precision:8,  might:16, vitalization:45, dominance:15, defense:0,   restoration:0,  toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Recovery Staff",                   type:"Staff",        role:"Healer",     dps:90.7, drops:"Scion of Fear in 4 Player Tier 2 alert STAR Labs",    style:"Lightning Rod",      health:108, power:62, precision:8,  might:16, vitalization:0,  dominance:0,  defense:0,   restoration:54, toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Shielding Staff",                  type:"Staff",        role:"Tank",       dps:90.7, drops:"Scion of Fear in 4 Player Tier 2 alert STAR Labs",    style:"Lightning Rod",      health:185, power:0,  precision:8,  might:26, vitalization:0,  dominance:11, defense:55,  restoration:0,  toughness:0,  level:48});
+
+  weaponCollection.push({name:"STAR Assault Staff Mk II",              type:"Staff",        role:"DPS",        dps:97.1, drops:"Vice in 4 Player Tier 2 alert Oan Sciencells",        style:"Lightning Rod",      health:148, power:17, precision:26, might:49, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:52});
+  weaponCollection.push({name:"STAR Proto-Power Staff Mk II",          type:"Staff",        role:"Controller", dps:97.1, drops:"Vice in 4 Player Tier 2 alert Oan Sciencells",        style:"Lightning Rod",      health:116, power:17, precision:8,  might:17, vitalization:48, dominance:16, defense:0,   restoration:0,  toughness:0,  level:52});
+  weaponCollection.push({name:"STAR Recovery Staff Mk II",             type:"Staff",        role:"Healer",     dps:97.1, drops:"Vice in 4 Player Tier 2 alert Oan Sciencells",        style:"Lightning Rod"});
+  weaponCollection.push({name:"STAR Shielding Staff Mk II",            type:"Staff",        role:"Tank",       dps:97.1, drops:"Vice in 4 Player Tier 2 alert Oan Sciencells",        style:"Lightning Rod"});
+
+  weaponCollection.push({name:"STAR Assault Sword",                    type:"Two-Handed",   role:"DPS",        dps:90.7, drops:"Lyssa Drak in 4 Player Tier 2 alert Oan Sciencells",  style:"Powered Broadsword", health:138, power:16, precision:25, might:46, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Proto-Power Sword",                type:"Two-Handed",   role:"Controller", dps:90.7, drops:"Lyssa Drak in 4 Player Tier 2 alert Oan Sciencells",  style:"Powered Broadsword", health:108, power:16, precision:8,  might:16, vitalization:45, dominance:15, defense:0,   restoration:0,  toughness:0,  level:48});
+
+  weaponCollection.push({name:"STAR Recovery Sword",                   type:"Two-Handed",   role:"Healer",     dps:90.7, drops:"Lyssa Drak in 4 Player Tier 2 alert Oan Sciencells",  style:"Powered Broadsword", health:108, power:62, precision:8,  might:16, vitalization:0,  dominance:0,  defense:0,   restoration:54, toughness:0,  level:48});
+  weaponCollection.push({name:"STAR Shielding Sword",                  type:"Two-Handed",   role:"Tank",       dps:90.7, drops:"Lyssa Drak in 4 Player Tier 2 alert Oan Sciencells",  style:"Powered Broadsword", health:185, power:0,  precision:8,  might:26, vitalization:0,  dominance:11, defense:55,  restoration:0,  toughness:0,  level:48});
+
+  weaponCollection.push({name:"STAR Assault Sword Mk II",              type:"Two-Handed",   role:"DPS",        dps:97.1, drops:"Krona in 4 Player Tier 2 alert Oan Sciencells",       style:"Powered Broadsword", health:148, power:17, precision:26, might:49, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:52});
+  weaponCollection.push({name:"STAR Proto-Power Sword Mk II",          type:"Two-Handed",   role:"Controller", dps:97.1, drops:"Krona in 4 Player Tier 2 alert Oan Sciencells",       style:"Powered Broadsword", health:116, power:17, precision:8,  might:17, vitalization:48, dominance:16, defense:0,   restoration:0,  toughness:0,  level:52});
+
+  weaponCollection.push({name:"STAR Recovery Sword Mk II",             type:"Two-Handed",   role:"Healer",     dps:97.1, drops:"Krona in 4 Player Tier 2 alert Oan Sciencells",       style:"Powered Broadsword"});
+  weaponCollection.push({name:"STAR Shielding Sword Mk II",            type:"Two-Handed",   role:"Tank",       dps:97.1, drops:"Krona in 4 Player Tier 2 alert Oan Sciencells",       style:"Powered Broadsword"});
 
   // Unattuned weapons from operations in DLC5 (Hand of Fate)
   weaponCollection.push({name:"Unattuned: Runed Bow",                  type:"Bow",          role:"DPS",        dps:131.1, drops:"Final boss in 8 Player Tier 4 Operation from DLC5 (Hand of Fate)",    style:"Arcane Longbow",        health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:71});
   weaponCollection.push({name:"Unattuned: Fighter's Runed Claws",      type:"Brawling",     role:"DPS",        dps:131.1, drops:"Final boss in 8 Player Tier 4 Operation from DLC5 (Hand of Fate)",    style:"Runic Cestus",          health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:71});
   weaponCollection.push({name:"Unattuned: Runic Handwraps",            type:"Martial Arts", role:"DPS",        dps:131.1, drops:"Final boss in 8 Player Tier 4 Operation from DLC5 (Hand of Fate)",    style:"Fighter's Runed Claws", health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:71});
-  weaponCollection.push({name:"Unattuned: Pistols of Runic Power",     type:"Dual Pistol",  role:"DPS",        dps:131.1, drops:"Final boss in 8 Player Tier 4 Operation from DLC5 (Hand of Fate)"});
+  weaponCollection.push({name:"Unattuned: Pistols of Runic Power",     type:"Dual Pistol",  role:"DPS",        dps:131.1, drops:"Final boss in 8 Player Tier 4 Operation from DLC5 (Hand of Fate)",    style:"Runic Pistols",         health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:71});
   weaponCollection.push({name:"Unattuned: Blades of Arcane Energy",    type:"Dual Wield",   role:"DPS",        dps:131.1, drops:"Final boss in 8 Player Tier 4 Operation from DLC5 (Hand of Fate)",    style:"Runed Blades",          health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:71});
   weaponCollection.push({name:"Unattuned: Runic Blaster Gloves",       type:"Hand Blaster", role:"DPS",        dps:131.1, drops:"Final boss in 8 Player Tier 4 Operation from DLC5 (Hand of Fate)",    style:"Runic Blaster Gloves",  health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:71});
   weaponCollection.push({name:"Unattuned: Sword of Arcane Energy",     type:"One-Handed",   role:"DPS",        dps:131.1, drops:"Final boss in 8 Player Tier 4 Operation from DLC5 (Hand of Fate)",    style:"Arcane Claymore",       health:0,   power:0,  precision:0,  might:0,  vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:71});
@@ -17081,6 +17238,7 @@ function isAccessory(lineString)
 
   weaponCollection.push({name:"Aggressor's Pistols of Runic Power",    type:"Dual Pistol",  role:"DPS",        dps:131.1, drops:"Final boss in 8 Player Tier 4 Operation from DLC5 (Hand of Fate)",    style:"Runic Pistols",         health:171, power:23, precision:42, might:66, vitalization:0,  dominance:0,  defense:0,   restoration:0,  toughness:0,  level:71});
   weaponCollection.push({name:"Priest's Pistols of Runic Power",       type:"Dual Pistol",  role:"Healer",     dps:131.1, drops:"Final boss in 8 Player Tier 4 Operation from DLC5 (Hand of Fate)",    style:"Runic Pistols",         health:157, power:91, precision:12, might:23, vitalization:0,  dominance:0,  defense:0,   restoration:77, toughness:0,  level:71});
+  weaponCollection.push({name:"Vindicator's Pistols of Runic Power",   type:"Dual Pistol",  role:"Controller", dps:131.1, drops:"Final boss in 8 Player Tier 4 Operation from DLC5 (Hand of Fate)",    style:"Runic Pistols",         health:157, power:23, precision:18, might:23, vitalization:51, dominance:22, defense:0,   restoration:0,  toughness:0,  level:71});
   weaponCollection.push({name:"Warden's Pistols of Runic Power",       type:"Dual Pistol",  role:"Tank",       dps:131.1, drops:"Final boss in 8 Player Tier 4 Operation from DLC5 (Hand of Fate)",    style:"Runic Pistols",         health:239, power:0,  precision:12, might:37, vitalization:0,  dominance:11, defense:166, restoration:0,  toughness:0,  level:71});
 
   weaponCollection.push({name:"Arcane Blades of the Priest",           type:"Dual Wield",   role:"Healer",     dps:131.1, drops:"Final boss in 8 Player Tier 4 Operation from DLC5 (Hand of Fate)",    style:"Runed Blades",          health:157, power:91, precision:12, might:23, vitalization:0,  dominance:0,  defense:0,   restoration:77, toughness:0,  level:71});
@@ -17089,6 +17247,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Priest's Runic Blasters",               type:"Hand Blaster", role:"Healer",     dps:131.1, drops:"Final boss in 8 Player Tier 4 Operation from DLC5 (Hand of Fate)",    style:"Runic Blaster Gloves",  health:157, power:91, precision:12, might:23, vitalization:0,  dominance:0,  defense:0,   restoration:77, toughness:0,  level:71});
 
   weaponCollection.push({name:"Priest's Runic Handwraps",              type:"Martial Arts", role:"Healer",     dps:131.1, drops:"Final boss in 8 Player Tier 4 Operation from DLC5 (Hand of Fate)",    style:"Fighter's Runed Claws", health:157, power:91, precision:12, might:23, vitalization:0,  dominance:0,  defense:0,   restoration:77, toughness:0,  level:71});
+  weaponCollection.push({name:"Warden's Runic Handwraps",              type:"Martial Arts", role:"Tank",       dps:131.1, drops:"Final boss in 8 Player Tier 4 Operation from DLC5 (Hand of Fate)",    style:"Fighter's Runed Claws", health:239, power:0,  precision:12, might:37, vitalization:0,  dominance:11, defense:166, restoration:0,  toughness:0,  level:71});
 
   weaponCollection.push({name:"Vindicator's Sword of Arcane Energy",   type:"One-Handed",   role:"Controller", dps:131.1, drops:"Final boss in 8 Player Tier 4 Operation from DLC5 (Hand of Fate)",    style:"Arcane Claymore",       health:157, power:23, precision:18, might:23, vitalization:51, dominance:22, defense:0,   restoration:0,  toughness:0,  level:71});
   weaponCollection.push({name:"Warden's Sword of Arcane Energy",       type:"One-Handed",   role:"Tank",       dps:131.1, drops:"Final boss in 8 Player Tier 4 Operation from DLC5 (Hand of Fate)",    style:"Arcane Claymore",       health:239, power:0,  precision:12, might:37, vitalization:0,  dominance:11, defense:166, restoration:0,  toughness:0,  level:71});
@@ -17282,6 +17441,30 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Martillo milenario OmniScry",                type:"Two-Handed",  role:"DPS",        dps:68.3,  language:1, drops:"Isis"});
   weaponCollection.push({name:"Mazo de Krypton",                            type:"Two-Handed",  role:"Controller", dps:77.9,  language:1, drops:"Subprime Regulator Alpha"});
 
+  weaponCollection.push({name:"Miltek Armored Bow",                        type:"Bow",          role:"Tank",       dps:103.5, drops:"Bane in 2 Player Tier 3 duo Cape Carmine Lighthouse",                 style:"Reflex Bow",       health:187, power:0,  precision:9,  might:29, vitalization:0,  restoration:0,  dominance:9,  defense:130, level:56});
+  weaponCollection.push({name:"Miltek Assault Bow",                        type:"Bow",          role:"DPS",        dps:103.5, drops:"Venom Supplier Diego in 2 Player Tier 3 duo Cape Carmine Lighthouse", style:"Reflex Bow",       health:134, power:18, precision:28, might:65, vitalization:0,  restoration:0,  dominance:0,  defense:0,   level:56});
+  weaponCollection.push({name:"Miltek Medico Bow",                         type:"Bow",          role:"Healer",     dps:103.5, drops:"Venom Supplier Diego in 2 Player Tier 3 duo Cape Carmine Lighthouse", style:"Reflex Bow",       health:145, power:53, precision:9,  might:18, vitalization:0,  restoration:61, dominance:0,  defense:0,   level:56});
+  weaponCollection.push({name:"Miltek Restorative Bow",                    type:"Bow",          role:"Controller", dps:103.5, drops:"Bane in 2 Player Tier 3 duo Cape Carmine Lighthouse",                 style:"Reflex Bow",       health:123, power:18, precision:9,  might:18, vitalization:40, restoration:0,  dominance:22, defense:0,   level:56});
+
+  weaponCollection.push({name:"Miltek Armored Pistols",                    type:"Dual Pistol",  role:"Tank",       dps:103.5, drops:"Venom Supplier Diego in 2 Player Tier 3 duo Cape Carmine Lighthouse", style:"Semi-Auto Pistol", health:187, power:0,  precision:9,  might:29, vitalization:0,  restoration:0,  dominance:9,  defense:130, level:56});
+  weaponCollection.push({name:"Miltek Assault Pistols",                    type:"Dual Pistol",  role:"DPS",        dps:103.5, drops:"Clayface in 2 Player Tier 3 duo Old Gotham Subway",                   style:"Semi-Auto Pistol", health:134, power:18, precision:28, might:65, vitalization:0,  restoration:0,  dominance:0,  defense:0,   level:56});
+  weaponCollection.push({name:"Miltek Medico Machine Pistols",             type:"Dual Pistol",  role:"Healer",     dps:103.5, drops:"Hush in 2 Player Tier 3 duo Old Gotham Subway",                       style:"Semi-Auto Pistol", health:145, power:53, precision:9,  might:18, vitalization:0,  restoration:61, dominance:0,  defense:0,   level:56});
+  weaponCollection.push({name:"Miltek Restorative Pistols",                type:"Dual Pistol",  role:"Controller", dps:103.5, drops:"Bane in 2 Player Tier 3 duo Cape Carmine Lighthouse",                 style:"Semi-Auto Pistol", health:123, power:18, precision:9,  might:18, vitalization:40, restoration:0,  dominance:22, defense:0,   level:56});
+
+  weaponCollection.push({name:"Miltek Armored Batons",                     type:"Dual Wield",   role:"Tank",       dps:103.5, drops:"2 Player Tier 3 duo Cape Carmine Lighthouse",                         style:"Baton",            health:187, power:0,  precision:9,  might:29, vitalization:0,  restoration:0,  dominance:9,  defense:130, level:56});
+  weaponCollection.push({name:"Miltek Assault Batons",                     type:"Dual Wield",   role:"DPS",        dps:103.5, drops:"Killer Croc in 2 Player Tier 3 duo Cape Carmine Lighthouse",          style:"Baton",            health:134, power:18, precision:28, might:65, vitalization:0,  restoration:0,  dominance:0,  defense:0,   level:56});
+  weaponCollection.push({name:"Miltek Medico Batons",                      type:"Dual Wield",   role:"Healer",     dps:103.5, drops:"Clayface in 2 Player Tier 3 duo Old Gotham Subway",                   style:"Baton",            health:145, power:53, precision:9,  might:18, vitalization:0,  restoration:61, dominance:0,  defense:0,   level:56});
+  weaponCollection.push({name:"Miltek Restorative Batons",                 type:"Dual Wield",   role:"Controller", dps:103.5, drops:"Bane in 2 Player Tier 3 duo Cape Carmine Lighthouse",                 style:"Baton",            health:123, power:18, precision:9,  might:18, vitalization:40, restoration:0,  dominance:22, defense:0,   level:56});
+
+  weaponCollection.push({name:"Miltek Armored Blasters",                   type:"Hand Blaster", role:"Tank",       dps:103.5, drops:"Hush in 2 Player Tier 3 Old Gotham Subway duo",                       style:"Exhaust Blasters", health:187, power:0,  precision:9,  might:29, vitalization:0,  restoration:0,  dominance:9,  defense:130, level:56});
+  weaponCollection.push({name:"Miltek Assault Blasters",                   type:"Hand Blaster", role:"DPS",        dps:103.5, drops:"Nightwing in 2 Player Tier 3 duo Cape Carmine Lighthouse",            style:"Exhaust Blasters", health:134, power:18, precision:28, might:65, vitalization:0,  restoration:0,  dominance:0,  defense:0,   level:56});
+  weaponCollection.push({name:"Miltek Medico Blasters",                    type:"Hand Blaster", role:"Healer",     dps:103.5, drops:"Bane in 2 Player Tier 3 duo Cape Carmine Lighthouse",                 style:"Exhaust Blasters", health:145, power:53, precision:9,  might:18, vitalization:0,  restoration:61, dominance:0,  defense:0,   level:56});
+  weaponCollection.push({name:"Miltek Restorative Blasters",               type:"Hand Blaster", role:"Controller", dps:103.5, drops:"Venom Supplier Diego in 2 Player Tier 3 duo Cape Carmine Lighthouse", style:"Exhaust Blasters", health:123, power:18, precision:9,  might:18, vitalization:40, restoration:0,  dominance:22, defense:0,   level:56});
+
+  weaponCollection.push({name:"Miltek Armored Plasma Rifle",               type:"Rifle",        role:"Tank",       dps:103.5, drops:"Penguin in 2 Player Tier 3 duo Old Gotham Subway",                    style:"Tech Pulse Rifle", health:187, power:0,  precision:9,  might:29, vitalization:0,  restoration:0,  dominance:9,  defense:130, level:56});
+  weaponCollection.push({name:"Miltek Assault Plasma Rifle",               type:"Rifle",        role:"DPS",        dps:103.5, drops:"Venom Supplier Diego in 2 Player Tier 3 duo Cape Carmine Lighthouse", style:"Tech Pulse Rifle", health:134, power:18, precision:28, might:65, vitalization:0,  restoration:0,  dominance:0,  defense:0,   level:56});
+  weaponCollection.push({name:"Miltek Medico Plasma Rifle",                type:"Rifle",        role:"Healer",     dps:103.5, drops:"Clayface in 2 Player Tier 3 duo Old Gotham Subway",                   style:"Tech Pulse Rifle", health:145, power:53, precision:9,  might:18, vitalization:0,  restoration:61, dominance:0,  defense:0,   level:56});
+  weaponCollection.push({name:"Miltek Restorative Plasma Rifle",           type:"Rifle",        role:"Controller", dps:103.5, drops:"2 Player Tier 3 duo Old Gotham Subway",                               style:"Tech Pulse Rifle", health:123, power:18, precision:9,  might:18, vitalization:40, restoration:0,  dominance:22, defense:0,   level:56});
 
   // Bows
   weaponCollection.push({name:"Advanced Nanoguided Bow",                   type:"Bow",       role:"DPS",        dps:31.5,  drops:"Treasure Chest in Grodd Alert", style:"Composite Bow"});
@@ -17322,10 +17505,6 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Longbow of Supremacy",                      type:"Bow",       role:"Tank",       dps:97.1,  drops:"Black Adam in Kahndaq raid"});
   weaponCollection.push({name:"Longbow of the Dead",                       type:"Bow",       role:"Controller", dps:68.3,  drops:"Zoom", style:"Necromancer's Bow", health:67, precision:6, might:12, vitalization:7, dominance:28, level:34});
   weaponCollection.push({name:"Mighty Oak Longbow",                        type:"Bow",       role:"DPS",        dps:61.9,  drops:"Brainiac Worker T2 duo", style:"Tree Branch Bow", health:189, precision:8, might:11, level:30});
-  weaponCollection.push({name:"Miltek Armored Bow",                        type:"Bow",       role:"Tank",       dps:103.5, drops:"Bane in Cape Carmine Lighthouse duo", style:"Reflex Bow", health:187, precision:9, might:29, dominance:9, defense:130, level:56});
-  weaponCollection.push({name:"Miltek Assault Bow",                        type:"Bow",       role:"DPS",        dps:103.5, drops:"Venom Supplier Diego in T3 Duo Lighthouse", style:""});
-  weaponCollection.push({name:"Miltek Medico Bow",                         type:"Bow",       role:"Healer",     dps:103.5, drops:"Venom Supplier Diego in 2 Player Tier 3 Cape Carmine Lighthouse duo", style:"Reflex Bow", health:145, power:53, precision:9, might:18, restoration:61, level:56});
-  weaponCollection.push({name:"Miltek Restorative Bow",                    type:"Bow",       role:"Controller", dps:103.5, drops:"Bane in Tier 3 Lighthouse duo", style:"Reflex Bow", health:123, power:18, precision:9, might:18, vitalization:40, dominance:22, level:56});
   weaponCollection.push({name:"Nanite-Enhanced Sniper's Bow",              type:"Bow",       role:"DPS",        dps:0,     drops:"UGA Marksman in Gorilla Island Alert"});
   weaponCollection.push({name:"Nanoweave Reinforced Bow",                  type:"Bow",       role:"DPS",        dps:0,     drops:""});
   weaponCollection.push({name:"Necrolord's Bow",                           type:"Bow",       role:"Tank",       dps:77.9,  drops:"Babyface in Ace Chemicals 4 person alert", style:"Necromancer's Bow", health:125, precision:7, might:13, dominance:27, level:40});
@@ -17360,15 +17539,6 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Spellhunter's Bow",                         type:"Bow",       role:"Controller", dps:58.7,  drops:"Vengeful Spirit"});
   weaponCollection.push({name:"Stagg Industries Proto-Line Bow",           type:"Bow",       role:"DPS",        dps:25.5,  drops:"Recruit Sentry, Muscle, Epsilon", style:"Recurve Bow"});
 
-  weaponCollection.push({name:"STAR Assault Battlebow",                    type:"Bow",       role:"DPS",        dps:90.7,  drops:"The Lanterns - Coast City, STAR Labs alert", style:"Tech Battlebow", health:138, power:16, precision:25, might:46, level:48});
-
-  weaponCollection.push({name:"STAR Assault Battlebow Mk II",              type:"Bow",       role:"DPS",        dps:97.1,  drops:"Scion of Will - STAR Labs Alert", style:"Tech Battlebow"});
-
-  weaponCollection.push({name:"STAR Proto-Power Battlebow",                type:"Bow",       role:"Controller", dps:90.7,  drops:"Krona in Oan Sciencells Alert", style:"Tech Battlebow"});
-  weaponCollection.push({name:"STAR Proto-Power Battlebow Mk II",          type:"Bow",       role:"Controller", dps:97.1,  drops:"Scion of Will - STAR Labs Alert", style:"Tech Battlebow"});
-  weaponCollection.push({name:"STAR Recovery Battlebow",                   type:"Bow",       role:"Healer",     dps:90.7,  drops:"Evil Star - Oan Sciencells", style:"Tech Battlebow"});
-
-  weaponCollection.push({name:"STAR Shielding Battlebow",                  type:"Bow",       role:"Tank",       dps:90.7,  drops:"Atrocitus", style:"Tech Battlebow"});
   weaponCollection.push({name:"Steadfast Bow",                             type:"Bow",       role:"Tank",       dps:103.5, drops:"Vice - Ferris Aircraft duo", style:"Tech Battlebow", health:209, precision:9, might:18, dominance:13, defense:98, level:56});
   weaponCollection.push({name:"Steamlord's Bow",                           type:"Bow",       role:"DPS",        dps:97.1,  drops:"Zetta-Drone in Batcave: Inner Caverns raid", style:"Steampunk Bow"});
   weaponCollection.push({name:"Synthium Longbow",                          type:"Bow",       role:"DPS",        dps:36.3,  drops:"Reward for Level 15 SCUrprise mission",style:"Tech-Enhanced Bow"});
@@ -17404,6 +17574,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Chalcedony Claws",                          type:"Brawling",  role:"DPS",        dps:27.7,  drops:"Bestiamorph Ravener in open world Metropolis", style:"Wide Blade Katar", health:36, power:17, precision:9, might:5, level:8});
 
   weaponCollection.push({name:"Claws of Divine Retribution",               type:"Brawling",  role:"Healer",     dps:77.9,  drops:"Subprime Regulator Beta in Area 51 alert", style:"Weeping Blades", health:117, power:49, precision:7, might:13, restoration:38, level:40});
+  weaponCollection.push({name:"Claws of the Enraged Oni",                  type:"Brawling",  role:"DPS",        dps:103.5, drops:"Venom Supplier Diego in 2 Player Tier 3 duo Cape Carmine Lighthouse", style:"Bladed Brawl Gloves", health:134, power:18, precision:28, might:65, level:56});
   weaponCollection.push({name:"Claws of the North Star",                   type:"Brawling",  role:"DPS",        dps:29.9,  drops:"", style:"Magical Claws"});
   weaponCollection.push({name:"Claws of the Wrathbringer",                 type:"Brawling",  role:"Controller", dps:97.1,  drops:"Bat Sentinels in Batcave: Outer Caverns 8 person raid", style:"Lion Brawler", faction:"Both", health:136});
   weaponCollection.push({name:"Claws of Time",                             type:"Brawling",  role:"Controller", dps:68.3,  drops:"Queen Bee", style:"Power Glaive", health:83, precision:6, might:12, vitalization:66, level:34});
@@ -17459,18 +17630,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Somelari War Claws",                        type:"Brawling",  role:"DPS",        dps:0,     drops:"Isis in duo"});
   weaponCollection.push({name:"Specialized Assault Claws",                 type:"Brawling",  role:"Tank",       dps:33.1,  drops:"UGA Commander, UGA Aerial Sniper in Gorilla Island alert", style:"Power Clamps"});
   weaponCollection.push({name:"Stagg Industries Proto-Line Gauntlets",     type:"Brawling",  role:"DPS",        dps:25.5,  drops:"Stinger"});
-  weaponCollection.push({name:"STAR Assault Knuckles",                     type:"Brawling",  role:"DPS",        dps:90.7,  drops:"Parallax - STAR Labs Research Facility"});
-
-  weaponCollection.push({name:"STAR Proto-Power Knuckles",                 type:"Brawling",  role:"Controller", dps:90.7,  drops:"Vice"});
-  weaponCollection.push({name:"STAR Proto-Power Knuckles Mk II",           type:"Brawling",  role:"Controller", dps:97.1,  drops:"The Lanterns - Coast City"});
-
-  weaponCollection.push({name:"STAR Recovery Knuckles",                    type:"Brawling",  role:"Healer",     dps:90.7,  drops:"Kyle Rayner - Coast City"});
-
-  weaponCollection.push({name:"STAR Recovery Knuckles Mk II",              type:"Brawling",  role:"Healer",     dps:97.1,  drops:"Scion of Will - STAR Labs Alert"});
-
-  weaponCollection.push({name:"STAR Shielding Knuckles",                   type:"Brawling",  role:"Tank",       dps:90.7,  drops:"Scion of Will - STAR Labs Alert"});
-
-  weaponCollection.push({name:"Triple Bladed Wraps",                       type:"Brawling",  role:"Tank",       dps:90.7,  drops:"Sentinel C-CU", style:"Wide Blade Katar", health:183, precision:8, might:27, dominance:11, defense:55, level:48});
+  weaponCollection.push({name:"Triple Bladed Wraps",                       type:"Brawling",  role:"Tank",       dps:90.7,  drops:"Sentinel C-CU in 4 Player alert Outer Caverns", style:"Wide Blade Katar", health:183, precision:8, might:27, dominance:11, defense:55, level:48});
   weaponCollection.push({name:"Universal Power Claws",                     type:"Brawling",  role:"Healer",     dps:68.3,  drops:"Gorilla Grodd", style:"Power Glaive", health:102, power:42, precision:6, might:12, restoration:33, level:34});
   weaponCollection.push({name:"Weighted Synthium Cestus",                  type:"Brawling",  role:"DPS",        dps:36.3,  drops:"Reward for Level 15 Unknown Evil mission", style:"Tech Cestus", health:36, power:26, precision:9, might:18, level:14});
   weaponCollection.push({name:"Will of Aton",                              type:"Brawling",  role:"Healer",     dps:68.3,  drops:"Qwardian Thunderer in Oan Sciencells alert", style:"Demon Head Cestus"});
@@ -17478,7 +17638,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Alchemist's Pistols",                       type:"Dual Pistol", role:"Healer",     dps:97.1,  drops:"Black Adam", style:"Steampunk Pistol", health:96, power:117, precision:8, might:17, restoration:38, level:52});
   weaponCollection.push({name:"Amaranthine-Plated Pistols",                type:"Dual Pistol", role:"DPS",        dps:39.5,  drops:"Reward for level 17 hero mission Greed", style:"Plasma Pistol", health:48, power:20, precision:10, might:20, level:16});
   weaponCollection.push({name:"Ancient Amarathine Pistols",                type:"Dual Pistol", role:"DPS",        dps:68.3,  drops:"Venus Flytrap",style:"Flintlock Pistol"});
-  weaponCollection.push({name:"Antique Muskets of Judgment",               type:"Dual Pistol", role:"DPS",        dps:103.5, drops:"The Lanterns - final room of Coast City 4 person alert", style:"Flintlock Pistol"});
+  weaponCollection.push({name:"Antique Muskets of Judgment",               type:"Dual Pistol", role:"DPS",        dps:103.5, drops:"The Lanterns - final room of Coast City 4 person alert", style:"Flintlock Pistol", health:134, power:18, precision:28, might:65, level:56});
 
   weaponCollection.push({name:"Bringers of Death",                         type:"Dual Pistol", role:"DPS",        dps:77.9,  drops:"Doomsday - Smallville"});
 
@@ -17505,10 +17665,6 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Large Capacity Bolt Pistols",               type:"Dual Pistol", role:"Tank",       dps:68.3,  drops:"Penguin"});
   weaponCollection.push({name:"LK-9600 Spec-Ops Pistols",                  type:"Dual Pistol", role:"Controller", dps:61.9,  drops:"OMAC Incinerator, Tiger Lord, Cheetah Claw, East End Challenge", style:"Combat Grip SMG", health:75, power:53, precision:5, might:11, vitalization:15, dominance:6, level:30});
   weaponCollection.push({name:"LX-49 Prototype Pistols",                   type:"Dual Pistol", role:"DPS",        dps:42.7,  drops:"Chang Tzu, Veteran in open world metropolis, Enraged Metal Man in Oolong Island easy alert", style:"Semi-Auto Pistol", health:130, power:8, precision:4, might:7, level:18});
-  weaponCollection.push({name:"Miltek Armored Pistols",                    type:"Dual Pistol", role:"Tank",       dps:103.5, drops:"Venom Supplier Diego", style:"Semi-Auto Pistol", health:187, precision:9, might:29, dominance:9, defense:130, level:56});
-  weaponCollection.push({name:"Miltek Assault Pistols",                    type:"Dual Pistol", role:"DPS",        dps:103.5, drops:"", style:"Semi-Auto Pistol"});
-  weaponCollection.push({name:"Miltek Medico Machine Pistols",             type:"Dual Pistol", role:"Healer",     dps:103.5, drops:"Hush in 2 Player Tier 3 Old Gotham Subway duo", style:"Semi-Auto Pistol"});
-  weaponCollection.push({name:"Miltek Restorative Pistols",                type:"Dual Pistol", role:"Controller", dps:103.5, drops:"Bane in 2 Player Tier 3 Cape Carmine Lighthouse duo", style:"Semi-Auto Pistol", health:123, power:18, precision:9, might:18, vitalization:40, dominance:22, level:56});
   weaponCollection.push({name:"MK II Synthium Pistols",                    type:"Dual Pistol", role:"DPS",        dps:68.3,  drops:"Bane in duo, Mr Freeze in Gotham Hospital duo", style:"Particle Beam SMG", health:88, power:54, precision:20, might:12, level:34});
   weaponCollection.push({name:"Paired Synth-Plated Pistols",               type:"Dual Pistol", role:"DPS",        dps:20.0,  drops:"Vendor in police station/nightclub", style:"Energy Blaster", level:1});
   weaponCollection.push({name:"Peerless Thanagarian Pistols",              type:"Dual Pistol", role:"DPS",        dps:57.1,  drops:"Bludhaven Avenger, Mutant Dog in Bludhaven alert", style:"Thanagarian Pistol", health:99, precision:23, might:10, level:27});
@@ -17538,22 +17694,6 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Silver-Plated Pistols",                     type:"Dual Pistol", role:"DPS",        dps:27.7,  drops:"", style:"Plasma Pistol"});
   weaponCollection.push({name:"Slim Spellshackled Pistols",                type:"Dual Pistol", role:"DPS",        dps:39.5,  drops:"", style:"STAR Pistol"});
   weaponCollection.push({name:"SPARC Proto-Power Pistols Mk II",           type:"Dual Pistol", role:"Controller", dps:113.1, drops:"Vendor in Central City"});
-  weaponCollection.push({name:"STAR Assault Pistols",                      type:"Dual Pistol", role:"DPS",        dps:90.7,  drops:"Vice"});
-  weaponCollection.push({name:"STAR Assault Pistols Mk II",                type:"Dual Pistol", role:"DPS",        dps:97.1,  drops:"Kyle Rayner - Coast City"});
-
-  weaponCollection.push({name:"STAR Pistols",                              type:"Dual Pistol", role:"DPS",        dps:90.7,  drops:"Hal Jordan in STAR Labs alert"});
-  weaponCollection.push({name:"STAR Proto-Power Pistols",                  type:"Dual Pistol", role:"Controller", dps:90.7,  drops:"Crazed Amon Sur - Coast City"});
-
-  weaponCollection.push({name:"STAR Proto-Power Pistols Mk II",            type:"Dual Pistol", role:"Controller", dps:97.1,  drops:"Parallax - STAR Labs Research Facility"});
-
-  weaponCollection.push({name:"STAR Recovery Pistols",                     type:"Dual Pistol", role:"Healer",     dps:90.7,  drops:"Scion of Will - STAR Labs Alert"});
-
-  weaponCollection.push({name:"STAR Recovery Pistols Mk II",               type:"Dual Pistol", role:"Healer",     dps:97.1,  drops:"Vice - Oan Sciencells alert"});
-
-  weaponCollection.push({name:"STAR Shielding Pistols",                    type:"Dual Pistol", role:"Tank",       dps:90.7,  drops:"Lyssa Drak - Oan Sciencells alert, Parallax in STAR Labs alert", style:"Bolt Pistol", health:185, precision:8, might:26, dominance:11, defense:55, level:48});
-
-  weaponCollection.push({name:"STAR Shielding Pistols Mk II",              type:"Dual Pistol", role:"Tank",       dps:97.1,  drops:"The Lanterns - Coast City"});
-
   weaponCollection.push({name:"Steamworks Pistols",                        type:"Dual Pistol", role:"DPS",        dps:25.5,  drops:"",style:"Tech Revolver"});
   weaponCollection.push({name:"Submachine Pistols of the Protector",       type:"Dual Pistol", role:"Tank",       dps:103.5, drops:"Crazed Amon Sur in 4 Player Coast City Alert", style:"Heavy Barrel SMG", health:211, precision:9, might:29, dominance:9, defense:95, level:56});
   weaponCollection.push({name:"Tactical Assault Pistols",                  type:"Dual Pistol", role:"DPS",        dps:61.9,  drops:"Warder in Sentinels of Magic T3 Challenge, Magistrate in Lair of the Spectre T1 Challenge", style:"Plasma Pistol", health:80, power:37, precision:21, might:11, level:30});
@@ -17582,6 +17722,8 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Blades of Hades",type:"Dual Wield",role:"DPS",dps:47.5,drops:"Chemoid in Bludhaven",style:"Demonic Sword"});
   weaponCollection.push({name:"Blades of Invention",type:"Dual Wield",role:"DPS",dps:50.7,drops:"Metal man A7 in Oolong easy alert", style:"Dao Tech Sword", health:76, precision:5, might:57, level:23});
   weaponCollection.push({name:"Blades of the Endless Sands",type:"Dual Wield",role:"DPS",dps:77.9,drops:"Treasure Chest - Batcave: Outer Caverns"});
+
+  weaponCollection.push({name:"Blades of the Fighter",                     type:"Dual Wield",  role:"Tank",       dps:87.5,  drops:"Zetta-Drone in 8 Player Novice raid Inner Sanctum", style:"Spider Blade", health:159, precision:8, might:36, dominance:11, defense:54, level:46});
 
   weaponCollection.push({name:"Butcher's Bloodletters",type:"Dual Wield",role:"Controller",dps:97.1,drops:"Riot Control Prototype"});
   weaponCollection.push({name:"Charged Batons",type:"Dual Wield",role:"Healer",dps:103.5,drops:"Vice", style:"Baton", health:126, precision:9, might:18, restoration:99, level:56});
@@ -17620,9 +17762,6 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Martensite Batons",                         type:"Dual Wield", role:"DPS",        dps:68.3,  drops:"Atrocitus, Oan alert, Vice in Ferris duo",            style:"Baton",         health:88,  power:12, precision:22, might:34, level:34});
   weaponCollection.push({name:"Mastermind's Neomagnetic Machetes",         type:"Dual Wield", role:"Controller", dps:45.9,  drops:"Slasher in Temple of Crime instance",                 style:"Machete",       health:46,  power:49, precision:4,  might:8,  vitalization:11, dominance:5,  restoration:0,  level:20});
   weaponCollection.push({name:"Mechanized Elementium Hammers",             type:"Dual Wield", role:"DPS",        dps:90.7,  drops:"Guard Captain Bombus in T2 HIVE Moon Base alert",     style:"Wrench Hammer", health:117, power:16, precision:29, might:46, vitalization:0,  dominance:0,  restoration:0,  level:48});
-  weaponCollection.push({name:"Miltek Assault Batons",                     type:"Dual Wield", role:"DPS",        dps:103.5, drops:"Killer Croc in T3 Cape Carmine Lighthouse duo",       style:"Baton",         health:134, power:18, precision:28, might:65, vitalization:0,  dominance:0,  restoration:0,  level:56});
-  weaponCollection.push({name:"Miltek Medico Batons",                      type:"Dual Wield", role:"Healer",     dps:103.5, drops:"Clayface in Gotham Old Subway (Duo)",                 style:"Baton",         health:145, power:53, precision:9,  might:18, vitalization:0,  dominance:0,  restoration:61, level:56});
-  weaponCollection.push({name:"Miltek Restorative Batons",                 type:"Dual Wield", role:"Controller", dps:103.5, drops:"Bane in 2 Player Tier 3 Cape Carmine Lighthouse duo", style:"Baton",         health:123, power:18, precision:9,  might:18, vitalization:40, dominance:22, restoration:0,  level:56});
   weaponCollection.push({name:"Miniaturized Synthium Pulse Hammers",       type:"Dual Wield", role:"DPS",        dps:24.4,  drops:"Razor in Bane Lighthouse instance",                   style:"Pulse Hammer"});
   weaponCollection.push({name:"Mystic Hammers of Wisdom",                  type:"Dual Wield", role:"Healer",     dps:97.1,  drops:"The Gatekeeper - Kahndaq"});
 
@@ -17643,17 +17782,6 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Scythian Daggers",                          type:"Dual Wield",  role:"DPS",        dps:87.5,  drops:"Black Adam in Kahndaq novice raid", health:113, power:32, precision:24, might:44, level:46});
   weaponCollection.push({name:"Serious Business",type:"Dual Wield",role:"Controller",dps:47.5,drops:"Chemoid in Bludhaven",style:"Lead Pipe"});
   weaponCollection.push({name:"Smash Batons",                              type:"Dual Wield",  role:"Tank",       dps:68.3,  drops:"Queen Bee in HIVE duo", style:"Baton", health:138, precision:6, might:12, dominance:8, defense:65, level:34});
-
-  weaponCollection.push({name:"STAR Assault Knives",type:"Dual Wield",role:"DPS",dps:90.7,drops:"Crazed Amon Sur - Coast City"});
-
-  weaponCollection.push({name:"STAR Assault Knives Mk II",type:"Dual Wield",role:"DPS",dps:97.1,drops:"Parallax - STAR Labs Research Facility"});
-
-  weaponCollection.push({name:"STAR Proto-Power Knives",type:"Dual Wield",role:"Controller",dps:90.7,drops:"Lyssa Drak - Oan Sciencells"});
-
-  weaponCollection.push({name:"STAR Proto-Power Knives Mk II",type:"Dual Wield",role:"Controller",dps:97.1,drops:"Atrocitus"});
-  weaponCollection.push({name:"STAR Recovery Knives",                      type:"Dual Wield", role:"Healer",     dps:90.7,  drops:"Scion of Fear - STAR Labs Research Facility alert"});
-
-  weaponCollection.push({name:"STAR Shielding Knives",                     type:"Dual Wield", role:"Tank",       dps:90.7,  drops:"The Lanterns - Coast City"});
 
   weaponCollection.push({name:"Sturdy Axes",                               type:"Dual Wield", role:"DPS",        dps:20.0,  drops:"Vendor in safehouse", style:"Metropolis Firefighter's Axe", level:3});
   weaponCollection.push({name:"Synth-Plated Skartaris Swords",             type:"Dual Wield", role:"DPS",        dps:52.3,  drops:"", style:"Barbarian Tech Sword"});
@@ -17694,17 +17822,13 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Manipulator's Blasters",                    type:"Hand Blaster",  role:"Controller", dps:87.5,  drops:"OMAC Batman in Brainac Subconstruct novice raid", style:"Firespray Gauntlets",  health:124, power:15, precision:8,  might:15, vitalization:34, dominance:15, defense:0,  level:46});
   weaponCollection.push({name:"Manipulator's Embattled Fanged Blasters",   type:"Hand Blaster",  role:"Controller", dps:125.9, drops:"Monthly reward box for Gates or Prime raid",      style:"Spirit Wolf",          health:150, power:22, precision:11, might:22, vitalizaton:49,  dominance:27, defense:0,  level:70});
   weaponCollection.push({name:"Memento Mori",                              type:"Hand Blaster",  role:"Healer",     dps:77.9,  drops:"Clownsanity in 4 Player alert Ace Chemicals",     style:"Skull Head",           health:77,  power:15, precision:7,  might:13, vitalizaton:0,   dominance:0,  restoration:75, level:40});
-  weaponCollection.push({name:"Miltek Armored Blasters",                   type:"Hand Blaster",  role:"Tank",       dps:103.5, drops:"Hush in 2 Player Tier 3 Old Gotham Subway duo",   style:"Exhaust Blasters",     health:187, power:0,  precision:9,  might:29, vitalizaton:0,   dominance:9,  defense:130, level:56});
-  weaponCollection.push({name:"Miltek Assault Blasters",                   type:"Hand Blaster",  role:"DPS",        dps:103.5, drops:"Nightwing in T3 Duo Lighthouse", style:"Exhaust Blasters", health:134, power:18, precision:28, might:65, level:56});
-  weaponCollection.push({name:"Miltek Medico Blasters",                    type:"Hand Blaster",  role:"Healer",     dps:103.5, drops:"Bane Cape Carmine Lighthouse duo", style:""});
-  weaponCollection.push({name:"Miltek Restorative Blasters",               type:"Hand Blaster",  role:"Controller", dps:103.5, drops:"Venom Supplier Diego", style:"Exhaust Blasters", health:123, power:18, precision:9, might:18, vitalization:40, dominance:22, level:56});
   weaponCollection.push({name:"Mineblaster's Gloves",                      type:"Hand Blaster",  role:"DPS",        dps:52.3,  drops:"Reward for Level 25 Soul Siphoners mission", style:"Tempest Gauntlets"});
   weaponCollection.push({name:"Nanite-Enhanced Blaster Gloves",            type:"Hand Blaster",  role:"DPS",        dps:57.1,  drops:"", style:"Plasma Gauntlets"});
   weaponCollection.push({name:"Nanobladed Blaster Gloves",                 type:"Hand Blaster",  role:"DPS",        dps:65.1,  drops:"Harley Quinn", style:"Plasma Gauntlets", health:113, precision:26, might:11, level:32});
   weaponCollection.push({name:"Nanochined Blaster Gloves",                 type:"Hand Blaster",  role:"DPS",        dps:39.5,  drops:"Altered Android"});
   weaponCollection.push({name:"Nanolinked Blaster Gloves",                 type:"Hand Blaster",  role:"Healer",     dps:61.9,  drops:"Wisecracker in T1 Challenge The Joker's Funhouse", style:"Blaster Gauntlets", health:75, precision:5, might:11, restoration:60, level:30});
   weaponCollection.push({name:"Nautilus Handblasters",                     type:"Hand Blaster",  role:"Tank",       dps:68.3,  drops:"Atrocitus", style:"Exhaust Blasters", health:187, power:0, precision:9, might:29, dominance:18, defense:63, level:56});
-  weaponCollection.push({name:"OmniScry Paramount-Line Hand Cannons",      type:"Hand Blaster",  role:"DPS",        dps:0,     drops:"T1 Duos"});
+  weaponCollection.push({name:"OmniScry Paramount-Line Hand Cannons",      type:"Hand Blaster",  role:"DPS",        dps:61.9,  drops:"Muscle in 2 Player duo Cape Carmine Lighthouse", style:"Plasma Gauntlets", health:94, power:11, precision:16, might:31, level:30});
   weaponCollection.push({name:"Otherworldly Relic Blasters",               type:"Hand Blaster",  role:"Controller", dps:103.5, drops:"Scarecrow in Arkham Asylum alert", style:"Skull Head", health:123, power:36, precision:9, might:18, vitalization:41, dominance:17, level:56});
   weaponCollection.push({name:"Power Gloves of Reprisal",                  type:"Hand Blaster",  role:"DPS",        dps:68.3,  drops:"Elite Royal Guardsmanin HIVE hard alert", style:"Magical Blast Foci"});
   weaponCollection.push({name:"Priest's Runic Blasters",                   type:"Hand Blaster",  role:"Healer",     dps:0,     drops:"", style:"Runic Blaster Gloves"});
@@ -17728,17 +17852,8 @@ function isAccessory(lineString)
 
   weaponCollection.push({name:"Spirit Guide Blaster Gloves",type:"Hand Blaster",role:"DPS",dps:58.7,drops:"Vengeful Spirit"});
   weaponCollection.push({name:"Stagg Industries Proto-Line Blaster Gloves",type:"Hand Blaster",role:"DPS",dps:23.3,drops:"Gorilla Technician"});
-  weaponCollection.push({name:"STAR Assault Gloves",type:"Hand Blaster",role:"DPS",dps:90.7,drops:"Krona in Oan Sciencells Alert", style:"Exhaust Blasters", level:48});
-  weaponCollection.push({name:"STAR Assault Gloves Mk II",type:"Hand Blaster",role:"DPS",dps:97.1,drops:"Crazed Amon Sur - Coast City alert, Evil Star in Oan alert", style:"Exhaust Blasters", health:154, power:17, precision:28, might:40, level:52});
   weaponCollection.push({name:"Star Conqueror's Blasters",                 type:"Hand Blaster", role:"Healer", dps:97.1, drops:"OMAC Batman - Batcave: Brainiac Sub-Construct", style:"Tentacle Glove", health:146, power:42, precision:12, might:17, restoration:47, level:52});
 
-  weaponCollection.push({name:"STAR Proto-Power Gloves Mk II",type:"Hand Blaster",role:"Controller",dps:97.1,drops:"Vice in Oan Sciencells Alert"});
-  weaponCollection.push({name:"STAR Proto-Power Pulse Gloves",type:"Hand Blaster",role:"Controller",dps:90.7,drops:"Scion of Fear - Star Labs Alert, 4 Player Tier 2 alert Oan Sciencells", style:"Exhaust Blasters", level:48});
-  weaponCollection.push({name:"STAR Recovery Pulse Gloves",type:"Hand Blaster",role:"Healer",dps:90.7,drops:"Atrocitus"});
-  weaponCollection.push({name:"STAR Recovery Pulse Gloves Mk II",type:"Hand Blaster",role:"Healer",dps:97.1,drops:"Scion of Fear - Star Labs Alert"});
-  weaponCollection.push({name:"STAR Shielding Gloves",type:"Hand Blaster",role:"Tank",dps:90.7,drops:"Parallax - STAR Labs Research Facility"});
-
-  weaponCollection.push({name:"STAR Shielding Gloves Mk II",type:"Hand Blaster",role:"Tank",dps:97.1,drops:"Evil Star in Oan Sciencells Alert"});
   weaponCollection.push({name:"Star-Born Power Gloves",type:"Hand Blaster",role:"Controller",dps:61.9,drops:"Perimeter Guard, Soul Striker in 8th Precinct T1 Challenge", style:"Tempest Gauntlets", health:74, power:53, precision:5, might:11, vitalization:15, dominance:6, level:30});
   weaponCollection.push({name:"Street Blasters",type:"Hand Blaster",role:"DPS",dps:23.3,style:"Hand Cannons",drops:""});
   weaponCollection.push({name:"Synthium Blaster Gloves",type:"Hand Blaster",role:"Controller",dps:33.1,drops:"UGA Elite Guard - Gorilla Island"});
@@ -17761,7 +17876,6 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Capoeira Claws",type:"Martial Arts",role:"DPS",dps:20.0,drops:"", style:"Ninja Claw", level:1});
   weaponCollection.push({name:"Ceremonial Blades of Skyra",type:"Martial Arts",role:"DPS",dps:55.5,drops:"Soul Eater"});
   weaponCollection.push({name:"Claws of the Desert Winds",        type:"Martial Arts",role:"DPS",dps:52.3,  drops:"Reward for villain level 25 mission Soul Siphoners", style:"Hand Blades"});
-  weaponCollection.push({name:"Claws of the Enraged Oni",         type:"Martial Arts",role:"DPS",dps:103.5, drops:"Venom Supplier Diego", style:""});
   weaponCollection.push({name:"Claws of Shadow",type:"Martial Arts",role:"Tank",dps:97.1,drops:"Pharaoh Vezina in Kahndaq raid"});
   weaponCollection.push({name:"Cleric's Hoop Katar", type:"Martial Arts", role:"Healer", dps:61.9, drops:"T1 Duos and alerts, Treasure chest in T3 Challenges", style:"Hoop Katar", health:93, power:27, precision:5, might:11, restoration:37, level:30});
   weaponCollection.push({name:"Dark Mirrored Blades",                      type:"Martial Arts", role:"DPS",        dps:61.9,  drops:"Treasure Chest - Hive Base (Duo)"});
@@ -17802,7 +17916,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Ninja's Claws",                             type:"Martial Arts", role:"DPS",        dps:36.3,  drops:"Minion of Wrath, Initiate near Metropolis Hospital", style:"Ninja Claw",      level:14});
   weaponCollection.push({name:"Officer's Claws",type:"Martial Arts",role:"DPS",dps:42.7,style:"Energy Blade Katar", drops:""});
   weaponCollection.push({name:"Officer's Sharpened Claws",type:"Martial Arts",role:"Controller",dps:97.1,drops:"Black Adam"});
-  weaponCollection.push({name:"OmniScry Fighter's Claws",type:"Martial Arts",role:"DPS",dps:77.9,drops:"Shield Armor -Batcave: Inner Sanctum, Batcave: Outer Caverns, Treasure Chest - Batcave: Outer Caverns, Kahndaq"});
+  weaponCollection.push({name:"OmniScry Fighter's Claws",                  type:"Martial Arts", role:"DPS",        dps:77.9,  drops:"Shield Armor -Batcave: Inner Sanctum, Batcave: Outer Caverns, Treasure Chest - Batcave: Outer Caverns, Kahndaq, Treasure Chest in STAR Labs alert", style:"Spiked Katar", health:77, power:15, precision:39, might:13, level:40});
 
   weaponCollection.push({name:"Ornate Claws of the Guardian",type:"Martial Arts",role:"Tank",dps:103.5,drops:"Atrocitus", style:"Twinscythe Katar", health:211, precision:9, might:29, dominance:9, defense:95, level:56});
 
@@ -17815,18 +17929,6 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Spacefarer's Katar",type:"Martial Arts",role:"DPS",dps:68.3,drops:"Adherent in watchtower alert", style:"Traditional Katar", health:102, power:13, precision:27, might:12, level:34});
 
   weaponCollection.push({name:"Specialized Nanochined Claws",              type:"Martial Arts", role:"DPS",        dps:39.5,  drops:"Treasure Chest in villain JSA instance", style:"Hand Blades", health:68, precision:15, might:7, level:16});
-  weaponCollection.push({name:"STAR Assault Claws",type:"Martial Arts",role:"DPS",dps:90.7,drops:"Scion of Will - STAR Labs Alert"});
-
-  weaponCollection.push({name:"STAR Assault Claws Mk II",type:"Martial Arts",role:"DPS",dps:97.1,drops:"Evil Star - Oan Sciencells"});
-
-  weaponCollection.push({name:"STAR Proto-Power Claws",type:"Martial Arts",role:"Controller",dps:90.7,drops:"Atrocitus"});
-  weaponCollection.push({name:"STAR Proto-Power Claws Mk II",type:"Martial Arts",role:"Controller",dps:97.1,drops:"Scion of Will - STAR Labs Alert"});
-
-  weaponCollection.push({name:"STAR Recovery Claws",                       type:"Martial Arts", role:"Healer",     dps:90.7,  drops:"Vice in 4 Player Oan Sciencells alert",         style:"Tech claw",           health:136, power:39, precision:8,  might:16, restoration:54, vitalization:0,  dominance:0,  defense:0,  level:48});
-  weaponCollection.push({name:"STAR Shielding Claws",                      type:"Martial Arts", role:"Tank",       dps:90.7,  drops:"Evil Star - Oan Sciencells"});
-
-  weaponCollection.push({name:"STAR Shielding Claws Mk II",                type:"Martial Arts", role:"Tank",       dps:97.1,  drops:"Crazed Amon Sur - Coast City"});
-
   weaponCollection.push({name:"Synthium Katar",                            type:"Martial Arts", role:"DPS",        dps:18.9,  drops:"",style:"Simple Katar"});
   weaponCollection.push({name:"Talons of Mercy",                           type:"Martial Arts", role:"Healer",     dps:87.5,  drops:"Zetta-Drone in Inner Sanctum novice raid",      style:"Hand Spikes",         health:104, power:61, precision:8,  might:15, restoration:51, vitalization:0,  dominance:0,  defense:0,  level:46});
   weaponCollection.push({name:"Titanium-Infused Katars",                   type:"Martial Arts", role:"Controller", dps:90.7,  drops:"Queen Bee in HIVE Hard alert",                  style:"Twinscythe Katar",    health:136, power:0,  precision:8,  might:27, restoration:0,  vitalization:35, dominance:13, defense:0,  level:48});
@@ -17918,18 +18020,6 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Skartaris Tech Sword",type:"One-Handed",role:"DPS",dps:77.9,drops:"Treasure Chest - Kahndaq, Outer raid, Treasure chest in League of Assassins alert", health:77, precision:39, might:22, level:40});
 
   weaponCollection.push({name:"Stalwart Flowsteel Sabre",                     type:"One-Handed", role:"Tank",       dps:87.5,  drops:"OMAC Batman in Subconstruct novice raid",                          style:"Spiked Sabre"});
-  weaponCollection.push({name:"STAR Assault Hammer",type:"One-Handed",role:"DPS",dps:90.7,drops:"Kyle Rayner - Coast City"});
-
-  weaponCollection.push({name:"STAR Assault Hammer Mk II",type:"One-Handed",role:"DPS",dps:97.1,drops:"Scion of Fear - STAR Labs Alert"});
-
-  weaponCollection.push({name:"STAR Recovery Hammer",type:"One-Handed",role:"Healer",dps:90.7,drops:"The Lanterns - Coast City"});
-
-  weaponCollection.push({name:"STAR Recovery Hammer Mk II",type:"One-Handed",role:"Healer",dps:97.1,drops:"Parallax - STAR Labs Research Facility"});
-
-  weaponCollection.push({name:"STAR Proto-Power Hammer",type:"One-Handed",role:"Controller",dps:90.7,drops:"Krona in Oan Sciencells Alert"});
-  weaponCollection.push({name:"STAR Proto-Power Hammer Mk II",type:"One-Handed",role:"Controller",dps:97.1,drops:"Kyle Rayner - Coast City"});
-
-  weaponCollection.push({name:"STAR Shielding Hammer",type:"One-Handed",role:"Tank",dps:90.7,drops:"Scion of Fear - STAR Labs Alert"});
   weaponCollection.push({name:"Sword of Legend",                              type:"One-Handed", role:"Healer",     dps:77.9,  drops:"Prime Servitor in Area 51 hard mode alert",  style:"Roman Stinger",    health:95,  power:94,  precision:7, might:13, restoration:23, vitalization:0,  dominance:0,  defense:0,  level:40});
   weaponCollection.push({name:"Synthium Millennia Hammer",                    type:"One-Handed", role:"DPS",        dps:29.9,  drops:"UGA Soldier",                                style:"Millennia Hammer", health:36,  power:18,  precision:5, might:22, restoration:0,  vitalization:0,  dominance:0,  defense:0,  level:10});
   weaponCollection.push({name:"Tachi of the Cunning Oni",                     type:"One-Handed", role:"Controller", dps:103.5, drops:"Tier 3 duo",                                 style:"Bone Hilt Katana", health:123, power:18,  precision:9, might:18, restoration:0,  vitalization:40, dominance:22, defense:0,  level:56});
@@ -17948,10 +18038,10 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Bonespur Rifle",                      type:"Rifle", role:"DPS",        dps:61.9,  drops:"Drop - Kahndaq, Treasure chest in Zatanna challenge, Wisecracker in T1 Challenge The Joker's Funhouse", style:"Biomech", health:107, precision:24, might:11, level:30});
   weaponCollection.push({name:"Coluan Battle Rifle",                 type:"Rifle", role:"Tank",       dps:97.1,  drops:"OMAC Batman - Batcave: Brainiac Sub-Construct"});
 
-  weaponCollection.push({name:"Composite Pulse Rifle",               type:"Rifle", role:"DPS",        dps:68.3,  drops:"Vice", style:"Tech Pulse Rifle", health:104, power:12, precision:19, might:34, level:34});
+  weaponCollection.push({name:"Composite Pulse Rifle",               type:"Rifle", role:"DPS",        dps:68.3,  drops:"Vice in 2 Player duo Ferris Aircraft", style:"Tech Pulse Rifle", health:104, power:12, precision:19, might:34, level:34});
   weaponCollection.push({name:"Dark Lord's Rifle",                   type:"Rifle", role:"Tank",       dps:97.1,  drops:"General Adnan - Kahndaq"});
 
-  weaponCollection.push({name:"Death Dealer's Rifle",                type:"Rifle", role:"DPS",        dps:103.5, drops:"Ripsaw in Stryker's Alert", style:"Ultra-Modern Minigun"});
+  weaponCollection.push({name:"Death Dealer's Rifle",                type:"Rifle", role:"DPS",        dps:103.5, drops:"Ripsaw in Stryker's Alert", style:"Ultra-Modern Minigun", health:134, power:18, precision:28, might:65, level:56});
   weaponCollection.push({name:"Death Stalker's Shotgun",             type:"Rifle", role:"Controller", dps:90.7,  drops:"Doctor Pyrate", style:"Arcane Shotgun", health:89, power:78, precision:8, might:27, vitalization:22, dominance:9, level:48});
   weaponCollection.push({name:"Defender's Embattled Scattergun",     type:"Rifle", role:"Tank",       dps:125.9, drops:"Monthly Raid Award IV, 4 Player Tier 4 alert Inner Sanctum",                   style:"Tech Minigun",         health:228, power:0, precision:11, might:36, dominance:10, defense:159, level:70});
   weaponCollection.push({name:"Demonhunter's Shotgun",               type:"Rifle", role:"DPS",        dps:27.7,  drops:"", style:"Heavy-Barreled Sniper Rifle"});
@@ -17985,9 +18075,6 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Massive Apokoliptian Rifle",                type:"Rifle", role:"Tank",       dps:61.9,  drops:"NPC in Ace Chemicals 4 person alert", style:"Futuristic Minigun", health:126, precision:5, might:18, dominance:8, defense:38, level:30});
   weaponCollection.push({name:"Massive Gorillatech Rifle",                 type:"Rifle", role:"DPS",        dps:41.1,  drops:"Tiny, Furious George in 4 Player alert Gorilla Island", style:"Pulse Rifle", health:61, power:8, precision:17, might:7, level:17});
   weaponCollection.push({name:"Metropolis Special",                        type:"Rifle", role:"Healer",     dps:44.3,  drops:"J1N1 in Gotham Open world", style:"Pistol-Grip Shotgun", health:54, power:53, precision:4, might:8, restoration:13, level:19});
-  weaponCollection.push({name:"Miltek Armored Plasma Rifle",               type:"Rifle", role:"Tank",       dps:103.5, drops:"Penguin in duo", style:"Tech Pulse Rifle"});
-  weaponCollection.push({name:"Miltek Assault Plasma Rifle",               type:"Rifle", role:"DPS",        dps:103.5, drops:"Venom Supplier Diego in Bane Lighthouse duo", style:"Tech Pulse Rifle", health:134, power:18, precision:28, might:65, level:56});
-  weaponCollection.push({name:"Miltek Medico Plasma Rifle",                type:"Rifle", role:"Healer",     dps:103.5, drops:"Clayface in Old Gotham Subway duo", style:"Tech Pulse Rifle"});
   weaponCollection.push({name:"Miniaturized Railgun",                      type:"Rifle", role:"DPS",        dps:0,     drops:"", style:""});
   weaponCollection.push({name:"MPD Special",                               type:"Rifle", role:"DPS",        dps:77.9,  drops:"Treasure chest in Outer Caverns raid",style:"Pistol-Grip Shotgun", health:256, precision:7, might:13, level:40});
   weaponCollection.push({name:"MPU-47 Tactical",                           type:"Rifle", role:"Tank",       dps:68.3,  drops:"Penguin"});
@@ -18012,19 +18099,6 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Stagg Industries Proto-Line Shotgun",type:"Rifle",role:"DPS",dps:24.4,drops:"Muscle, Razor, Hopper near Bane Lighthouse",style:"Military Shotgun"});
   weaponCollection.push({name:"Stalker's Consecrated Rifle",type:"Rifle",role:"DPS",dps:26.6,drops:"",style:"Piston Rifle"});
   weaponCollection.push({name:"Starflung Explorer's Rifle",        type:"Rifle", role:"Controller", dps:77.9,  drops:"Dr. Richards in 4 Player alert Smallville"});
-  weaponCollection.push({name:"STAR Assault Rifle",                type:"Rifle", role:"DPS",        dps:90.7,  drops:"Evil Star - Oan Sciencells"});
-
-  weaponCollection.push({name:"STAR Assault Rifle Mk II",          type:"Rifle", role:"DPS",        dps:97.1,  drops:"Kyle Rayner"});
-
-  weaponCollection.push({name:"STAR Proto-Power Bolt Rifle",       type:"Rifle", role:"Controller", dps:90.7,  drops:"The Lanterns - Coast City", style:"Bolt Rifle"});
-
-  weaponCollection.push({name:"STAR Proto-Power Bolt Rifle Mk II", type:"Rifle", role:"Controller", dps:97.1,  drops:"The Lanterns - Coast City", style:"Bolt Rifle", health:116, power:17, precision:8, might:17, vitalization:48, dominance:16, level:52});
-
-  weaponCollection.push({name:"STAR Recovery Bolt Rifle",          type:"Rifle", role:"Healer",     dps:90.7,  drops:"Parallax in 4 Player Tier 2 alert STAR Labs Research Facility", style:"Bolt Rifle", health:108, power:62, precision:8, might:16, restoration:54, level:48});
-
-  weaponCollection.push({name:"STAR Recovery Bolt Rifle Mk II",    type:"Rifle", role:"Healer",     dps:97.1,  drops:"Krona"});
-  weaponCollection.push({name:"STAR Shielding Bolt Rifle",         type:"Rifle", role:"Tank",       dps:90.7,  drops:"Krona"});
-  weaponCollection.push({name:"STAR Shielding Bolt Rifle Mk II",   type:"Rifle", role:"Tank",       dps:97.1,  drops:"Kyle Rayner in Coast City Alert"});
   weaponCollection.push({name:"Steamworks Rifle",                  type:"Rifle", role:"DPS",        dps:27.7,  drops:"Bestiamorph Berserker from Giganta Metro Station Building instance", style:"Pump-Action Shotgun"});
   weaponCollection.push({name:"Steamheart Shotgun",                type:"Rifle", role:"DPS",        dps:65.1,  drops:"Doctor Fate, Eclipso in 1 Player Tier 1 Challenge Lair of the Spectre", style:"Heavy-Barreled Sniper Rifle", health:99, power:39, precision:19, might:11, level:32});
   weaponCollection.push({name:"Synthium Sniper Rifle",             type:"Rifle", role:"DPS",        dps:36.3,  drops:"reward for Superman mission", style:"Heavy Stock Sniper Rifle"});
@@ -18119,16 +18193,10 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Staff of the High Towers",         type:"Staff",role:"DPS",dps:68.3,drops:"",style:"Twin Dragon Staff", health:330, power:12, precision:12, might:27, toughness:34, level:30});
   weaponCollection.push({name:"Staff of the Ice King",            type:"Staff",role:"DPS",dps:33.1,drops:"Bestiamorph Marauder in Circe's Stronghold instance",style:"Glacier Staff", health:43, power:26, precision:10, might:6, level:12});
   weaponCollection.push({name:"Staff of the Lightning Prince",    type:"Staff",role:"Tank",dps:87.5,  drops:"Inner Sanctum Novice raid", style:"Steampunk Staff", health:159, precision:8, might:36, dominance:11, defense:54, level:46});
+  weaponCollection.push({name:"Staff of the Long Moon",           type:"Staff",role:"Tank",dps:87.5,  drops:"Black Adam in 8 Player novice raid Kahndaq", style:"Double Axe Staff", health:159, precision:8, might:36, dominance:11, defense:54, level:46});
   weaponCollection.push({name:"Staff of the Shielded Oni",        type:"Staff",role:"Tank",dps:103.5, drops:"Killer Croc in duo", style:"Skull Staff", health:187, precision:9, might:29, dominance:9, defense:130, level:56});
   weaponCollection.push({name:"Staff of the Temple Guard",        type:"Staff",role:"Tank",dps:103.5, drops:"Vice in Ferris duo", style:"Skull Staff", health:209, precision:14, might:18, dominance:13, defense:63, level:56});
   weaponCollection.push({name:"Stagg Industries Proto-Line Staff",type:"Staff",role:"DPS",dps:25.5,drops:"Stinger"});
-  weaponCollection.push({name:"STAR Assault Staff",               type:"Staff",role:"DPS",dps:90.7,drops:"Scion of Fear - STAR Labs Alert"});
-  weaponCollection.push({name:"STAR Assault Staff Mk II",         type:"Staff",role:"DPS",dps:97.1,drops:"Vice, Krona in Oan Sciencells alert", style:"Lightning Rod", health:148, power:17, precision:26, might:49, level:52});
-  weaponCollection.push({name:"STAR Proto-Power Staff",           type:"Staff",role:"Controller",dps:90.7,drops:"The Lanterns - Coast City"});
-
-  weaponCollection.push({name:"STAR Recovery Staff",              type:"Staff",role:"Healer",dps:90.7,drops:"Lyssa Drak in Oan Sciencells Alert"});
-  weaponCollection.push({name:"STAR Recovery Staff Mk II",        type:"Staff",role:"Healer",dps:97.1,drops:"Atrocitus"});
-  weaponCollection.push({name:"STAR Shielding Staff Mk II",       type:"Staff",role:"Tank",dps:97.1,drops:"Scion of Fear - STAR Labs Alert"});
   weaponCollection.push({name:"Stength of The Demon",             type:"Staff",role:"DPS",dps:103.5,drops:"Arkham Asylum alert", style:"League of Assassins", health:134, power:18, precision:28, might:65, level:56});
   weaponCollection.push({name:"Stormlord's Staff",                type:"Staff",role:"Tank",dps:97.1,drops:"Brother Eye in 8 Player raid Inner Sanctum", style:"Steampunk Staff", level:52});
   weaponCollection.push({name:"Synthium Battlestaff",             type:"Staff",role:"DPS",dps:36.3,drops:"Reward for level 15 mission Exobyte Eclipse", style:"Orbed Staff", health:43, power:29, precision:5, might:22, level:14});
@@ -18146,9 +18214,9 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Ancient Kryptonian Warhammer",          type:"Two-Handed", role:"DPS",        dps:65.1,  drops:"Supergirl, Doctor Psycho in Meta Research Wing T1 Challenge", style:"Heavy War Hammer", health:92, power:39, precision:10, might:39, level:32});
 
   weaponCollection.push({name:"Atom Smasher",                          type:"Two-Handed", role:"DPS",        dps:97.1,  drops:"Pharaoh Vezina in 8 Player Kahndaq raid", style:"Atom Smasher", level:52});
-  weaponCollection.push({name:"Atom Splitter",                         type:"Two-Handed", role:"DPS",        dps:87.5,  drops:"Pharaoh Vezina in 8 Player Kahndaq raid", style:"Atom Smasher", level:46});
+  weaponCollection.push({name:"Atom Splitter",                         type:"Two-Handed", role:"DPS",        dps:87.5,  drops:"Pharaoh Vezina in 8 Player Kahndaq raid", style:"Atom Smasher", health:113, power:32, precision:24, might:44, level:46});
   weaponCollection.push({name:"Beatific Millennia Hammer",             type:"Two-Handed", role:"Healer",     dps:61.9,  drops:"Bane - Gotham Old Subway duo, Brainiac Spark - Area 51 Alert, Elite Subjugator - Batcave: Inner Sanctum, Gorilla Grodds Lab DUO, Gorilla Technician - Gorilla Grodds Lab DUO, Grodd's Pounders - Gorilla Grodd's Lab DUO, Soul Striker - Science Police HQ (Challenge), Staff Master - League of Assassins Stronghold, Venom Supplier Diego - Cape Carmine Lighthouse DUO"});
-  weaponCollection.push({name:"Blade of the Cunning Oni",              type:"Two-Handed", role:"Controller", dps:103.5, drops:"", style:"Sawblade", health:123, power:18, precision:9, might:18, vitalization:40, dominance:22, level:56});
+  weaponCollection.push({name:"Blade of the Cunning Oni",              type:"Two-Handed", role:"Controller", dps:103.5, drops:"Bane in 2 Player duo Cape Carmine Lighthouse", style:"Sawblade", health:123, power:18, precision:9, might:18, vitalization:40, dominance:22, level:56});
   weaponCollection.push({name:"Blade of the Enraged Oni",              type:"Two-Handed", role:"DPS",        dps:103.5, drops:"Bane in 2 Player Tier 3 Cape Carmine Lighthouse duo", style:"Sawblade", health:134, power:18, precision:28, might:65, level:56});
   weaponCollection.push({name:"Blade of the Healing Oni",              type:"Two-Handed", role:"Healer",     dps:103.5, drops:"Venom Supplier Diego, Bane in Cape Carmine Lighthouse duo", style:"Sawblade", health:145, power:53, precision:9, might:18, restoration:61, level:56});
   weaponCollection.push({name:"Blade of the Shielded Oni",             type:"Two-Handed", role:"Tank",       dps:103.5, drops:"Bane in Old Gotham Subway Duo",style:"Sawblade"});
@@ -18188,7 +18256,7 @@ function isAccessory(lineString)
   weaponCollection.push({name:"OmniScry Millennia Hammer",             type:"Two-Handed",role:"DPS",dps:68.3,drops:"Isis"});
   weaponCollection.push({name:"Protector's Steamwork Axe",             type:"Two-Handed", role:"Tank",dps:61.9,drops:"Bane - Gotham Old Subway (Duo), Guard Dog - Ace Chemicals, Micro Security Bot - Oolong Island (Hard), Pengbot Maximus - Gotham Old Subway (Challenge), Soulless Thrall - Mannheim's Chinese Theater (Challenge)", style:"Steampunk Axe", health:125, precision:5, might:11, dominance:11, defense:38, level:30});
   weaponCollection.push({name:"Prototype Promethium Throwback Axe",    type:"Two-Handed", role:"Controller", dps:55.5, drops:"Omacs in Gotham",style:"Ramhead Axe"});
-  weaponCollection.push({name:"Regulator's Undulating Flamberge",      type:"Two-Handed", role:"DPS",        dps:0,    drops:""});
+  weaponCollection.push({name:"Regulator's Undulating Flamberge",      type:"Two-Handed", role:"Controller", dps:103.5,drops:"Gorilla Grodd in Stryker's Island alert", style:"Jeweled Flamberge", health:123, power:36, precision:9, might:18, vitalization:41, dominance:17, level:56});
   weaponCollection.push({name:"Ritual Axe of Skyra",                   type:"Two-Handed", role:"DPS",        dps:36.3, drops:"Minion of Wrath in Metropolis", style:"Arcane Axe", health:44, precision:3, might:46, level:14});
   weaponCollection.push({name:"Ritualist Axe",                         type:"Two-Handed", role:"DPS",        dps:52.3, drops:"Reward for villain level 25 mission Soul Siphoners", style:"Egyptian Magic Axe"});
   weaponCollection.push({name:"Rocketmaster's Hammer",                 type:"Two-Handed", role:"Controller", dps:97.1, drops:"Bat Family in Batcave: Outer Caverns Alert"});
@@ -18199,12 +18267,6 @@ function isAccessory(lineString)
   weaponCollection.push({name:"Stagg Industries Proto-Line Warhammer", type:"Two-Handed", role:"DPS",        dps:26.6, drops:"Stinger in HIVE area of Little Bohemia", style:"Wrench Hammer", health:26, power:46, precision:3, might:5, level:7});
   weaponCollection.push({name:"Starline Hammer",                       type:"Two-Handed", role:"DPS",        dps:49.1, drops:"Pyro Chemo in Bludhaven alert", style:"Rocket Hammer", health:59, power:25, precision:12, might:24, level:22});
   weaponCollection.push({name:"Starsoul's Mace",                       type:"Two-Handed", role:"DPS",        dps:61.9, drops:"Lion Lady, Gorilla Grodd, Prisoner, Mummy, T1 content", style:"Mace", health:75, power:106, precision:5, might:11, level:30});
-  weaponCollection.push({name:"STAR Assault Sword",                    type:"Two-Handed", role:"DPS",        dps:90.7, drops:"Lyssa Drak in Oan Sciencells Alert", style:"Powered Broadsword", health:138, power:16, precision:25, might:46, level:48});
-  weaponCollection.push({name:"STAR Assault Sword Mk II",              type:"Two-Handed", role:"DPS",        dps:97.1, drops:"Atrocitus", style:"Powered Broadsword", level:52});
-  weaponCollection.push({name:"STAR Proto-Power Sword",                type:"Two-Handed", role:"Controller", dps:90.7, drops:"Kyle Rayner - Coast City", style:"Powered Broadsword", level:48});
-
-  weaponCollection.push({name:"STAR Recovery Sword",                   type:"Two-Handed", role:"Healer",     dps:90.7, drops:"Scion of Fear - STAR Labs Alert", style:"Powered Broadsword", level:48});
-  weaponCollection.push({name:"STAR Shielding Sword",                  type:"Two-Handed", role:"Tank",       dps:90.7, drops:"Hal Jordan in STAR Labs Alert", style:"Powered Broadsword", level:48});
   weaponCollection.push({name:"Thug Slugger",                          type:"Two-Handed", role:"DPS",        dps:27.7, drops:"Reward for level 9 mission Bane Brought Down", style:"Baseball Bat", health:47, precision:11, might:5, level:8});
 
   weaponCollection.push({name:"Titanium Force Hammer",                 type:"Two-Handed", role:"Tank",       dps:90.7, drops:"Chief Engineer Wolzie - Hive Moon Base (Hard)", style:"Tech Hammer", defense:83, health:164, precision:8, might:37, dominance:7, level:48});
