@@ -5539,8 +5539,7 @@ function determineFormBasedOnAttack(actionStr) {
       (actionStr.indexOf("Glove Punch") >= 0) ||
       (actionStr.indexOf("Head Bonk") >= 0)) {
      formStr = "Legends Harley";
-  } else if ((actionStr.indexOf("In Your Face") >= 0) ||
-      (actionStr.indexOf("Bullet Storm") >= 0) ||
+  } else if ((actionStr.indexOf("Bullet Storm") >= 0) ||
       (actionStr.indexOf("Fire Barrel") >= 0) ||
       (actionStr.indexOf("en tu cara") >= 0) ||
       (actionStr.indexOf("tormenta de balas") >= 0)) {
@@ -5656,8 +5655,7 @@ function determineFormBasedOnAttack(actionStr) {
       (actionStr.indexOf("Lasso Thrash") >= 0) ||
       (actionStr.indexOf("Monolith") >= 0) ||
       (actionStr.indexOf("Truth Lasso") >= 0) ||
-      (actionStr.indexOf("Coupe de Grace") >= 0) ||
-      (actionStr.indexOf("Bracer Deflection") >= 0)) {
+      (actionStr.indexOf("Coupe de Grace") >= 0)) {
      formStr = "Legends Wonder Woman";
   } else if ((actionStr.indexOf("Wrath of Circe") >= 0) ||
       (actionStr.indexOf("Wrath of Ages") >= 0) ||
@@ -5685,6 +5683,11 @@ function determineFormBasedOnAttack(actionStr) {
       (actionStr.indexOf("Whirling Vortex") >= 0) ||
       (actionStr.indexOf("Booya!") >= 0)) {
      formStr = "Legends Supergirl";
+  } else if ((actionStr.indexOf("Amazon Force") >= 0) ||
+      (actionStr.indexOf("Lasso Lash") >= 0) ||
+      (actionStr.indexOf("Whirlwind Lasso") >= 0) ||
+      (actionStr.indexOf("Lasso of Lightning") >= 0)) {
+     formStr = "Legends Wonder Girl";
   } else if ((actionStr.indexOf("AOE Damage") >= 0) ||
       (actionStr.indexOf("Head Ranged Combo") >= 0)) {
      formStr = "Smallville Doomsday";
@@ -33988,6 +33991,7 @@ legendsCharactersCollection.push({character:"Atrocitus",           requires:"War
 legendsCharactersCollection.push({character:"Saint Walker",        requires:"War of the Light Part 1 DLC", cost:"85 Marks of Legend", weapon:"Martial Arts",              movement:"Flight"});
 legendsCharactersCollection.push({character:"Supergirl",           requires:"",                            cost:"100 Marks of Legend or 1000 Station Cash", weapon:"Brawling", movement:"Flight"});
 legendsCharactersCollection.push({character:"Classic Batman",      requires:"",                            cost:"150 Marks of Legend",weapon:"Martial Arts",              movement:"Acrobatics"});
+legendsCharactersCollection.push({character:"Wonder Girl",         requires:"",                            cost:"100 Marks of Legend or 1000 Station Cash", weapon:"Brawling", movement:"Flight"});
 
 
 function drawLegendsMovementChart(flight, acrobatics, superspeed)
@@ -34317,6 +34321,13 @@ legendsPowersCollection.push({name:"Grapple Line",                   character:"
 legendsPowersCollection.push({name:"Forward Flip",                   character:"Classic Batman",      slot:"4", description:"Launches a fiercely swift leap to close in on and knock down enemies, with helpless enemies taking additional damage"});
 legendsPowersCollection.push({name:"Stealth",                        character:"Classic Batman",      slot:"5", description:"Makes you difficult for enemies to detect, providing unique attacks usable only in Stealth, changes loadout bar, (Usable while in combat)"});
 legendsPowersCollection.push({name:"Activate Bat Drone",             character:"Classic Batman",      slot:"6", description:"Activates a Bat Drone to attack enemies and provide power restoration to your group"});
+
+legendsPowersCollection.push({name:"Amazon Force",                   character:"Wonder Girl",          slot:"1", description:"Strike the ground below you with a powerful force, damaging and knocking down nearby enemies."});
+legendsPowersCollection.push({name:"Lasso Lash",                     character:"Wonder Girl",          slot:"2", description:"Lash your target with a series of Lasso strikes, causing damage."});
+legendsPowersCollection.push({name:"Whirlwind Lasso",                character:"Wonder Girl",          slot:"3", description:"Spin your lasso at a high velocity, damaging and knocking down nearby enemies."});
+legendsPowersCollection.push({name:"Lasso of Lightning",             character:"Wonder Girl",          slot:"4", description:"Pull your target in with the Lasso of Lightning, stunning and damaging it.  Immediately holding melee afterwards will perform a Punishing Headbutt."});
+legendsPowersCollection.push({name:"Bracer Deflection",              character:"Wonder Girl",          slot:"5", description:"Activate your iconic Amazonian bracers, absorbing damage and reflecting some damage back at your attackers. (Usable while Controlled)"});
+legendsPowersCollection.push({name:"In Your Face",                   character:"Wonder Girl",          slot:"6", description:"Fly straight at your opponent, damaging and knocking it down."});
 
 
 function calculateLegendsLoadoutInfo(character, startDateString, endDateString)
